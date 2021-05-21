@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Vehiculo;
 use App\Models\Clientes;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
@@ -173,9 +172,9 @@ class VehiculoController extends Controller
     }
     
     public function mlmca(Request $request){
-        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre'])
+        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno'])
                             ->where('id', $request['id'])
-                            ->select('modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas')
+                            ->select('modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor')
                             ->first();
 
         $r = Vehiculo::select('id_aux')

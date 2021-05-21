@@ -34,10 +34,12 @@ Route::get('/', function () {
 
     //AltaChecklist
     Route::get('i_checklist', 'ChecklistController@i_checklist')->name('i_checklist');
+    Route::get('l_checklist', 'ChecklistController@index')->name('l_checklist');
     Route::get('e_chv', 'ChecklistController@exist_chv');
     Route::get('mlmca', 'VehiculoController@mlmca');
     Route::post('i_checklist', 'ChecklistController@store');
     Route::get('getClienteCh', 'ClientesController@getInfoClieteCheck');
+    Route::get('create_pdf/{exp}', 'ChecklistController@create_pdf')->name('create_pdf');
     //endAltaChecklist
 
 //endRecepcion

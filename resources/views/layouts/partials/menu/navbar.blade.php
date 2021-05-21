@@ -12,7 +12,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route('i_vehiculos') }}" id="altaVehiculo" >Alta del Vehículo</a>
                 <a class="dropdown-item" href="{{ asset('i_checklist') }}" id="altachecklist">Checklist</a>
-                <a class="dropdown-item" href="#" id="checklistpdf">Checklist PDF</a>
+                <a class="dropdown-item" href="{{ asset('l_checklist') }}" id="checklistpdf">Listado Checklist</a>
                 <a class="dropdown-item" href="#" id="evidenciafirma">Evidencia y Firma</a>
             </li>
             <li class="nav-item dropdown">

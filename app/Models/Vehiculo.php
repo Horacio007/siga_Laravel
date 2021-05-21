@@ -21,4 +21,8 @@ class Vehiculo extends Model
     public function clientes(){
         return $this->hasOne('App\Models\Aseguradoras', 'id', 'cliente_id');
     }
+
+    public function asesores(){
+        return $this->hasOne('App\Models\Asesores', 'id', 'id_asesor');
+    }
 }

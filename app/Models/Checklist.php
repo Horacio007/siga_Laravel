@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Checklist extends Model
 {
     use HasFactory;
     protected $table='checklist';
+    public function vehiculo(){
+        return $this->hasOne('App\Models\Vehiculo', 'id_aux_vehiculo', 'id');
+    }
     protected $guarded=['_token'];
     protected $fillable = [
         "luces_front",

@@ -521,8 +521,26 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-md-4">
                 <textarea name="observaciones" id="iobservaciones" cols="100" rows="10" class="form-control" placeholder="Documentar daños y daños preexistentes" required></textarea>
+            </div>
+            <div class="col-md-4">
+                <div id="signature-pad" class="signature-pad" >
+                    <div class="description">Firma del Cliente</div>
+                    <div class="signature-pad--body">
+                        <canvas name="firmaC" style="width: 500px; height: 200px; border: 1px black solid; " id="canvas"></canvas>
+                    </div>
+                    <button type="button" id="clear" class="btn btn-info">Limpiar</button>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div id="signature-pad2" class="signature-pad" >
+                    <div class="description">Firma de quien Elaboro</div>
+                    <div class="signature-pad--body">
+                        <canvas name="firmaE" style="width: 500px; height: 200px; border: 1px black solid; " id="canvas2"></canvas>
+                    </div>
+                    <button type="button" id="clear2" class="btn btn-info">Limpiar</button>
+                </div>
             </div>
         </div>
         <br>
@@ -539,6 +557,7 @@
 </div>
 @endsection
 @push('custom_script')
+<script src="{{ asset('js/recepcion/checklist/signature_pad.js') }}"></script>
 <script src="{{ asset('js/recepcion/checklist/checklist.js') }}"></script>
 <script src="{{ asset('libs/jsPDF/jspdf.debug.js') }}"></script>   
 @endpush

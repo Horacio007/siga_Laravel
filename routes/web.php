@@ -40,6 +40,7 @@ Route::get('/', function () {
     Route::post('i_checklist', 'ChecklistController@store');
     Route::get('getClienteCh', 'ClientesController@getInfoClieteCheck');
     Route::get('create_pdf/{exp}', 'ChecklistController@create_pdf')->name('create_pdf');
+    Route::get('pdf', 'ChecklistController@pdf')->name('pdf');
     //endAltaChecklist
 
 //endRecepcion

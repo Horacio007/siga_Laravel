@@ -21,7 +21,7 @@ $(document).ready(function(){
             }
         ],
         responsive: true,
-        //destroy: true,
+        destroy: true,
         language: {
             "sProcessing":     "Procesando...",
                         "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -54,10 +54,17 @@ $(document).ready(function(){
 
     });
 
-    $("#list_areas tbody tr").on('click', '.delete', function(){
+    $("#list_checklist tbody").on('click', '.delete', function(){
         let area_id = $(this).attr('item_id');
-        let area = $(this).parents("tr").find('td').eq(1).html();
-        $("#iarea").val(area);
+        let expediente = $(this).parents("tr").find('td').eq(1).html();
+        let marca =  $(this).parents("tr").find('td').eq(2).html();
+        let linea =  $(this).parents("tr").find('td').eq(3).html();
+        let color =  $(this).parents("tr").find('td').eq(4).html();
+        let modelo =  $(this).parents("tr").find('td').eq(5).html();
+        let cliente =  $(this).parents("tr").find('td').eq(6).html();
+        let reporte =  $(this).parents("tr").find('td').eq(7).html();
+        $("#iarea").val('');
+        $("#iarea").val(expediente + ' -> ' + marca + ' ' + linea + ' ' + color + ' ' + modelo + ' ' + cliente + ' ' + reporte);
 
         let old_url = $("#modal_delete").attr('action');
         let new_url = old_url.replace('delete_item', area_id);

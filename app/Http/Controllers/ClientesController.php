@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Clientes;
 use App\Models\Vehiculo;
+use Illuminate\Support\Facades\DB;
 use Facade\FlareClient\Http\Client;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
@@ -18,7 +19,33 @@ class ClientesController extends Controller
      */
     public function index()
     {
-        //
+        $list_clientes = DB::select("SELECT
+                                    vehiculo.id,
+                                    modelosv.marca,
+                                    submarcav.submarca,
+                                    vehiculo.modelo,
+                                    aseguradoras.nombre AS aseguradora,
+                                    vehiculo.no_siniestro,
+                                    vehiculo.fecha_llegada,
+                                    clientes.nombre,
+                                    clientes.telefono,
+                                    clientes.correo,
+                                    vehiculo.fecha_salida_taller
+                                FROM
+                                    vehiculo,
+                                    clientes,
+                                    modelosv,
+                                    submarcav,
+                                    aseguradoras
+                                WHERE
+                                    clientes.id = vehiculo.id_aux
+                                AND vehiculo.marca_id = modelosv.id
+                                AND vehiculo.linea_id = submarcav.id
+                                AND aseguradoras.id = vehiculo.cliente_id
+                                ORDER BY
+                                    clientes.id");
+
+        return view('entrega.clientes.l_clientes', compact('list_clientes'));
     }
 
     /**

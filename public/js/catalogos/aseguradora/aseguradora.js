@@ -54,7 +54,7 @@ $(document).ready(function(){
 
     });
 
-    $("#list_aseguradora tbody tr").on('click', '.delete', function(){
+    $("#list_aseguradora tbody").on('click', '.delete', function(){
         let aseguradora_id = $(this).attr('item_id');
         let aseguradora = $(this).parents("tr").find('td').eq(1).html();
         $("#iaseguradora").val(aseguradora);

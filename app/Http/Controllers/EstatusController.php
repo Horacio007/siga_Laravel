@@ -76,7 +76,7 @@ class EstatusController extends Controller
                 return redirect()->route('lista_estatus')->with('error','Estatus no Registrado.');
             }
         } else {
-            return back()->with('warning','El estatus "'. $request['marca'] .'" ya esta registrado.');
+            return back()->with('warning','El estatus "'. $request['estatus'] .'" ya esta registrado.');
         }
     }
 

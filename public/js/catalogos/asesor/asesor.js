@@ -55,9 +55,8 @@ $(document).ready(function(){
     
 
 
-    $("#list_asesores tbody tr").on('click', '.delete', function(){
+    $("#list_asesores tbody").on('click', '.delete', function(){
         let asesor_id = $(this).attr('item_id');
-        console.log(asesor_id)
         let aseguradora = $(this).parents("tr").find('td').eq(1).html();
         let nombre = $(this).parents("tr").find('td').eq(2).html();
         let ap = $(this).parents("tr").find('td').eq(3).html();

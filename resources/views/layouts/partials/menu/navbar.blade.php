@@ -11,62 +11,50 @@
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Recepcíon</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route('i_vehiculos') }}" id="altaVehiculo" >Alta del Vehículo</a>
-                <a class="dropdown-item" href="{{ asset('i_checklist') }}" id="altachecklist">Checklist</a>
-                <a class="dropdown-item" href="{{ asset('l_checklist') }}" id="checklistpdf">Listado Checklist</a>
-                <a class="dropdown-item" href="#" id="evidenciafirma">Evidencia y Firma</a>
+                <a class="dropdown-item" href="{{ route('l_checklist') }}" id="checklistpdf">Listado Checklist</a>
+                <a class="dropdown-item" href="{{ route('upload_evidenciar') }}">Evidencia Recepción</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Costeo</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#" id="presupuestoini">Presupuesto Inicial</a>
-                <a class="dropdown-item" href="#" id="actualizarpresupuestoini">Actualizar Presupuesto</a>
-                <a class="dropdown-item" href="#" id="presupuestopdf">Presupuesto PDF</a>
-                <a class="dropdown-item" href="#" id="evidencipresupuesto">Subir Evidencia</a>
+                <a class="dropdown-item" href="{{ route('l_presupuestos') }}" id="presupuestopdf">Listado Presupuestos</a>
+                <a class="dropdown-item" href="{{ route('upload_evidenciap') }}">Evidencia Presupuesto</a>
             </li> 
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Compras</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#" id="cotizarrefacciones">Cotizar Refacciones</a>
-                <a class="dropdown-item" href="#" id="refaccionespd">Refacciones PDF</a>
-                <a class="dropdown-item" href="#" id="listarefaccionespd">Listado de Refacciones PDF</a>
-                <a class="dropdown-item" href="#" id="evidenciarefacciones">Subir Evidencia</a>
+                <a class="dropdown-item" href="{{ route('l_compras') }}">Listado Compras</a>
+                <a class="dropdown-item" href="{{ route('upload_evidenciacom') }}" id="evidenciarefacciones">Evidencia Compras</a>
             </li>
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Almacen</a>
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Refacciones</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#" id="altarefacciones">Alta Refacciones</a>
-                <a class="dropdown-item" href="#" id="actualizarrefacciones">Actualizacion Refacciones</a>
-                <a class="dropdown-item" href="#" id="seguimientorefacciones">Seguimiento Refacciones</a>
-                <a class="dropdown-item" href="#" id="recepcionrefacciones">Recepcion Refacciones</a>
-                <a class="dropdown-item" href="#" id="bajarefacciones">Baja Refacciones</a>
-                <a class="dropdown-item" href="#" id="listarefacciones">Listado de Refacciones</a>
-                <a class="dropdown-item" href="#" id="listaentregadas">Listado de Refacciones Entregadas</a>
-                <a class="dropdown-item" href="#" id="barraqr">Codigos</a>
+                <a class="dropdown-item" href="{{ route('l_refacciones') }}" id="listarefacciones">Listado de Refacciones</a>
+                <a class="dropdown-item" href="{{ route('l_segrefacciones') }}" id="actualizarrefacciones">Listado de Seguimiento Refacciones</a>
+                <a class="dropdown-item" href="{{ route('l_entregdasrefacciones') }}" id="listaentregadas">Listado de Refacciones Entregadas</a>
+                <a class="dropdown-item" href="{{ route('l_codigos') }}" id="barraqr">Codigos</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Taller</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" id="ordentrabajo" href="#">Orden de Trabajo</a>
-                <a class="dropdown-item" id="listaordentrabajo" href="#">Listado Ordenes de Trabajo</a>
-                <a class="dropdown-item" id="ordenmecanica" href="#">Orden de Mecanica</a>
-                <a class="dropdown-item" id="listaordenmecanica" href="#">Listado Ordenes de Mecanica</a>
-                <a class="dropdown-item" id="ordenretrabajo" href="#">Orden de Re-Trabajo</a>
-                <a class="dropdown-item" id="listaordenretrabajo" href="#">Listado Ordenes de Re-Trabajo</a>
+                <a class="dropdown-item" id="listaordentrabajo" href="{{ route('l_ordenest') }}">Listado Ordenes de Trabajo</a>
+                <a class="dropdown-item" id="listaordenmecanica" href="{{ route('l_ordenesm') }}">Listado Ordenes de Mecanica</a>
+                <a class="dropdown-item" id="listaordenretrabajo" href="{{ route('l_ordenesrt') }}">Listado Ordenes de Retrabajo</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Entrega</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#" id="clientes" >Clientes</a>
-                <a class="dropdown-item" href="#" id="documentosEntrega" >Documentación</a>
-                <a class="dropdown-item" href="#" id="estatus_vehiculo">Estatus Vehículo</a>
-                <a class="dropdown-item" href="#" id="isccliente">ISC</a>
-                <a class="dropdown-item" href="#" id="subir_archivo">Subir Archivos</a>
+                <a class="dropdown-item" href="{{ route('l_clientes') }}" id="clientes" >Listado Clientes</a>
+                <a class="dropdown-item" href="{{ route('l_docs') }}" id="documentosEntrega" >Documentación</a>
+                <a class="dropdown-item" href="{{ route('l_cambiarEstatus') }}" id="estatus_vehiculo">Estatus Vehículo</a>
+                <a class="dropdown-item" href="{{ route('l_ics') }}" id="isccliente">ISC</a>
+                <a class="dropdown-item" href="{{ route('upload_evidenciae') }}" id="subir_archivo">Subir Archivos</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administración</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#" id="verarchivos">Ver Archivos</a>
-                <a class="dropdown-item" href="#" id="valuaciones">Valuaciones</a>
+                <a class="dropdown-item" href="{{ route('l_archivos') }}" id="verarchivos">Listado Archivos</a>
+                <a class="dropdown-item" href="{{ route('l_valuaciones') }}" id="valuaciones">Listado Valuaciones</a>
                 <a class="dropdown-item" href="#" id="brefacciones">Refacciones</a>
                 <a class="dropdown-item" href="#" id="asignacion_personal">Asignacion de Personal</a>
                 <a class="dropdown-item" href="#" id="procesoTaller">Seguimiento Taller</a>
@@ -82,7 +70,9 @@
                 <a class="dropdown-item" href="{{ route('lista_areas') }}" id="agregarArea">Listado Areas</a>
                 <a class="dropdown-item" href="{{ route('lista_aseguradoras') }}" id="agregarAseguradora">Listado Aseguradoras</a>
                 <a class="dropdown-item" href="{{ route('lista_asesores') }}" id="agregarAsesores">Listado Asesores</a>
-                <a class="dropdown-item" href="{{ route('lista_estatus') }}" id="agregarEstatus">Listado Estatus</a>
+                <a class="dropdown-item" href="{{ route('lista_estatus') }}" id="agregarEstatus">Listado Estatus Vehiculo</a>
+                <a class="dropdown-item" href="{{ route('lista_estatusalm') }}" id="agregarEstatus">Listado Estatus Almacen</a>
+                <a class="dropdown-item" href="{{ route('l_estatusrefas') }}" id="agregarEstatus">Listado Estatus Refacciones</a>
                 <a class="dropdown-item" href="{{ route('lista_niveldano') }}" id="agregarNivel">Listado Nivel Daño</a>
                 <a class="dropdown-item" href="{{ route('lista_formaarribo') }}" id="agregarForma">Listado Forma de Arribo</a>
             </li>

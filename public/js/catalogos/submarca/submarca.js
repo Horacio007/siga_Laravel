@@ -57,7 +57,7 @@ $(document).ready(function(){
     $("#list_submarcas tbody").on('click', '.delete', function(){
         let submarca_id = $(this).attr('item_id');
         let marca = $(this).parents("tr").find('td').eq(1).html();
-        let submarca = $(this).parents("tr").find('td').eq(1).html();
+        let submarca = $(this).parents("tr").find('td').eq(2).html();
         $("#imarca").val(marca);
         $("#isubmarca").val(submarca);
 

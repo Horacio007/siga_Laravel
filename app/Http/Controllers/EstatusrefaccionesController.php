@@ -14,7 +14,12 @@ class EstatusrefaccionesController extends Controller
      */
     public function index()
     {
-        //
+        $list_refacciones= Estatusrefacciones::all();
+        return view('catalogos.estatusRefacciones.l_estatusRefacciones', compact('list_refacciones'));
+    }
+
+    public function i_estatusref(){
+        return view('catalogos.estatusRefacciones.i_estatusRefacciones');
     }
 
     /**
@@ -35,7 +40,21 @@ class EstatusrefaccionesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $r = Estatusrefacciones::where('estatus', $request['estatus'])
+        ->select('estatus')
+        ->get();
+
+        if ($r->isEmpty()) {
+            $estatus = new Estatusrefacciones;
+            $estatus->estatus = $request->estatus;
+            if ($estatus->save()) {
+                return redirect()->route('l_estatusrefas')->with('success','Estatus Registrado.');
+            } else {
+                return redirect()->route('l_estatusrefas')->with('error','Estatus no Registrado.');
+            }
+        } else {
+            return back()->with('warning','El estatus "'. $request['estatus'] .'" ya esta registrado.');
+        }
     }
 
     /**
@@ -57,7 +76,7 @@ class EstatusrefaccionesController extends Controller
      */
     public function edit(Estatusrefacciones $estatusrefacciones)
     {
-        //
+        return view('catalogos.estatusRefacciones.u_estatusRefacciones', compact('estatusrefacciones'));
     }
 
     /**
@@ -69,7 +88,16 @@ class EstatusrefaccionesController extends Controller
      */
     public function update(Request $request, Estatusrefacciones $estatusrefacciones)
     {
-        //
+        if ($estatusrefacciones->estatus == $request->estatus) {
+            return redirect()->route('l_estatusrefas')->with('warning','No se Actualizo el estatus "'. $request->estatus . '".');
+        } else {
+            $estatusrefacciones->estatus = $request->estatus;
+            if ($estatusrefacciones->save()) {
+                return redirect()->route('l_estatusrefas')->with('success','Estatus Actualizado.');
+            } else {
+                return redirect()->route('l_estatusrefas')->with('error','Estatus no Actualizado.');
+            }
+        }
     }
 
     /**
@@ -80,6 +108,10 @@ class EstatusrefaccionesController extends Controller
      */
     public function destroy(Estatusrefacciones $estatusrefacciones)
     {
-        //
+        if ($estatusrefacciones->delete()) {
+            return redirect()->route('l_estatusrefas')->with('success','Estatus Eliminado.');
+        } else {
+            return redirect()->route('l_estatusrefas')->with('error','Estatus no Eliminado.');
+        }
     }
 }

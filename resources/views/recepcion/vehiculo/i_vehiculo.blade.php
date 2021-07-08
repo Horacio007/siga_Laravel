@@ -109,7 +109,7 @@
             </div>
             <div class="col-md-4">
                 <label for="">Forma de arribo</label>
-                <select name="arribo" id="sarribo" class="form-control" reqeuired>
+                <select name="arribo" id="sarribo" class="form-control" required>
                     
                 </select> 
             </div>

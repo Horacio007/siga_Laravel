@@ -26,21 +26,21 @@ $(document).ready(function(){
                         text: 'Vehiculo Encontrado',
                     })
                     $("#iexpediente").attr("readonly","readonly");
-                        $.ajax({
-                            url: '/mlmca',
-                            type: 'GET',
-                            data: {
-                                id: $("#iexpediente").val()
-                            },
-                            success: function(result){
-                                inf = result;
-                                $("#inf").fadeIn();
-                                $("#inf").css('border-radius', '5px');
-                                $("#inf").css('background-color', '#53ee7e'); 
-                                $("#info").text('Vehiculo: '+ result[0]['marcas']['marca'] + ' ' + result[0]['submarcas']['submarca'] + ' ' + result[0]['color'] + ' ' + result[0]['modelo'] + ' ' + result[0]['clientes']['nombre']);
-                                $("#iexpediente2").val($("#iexpediente").val());
-                            }
-                        })         
+                    $.ajax({
+                        url: '/mlmca',
+                        type: 'GET',
+                        data: {
+                            id: $("#iexpediente").val()
+                        },
+                        success: function(result){
+                            inf = result;
+                            $("#inf").fadeIn();
+                            $("#inf").css('border-radius', '5px');
+                            $("#inf").css('background-color', '#53ee7e'); 
+                            $("#info").text('Vehiculo: '+ result[0]['marcas']['marca'] + ' ' + result[0]['submarcas']['submarca'] + ' ' + result[0]['color'] + ' ' + result[0]['modelo'] + ' ' + result[0]['clientes']['nombre']);
+                            $("#iexpediente2").val($("#iexpediente").val());
+                        }
+                    })         
                 } else {
                     if (result['vehiculo'] == 0) {
                         Swal.fire({
@@ -136,8 +136,8 @@ $(document).ready(function(){
             return false
         }
 
-        signaturePad.toDataURL("image/jpeg");
-        signaturePad2.toDataURL("image/jpeg");
+        $("#firma_c").val(signaturePad.toDataURL("image/jpeg"));
+        $("#firma_a").val(signaturePad2.toDataURL("image/jpeg"));
 
         const doc = new jsPDF();
         doc.addImage('/img/checklist.jpg', 'jpg', 0, 0, 210, 300);

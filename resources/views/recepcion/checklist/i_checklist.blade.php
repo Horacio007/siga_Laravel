@@ -267,7 +267,7 @@
                             <th>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="1" name="bocinas_tras" id="bocinastras" checked>
-                                    <label cliobservacionesass="form-check-label" for="defaultCheck1">Bocinas Traseras</label>
+                                    <label class="form-check-label" for="defaultCheck1">Bocinas Traseras</label>
                                 </div>
                             </th>
                         </tr>
@@ -391,7 +391,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="1" name="maneral" id="maneral" checked>
                                     <label class="form-check-label" for="defaultCheck1">Maneral</label>
-                                </div>iobservaciones
+                                </div>
                             </th>
                         </tr>
                         <tr>
@@ -550,7 +550,10 @@
                 <label for=""></label>
                 <button type="button" class="btn btn-primary btn-lg btn-block" id="btn_registrar">Registrar</button>
             </div>
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <input type="hidden" name="firma_c" id="firma_c">
+                <input type="hidden" name="firma_a" id="firma_a">
+            </div>
         </div>
         <br>
     </form>

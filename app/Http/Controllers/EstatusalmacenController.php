@@ -14,7 +14,12 @@ class EstatusalmacenController extends Controller
      */
     public function index()
     {
-        //
+        $list_almacen = Estatusalmacen::all();
+        return view('catalogos.estatusAlmacen.l_estatusAlmacen', compact('list_almacen'));
+    }
+
+    public function i_estatusalm(){
+        return view('catalogos.estatusAlmacen.i_estatusAlmacen');
     }
 
     /**
@@ -35,7 +40,23 @@ class EstatusalmacenController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $r = Estatusalmacen::where('estatus', $request['estatus'])
+                        ->select('estatus')
+                        ->get();
+
+        if ($r->isEmpty()) {
+            $estatus = new Estatusalmacen;
+            $id = Estatusalmacen::all()->last()->id;
+            $estatus->id = $id + 1;
+            $estatus->estatus = $request->estatus;
+            if ($estatus->save()) {
+                return redirect()->route('lista_estatusalm')->with('success','Estatus Registrado.');
+            } else {
+                return redirect()->route('lista_estatusalm')->with('error','Estatus no Registrado.');
+            }
+        } else {
+            return back()->with('warning','El estatus "'. $request['estatus'] .'" ya esta registrado.');
+        }
     }
 
     /**
@@ -57,7 +78,7 @@ class EstatusalmacenController extends Controller
      */
     public function edit(Estatusalmacen $estatusalmacen)
     {
-        //
+        return view('catalogos.estatusAlmacen.u_estatusAlmacen', compact('estatusalmacen'));
     }
 
     /**
@@ -69,7 +90,16 @@ class EstatusalmacenController extends Controller
      */
     public function update(Request $request, Estatusalmacen $estatusalmacen)
     {
-        //
+        if ($estatusalmacen->estatus == $request->estatus) {
+            return redirect()->route('lista_estatusalm')->with('warning','No se Actualizo estatus "'. $request->estatus . '".');
+        } else {
+            $estatusalmacen->estatus = $request->estatus;
+            if ($estatusalmacen->save()) {
+                return redirect()->route('lista_estatusalm')->with('success','Estatus Actualizado.');
+            } else {
+                return redirect()->route('lista_estatusalm')->with('error','Estatus no Actualizado.');
+            }
+        }
     }
 
     /**
@@ -80,6 +110,10 @@ class EstatusalmacenController extends Controller
      */
     public function destroy(Estatusalmacen $estatusalmacen)
     {
-        //
+        if ($estatusalmacen->delete()) {
+            return redirect()->route('lista_estatusalm')->with('success','Estatus Eliminado.');
+        } else {
+            return redirect()->route('lista_estatusalm')->with('error','Estatus no Eliminado.');
+        }
     }
 }

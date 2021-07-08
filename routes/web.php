@@ -275,4 +275,3 @@ Route::get('/', function () {
     Route::post('/d_estatusref/{estatusrefacciones}', 'EstatusrefaccionesController@destroy')->name('d_estatusref');
     //endEstatus_de_las_refacciones
 //endCatalogos
-

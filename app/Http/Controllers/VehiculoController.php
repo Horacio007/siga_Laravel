@@ -618,6 +618,14 @@ class VehiculoController extends Controller
     }
 
     public function update_valuaciones(Vehiculo $vehiculo, Request $request){
+        dd($vehiculo, $request);
+        if ($request->fecha_autorizacion != "" && $request->cantidadfin != 0) {
+            # code...
+        } else {
+            $vehiculo->estatus_id = $request->estatus;
+            $vehiculo->fecha_llegada_taller = $request->fecha_llegada;
+            
+        }
         
     }
 

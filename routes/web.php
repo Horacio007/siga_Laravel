@@ -179,7 +179,7 @@ Route::get('/', function () {
     //Valuaciones
     Route::get('l_valuaciones', 'VehiculoController@indexV')->name('l_valuaciones');
     Route::get('/u_valuaciones/{vehiculo}', 'VehiculoController@u_valuaciones')->name('u_valuaciones');
-    Route::post('/u_valuaciones/{vehiculo}', 'VehiculoController@update_valuaciones')->name('u_valuaciones');
+    Route::post('/u_valuaciones/{vehiculo}', 'VehiculoController@update_valuaciones');
     //endValuaciones
     
 //endAdministracion

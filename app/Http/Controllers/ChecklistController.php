@@ -11,7 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
-use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\View\View;
+use PDF;
 
 class ChecklistController extends Controller
 {
@@ -29,6 +30,10 @@ class ChecklistController extends Controller
 
     public function i_checklist(){
         return view('recepcion.checklist.i_checklist');
+    }
+
+    public function pdf(){
+        return view('recepcion.checklist.checklist_pdf');
     }
 
     public function exist_chv(Request $request){
@@ -526,6 +531,27 @@ class ChecklistController extends Controller
         
         return $pdf->stream($request['exp'].'_checklist');
         
+        $pdf->loadHTML('<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <title>Checklist</title>
+        </head>
+        <body background="img/checklist2.jpg">
+            <p style="position: absolute; top: 20px; left: 560px;">'.$request['exp'].'</p>
+            <p style="position: absolute; top: 90px; left: 572px;">'.$dia.'</p>
+            <p style="position: absolute; top: 90px; left: 615px;">'.$mes.'</p>
+            <p style="position: absolute; top: 91px; left: 655px;">'.$año.'</p>
+            <p style="position: absolute; top: 160px; left: 128px;">'.$cliente['nombre'].'</p>
+            <p style="position: absolute; top: 190px; left: 132px;">'.$cliente['telefono'].'</p>
+            <p style="position: absolute; top: 219px; left: 128px;">'.$cliente['correo'].'</p>
+        </body>
+        </body>
+        </html>');
+        
+        return $pdf->stream();
     }
 
     /**

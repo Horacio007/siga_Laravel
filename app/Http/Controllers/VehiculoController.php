@@ -614,16 +614,89 @@ class VehiculoController extends Controller
                             ->where('id', $vehiculo['estatus_id'])
                             ->first();
 
-        return view('administracion.valuaciones.u_valuaciones', compact(['vehiculo', 'list_estatus', 'e_actual']));
+        if ($vehiculo->fecha_autorizacion == "" || $vehiculo->fecha_autorizacion == " " || $vehiculo->fecha_autorizacion == NULL || $vehiculo->fecha_autorizacion == null) {
+            //$fecha_ll = new DateTime($value->getFechaLlegada());
+            $fecha_ll = date_create($vehiculo->fecha_llegada);
+            $fecha_a = date_create(date("Y-m-d"));
+            //$now = new DateTime('now');
+            $dife = date_diff($fecha_ll, $fecha_a);
+            //$dife = json_encode($dife);
+            //$dife = json_decode($dife);
+            //$dife = $fecha_ll->diff($now)->format('%d');
+            $difee = $dife->{'days'};
+        } else {
+            $difee = $vehiculo->diferencia_tres_dias;
+        }
+
+        return view('administracion.valuaciones.u_valuaciones', compact(['vehiculo', 'list_estatus', 'e_actual', 'difee']));
     }
 
     public function update_valuaciones(Vehiculo $vehiculo, Request $request){
-        dd($vehiculo, $request);
+        //dd($vehiculo, $request);
+
+        switch ($request->estatus) {
+            case 5:
+                $dias_rep = $request->dias_rep;
+                break;
+                
+            case 6:
+                $dias_rep = 0;
+                break;
+
+            case 7:
+                $dias_rep = 0;
+                break;
+            
+            default:
+                $dias_rep = "No esta en Taller o Transito";
+                break;
+        }
+
         if ($request->fecha_autorizacion != "" && $request->cantidadfin != 0) {
-            # code...
+            $porcentaje = round(($request->cantidadfin * 100)/$request->cantidadini, 2);
+            $vehiculo->estatus_id = $request->estatus;
+            $vehiculo->fecha_llegada_taller = $request->fecha_llegada;
+            $vehiculo->fecha_valuacion = $request->fecha_envio;
+            $vehiculo->diferencia_tres_dias = $request->diferencia;
+            $vehiculo->cantidad_inicial = $request->cantidadini;
+            $vehiculo->piezas_cambiadas_inicial = $request->pzscambioini;
+            $vehiculo->piezas_reparacion_inicial = $request->pzsreparaini;
+            $vehiculo->fecha_autorizacion = $request->fecha_autorizacion;
+            $vehiculo->cantidad_final = $request->cantidadfin;
+            $vehiculo->piezas_cambiadas_final = $request->pzscambiofin;
+            $vehiculo->piezas_reparacion_final = $request->pzsreparafin;
+            $vehiculo->piezas_vendidas = $request->pzsvendidas;
+            $vehiculo->fecha_promesa = $dias_rep;
+            $vehiculo->importe_piezas_vendidas = $request->importepzsvendidas;
+            $vehiculo->porcentaje_aprobacion = $porcentaje;
+            if ($request->pzscambioini == 0) {
+                $vehiculo->refacciones_id = 6;
+            }
+
+            if ($vehiculo->save()) {
+                return redirect()->route('l_valuaciones')->with('success','Valuacion Actualizada.');
+            } else {
+                return redirect()->route('l_valuaciones')->with('error','Valuacion no Actualizada.');
+            }
         } else {
             $vehiculo->estatus_id = $request->estatus;
             $vehiculo->fecha_llegada_taller = $request->fecha_llegada;
+            $vehiculo->fecha_valuacion = $request->fecha_envio;
+            $vehiculo->cantidad_inicial = $request->cantidadini;
+            $vehiculo->piezas_cambiadas_inicial = $request->pzscambioini;
+            $vehiculo->piezas_reparacion_inicial = $request->pzsreparaini;
+            $vehiculo->piezas_vendidas = $request->pzsvendidas;
+            $vehiculo->fecha_promesa = $dias_rep;
+            $vehiculo->importe_piezas_vendidas = $request->importepzsvendidas;
+            if ($request->pzscambioini == 0) {
+                $vehiculo->refacciones_id = 6;
+            }
+
+            if ($vehiculo->save()) {
+                return redirect()->route('l_valuaciones')->with('success','Valuacion Actualizada.');
+            } else {
+                return redirect()->route('l_valuaciones')->with('error','Valuacion no Actualizada.');
+            }
             
         }
         

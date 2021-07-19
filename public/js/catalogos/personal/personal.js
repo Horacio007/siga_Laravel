@@ -1,23 +1,23 @@
 $(document).ready(function(){
 
-    $('#list_refacciones').DataTable({
+    $('#list_personal').DataTable({
         dom: 'Blfrtip',
         buttons: [{
                 extend: 'excelHtml5',
-                messageTop: 'Areas',
+                messageTop: 'SubMarca',
                 text: "Excel",
-                title: "Listado de Refacciones",
+                title: "Listado de Personal",
             },
             {
                 /*'csvHtml5',*/
                 extend: 'csvHtml5',
                 text: "CSV",
-                title: "Listado de Refacciones",
-                messageTop: 'Listado de Refacciones',
+                title: "Listado de Personal",
+                messageTop: 'Listado de Personal',
             },
             {
                 extend: 'pdfHtml5',
-                title: 'Listado de Refacciones'
+                title: 'Listado de Personal'
             }
         ],
         responsive: true,
@@ -51,39 +51,27 @@ $(document).ready(function(){
                         }
         },
         select: true,
-        pageLength: 100,
-        rowCallback: function(nRow, aData){
-            var estatus = aData[1].split('/');
 
-            if (estatus[0] == 'Transito') {
-
-                if (estatus[1] >= 0 && estatus[1] <= 20) {
-                    $(nRow).find('td:eq(1)').css('background-color', '#53ee7e'); 
-                }
-
-                if (estatus[1] > 20) {
-                    $(nRow).find('td:eq(1)').css('background-color', '#F08080');
-                }
-            }
-
-            if (estatus[0] == 'Taller') {
-
-                if (estatus[1] >= 0 && estatus[1] <= aData[2]) {
-                    $(nRow).find('td:eq(1)').css('background-color', '#53ee7e'); 
-                }
-
-                if (estatus[1] > aData[2]) {
-                    $(nRow).find('td:eq(1)').css('background-color', '#F08080');
-                }
-
-                if (aData[2] == 0 || aData[2] == "" || aData[2] == null) {
-                    $(nRow).find('td:eq(1)').css('background-color', '#53ee7e'); 
-                }
-            }
-
-            if (aData[1] == 'PT') {
-                $(nRow).find('td:eq(1)').css('background-color', '#FFF890');
-            }
-        }
     });
+
+    $("#list_personal tbody").on('click', '.delete', function(){
+        let submarca_id = $(this).attr('item_id');
+        let marca = $(this).parents("tr").find('td').eq(1).html();
+        let submarca = $(this).parents("tr").find('td').eq(2).html();
+        $("#imarca").val(marca);
+        $("#isubmarca").val(submarca);
+
+
+        let old_url = $("#modal_delete").attr('action');
+        let new_url = old_url.replace('delete_item', submarca_id);
+        $('#modal_delete').attr('action', new_url);
+    })
+
+    $('#btn_delete').on('click', function(){
+        $("#modal_delete").submit();
+    })
+
+    $("#cerrar").on('click', function(){
+        $("#modalD").modal('hide')
+    })
 })

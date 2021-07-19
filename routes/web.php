@@ -183,8 +183,14 @@ Route::get('/', function () {
     //endValuaciones
 
     //RefaccionesAdmon
-
+    Route::get('l_Brefacciones', 'VehiculoController@indexR')->name('l_Brefacciones');
+    Route::get('/u_Brefacciones/{vehiculo}', 'VehiculoController@u_refaccionesAdmon')->name('u_Brefacciones');
+    Route::post('/u_Brefacciones/{vehiculo}', 'VehiculoController@update_Brefacciones');
     //endRefaccionesAdmon
+
+    //AsignacionPersonal
+
+    //endAsignacionPersonal
     
 //endAdministracion
 
@@ -278,4 +284,13 @@ Route::get('/', function () {
     Route::post('/u_estatusref/{estatusrefacciones}', 'EstatusrefaccionesController@update');
     Route::post('/d_estatusref/{estatusrefacciones}', 'EstatusrefaccionesController@destroy')->name('d_estatusref');
     //endEstatus_de_las_refacciones
+
+    //Personal
+    Route::get('l_personal', 'PersonalController@index')->name('l_personal');
+    Route::get('i_personal', 'PersonalController@select_area')->name('i_personal');
+    Route::post('i_personal', 'PersonalController@store');
+    Route::get('/u_personal/{personal}', 'PersonalController@edit')->name('u_personal');
+    Route::post('/u_personal/{personal}', 'PersonalController@update');
+    Route::post('/d_personal/{personal}', 'PersonalController@destroy')->name('d_personal');
+    //endPersonal
 //endCatalogos

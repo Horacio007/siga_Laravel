@@ -55,7 +55,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route('l_archivos') }}" id="verarchivos">Listado Archivos</a>
                 <a class="dropdown-item" href="{{ route('l_valuaciones') }}" id="valuaciones">Listado Valuaciones</a>
-                <a class="dropdown-item" href="#" id="brefacciones">Refacciones</a>
+                <a class="dropdown-item" href="{{ route('l_Brefacciones') }}" id="brefacciones">Listado Refacciones</a>
                 <a class="dropdown-item" href="#" id="asignacion_personal">Asignacion de Personal</a>
                 <a class="dropdown-item" href="#" id="procesoTaller">Seguimiento Taller</a>
                 <a class="dropdown-item" href="#" id="procesoAdmon">Proceso Administrativo</a>
@@ -75,6 +75,7 @@
                 <a class="dropdown-item" href="{{ route('l_estatusrefas') }}" id="agregarEstatus">Listado Estatus Refacciones</a>
                 <a class="dropdown-item" href="{{ route('lista_niveldano') }}" id="agregarNivel">Listado Nivel Daño</a>
                 <a class="dropdown-item" href="{{ route('lista_formaarribo') }}" id="agregarForma">Listado Forma de Arribo</a>
+                <a class="dropdown-item" href="{{ route('l_personal') }}" id="agregarForma">Listado Personal</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Costos</a>

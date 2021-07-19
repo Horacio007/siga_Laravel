@@ -13,9 +13,7 @@ class ModifiedIscClienteId extends Migration
      */
     public function up()
     {
-        Schema::table('isc', function (Blueprint $table) {
-            $table->integer('cliente_id')->nullable();
-        });
+       //
     }
 
     /**

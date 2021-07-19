@@ -32,6 +32,22 @@ class VehiculoController extends Controller
         return view('administracion.valuaciones.l_valuaciones', compact('valuaciones'));
     }
 
+    public function indexR()
+    {
+        $refacciones = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo', 'estatusRefacciones:id,estatus'])
+                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_llegada_taller', 'refacciones_id','fecha_promesa')
+                                ->where('estatus_id','5')
+                                //->where('id', '1203112020')
+                                ->orWhere('estatus_id', '7')
+                                ->orWhere('estatus_id','6')
+                                ->orderBy('id_aux')
+                                ->get();
+
+        //dd($valuaciones[0]->formaArribo->forma_arribo);
+        //dd($refacciones[0]->estatusRefacciones->estatus);
+        return view('administracion.refacciones.l_refaccionesAdmon', compact('refacciones'));
+    }
+
     public function i_vehiculo(){
         return view('recepcion.vehiculo.i_vehiculo');
     }
@@ -631,6 +647,30 @@ class VehiculoController extends Controller
         return view('administracion.valuaciones.u_valuaciones', compact(['vehiculo', 'list_estatus', 'e_actual', 'difee']));
     }
 
+    public function u_refaccionesAdmon(Vehiculo $vehiculo){
+        $list_estatus = Estatus::all();
+
+        $e_actual = Estatus::select('status')
+                            ->where('id', $vehiculo['estatus_id'])
+                            ->first();
+
+        if ($vehiculo->fecha_autorizacion == "" || $vehiculo->fecha_autorizacion == " " || $vehiculo->fecha_autorizacion == NULL || $vehiculo->fecha_autorizacion == null) {
+            //$fecha_ll = new DateTime($value->getFechaLlegada());
+            $fecha_ll = date_create($vehiculo->fecha_llegada);
+            $fecha_a = date_create(date("Y-m-d"));
+            //$now = new DateTime('now');
+            $dife = date_diff($fecha_ll, $fecha_a);
+            //$dife = json_encode($dife);
+            //$dife = json_decode($dife);
+            //$dife = $fecha_ll->diff($now)->format('%d');
+            $difee = $dife->{'days'};
+        } else {
+            $difee = $vehiculo->diferencia_tres_dias;
+        }
+
+        return view('administracion.refacciones.u_refaccionesAdmon', compact(['vehiculo', 'list_estatus', 'e_actual', 'difee']));
+    }
+
     public function update_valuaciones(Vehiculo $vehiculo, Request $request){
         //dd($vehiculo, $request);
 
@@ -700,6 +740,24 @@ class VehiculoController extends Controller
             
         }
         
+    }
+
+    public function update_Brefacciones(Request $request, Vehiculo $vehiculo){
+        
+        if ($vehiculo->estatus_id == $request->estatus) {
+            $e_actual = Estatus::select('status')
+                            ->where('id', $vehiculo['estatus_id'])
+                            ->first();
+
+            return redirect()->route('l_Brefacciones')->with('warning','No se Actualizo el estatus "'. $e_actual->status . '".');
+        } else {
+            $vehiculo->estatus_id = $request->estatus;
+            if ($vehiculo->save()) {
+                return redirect()->route('l_Brefacciones')->with('success','Estatus Actualizado.');
+            } else {
+                return redirect()->route('l_Brefacciones')->with('error','Estatus no Actualizado.');
+            }
+        }
     }
 
     /**

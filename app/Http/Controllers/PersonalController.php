@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Personal;
+use App\Models\Areas;
 use Illuminate\Http\Request;
 
 class PersonalController extends Controller
@@ -14,7 +15,15 @@ class PersonalController extends Controller
      */
     public function index()
     {
-        //
+        $list_personal = Personal::with('area')->get();
+        //dd($list_personal);
+
+        return view('catalogos.personal.l_personal', compact('list_personal'));
+    }
+
+    public function select_area(){
+        $list_areas = Areas::all();
+        return view('catalogos.personal.i_personal', compact('list_areas'));
     }
 
     /**
@@ -35,7 +44,22 @@ class PersonalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $p = Personal::where('nombre', $request['personal'])
+                        ->select('nombre')
+                        ->get();
+
+        if ($p->isEmpty()) {
+            $personal = new Personal;
+            $personal->id_area = $request->area;
+            $personal->nombre = $request->personal;
+            if ($personal->save()) {
+                return redirect()->route('l_personal')->with('success','Personal Registrado.');
+            } else {
+                return redirect()->route('l_personal')->with('error','Personal no Registrado.');
+            }
+        } else {
+            return back()->with('warning','El personal "'. $request['personal'] .'" ya esta registrado.');
+        }
     }
 
     /**
@@ -57,7 +81,7 @@ class PersonalController extends Controller
      */
     public function edit(Personal $personal)
     {
-        //
+        return view('catalogos.personal.u_personal', compact('personal'));
     }
 
     /**
@@ -69,7 +93,16 @@ class PersonalController extends Controller
      */
     public function update(Request $request, Personal $personal)
     {
-        //
+        if ($personal->nombre == $request->personal) {
+            return redirect()->route('l_personal')->with('warning','No se Actualizo el personal "'. $request->personal . '".');
+        } else {
+            $personal->nombre = $request->personal;
+            if ($personal->save()) {
+                return redirect()->route('l_personal')->with('success','Personal Actualizado.');
+            } else {
+                return redirect()->route('l_personal')->with('error','Personal no Actualizado.');
+            }
+        }
     }
 
     /**
@@ -80,6 +113,10 @@ class PersonalController extends Controller
      */
     public function destroy(Personal $personal)
     {
-        //
+        if ($personal->delete()) {
+            return redirect()->route('l_personal')->with('success','Personal Eliminado.');
+        } else {
+            return redirect()->route('l_personal')->with('error','Personal no Eliminado.');
+        }
     }
 }

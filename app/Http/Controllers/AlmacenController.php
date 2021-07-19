@@ -79,7 +79,8 @@ class AlmacenController extends Controller
                                             estatusalmacen
                                         WHERE
                                             almacen.id_vehiculo = vehiculo.id
-                                        AND almacen.estatus_id = 1
+                                        AND ISNULL (almacen.fecha_llegada)
+                                        AND vehiculo.estatus_id != 7
                                         AND vehiculo.marca_id = modelosv.id
                                         AND vehiculo.linea_id = submarcav.id
                                         AND almacen.aseguradora_id = aseguradoras.id

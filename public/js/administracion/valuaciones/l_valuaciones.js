@@ -68,7 +68,7 @@ $(document).ready(function(){
             //dudas de porque dice 19 
             //
 
-            if (aData[24] != null || aDta[24] != 0) {
+            if (aData[24] != null || aData[24] != 0) {
                 if (aData[24] > 0.00 && aData[24] < 50.00) { 
                     $(nRow).find('td:eq(24)').css('background-color', '#F08080');  
                 }else if (aData[24] >= 50.00) {

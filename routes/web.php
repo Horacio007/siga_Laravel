@@ -189,7 +189,9 @@ Route::get('/', function () {
     //endRefaccionesAdmon
 
     //AsignacionPersonal
-
+    Route::get('l_asignacionPersonal', 'VehiculoController@indexAP')->name('l_asignacionPersonal');
+    Route::get('i_asignacionPersonal/{vehiculo}', 'VehiculoController@i_asignacionPersonal')->name('i_asignacionPersonal');
+    Route::post('i_asignacionPersonal/{vehiculo}', 'VehiculoController@insert_asignacionPersonal');
     //endAsignacionPersonal
     
 //endAdministracion

@@ -56,7 +56,7 @@
                 <a class="dropdown-item" href="{{ route('l_archivos') }}" id="verarchivos">Listado Archivos</a>
                 <a class="dropdown-item" href="{{ route('l_valuaciones') }}" id="valuaciones">Listado Valuaciones</a>
                 <a class="dropdown-item" href="{{ route('l_Brefacciones') }}" id="brefacciones">Listado Refacciones</a>
-                <a class="dropdown-item" href="#" id="asignacion_personal">Asignacion de Personal</a>
+                <a class="dropdown-item" href="{{ route('l_asignacionPersonal') }}" id="asignacion_personal">Listado Asignacion de Personal</a>
                 <a class="dropdown-item" href="#" id="procesoTaller">Seguimiento Taller</a>
                 <a class="dropdown-item" href="#" id="procesoAdmon">Proceso Administrativo</a>
                 <a class="dropdown-item" href="#" id="procesosegtaller">Proceso Taller</a>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vehiculo;
 use App\Models\Clientes;
 use App\Models\Estatus;
+use App\Models\Personal;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,6 +47,20 @@ class VehiculoController extends Controller
         //dd($valuaciones[0]->formaArribo->forma_arribo);
         //dd($refacciones[0]->estatusRefacciones->estatus);
         return view('administracion.refacciones.l_refaccionesAdmon', compact('refacciones'));
+    }
+
+    public function indexAP()
+    {
+        $asignacion_personal = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_llegada_taller', 'aplica_lavado')
+                                ->where('estatus_id','5')
+                                //->orWhere('estatus_id', '7')
+                                ->orWhere('estatus_id','6')
+                                ->orderBy('id_aux')
+                                ->get();
+
+        //dd($asignacion_personal);
+        return view('administracion.asignacionPersonal.l_asignacionPersonal', compact('asignacion_personal'));
     }
 
     public function i_vehiculo(){
@@ -757,6 +772,74 @@ class VehiculoController extends Controller
             } else {
                 return redirect()->route('l_Brefacciones')->with('error','Estatus no Actualizado.');
             }
+        }
+    }
+
+    public function i_asignacionPersonal(Vehiculo $vehiculo){
+        $list_personal = Personal::with('area')->orderby('nombre')->get();
+
+        return view('administracion.asignacionPersonal.i_asignacionPersonal', compact(['vehiculo','list_personal']));
+    }
+
+    public function insert_asignacionPersonal(Request $request, Vehiculo $vehiculo){
+        if (isset($request->aplicaHoja)) {
+            $vehiculo->aplica_hojalateria = 1;
+        } else {
+            $vehiculo->aplica_hojalateria = 0;
+        }
+        $vehiculo->fecha_hojalateria = $request->fechahoja;
+        $vehiculo->asignado_hojalateria = $request->personalH;
+        $vehiculo->comentarios_hojalateria = $request->comentariosHoja;
+
+        if (isset($request->aplicaPin)) {
+            $vehiculo->aplica_pintura = 1;
+        } else {
+            $vehiculo->aplica_pintura = 0;
+        }
+        $vehiculo->fecha_pintura = $request->fechaPin;
+        $vehiculo->asignado_pintura = $request->personalPin;
+        $vehiculo->comentario_pintura = $request->comentariosPin;
+
+        if (isset($request->aplicaArm)) {
+            $vehiculo->aplica_armado = 1;
+        } else {
+            $vehiculo->aplica_armado = 0;
+        }
+        $vehiculo->fecha_armado = $request->fechaArm;
+        $vehiculo->asignado_armado = $request->personalArm;
+        $vehiculo->comentario_armado = $request->comentariosArm;
+
+        if (isset($request->aplicaDet)) {
+            $vehiculo->aplica_detallado = 1;
+        } else {
+            $vehiculo->aplica_detallado = 0;
+        }
+        $vehiculo->fecha_detallado = $request->fechaDet;
+        $vehiculo->asignado_detallado = $request->personalDet;
+        $vehiculo->comentario_detallado = $request->comentariosDet;
+
+        if (isset($request->aplicaMeca)) {
+            $vehiculo->aplica_mecanica = 1;
+        } else {
+            $vehiculo->aplica_mecanica = 0;
+        }
+        $vehiculo->fecha_mecanica = $request->fechaMeca;
+        $vehiculo->asignado_mecanica = $request->personalMec;
+        $vehiculo->comentario_mecanica = $request->comentariosMeca;
+
+        if (isset($request->aplicaLava)) {
+            $vehiculo->aplica_lavado = 1;
+        } else {
+            $vehiculo->aplica_lavado = 0;
+        }
+        $vehiculo->fecha_lavado = $request->fechaLava;
+        $vehiculo->asignado_lavado = $request->personalLava;
+        $vehiculo->comentario_lavado = $request->comentariosLava;
+
+        if ($vehiculo->save()) {
+            return redirect()->route('l_asignacionPersonal')->with('success','Personal Asignado.');
+        } else {
+            return redirect()->route('l_asignacionPersonal')->with('error','Personal no Asignado.');
         }
     }
 

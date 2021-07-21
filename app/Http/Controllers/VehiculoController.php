@@ -6,6 +6,7 @@ use App\Models\Vehiculo;
 use App\Models\Clientes;
 use App\Models\Estatus;
 use App\Models\Personal;
+use Facade\FlareClient\Http\Response;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -61,6 +62,19 @@ class VehiculoController extends Controller
 
         //dd($asignacion_personal);
         return view('administracion.asignacionPersonal.l_asignacionPersonal', compact('asignacion_personal'));
+    }
+
+    public function indexPA()
+    {
+        $proceso_administrativo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo'])
+                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_valuacion', 'fecha_autorizacion', 'p_asignados', 'r_disponibles')
+                                ->where('estatus_id','5')
+                                //->where('id_aux', 433)
+                                ->orWhere('estatus_id','6')
+                                ->orderBy('id_aux')
+                                ->get();
+
+        return view('administracion.procesoAdministrativo.l_procesoAdministrativo', compact('proceso_administrativo'));
     }
 
     public function i_vehiculo(){
@@ -840,6 +854,68 @@ class VehiculoController extends Controller
             return redirect()->route('l_asignacionPersonal')->with('success','Personal Asignado.');
         } else {
             return redirect()->route('l_asignacionPersonal')->with('error','Personal no Asignado.');
+        }
+    }
+
+    public function u_asignacionPersonal(Vehiculo $vehiculo)
+    {
+        //dd($vehiculo);
+        $hojalateria = Personal::with('area')
+                                ->where('id', $vehiculo->asignado_hojalateria)
+                                ->first();
+
+        $pintura = Personal::with('area')
+                                ->where('id', $vehiculo->asignado_pintura)
+                                ->first();
+
+        $armado = Personal::with('area')
+                                ->where('id', $vehiculo->asignado_armado)
+                                ->first();
+
+        $detallado = Personal::with('area')
+                                ->where('id', $vehiculo->asignado_detallado)
+                                ->first();
+
+        $mecanica = Personal::with('area')
+                                ->where('id', $vehiculo->asignado_mecanica)
+                                ->first();
+
+        $lavado = Personal::with('area')
+                                ->where('id', $vehiculo->asignado_lavado)
+                                ->first();                        
+
+        return view('administracion.asignacionPersonal.u_asignacionPersonal', compact(['vehiculo', 'hojalateria', 'pintura', 'armado', 'detallado','mecanica', 'lavado']));
+    }
+
+    public function update_asignacionPersonal(Request $request, Vehiculo $vehiculo){
+        //dd($request, $vehiculo);
+
+        $vehiculo->fecha_hojalateria = $request->fechahoja;
+        $vehiculo->comentarios_hojalateria = $request->comentariosHoja;
+
+        $vehiculo->fecha_pintura = $request->fechapin;
+        $vehiculo->comentario_pintura = $request->comentariospin;
+
+        $vehiculo->fecha_armado = $request->fechaarm;
+        $vehiculo->comentario_armado = $request->comentariosarm;
+
+        $vehiculo->fecha_detallado = $request->fechadeta;
+        $vehiculo->comentario_detallado = $request->comentariosdeta;
+
+        $vehiculo->fecha_mecanica = $request->fechameca;
+        $vehiculo->comentario_mecanica = $request->comentariosmeca;
+
+        $vehiculo->fecha_lavado = $request->fechalava;
+        $vehiculo->comentario_lavado = $request->comentarioslava;
+
+        $vehiculo->fecha_entrega_interna = $request->fechainter;
+        $vehiculo->entrego = $request->entrego;
+        $vehiculo->recibio = $request->recibio;
+
+        if ($vehiculo->save()) {
+            return redirect()->route('l_asignacionPersonal')->with('success','Seguimiento Actualizado.');
+        } else {
+            return redirect()->route('l_asignacionPersonal')->with('error','Seguimiento no Actualizado.');
         }
     }
 

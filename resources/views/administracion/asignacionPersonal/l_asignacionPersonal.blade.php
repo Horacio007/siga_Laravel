@@ -3,12 +3,18 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('/libs/DataTables/DataTables-1.10.25/css/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/libs/DataTables/Buttons-1.7.1/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/libs/DataTables/Responsive-2.2.9/css/responsive.dataTables.min.css') }}">
+    <style>
+        .btn-warning {
+            background-color: #FFF890 !important;
+            border: #FFF890 !important;
+        }
+    </style>
     <div class="container-fluid">
         <form action="" method="post" id="formdata">
             @csrf
             <div class="row">
                 <div class="col text-center">
-                    <h3>Listado de Asignacion de Personal</h3>
+                    <h3>Listado de Asignacion de Personal y Seguimiento del Taller</h3>
                 </div>
             </div>
             <br>
@@ -45,7 +51,14 @@
                                     @else
                                     <td>No Asignado</td>
                                     @endif
-                                    <td><a href="{{ route('i_asignacionPersonal', $personal->id) }}" class="btn btn-primary" title="Asignar"><i class="fa fa-edit"></i></a></td>
+                                    <td><a href="{{ route('i_asignacionPersonal', $personal->id) }}" class="btn btn-primary" title="Asignar"><i class="fa fa-edit"></i></a>
+                                        @if ($personal->aplica_lavado == 1)
+                                            <a href="{{ route('u_asignacionPersonal', $personal->id) }}" class="btn btn-success" title="Editar"><i class="fa fa-edit"></i></a>
+                                        @else
+                                            <a href="#" class="btn btn-warning" style="pointer-events: none; display: inline-block;" title="Editar"><i class="fa fa-edit"></i></a>
+                                        @endif
+                                        
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

@@ -192,7 +192,13 @@ Route::get('/', function () {
     Route::get('l_asignacionPersonal', 'VehiculoController@indexAP')->name('l_asignacionPersonal');
     Route::get('i_asignacionPersonal/{vehiculo}', 'VehiculoController@i_asignacionPersonal')->name('i_asignacionPersonal');
     Route::post('i_asignacionPersonal/{vehiculo}', 'VehiculoController@insert_asignacionPersonal');
+    Route::get('/u_asignacionPersonal/{vehiculo}', 'VehiculoController@u_asignacionPersonal')->name('u_asignacionPersonal');
+    Route::post('/u_asignacionPersonal/{vehiculo}', 'VehiculoController@update_asignacionPersonal');
     //endAsignacionPersonal
+
+    //ProcesoAdministrativo
+    Route::get('l_procesoAdministrativo', 'VehiculoController@indexAP')->name('l_procesoAdministrativo');
+    //endProcesoAdministrativo
     
 //endAdministracion
 

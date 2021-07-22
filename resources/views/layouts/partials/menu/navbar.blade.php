@@ -57,9 +57,8 @@
                 <a class="dropdown-item" href="{{ route('l_valuaciones') }}" id="valuaciones">Listado Valuaciones</a>
                 <a class="dropdown-item" href="{{ route('l_Brefacciones') }}" id="brefacciones">Listado Refacciones</a>
                 <a class="dropdown-item" href="{{ route('l_asignacionPersonal') }}" id="asignacion_personal">Listado Asignacion de Personal</a>
-                <a class="dropdown-item" href="#" id="procesoTaller">Seguimiento Taller</a>
-                <a class="dropdown-item" href="#" id="procesoAdmon">Proceso Administrativo</a>
-                <a class="dropdown-item" href="#" id="procesosegtaller">Proceso Taller</a>
+                <a class="dropdown-item" href="{{ route('l_procesoAdministrativo') }}" id="procesoAdmon">Listado Proceso Administrativo</a>
+                <a class="dropdown-item" href="{{ route('l_procesoTaller') }}" id="procesosegtaller">Listado Proceso Taller</a>
                 <a class="dropdown-item" href="#" id="metricoss">Metricos</a>
             </li>
             <li class="nav-item dropdown">

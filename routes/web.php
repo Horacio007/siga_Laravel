@@ -197,8 +197,16 @@ Route::get('/', function () {
     //endAsignacionPersonal
 
     //ProcesoAdministrativo
-    Route::get('l_procesoAdministrativo', 'VehiculoController@indexAP')->name('l_procesoAdministrativo');
+    Route::get('l_procesoAdministrativo', 'VehiculoController@indexPA')->name('l_procesoAdministrativo');
+    Route::get('/u_valuacionesPA/{vehiculo}', 'VehiculoController@u_valuacionesPA')->name('u_valuacionesPA');
+    Route::post('/u_valuacionesPA/{vehiculo}', 'VehiculoController@update_valuacionesPA');
+    Route::get('/u_BrefaccionesPA/{vehiculo}', 'VehiculoController@u_refaccionesAdmonPA')->name('u_BrefaccionesPA');
+    Route::post('/u_BrefaccionesPA/{vehiculo}', 'VehiculoController@update_BrefaccionesPA');
     //endProcesoAdministrativo
+
+    //ProcesoTaller
+    Route::get('l_procesoTaller', 'VehiculoController@indexPT')->name('l_procesoTaller');
+    //endProcesoTaller
     
 //endAdministracion
 

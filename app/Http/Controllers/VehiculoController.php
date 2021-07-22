@@ -74,7 +74,20 @@ class VehiculoController extends Controller
                                 ->orderBy('id_aux')
                                 ->get();
 
-        return view('administracion.procesoAdministrativo.l_procesoAdministrativo', compact('proceso_administrativo'));
+        return view('administracion.procesoAdmistrativo.l_procesoAdministrativo', compact('proceso_administrativo'));
+    }
+
+    public function indexPT()
+    {
+        $proceso_taller = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo'])
+                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'aplica_hojalateria', 'fecha_hojalateria', 'aplica_preparacion', 'fecha_preparacion', 'aplica_pintura', 'fecha_pintura', 'aplica_armado', 'fecha_armado', 'aplica_detallado', 'fecha_detallado', 'aplica_mecanica', 'fecha_mecanica', 'aplica_lavado', 'fecha_lavado', 'fecha_entrega_interna', 'asignado_hojalateria', 'asignado_preparacion', 'asignado_pintura', 'asignado_armado', 'asignado_detallado', 'asignado_mecanica', 'asignado_lavado')
+                                ->where('estatus_id','5')
+                                //->where('id_aux', 433)
+                                ->orWhere('estatus_id','6')
+                                ->orderBy('id_aux')
+                                ->get();
+
+        return view('administracion.procesoTaller.l_procesoTaller', compact('proceso_taller'));
     }
 
     public function i_vehiculo(){
@@ -916,6 +929,143 @@ class VehiculoController extends Controller
             return redirect()->route('l_asignacionPersonal')->with('success','Seguimiento Actualizado.');
         } else {
             return redirect()->route('l_asignacionPersonal')->with('error','Seguimiento no Actualizado.');
+        }
+    }
+
+    public function u_valuacionesPA(Vehiculo $vehiculo){
+        $list_estatus = Estatus::all();
+
+        $e_actual = Estatus::select('status')
+                            ->where('id', $vehiculo['estatus_id'])
+                            ->first();
+
+        if ($vehiculo->fecha_autorizacion == "" || $vehiculo->fecha_autorizacion == " " || $vehiculo->fecha_autorizacion == NULL || $vehiculo->fecha_autorizacion == null) {
+            //$fecha_ll = new DateTime($value->getFechaLlegada());
+            $fecha_ll = date_create($vehiculo->fecha_llegada);
+            $fecha_a = date_create(date("Y-m-d"));
+            //$now = new DateTime('now');
+            $dife = date_diff($fecha_ll, $fecha_a);
+            //$dife = json_encode($dife);
+            //$dife = json_decode($dife);
+            //$dife = $fecha_ll->diff($now)->format('%d');
+            $difee = $dife->{'days'};
+        } else {
+            $difee = $vehiculo->diferencia_tres_dias;
+        }
+
+        return view('administracion.procesoAdmistrativo.u_valuacionesPAdmon', compact(['vehiculo', 'list_estatus', 'e_actual', 'difee']));
+    }
+
+    public function update_valuacionesPA(Vehiculo $vehiculo, Request $request){
+        //dd($vehiculo, $request);
+
+        switch ($request->estatus) {
+            case 5:
+                $dias_rep = $request->dias_rep;
+                break;
+                
+            case 6:
+                $dias_rep = 0;
+                break;
+
+            case 7:
+                $dias_rep = 0;
+                break;
+            
+            default:
+                $dias_rep = "No esta en Taller o Transito";
+                break;
+        }
+
+        if ($request->fecha_autorizacion != "" && $request->cantidadfin != 0) {
+            $porcentaje = round(($request->cantidadfin * 100)/$request->cantidadini, 2);
+            $vehiculo->estatus_id = $request->estatus;
+            $vehiculo->fecha_llegada_taller = $request->fecha_llegada;
+            $vehiculo->fecha_valuacion = $request->fecha_envio;
+            $vehiculo->diferencia_tres_dias = $request->diferencia;
+            $vehiculo->cantidad_inicial = $request->cantidadini;
+            $vehiculo->piezas_cambiadas_inicial = $request->pzscambioini;
+            $vehiculo->piezas_reparacion_inicial = $request->pzsreparaini;
+            $vehiculo->fecha_autorizacion = $request->fecha_autorizacion;
+            $vehiculo->cantidad_final = $request->cantidadfin;
+            $vehiculo->piezas_cambiadas_final = $request->pzscambiofin;
+            $vehiculo->piezas_reparacion_final = $request->pzsreparafin;
+            $vehiculo->piezas_vendidas = $request->pzsvendidas;
+            $vehiculo->fecha_promesa = $dias_rep;
+            $vehiculo->importe_piezas_vendidas = $request->importepzsvendidas;
+            $vehiculo->porcentaje_aprobacion = $porcentaje;
+            if ($request->pzscambioini == 0) {
+                $vehiculo->refacciones_id = 6;
+            }
+
+            if ($vehiculo->save()) {
+                return redirect()->route('l_valuaciones')->with('success','Valuacion Actualizada.');
+            } else {
+                return redirect()->route('l_valuaciones')->with('error','Valuacion no Actualizada.');
+            }
+        } else {
+            $vehiculo->estatus_id = $request->estatus;
+            $vehiculo->fecha_llegada_taller = $request->fecha_llegada;
+            $vehiculo->fecha_valuacion = $request->fecha_envio;
+            $vehiculo->cantidad_inicial = $request->cantidadini;
+            $vehiculo->piezas_cambiadas_inicial = $request->pzscambioini;
+            $vehiculo->piezas_reparacion_inicial = $request->pzsreparaini;
+            $vehiculo->piezas_vendidas = $request->pzsvendidas;
+            $vehiculo->fecha_promesa = $dias_rep;
+            $vehiculo->importe_piezas_vendidas = $request->importepzsvendidas;
+            if ($request->pzscambioini == 0) {
+                $vehiculo->refacciones_id = 6;
+            }
+
+            if ($vehiculo->save()) {
+                return redirect()->route('l_procesoAdministrativo')->with('success','Valuacion Actualizada.');
+            } else {
+                return redirect()->route('l_procesoAdministrativo')->with('error','Valuacion no Actualizada.');
+            }
+            
+        }
+        
+    }
+
+    public function u_refaccionesAdmonPA(Vehiculo $vehiculo){
+        $list_estatus = Estatus::all();
+
+        $e_actual = Estatus::select('status')
+                            ->where('id', $vehiculo['estatus_id'])
+                            ->first();
+
+        if ($vehiculo->fecha_autorizacion == "" || $vehiculo->fecha_autorizacion == " " || $vehiculo->fecha_autorizacion == NULL || $vehiculo->fecha_autorizacion == null) {
+            //$fecha_ll = new DateTime($value->getFechaLlegada());
+            $fecha_ll = date_create($vehiculo->fecha_llegada);
+            $fecha_a = date_create(date("Y-m-d"));
+            //$now = new DateTime('now');
+            $dife = date_diff($fecha_ll, $fecha_a);
+            //$dife = json_encode($dife);
+            //$dife = json_decode($dife);
+            //$dife = $fecha_ll->diff($now)->format('%d');
+            $difee = $dife->{'days'};
+        } else {
+            $difee = $vehiculo->diferencia_tres_dias;
+        }
+
+        return view('administracion.procesoAdmistrativo.u_refaccionesPAdmon', compact(['vehiculo', 'list_estatus', 'e_actual', 'difee']));
+    }
+
+    public function update_BrefaccionesPA(Request $request, Vehiculo $vehiculo){
+        
+        if ($vehiculo->estatus_id == $request->estatus) {
+            $e_actual = Estatus::select('status')
+                            ->where('id', $vehiculo['estatus_id'])
+                            ->first();
+
+            return redirect()->route('l_Brefacciones')->with('warning','No se Actualizo el estatus "'. $e_actual->status . '".');
+        } else {
+            $vehiculo->estatus_id = $request->estatus;
+            if ($vehiculo->save()) {
+                return redirect()->route('l_procesoAdministrativo')->with('success','Estatus Actualizado.');
+            } else {
+                return redirect()->route('l_procesoAdministrativo')->with('error','Estatus no Actualizado.');
+            }
         }
     }
 

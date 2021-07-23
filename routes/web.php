@@ -211,6 +211,10 @@ Route::get('/', function () {
     //endProcesoTaller
 
     //Metricos
+    Route::get('metricos', 'VehiculoController@indexMetricos')->name('metricos');
+    Route::get('g_ventregados', 'VehiculoController@g_ventregados');
+    Route::get('g_vrecibidos', 'VehiculoController@g_vrecibidos');
+    Route::get('g_ventregadosselect', 'VehiculoController@g_ventregadosselect');
     //endMetricos
     
 //endAdministracion

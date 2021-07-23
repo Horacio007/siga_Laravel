@@ -1133,6 +1133,358 @@ class VehiculoController extends Controller
         }
     }
 
+    public function indexMetricos(){
+        //Total de vehiculos entregados por mes
+        $total_V_EMes = DB::select("SELECT 
+                                        COUNT(estatus_id) as Total 
+                                    FROM 
+                                        vehiculo 
+                                    WHERE 
+                                        estatus_id = 3 
+                                    AND MONTH(fecha_salida_taller) = MONTH(NOW())");
+
+        $total_V_EMesQ = DB::select("SELECT 
+                                        COUNT(estatus_id) as Qualitas 
+                                    FROM 
+                                        vehiculo 
+                                    WHERE 
+                                        estatus_id = 3 
+                                    AND cliente_id = 4
+                                    AND MONTH(fecha_salida_taller) = MONTH(NOW())"); 
+
+        $total_V_EMesG = DB::select("SELECT 
+                                        COUNT(estatus_id) as GNP 
+                                    FROM 
+                                        vehiculo 
+                                    WHERE 
+                                        estatus_id = 3 
+                                    AND cliente_id = 1
+                                    AND MONTH(fecha_salida_taller) = MONTH(NOW())");
+
+        $total_V_EMesP = DB::select("SELECT 
+                                        COUNT(estatus_id) as Particular 
+                                    FROM 
+                                        vehiculo 
+                                    WHERE 
+                                        estatus_id = 3 
+                                    AND cliente_id = 3
+                                    AND MONTH(fecha_salida_taller) = MONTH(NOW())");
+
+        $total_V_EMesBBVA = DB::select("SELECT 
+                                        COUNT(estatus_id) as Bancomer 
+                                    FROM 
+                                        vehiculo 
+                                    WHERE 
+                                        estatus_id = 3 
+                                    AND cliente_id = 8
+                                    AND MONTH(fecha_salida_taller) = MONTH(NOW())");
+
+        $total_V_EMesBanorte = DB::select("SELECT 
+                                            COUNT(estatus_id) as Banorte 
+                                        FROM 
+                                            vehiculo 
+                                        WHERE 
+                                            estatus_id = 3 
+                                        AND cliente_id = 9
+                                        AND MONTH(fecha_salida_taller) = MONTH(NOW())");
+
+        $tabla_VEntregados = array(
+                                array(
+                                    'compania' => 'Qualitas',
+                                    'total' =>  $total_V_EMesQ[0]->Qualitas    
+                                ),
+                                array(
+                                    'compania' => 'GNP',
+                                    'total' => $total_V_EMesG[0]->GNP
+                                ),
+                                array(
+                                    'compania' => 'Particular',
+                                    'total' =>  $total_V_EMesP[0]->Particular
+                                ),
+                                array(
+                                    'compania' => 'Bancomer',
+                                    'total' => $total_V_EMesBBVA[0]->Bancomer
+                                ),
+                                array(
+                                    'compania' => 'Banorte',
+                                    'total' => $total_V_EMesBanorte[0]->Banorte
+                                ),
+                                array(
+                                    'compania' => 'Total',
+                                    'total' => $total_V_EMes[0]->Total
+                                )
+                            );
+                            
+        
+        //Total de vehiculos recibidos por mes
+        $total_V_RMes = DB::select("SELECT 
+                                        COUNT(id_aux) as Total 
+                                    FROM 
+                                        vehiculo 
+                                    WHERE 
+                                        MONTH(fecha_llegada) = MONTH(NOW())");
+
+        $total_V_RMesQ = DB::select("SELECT 
+                                        COUNT(id_aux) as Qualitas 
+                                    FROM 
+                                        vehiculo 
+                                    WHERE
+                                        cliente_id = 4
+                                    AND MONTH(fecha_llegada) = MONTH(NOW())");
+
+        $total_V_RMesG = DB::select("SELECT 
+                                        COUNT(id_aux) as GNP 
+                                    FROM 
+                                        vehiculo 
+                                    WHERE
+                                        cliente_id = 1
+                                    AND MONTH(fecha_llegada) = MONTH(NOW())");
+
+        $total_V_RMesP = DB::select("SELECT 
+                                        COUNT(id_aux) as Particular 
+                                    FROM 
+                                        vehiculo 
+                                    WHERE
+                                        cliente_id = 3
+                                    AND MONTH(fecha_llegada) = MONTH(NOW())");
+
+        $total_V_RMesBBVA = DB::select("SELECT 
+                                        COUNT(id_aux) as Bancomer 
+                                    FROM 
+                                        vehiculo 
+                                    WHERE
+                                        cliente_id = 8
+                                    AND MONTH(fecha_llegada) = MONTH(NOW())");
+
+        $total_V_RMesBanorte = DB::select("SELECT 
+                                            COUNT(id_aux) as Banorte 
+                                        FROM 
+                                            vehiculo 
+                                        WHERE
+                                            cliente_id = 9
+                                        AND MONTH(fecha_llegada) = MONTH(NOW())");
+
+        $tabla_VRecibidos = array(
+                                array(
+                                    'compania' => 'Qualitas',
+                                    'total' =>  $total_V_RMesQ[0]->Qualitas    
+                                ),
+                                array(
+                                    'compania' => 'GNP',
+                                    'total' => $total_V_RMesG[0]->GNP
+                                ),
+                                array(
+                                    'compania' => 'Particular',
+                                    'total' =>  $total_V_RMesP[0]->Particular
+                                ),
+                                array(
+                                    'compania' => 'Bancomer',
+                                    'total' => $total_V_RMesBBVA[0]->Bancomer
+                                ),
+                                array(
+                                    'compania' => 'Banorte',
+                                    'total' => $total_V_RMesBanorte[0]->Banorte
+                                ),
+                                array(
+                                    'compania' => 'Total',
+                                    'total' => $total_V_RMes[0]->Total
+                                )
+        );
+
+        //dd($tabla_VEntregados[0]['compania']);
+        return view('administracion.metricos.metricos', compact(['tabla_VEntregados', 'tabla_VRecibidos']));
+    }
+
+    public function g_ventregados(Request $request){
+        //Total de vehiculos entregados por mes
+        if (isset($request->catalago_ventregados)) {
+            $total_V_EMes = DB::select("SELECT 
+                                            COUNT(estatus_id) as Total 
+                                        FROM 
+                                            vehiculo 
+                                        WHERE 
+                                            estatus_id = 3 
+                                        AND MONTH(fecha_salida_taller) = MONTH(NOW())");
+
+            $total_V_EMesQ = DB::select("SELECT 
+                                            COUNT(estatus_id) as Qualitas 
+                                        FROM 
+                                            vehiculo 
+                                        WHERE 
+                                            estatus_id = 3 
+                                        AND cliente_id = 4
+                                        AND MONTH(fecha_salida_taller) = MONTH(NOW())"); 
+
+            $total_V_EMesG = DB::select("SELECT 
+                                            COUNT(estatus_id) as GNP 
+                                        FROM 
+                                            vehiculo 
+                                        WHERE 
+                                            estatus_id = 3 
+                                        AND cliente_id = 1
+                                        AND MONTH(fecha_salida_taller) = MONTH(NOW())");
+
+            $total_V_EMesP = DB::select("SELECT 
+                                            COUNT(estatus_id) as Particular 
+                                        FROM 
+                                            vehiculo 
+                                        WHERE 
+                                            estatus_id = 3 
+                                        AND cliente_id = 3
+                                        AND MONTH(fecha_salida_taller) = MONTH(NOW())");
+
+            $total_V_EMesBBVA = DB::select("SELECT 
+                                                COUNT(estatus_id) as Bancomer 
+                                            FROM 
+                                                vehiculo 
+                                            WHERE 
+                                                estatus_id = 3 
+                                            AND cliente_id = 8
+                                            AND MONTH(fecha_salida_taller) = MONTH(NOW())");
+
+            $total_V_EMesBanorte = DB::select("SELECT 
+                                                    COUNT(estatus_id) as Banorte 
+                                                FROM 
+                                                    vehiculo 
+                                                WHERE 
+                                                    estatus_id = 3 
+                                                AND cliente_id = 9
+                                                AND MONTH(fecha_salida_taller) = MONTH(NOW())");
+
+            $datos = array(
+                array('Qualitas', 'GNP', 'Particular', 'Bancomer', 'Banorte', 'Total'),
+                array($total_V_EMesQ[0]->Qualitas, $total_V_EMesG[0]->GNP, $total_V_EMesP[0]->Particular, $total_V_EMesBBVA[0]->Bancomer, $total_V_EMesBanorte[0]->Banorte, $total_V_EMes[0]->Total)
+            );
+
+            return json_encode($datos);
+        }
+    }
+
+    public function g_vrecibidos(Request $request){
+        //Total de vehiculos recibidos por mes
+        if (isset($request->catalago_vrecibidos)) {
+            $total_V_RMes = DB::select("SELECT 
+                                        COUNT(id_aux) as Total 
+                                    FROM 
+                                        vehiculo 
+                                    WHERE 
+                                        MONTH(fecha_llegada) = MONTH(NOW())");
+
+            $total_V_RMesQ = DB::select("SELECT 
+                                            COUNT(id_aux) as Qualitas 
+                                        FROM 
+                                            vehiculo 
+                                        WHERE
+                                            cliente_id = 4
+                                        AND MONTH(fecha_llegada) = MONTH(NOW())");
+
+            $total_V_RMesG = DB::select("SELECT 
+                                            COUNT(id_aux) as GNP 
+                                        FROM 
+                                            vehiculo 
+                                        WHERE
+                                            cliente_id = 1
+                                        AND MONTH(fecha_llegada) = MONTH(NOW())");
+
+            $total_V_RMesP = DB::select("SELECT 
+                                            COUNT(id_aux) as Particular 
+                                        FROM 
+                                            vehiculo 
+                                        WHERE
+                                            cliente_id = 3
+                                        AND MONTH(fecha_llegada) = MONTH(NOW())");
+
+            $total_V_RMesBBVA = DB::select("SELECT 
+                                            COUNT(id_aux) as Bancomer 
+                                        FROM 
+                                            vehiculo 
+                                        WHERE
+                                            cliente_id = 8
+                                        AND MONTH(fecha_llegada) = MONTH(NOW())");
+
+            $total_V_RMesBanorte = DB::select("SELECT 
+                                                COUNT(id_aux) as Banorte 
+                                            FROM 
+                                                vehiculo 
+                                            WHERE
+                                                cliente_id = 9
+                                            AND MONTH(fecha_llegada) = MONTH(NOW())");
+
+            $datos = array(
+                array('Qualitas', 'GNP', 'Particular', 'Bancomer', 'Banorte', 'Total'),
+                array($total_V_RMesQ[0]->Qualitas, $total_V_RMesG[0]->GNP, $total_V_RMesP[0]->Particular, $total_V_RMesBBVA[0]->Bancomer, $total_V_RMesBanorte[0]->Banorte, $total_V_RMes[0]->Total)
+            );
+
+            return json_encode($datos);
+        }
+    }
+
+    public function g_ventregadosselect(Request $request){
+        //Total de vehiculos entregados por mes
+        if (isset($request->catalago_ventregados) && isset($request->mes)) {
+            $mes = $request->mes;
+            $total_V_EMes = DB::select("SELECT 
+                                            COUNT(estatus_id) as Total 
+                                        FROM 
+                                            vehiculo 
+                                        WHERE 
+                                            estatus_id = 3 
+                                        AND MONTH(fecha_salida_taller) = MONTH('$mes')");
+
+            $total_V_EMesQ = DB::select("SELECT 
+                                            COUNT(estatus_id) as Qualitas 
+                                        FROM 
+                                            vehiculo 
+                                        WHERE 
+                                            estatus_id = 3 
+                                        AND cliente_id = 4
+                                        AND MONTH(fecha_salida_taller) = MONTH('$mes')"); 
+
+            $total_V_EMesG = DB::select("SELECT 
+                                            COUNT(estatus_id) as GNP 
+                                        FROM 
+                                            vehiculo 
+                                        WHERE 
+                                            estatus_id = 3 
+                                        AND cliente_id = 1
+                                        AND MONTH(fecha_salida_taller) = MONTH('$mes')");
+
+            $total_V_EMesP = DB::select("SELECT 
+                                            COUNT(estatus_id) as Particular 
+                                        FROM 
+                                            vehiculo 
+                                        WHERE 
+                                            estatus_id = 3 
+                                        AND cliente_id = 3
+                                        AND MONTH(fecha_salida_taller) = MONTH('$mes')");
+
+            $total_V_EMesBBVA = DB::select("SELECT 
+                                                COUNT(estatus_id) as Bancomer 
+                                            FROM 
+                                                vehiculo 
+                                            WHERE 
+                                                estatus_id = 3 
+                                            AND cliente_id = 8
+                                            AND MONTH(fecha_salida_taller) = MONTH('$mes')");
+
+            $total_V_EMesBanorte = DB::select("SELECT 
+                                                    COUNT(estatus_id) as Banorte 
+                                                FROM 
+                                                    vehiculo 
+                                                WHERE 
+                                                    estatus_id = 3 
+                                                AND cliente_id = 9
+                                                AND MONTH(fecha_salida_taller) = MONTH('$mes')");
+
+            $datos = array(
+                array('Qualitas', 'GNP', 'Particular', 'Bancomer', 'Banorte', 'Total'),
+                array($total_V_EMesQ[0]->Qualitas, $total_V_EMesG[0]->GNP, $total_V_EMesP[0]->Particular, $total_V_EMesBBVA[0]->Bancomer, $total_V_EMesBanorte[0]->Banorte, $total_V_EMes[0]->Total)
+            );
+
+            return json_encode($datos);
+        }
+    }
+
     /**
      * Display the specified resource.
      *

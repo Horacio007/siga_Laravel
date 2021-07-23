@@ -59,7 +59,7 @@
                 <a class="dropdown-item" href="{{ route('l_asignacionPersonal') }}" id="asignacion_personal">Listado Asignacion de Personal</a>
                 <a class="dropdown-item" href="{{ route('l_procesoAdministrativo') }}" id="procesoAdmon">Listado Proceso Administrativo</a>
                 <a class="dropdown-item" href="{{ route('l_procesoTaller') }}" id="procesosegtaller">Listado Proceso Taller</a>
-                <a class="dropdown-item" href="#" id="metricoss">Metricos</a>
+                <a class="dropdown-item" href="{{ route('metricos') }}" id="metricoss">Metricos</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalogos</a>

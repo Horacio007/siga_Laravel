@@ -2,7 +2,7 @@
 @section('content')
     <link rel="stylesheet" href="/css/administracion/asignacionPersonal/asignacion_personal.css">
     <div class="container-fluid">
-        <form action="{{route('u_asignacionPersonal', $vehiculo->id)}}" method="post" id="formdata">
+        <form action="{{route('u_asignacionPersonalPT', $vehiculo->id)}}" method="post" id="formdata">
             @csrf
             <div class="row">
                 <div class="col text-center">

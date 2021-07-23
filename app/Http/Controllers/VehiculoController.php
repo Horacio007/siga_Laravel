@@ -79,13 +79,15 @@ class VehiculoController extends Controller
 
     public function indexPT()
     {
-        $proceso_taller = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo'])
+        $proceso_taller = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo', 'personalHojalateria:id,id_area,nombre'])
                                 ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'aplica_hojalateria', 'fecha_hojalateria', 'aplica_preparacion', 'fecha_preparacion', 'aplica_pintura', 'fecha_pintura', 'aplica_armado', 'fecha_armado', 'aplica_detallado', 'fecha_detallado', 'aplica_mecanica', 'fecha_mecanica', 'aplica_lavado', 'fecha_lavado', 'fecha_entrega_interna', 'asignado_hojalateria', 'asignado_preparacion', 'asignado_pintura', 'asignado_armado', 'asignado_detallado', 'asignado_mecanica', 'asignado_lavado')
                                 ->where('estatus_id','5')
-                                //->where('id_aux', 433)
+                                //->where('marca_id', 38)
                                 ->orWhere('estatus_id','6')
                                 ->orderBy('id_aux')
                                 ->get();
+
+        //dd($proceso_taller);
 
         return view('administracion.procesoTaller.l_procesoTaller', compact('proceso_taller'));
     }
@@ -929,6 +931,68 @@ class VehiculoController extends Controller
             return redirect()->route('l_asignacionPersonal')->with('success','Seguimiento Actualizado.');
         } else {
             return redirect()->route('l_asignacionPersonal')->with('error','Seguimiento no Actualizado.');
+        }
+    }
+
+    public function u_asignacionPersonalPT(Vehiculo $vehiculo)
+    {
+        //dd($vehiculo);
+        $hojalateria = Personal::with('area')
+                                ->where('id', $vehiculo->asignado_hojalateria)
+                                ->first();
+
+        $pintura = Personal::with('area')
+                                ->where('id', $vehiculo->asignado_pintura)
+                                ->first();
+
+        $armado = Personal::with('area')
+                                ->where('id', $vehiculo->asignado_armado)
+                                ->first();
+
+        $detallado = Personal::with('area')
+                                ->where('id', $vehiculo->asignado_detallado)
+                                ->first();
+
+        $mecanica = Personal::with('area')
+                                ->where('id', $vehiculo->asignado_mecanica)
+                                ->first();
+
+        $lavado = Personal::with('area')
+                                ->where('id', $vehiculo->asignado_lavado)
+                                ->first();                        
+
+        return view('administracion.procesoTaller.u_procesoTaller', compact(['vehiculo', 'hojalateria', 'pintura', 'armado', 'detallado','mecanica', 'lavado']));
+    }
+
+    public function update_asignacionPersonalPT(Request $request, Vehiculo $vehiculo){
+        //dd($request, $vehiculo);
+
+        $vehiculo->fecha_hojalateria = $request->fechahoja;
+        $vehiculo->comentarios_hojalateria = $request->comentariosHoja;
+
+        $vehiculo->fecha_pintura = $request->fechapin;
+        $vehiculo->comentario_pintura = $request->comentariospin;
+
+        $vehiculo->fecha_armado = $request->fechaarm;
+        $vehiculo->comentario_armado = $request->comentariosarm;
+
+        $vehiculo->fecha_detallado = $request->fechadeta;
+        $vehiculo->comentario_detallado = $request->comentariosdeta;
+
+        $vehiculo->fecha_mecanica = $request->fechameca;
+        $vehiculo->comentario_mecanica = $request->comentariosmeca;
+
+        $vehiculo->fecha_lavado = $request->fechalava;
+        $vehiculo->comentario_lavado = $request->comentarioslava;
+
+        $vehiculo->fecha_entrega_interna = $request->fechainter;
+        $vehiculo->entrego = $request->entrego;
+        $vehiculo->recibio = $request->recibio;
+
+        if ($vehiculo->save()) {
+            return redirect()->route('l_procesoTaller')->with('success','Seguimiento Actualizado.');
+        } else {
+            return redirect()->route('l_procesoTaller')->with('error','Seguimiento no Actualizado.');
         }
     }
 

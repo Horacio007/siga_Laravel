@@ -206,7 +206,12 @@ Route::get('/', function () {
 
     //ProcesoTaller
     Route::get('l_procesoTaller', 'VehiculoController@indexPT')->name('l_procesoTaller');
+    Route::get('/u_asignacionPersonalPT/{vehiculo}', 'VehiculoController@u_asignacionPersonalPT')->name('u_asignacionPersonalPT');
+    Route::post('/u_asignacionPersonalPT/{vehiculo}', 'VehiculoController@update_asignacionPersonalPT');
     //endProcesoTaller
+
+    //Metricos
+    //endMetricos
     
 //endAdministracion
 

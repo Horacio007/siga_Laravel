@@ -45,4 +45,8 @@ class Vehiculo extends Model
             'f_arribo' => 'Sin forma de arribo',
         ]);
     }
+
+    public function personalHojalateria(){
+        return $this->hasOne('App\Models\Personal', 'id', 'asignado_hojalateria');
+    }
 }

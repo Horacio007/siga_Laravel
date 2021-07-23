@@ -45,10 +45,10 @@
                                     <td>{{$proceso->fecha_entrega_interna}}</td>
                                     @php
                                         if ($proceso->aplica_hojalateria == 1) {
-                                            if ($proceso->getFecha_Hojalateria() == '0000-00-00') {
-                                                $aplihoja = 2 . '/' . $proceso->getAsignado_Hojalateria();
+                                            if ($proceso->fecha_hojalateria == '0000-00-00' || $proceso->fecha_hojalateria == null) {
+                                                $aplihoja = 2 . '/' . $proceso->asignado_hojalateria;
                                             } else {
-                                                $aplihoja = 1 . '/' . $proceso->getAsignado_Hojalateria();
+                                                $aplihoja = 1 . '/' . $proceso->asignado_hojalateria;
                                             }
                                         } else {
                                             $aplihoja = 0;
@@ -64,8 +64,8 @@
                                         $apliprep = 0;
                                         }
                                         */
-                                        if ($proceso->getAplica_Pintura() == 1) {
-                                            if ($proceso->getFecha_Pintura() == '0000-00-00') {
+                                        if ($proceso->aplica_pintura == 1) {
+                                            if ($proceso->fecha_pintura == '0000-00-00' || $proceso->aplica_pintura == null) {
                                                 $aplipint = 2;
                                             } else {
                                                 $aplipint = 1;
@@ -74,8 +74,8 @@
                                         $aplipint = 0;
                                         }
 
-                                        if ($proceso->getAplica_Armado() == 1) {
-                                            if ($proceso->getFecha_Armado() == '0000-00-00') {
+                                        if ($proceso->aplica_armado == 1) {
+                                            if ($proceso->fecha_armado == '0000-00-00' || $proceso->fecha_armado == null) {
                                                 $apliarma = 2;
                                             } else {
                                                 $apliarma = 1;
@@ -84,8 +84,8 @@
                                         $apliarma = 0;
                                         }
 
-                                        if ($proceso->getAplica_Detallado() == 1) {
-                                            if ($proceso->getFecha_Detallado() == '0000-00-00') {
+                                        if ($proceso->aplica_detallado == 1) {
+                                            if ($proceso->fecha_detallado == '0000-00-00' || $proceso->fecha_detallado == null) {
                                                 $aplideta = 2;
                                             } else {
                                                 $aplideta = 1;
@@ -94,8 +94,8 @@
                                         $aplideta = 0;
                                         }
 
-                                        if ($proceso->getAplica_Mecanica() == 1) {
-                                            if ($proceso->getFecha_Mecanica() == '0000-00-00') {
+                                        if ($proceso->aplica_mecanica == 1) {
+                                            if ($proceso->fecha_mecanica == '0000-00-00' || $proceso->fecha_mecanica == null) {
                                                 $aplimeca = 2;
                                             } else {
                                                 $aplimeca = 1;
@@ -104,8 +104,8 @@
                                         $aplimeca = 0;
                                         }
 
-                                        if ($proceso->getAplica_Lavado() == 1) {
-                                            if ($proceso->getFecha_Lavado() == '0000-00-00') {
+                                        if ($proceso->aplica_lavado == 1) {
+                                            if ($proceso->fecha_lavado == '0000-00-00' || $proceso->fecha_lavado == null) {
                                                 $aplilava = 2;
                                             } else {
                                                 $aplilava = 1;
@@ -114,17 +114,14 @@
                                         $aplilava = 0;
                                         }
                                     @endphp
-                                    <td>{{$f_llegada}}</td>
-                                    <td>{{$dife1}}</td>
-                                    <td>{{$estatusFechavaluacion}}</td>
-                                    <td>{{$dife2}}</td>
-                                    <td>{{$estatusFechaautorizacion}}</td>
-                                    <td>{{$dife3}}</td>
-                                    <td>{{$estatusFechapasignados}}</td>
-                                    <td>{{$dife4}}</td>
-                                    <td>{{$estatusFechardisponibles}}</td>
-                                    <td><a href="{{ route('u_valuacionesPA', $proceso->id) }}" class="btn btn-primary" title="Valuaciones"><i class="fa fa-edit"></i></a>
-                                        <a href="{{ route('u_BrefaccionesPA', $proceso->id) }}" class="btn btn-success" title="Refacciones"><i class="fa fa-edit"></i></a>
+                                    <td>{{$aplihoja}}</td>
+                                    <td>{{$aplipint}}</td>
+                                    <td>{{$apliarma}}</td>
+                                    <td>{{$aplideta}}</td>
+                                    <td>{{$aplimeca}}</td>
+                                    <td>{{$aplilava}}</td>
+                                    <td>
+                                        <a href="{{ route('u_asignacionPersonalPT', $proceso->id) }}" class="btn btn-primary" title="Actualizar"><i class="fa fa-edit"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

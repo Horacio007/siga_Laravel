@@ -147,15 +147,20 @@
                                 <div class="panel panel-default">
                                     <div class="panel-body" id="panel">
                                         <div class="table-responsive">
-                                            <table id="lista_ventregados10" class="table table-striped table-bordered" border="0">
+                                            <table id="list_ventregados10" class="table table-striped table-bordered" border="0">
                                                 <thead class="text-capitalize">
                                                     <tr>
                                                         <th>Cliente</th>
                                                         <th>Total</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="listado_ventregados10">
-
+                                                <tbody>
+                                                    @for ($i = 0; $i < sizeof($tabla_VEntregados10sem[0]); $i++)
+                                                        <tr>
+                                                            <td>{{$tabla_VEntregados10sem[0][$i]}}</td>
+                                                            <td>{{$tabla_VEntregados10sem[1][$i]}}</td>
+                                                        </tr>
+                                                    @endfor
                                                 </tbody>
                                             </table>
                                         </div>
@@ -172,15 +177,20 @@
                                 <div class="panel panel-default">
                                     <div class="panel-body" id="panel">
                                         <div class="table-responsive">
-                                            <table id="lista_vrecibidos10" class="table table-striped table-bordered" border="0">
+                                            <table id="list_vrecibidos10" class="table table-striped table-bordered" border="0">
                                                 <thead class="text-capitalize">
                                                     <tr>
                                                         <th>Cliente</th>
                                                         <th>Total</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="listado_vrecibidos10">
-
+                                                <tbody>
+                                                    @for ($i = 0; $i < sizeof($tabla_VRecibidos10sem[0]); $i++)
+                                                        <tr>
+                                                            <td>{{$tabla_VRecibidos10sem[0][$i]}}</td>
+                                                            <td>{{$tabla_VRecibidos10sem[1][$i]}}</td>
+                                                        </tr>
+                                                    @endfor
                                                 </tbody>
                                             </table>
                                         </div>

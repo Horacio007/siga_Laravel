@@ -215,6 +215,11 @@ Route::get('/', function () {
     Route::get('g_ventregados', 'VehiculoController@g_ventregados');
     Route::get('g_vrecibidos', 'VehiculoController@g_vrecibidos');
     Route::get('g_ventregadosselect', 'VehiculoController@g_ventregadosselect');
+    Route::get('g_vrecibidosselect', 'VehiculoController@g_vrecibidosselect');
+    Route::get('g_diesentregados', 'VehiculoController@g_diesentregados');
+    Route::get('g_diesrecibidos', 'VehiculoController@g_diesrecibidos');
+    Route::get('g_isccu', 'IscController@g_isccu');
+    Route::get('g_isccutotal', 'IscController@g_isccutotal');
     //endMetricos
     
 //endAdministracion

@@ -62,6 +62,134 @@ class IscController extends Controller
         return view('entrega.isc.i_isc', compact('vehiculos'));
     }
 
+    public function g_isccu(Request $request){
+        if (isset($request->catalago_isccu)) {
+            $encuestas = DB::select("SELECT
+                                    modelosv.marca,
+                                    submarcav.submarca,
+                                    vehiculo.modelo,
+                                    isc.total
+                                FROM
+                                    vehiculo,
+                                    isc,
+                                    modelosv,
+                                    submarcav
+                                WHERE 
+                                    isc.id_vehiculo = vehiculo.id
+                                AND vehiculo.marca_id = modelosv.id
+                                AND vehiculo.linea_id = submarcav.id
+                                AND WEEKOFYEAR(isc.fecha) = WEEKOFYEAR(NOW())-1
+                                AND vehiculo.estatus_id = 3
+                                ORDER BY
+                                    isc.total");
+
+            $x = array();
+            $y = array();
+
+            foreach ($encuestas as $key => $value) {
+                array_push($x, $value->marca.' '.$value->submarca.' '.$value->modelo);
+                array_push($y, $value->total);
+            }
+
+            $datos = array(
+                'linea' => $x,
+                'total' => $y,
+                'semana' => date('W')-1
+            );
+
+            //dd($datos);
+            return json_encode($datos);
+
+        }
+    }
+
+    public function g_isccutotal(Request $request){
+        if (isset($request->catalago_isccutotal)) {
+            $iscActual = DB::select("SELECT
+                                        isc.total
+                                    FROM
+                                        vehiculo,
+                                        isc
+                                    WHERE 
+                                        isc.id_vehiculo = vehiculo.id
+                                    AND WEEKOFYEAR(isc.fecha) = WEEKOFYEAR(NOW())
+                                    AND vehiculo.estatus_id = 3
+                                    ORDER BY
+                                        isc.total");
+
+            $iscActual_1 = DB::select("SELECT
+                                        isc.total
+                                    FROM
+                                        vehiculo,
+                                        isc
+                                    WHERE 
+                                        isc.id_vehiculo = vehiculo.id
+                                    AND WEEKOFYEAR(isc.fecha) = WEEKOFYEAR(NOW())-1
+                                    AND vehiculo.estatus_id = 3
+                                    ORDER BY
+                                        isc.total");
+
+            $iscActual_2 = DB::select("SELECT
+                                        isc.total
+                                    FROM
+                                        vehiculo,
+                                        isc
+                                    WHERE 
+                                        isc.id_vehiculo = vehiculo.id
+                                    AND WEEKOFYEAR(isc.fecha) = WEEKOFYEAR(NOW())-2
+                                    AND vehiculo.estatus_id = 3
+                                    ORDER BY
+                                        isc.total");
+
+            $iscActual_3 = DB::select("SELECT
+                                        isc.total
+                                    FROM
+                                        vehiculo,
+                                        isc
+                                    WHERE 
+                                        isc.id_vehiculo = vehiculo.id
+                                    AND WEEKOFYEAR(isc.fecha) = WEEKOFYEAR(NOW())-3
+                                    AND vehiculo.estatus_id = 3
+                                    ORDER BY
+                                        isc.total");
+
+            $y = array();
+            $yy = array();
+            $yyy = array();
+            $yyyy = array();
+
+            foreach ($iscActual as $key => $value) {
+                //$linea = $value->get_p1();
+                array_push($y, $value->total);
+            }
+
+            foreach ($iscActual_1 as $key => $value) {
+                //$linea = $value->get_p1();
+                array_push($yy, $value->total);
+            }
+
+            foreach ($iscActual_2 as $key => $value) {
+                //$linea = $value->get_p1();
+                array_push($yyy, $value->total);
+            }
+
+            foreach ($iscActual_3 as $key => $value) {
+                //$linea = $value->get_p1();
+                array_push($yyyy, $value->total);
+            }
+
+            $datos = array(
+                'semanaA' => array('totalA' => $y, 'semanaA' => date("W")-1+1),
+                'semana-1' => array('total-1' => $yy, 'semana-1' => date("W")-1),
+                'semana-2' => array('total-2' => $yyy, 'semana-2' => date("W")-2),
+                'semana-3' => array('total-3' => $yyyy, 'semana-3' => date("W")-3)
+            );
+
+            return json_encode($datos);
+
+        }
+    }
+
     /**
      * Show the form for creating a new resource.
      *

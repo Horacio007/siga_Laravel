@@ -223,6 +223,17 @@ Route::get('/', function () {
     //endMetricos
     
 //endAdministracion
+    //Limpieza
+    Route::get('l_audlimpieza', 'AudLimpiezaController@index')->name('l_audlimpieza');
+    Route::get('i_audlimpieza', 'AudLimpiezaController@i_audlimpieza')->name('i_audlimpieza');
+    Route::post('i_audlimpieza', 'AudLimpiezaController@store')->name('i_audlimpieza');
+    Route::get('/u_audlimpieza/{aud_limpieza}', 'AudLimpiezaController@edit')->name('u_audlimpieza');
+    Route::post('/u_audlimpieza/{aud_limpieza}', 'AudLimpiezaController@update');
+    Route::post('/d_audlimpieza/{aud_limpieza}', 'AudLimpiezaController@destroy')->name('d_audlimpieza');
+    //endLimpieza    
+//Auditorias
+
+//endAuditorias
 
 //Catalogos
     //Marca

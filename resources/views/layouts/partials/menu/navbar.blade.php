@@ -95,8 +95,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Auditorias</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#" id="form_limpieza">Limpieza</a>
-                <a class="dropdown-item" href="#" id="form_limpieza_edit">Historico de Limpieza</a>
+                <a class="dropdown-item" href="{{ route('l_audlimpieza') }}" id="form_limpieza_edit">Listado Limpieza</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalogo Servicios</a>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Aud_limpieza;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class AudLimpiezaController extends Controller
@@ -64,6 +65,152 @@ class AudLimpiezaController extends Controller
             return redirect()->route('l_audlimpieza')->with('error','Auditoria no Registrada.');
         }
 
+    }
+
+    public function g_aud_limpieza(Request $request){
+        if (isset($request->aud_limpiza)) {
+            $auditoria = DB::select('SELECT 
+                                    TRUNCATE(AVG(oficinas),2) as oficinas, 
+                                    TRUNCATE(AVG(al_limpieza),2) as al_limpieza, 
+                                    TRUNCATE(AVG(al_refacciones),2) as al_refacciones, 
+                                    TRUNCATE(AVG(comedor),2) as comedor, 
+                                    TRUNCATE(AVG(mecanica),2) as mecanica, 
+                                    TRUNCATE(AVG(hojalateria),2) as hojalateria, 
+                                    TRUNCATE(AVG(prep_pint),2) as prep_pint, 
+                                    TRUNCATE(AVG(al_pinturas),2) as al_pinturas, 
+                                    TRUNCATE(AVG(pul_det_lav),2) as pul_det_lav, 
+                                    TRUNCATE(AVG(lavado),2) as lavado 
+                                FROM 
+                                    aud_limpieza 
+                                WHERE 
+                                    MONTH(fecha) = MONTH(NOW())-1 
+                                AND oficinas != 0');
+
+            //dd($auditoria);
+            $x = array('Oficinas', 'Almacen de Limpieza', 'Almacen de Refacciones', 'Comedor', 'Mecanica', 'Hojalateria', 'Preparacion y Pintura', 'Almacen de Pinturas', 'Pulido y Detallado', 'Lavado');
+            $y = array($auditoria[0]->oficinas, $auditoria[0]->al_limpieza, $auditoria[0]->al_refacciones, $auditoria[0]->comedor, $auditoria[0]->mecanica, $auditoria[0]->hojalateria, $auditoria[0]->prep_pint, $auditoria[0]->al_pinturas, $auditoria[0]->pul_det_lav, $auditoria[0]->lavado);
+
+            $datos = array(
+                'area' => $x,
+                'total' => $y,
+                'mes' => intval(date('m'))-2
+            );
+
+            return json_encode($datos);
+        }
+    }
+
+    public function g_aud_limpieza_actual(Request $request){
+        if (isset($request->aud_limpiza)) {
+            $auditoria = DB::select('SELECT 
+                                    TRUNCATE(AVG(oficinas),2) as oficinas, 
+                                    TRUNCATE(AVG(al_limpieza),2) as al_limpieza, 
+                                    TRUNCATE(AVG(al_refacciones),2) as al_refacciones, 
+                                    TRUNCATE(AVG(comedor),2) as comedor, 
+                                    TRUNCATE(AVG(mecanica),2) as mecanica, 
+                                    TRUNCATE(AVG(hojalateria),2) as hojalateria, 
+                                    TRUNCATE(AVG(prep_pint),2) as prep_pint, 
+                                    TRUNCATE(AVG(al_pinturas),2) as al_pinturas, 
+                                    TRUNCATE(AVG(pul_det_lav),2) as pul_det_lav, 
+                                    TRUNCATE(AVG(lavado),2) as lavado 
+                                FROM 
+                                    aud_limpieza 
+                                WHERE 
+                                    MONTH(fecha) = MONTH(NOW()) 
+                                AND oficinas != 0');
+
+            //dd($auditoria);
+            $x = array('Oficinas', 'Almacen de Limpieza', 'Almacen de Refacciones', 'Comedor', 'Mecanica', 'Hojalateria', 'Preparacion y Pintura', 'Almacen de Pinturas', 'Pulido y Detallado', 'Lavado');
+            $y = array($auditoria[0]->oficinas, $auditoria[0]->al_limpieza, $auditoria[0]->al_refacciones, $auditoria[0]->comedor, $auditoria[0]->mecanica, $auditoria[0]->hojalateria, $auditoria[0]->prep_pint, $auditoria[0]->al_pinturas, $auditoria[0]->pul_det_lav, $auditoria[0]->lavado);
+
+            $datos = array(
+                'area' => $x,
+                'total' => $y,
+                'mes' => intval(date('m'))-1
+            );
+
+            return json_encode($datos);
+        }
+    }
+
+    public function g_aud_limpieza_encargado(Request $request){
+        if (isset($request->aud_limpiza)) {
+            $auditoria = DB::select('SELECT 
+                                        TRUNCATE(AVG(oficinas),2) as oficinas, 
+                                        TRUNCATE(AVG(al_limpieza),2) as al_limpieza, 
+                                        TRUNCATE(AVG(al_refacciones),2) as al_refacciones, 
+                                        TRUNCATE(AVG(comedor),2) as comedor, 
+                                        TRUNCATE(AVG(mecanica),2) as mecanica, 
+                                        TRUNCATE(AVG(hoja_1),2) as hoja_1, 
+                                        TRUNCATE(AVG(hoja_2),2) as hoja_2, 
+                                        TRUNCATE(AVG(hoja_3),2) as hoja_3, 
+                                        TRUNCATE(AVG(hojalateria),2) as hojalateria, 
+                                        TRUNCATE(AVG(prep_pint),2) as prep_pint, 
+                                        TRUNCATE(AVG(al_pinturas),2) as al_pinturas, 
+                                        TRUNCATE(AVG(pul_det_lav),2) as pul_det_lav, 
+                                        TRUNCATE(AVG(lavado),2) as lavado 
+                                    FROM 
+                                        aud_limpieza 
+                                    WHERE 
+                                        MONTH(fecha) = MONTH(NOW())-1 
+                                    AND oficinas != 0');
+
+            //dd($auditoria);
+            $x = array('Oficinas', 'Almacen de Limpieza', 'Almacen de Refacciones', 'Comedor', 'Mecanica', 'Hojalatero 1 -> Marcial', 'Hojalatero 2 -> Luis Carlos', 'Hojalatero 3 -> ','Preparacion y Pintura', 'Almacen de Pinturas', 'Pulido y Detallado', 'Lavado');
+            $y = array($auditoria[0]->oficinas, $auditoria[0]->al_limpieza, $auditoria[0]->al_refacciones, $auditoria[0]->comedor, $auditoria[0]->mecanica, $auditoria[0]->hoja_1, $auditoria[0]->hoja_2, $auditoria[0]->hoja_3, $auditoria[0]->hojalateria, $auditoria[0]->prep_pint, $auditoria[0]->al_pinturas, $auditoria[0]->pul_det_lav, $auditoria[0]->lavado);
+
+            $datos = array(
+                'area / personal' => $x,
+                'total' => $y,
+                'mes' => intval(date('m'))-2
+            );
+
+            return json_encode($datos);
+        }
+    }
+
+    public function g_aud_limpieza_actual_personal(Request $request){
+        if (isset($request->aud_limpiza)) {
+            $auditoria = DB::select('SELECT 
+                                        TRUNCATE(AVG(oficinas),2) as oficinas, 
+                                        TRUNCATE(AVG(al_limpieza),2) as al_limpieza, 
+                                        TRUNCATE(AVG(al_refacciones),2) as al_refacciones, 
+                                        TRUNCATE(AVG(comedor),2) as comedor, 
+                                        TRUNCATE(AVG(mecanica),2) as mecanica, 
+                                        TRUNCATE(AVG(hoja_1),2) as hoja_1, 
+                                        TRUNCATE(AVG(hoja_2),2) as hoja_2, 
+                                        TRUNCATE(AVG(hoja_3),2) as hoja_3, 
+                                        TRUNCATE(AVG(hojalateria),2) as hojalateria, 
+                                        TRUNCATE(AVG(prep_pint),2) as prep_pint, 
+                                        TRUNCATE(AVG(al_pinturas),2) as al_pinturas, 
+                                        TRUNCATE(AVG(pul_det_lav),2) as pul_det_lav, 
+                                        TRUNCATE(AVG(lavado),2) as lavado 
+                                    FROM 
+                                        aud_limpieza 
+                                    WHERE 
+                                        MONTH(fecha) = MONTH(NOW()) 
+                                    AND oficinas != 0');
+
+            //dd($auditoria);
+            $x = array('Oficinas', 'Almacen de Limpieza', 'Almacen de Refacciones', 'Comedor', 'Mecanica', 'Hojalatero 1 -> Marcial', 'Hojalatero 2 -> Luis Carlos', 'Hojalatero 3 -> ','Preparacion y Pintura', 'Almacen de Pinturas', 'Pulido y Detallado', 'Lavado');
+            $y = array($auditoria[0]->oficinas, $auditoria[0]->al_limpieza, $auditoria[0]->al_refacciones, $auditoria[0]->comedor, $auditoria[0]->mecanica, $auditoria[0]->hoja_1, $auditoria[0]->hoja_2, $auditoria[0]->hoja_3, $auditoria[0]->hojalateria, $auditoria[0]->prep_pint, $auditoria[0]->al_pinturas, $auditoria[0]->pul_det_lav, $auditoria[0]->lavado);
+
+            $datos = array(
+                'area / personal' => $x,
+                'total' => $y,
+                'mes' => intval(date('m'))-1
+            );
+
+            return json_encode($datos);
+        }
+    }
+
+    public function afinaciones(){
+        return view('catalogo_servicios.afinaciones.afinaciones');
+    }
+
+    public function frenos(){
+        return view('catalogo_servicios.frenos.frenos');
     }
 
     /**

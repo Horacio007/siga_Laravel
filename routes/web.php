@@ -220,20 +220,13 @@ Route::get('/', function () {
     Route::get('g_diesrecibidos', 'VehiculoController@g_diesrecibidos');
     Route::get('g_isccu', 'IscController@g_isccu');
     Route::get('g_isccutotal', 'IscController@g_isccutotal');
+    Route::get('g_aud_limpieza', 'AudLimpiezaController@g_aud_limpieza');
+    Route::get('g_aud_limpieza_actual', 'AudLimpiezaController@g_aud_limpieza_actual');
+    Route::get('g_aud_limpieza_encargado', 'AudLimpiezaController@g_aud_limpieza_encargado');
+    Route::get('g_aud_limpieza_actual_personal', 'AudLimpiezaController@g_aud_limpieza_actual_personal');
     //endMetricos
     
 //endAdministracion
-    //Limpieza
-    Route::get('l_audlimpieza', 'AudLimpiezaController@index')->name('l_audlimpieza');
-    Route::get('i_audlimpieza', 'AudLimpiezaController@i_audlimpieza')->name('i_audlimpieza');
-    Route::post('i_audlimpieza', 'AudLimpiezaController@store')->name('i_audlimpieza');
-    Route::get('/u_audlimpieza/{aud_limpieza}', 'AudLimpiezaController@edit')->name('u_audlimpieza');
-    Route::post('/u_audlimpieza/{aud_limpieza}', 'AudLimpiezaController@update');
-    Route::post('/d_audlimpieza/{aud_limpieza}', 'AudLimpiezaController@destroy')->name('d_audlimpieza');
-    //endLimpieza    
-//Auditorias
-
-//endAuditorias
 
 //Catalogos
     //Marca
@@ -335,3 +328,24 @@ Route::get('/', function () {
     Route::post('/d_personal/{personal}', 'PersonalController@destroy')->name('d_personal');
     //endPersonal
 //endCatalogos
+    
+//Auditorias
+    //Limpieza
+    Route::get('l_audlimpieza', 'AudLimpiezaController@index')->name('l_audlimpieza');
+    Route::get('i_audlimpieza', 'AudLimpiezaController@i_audlimpieza')->name('i_audlimpieza');
+    Route::post('i_audlimpieza', 'AudLimpiezaController@store')->name('i_audlimpieza');
+    Route::get('/u_audlimpieza/{aud_limpieza}', 'AudLimpiezaController@edit')->name('u_audlimpieza');
+    Route::post('/u_audlimpieza/{aud_limpieza}', 'AudLimpiezaController@update');
+    Route::post('/d_audlimpieza/{aud_limpieza}', 'AudLimpiezaController@destroy')->name('d_audlimpieza');
+    //endLimpieza    
+//endAuditorias
+
+//CatalogoServicios
+    //Afinaciones
+    Route::get('afinaciones', 'AudLimpiezaController@afinaciones')->name('afinaciones');
+    //endAfinaciones
+
+    //Frenos
+    Route::get('frenos', 'AudLimpiezaController@frenos')->name('frenos');
+    //endFrenos
+//endCatalogoServicios

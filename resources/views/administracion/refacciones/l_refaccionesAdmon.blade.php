@@ -56,6 +56,10 @@
                                             case 7:
                                                 $estatus = "PT";
                                                 break;
+
+                                            case 8:
+                                                $estatus = "Pago de Daños";
+                                                break;
                                             
                                             default:
                                                 $estatus = "Sin estatus";

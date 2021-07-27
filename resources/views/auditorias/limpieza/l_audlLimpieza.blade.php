@@ -58,7 +58,7 @@
                                     <td>{{$aud->pul_det_lav}}</td>
                                     <td>{{$aud->lavado}}</td>
                                     <td><a href="{{ route('u_audlimpieza', $aud->id)}}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a> 
-                                        <a href="#" class="btn btn-danger" data-toggle='modal' data-target='#modalD' item_id="{{$aud->id}}" title="Eliminar"><i class="fa fa-trash"></i></a>
+                                        <a href="#" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$aud->id}}" title="Eliminar"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                             @endforeach

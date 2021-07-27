@@ -777,4 +777,232 @@ $(document).ready(function(){
         }
     })
 
+    //promedio del mes anterior de las auditorias de limpieza
+    $.ajax({
+        url: 'g_aud_limpieza',
+        type: 'GET',
+        data: {
+            aud_limpiza: true
+        },
+        success: function(result) {
+            //console.log(result)
+            var xy = JSON.parse(result);
+            //console.log(xy);
+            
+            //console.log(xy[0])
+            //console.log(key, values)
+            var x = [];
+            var y = [];
+
+            var f = new Date();
+            var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+            //saco la info con un json y agrego la info del mes anterior
+            for (let i = 0; i < xy['area'].length; i++) {
+                x.push(xy['area'][i]);
+                y.push(xy['total'][i]);
+                
+            }
+            
+            //console.log(x);
+            var data = [
+                {
+                x: x,
+                y: y,
+                type: 'bar',
+                text: y.map(String),
+                textposition: 'auto',
+                hoverinfo: 'none',
+                }
+            ];
+            
+            var config = {responsive: true}
+
+            var layout = {
+                title: '' + meses[xy['mes']],
+                yaxis: {
+                    title: 'Promedio',
+                },
+                xaxis: {
+                    title: 'Areas'
+                }
+                    
+            };
+            
+            Plotly.newPlot('promareanterior', data, layout, config);
+        
+        }
+        
+    })
+
+    //promedio del mes actual de las auditorias de limpieza
+    $.ajax({
+        url: 'g_aud_limpieza_actual',
+        type: 'GET',
+        data: {
+            aud_limpiza: true
+        },
+        success: function(result) {
+            //console.log(result)
+            var xy = JSON.parse(result);
+            //console.log(xy);
+            
+            //console.log(xy[0])
+            //console.log(key, values)
+            var x = [];
+            var y = [];
+
+            var f = new Date();
+            var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+            //saco la info con un json y agrego la info del mes anterior
+            for (let i = 0; i < xy['area'].length; i++) {
+                x.push(xy['area'][i]);
+                y.push(xy['total'][i]);
+                
+            }
+            
+            //console.log(x);
+            var data = [
+                {
+                x: x,
+                y: y,
+                type: 'bar',
+                text: y.map(String),
+                textposition: 'auto',
+                hoverinfo: 'none',
+                }
+            ];
+            
+            var config = {responsive: true}
+
+            var layout = {
+                title: '' + meses[xy['mes']],
+                yaxis: {
+                    title: 'Promedio',
+                },
+                xaxis: {
+                    title: 'Areas'
+                }
+                    
+            };
+            
+            Plotly.newPlot('promareactual', data, layout, config);
+        
+        }
+        
+    })
+
+    //promedio del mes anterior de las auditorias de limpieza por empleado
+    $.ajax({
+        url: 'g_aud_limpieza_encargado',
+        type: 'GET',
+        data: {
+            aud_limpiza: true
+        },
+        success: function(result) {
+            //console.log(result)
+            var xy = JSON.parse(result);
+            //console.log(xy);
+            
+            //console.log(xy[0])
+            //console.log(key, values)
+            var x = [];
+            var y = [];
+
+            var f = new Date();
+            var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+            //saco la info con un json y agrego la info del mes anterior
+            for (let i = 0; i < xy['area / personal'].length; i++) {
+                x.push(xy['area / personal'][i]);
+                y.push(xy['total'][i]);
+                
+            }
+            
+            //console.log(x);
+            var data = [
+                {
+                x: x,
+                y: y,
+                type: 'bar',
+                text: y.map(String),
+                textposition: 'auto',
+                hoverinfo: 'none',
+                }
+            ];
+            
+            var config = {responsive: true}
+
+            var layout = {
+                title: '' + meses[xy['mes']],
+                yaxis: {
+                    title: 'Promedio',
+                },
+                xaxis: {
+                    title: 'Areas / Personal'
+                }
+                    
+            };
+            
+            Plotly.newPlot('promareanteriorempleado', data, layout, config);
+        
+        }
+        
+    })
+
+    //pongo lo del mes anterior con lo de los personales jaja
+    $.ajax({
+        url: 'g_aud_limpieza_actual_personal',
+        type: 'GET',
+        data: {
+            aud_limpiza: true
+        },
+        success: function(result) {
+            //console.log(result)
+            var xy = JSON.parse(result);
+            //console.log(xy);
+            
+            //console.log(xy[0])
+            //console.log(key, values)
+            var x = [];
+            var y = [];
+
+            var f = new Date();
+            var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+            //saco la info con un json y agrego la info del mes anterior
+            for (let i = 0; i < xy['area / personal'].length; i++) {
+                x.push(xy['area / personal'][i]);
+                y.push(xy['total'][i]);
+                
+            }
+            
+            //console.log(x);
+            var data = [
+                {
+                x: x,
+                y: y,
+                type: 'bar',
+                text: y.map(String),
+                textposition: 'auto',
+                hoverinfo: 'none',
+                }
+            ];
+            
+            var config = {responsive: true}
+
+            var layout = {
+                title: '' + meses[xy['mes']],
+                yaxis: {
+                    title: 'Promedio',
+                },
+                xaxis: {
+                    title: 'Areas / Personal'
+                }
+                    
+            };
+            
+            Plotly.newPlot('promareactualempleado', data, layout, config);
+        
+        }
+        
+    })
+
 })

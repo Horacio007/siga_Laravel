@@ -42,6 +42,7 @@ class VehiculoController extends Controller
                                 //->where('id', '1203112020')
                                 ->orWhere('estatus_id', '7')
                                 ->orWhere('estatus_id','6')
+                                //->orWhere('estatus_id','6')
                                 ->orderBy('id_aux')
                                 ->get();
 
@@ -730,6 +731,10 @@ class VehiculoController extends Controller
             case 7:
                 $dias_rep = 0;
                 break;
+
+            case 8:
+                $dias_rep = 0;
+                break;
             
             default:
                 $dias_rep = "No esta en Taller o Transito";
@@ -754,7 +759,7 @@ class VehiculoController extends Controller
             $vehiculo->importe_piezas_vendidas = $request->importepzsvendidas;
             $vehiculo->porcentaje_aprobacion = $porcentaje;
             if ($request->pzscambioini == 0) {
-                $vehiculo->refacciones_id = 6;
+                $vehiculo->refacciones_id = 7;
             }
 
             if ($vehiculo->save()) {
@@ -773,7 +778,7 @@ class VehiculoController extends Controller
             $vehiculo->fecha_promesa = $dias_rep;
             $vehiculo->importe_piezas_vendidas = $request->importepzsvendidas;
             if ($request->pzscambioini == 0) {
-                $vehiculo->refacciones_id = 6;
+                $vehiculo->refacciones_id = 7;
             }
 
             if ($vehiculo->save()) {

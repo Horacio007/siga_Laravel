@@ -84,6 +84,10 @@ $(document).ready(function(){
             if (aData[1] == 'PT') {
                 $(nRow).find('td:eq(1)').css('background-color', '#FFF890');
             }
+
+            if (aData[1] == 'Pago de Daños') {
+                $(nRow).find('td:eq(1)').css('background-color', '#FFDC6D');
+            }
         }
     });
 })

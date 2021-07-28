@@ -55,6 +55,7 @@ class AlmacenController extends Controller
 
     public function index2()
     {
+        //AND ISNULL (almacen.fecha_llegada)
         $list_refacciones = DB::select("SELECT
                                             almacen.id,
                                             almacen.id_vehiculo,
@@ -79,7 +80,6 @@ class AlmacenController extends Controller
                                             estatusalmacen
                                         WHERE
                                             almacen.id_vehiculo = vehiculo.id
-                                        AND ISNULL (almacen.fecha_llegada)
                                         AND vehiculo.estatus_id != 7
                                         AND vehiculo.marca_id = modelosv.id
                                         AND vehiculo.linea_id = submarcav.id

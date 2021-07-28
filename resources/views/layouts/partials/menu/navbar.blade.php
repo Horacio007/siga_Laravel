@@ -75,6 +75,10 @@
                 <a class="dropdown-item" href="{{ route('lista_niveldano') }}" id="agregarNivel">Listado Nivel Daño</a>
                 <a class="dropdown-item" href="{{ route('lista_formaarribo') }}" id="agregarForma">Listado Forma de Arribo</a>
                 <a class="dropdown-item" href="{{ route('l_personal') }}" id="agregarForma">Listado Personal</a>
+                <a class="dropdown-item" href="{{ route('l_tipopago') }}" id="agregarForma">Listado Tipo Pago</a>
+                <a class="dropdown-item" href="{{ route('l_tiposervicio') }}" id="agregarForma">Listado Tipo Servicio</a>
+                <a class="dropdown-item" href="{{ route('l_sino') }}" id="agregarForma">Listado Si/No</a>
+                <a class="dropdown-item" href="{{ route('l_conceptopago') }}" id="agregarForma">Listado Conceptos Pago</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Costos</a>

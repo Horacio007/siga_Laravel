@@ -14,7 +14,13 @@ class TipoPagoController extends Controller
      */
     public function index()
     {
-        //
+        $list_tipo_pago = Tipo_pago::all();
+
+        return view('catalogos.tipo_pago.l_tipopago', compact('list_tipo_pago'));
+    }
+
+    public function i_tipopago(){
+        return view('catalogos.tipo_pago.i_tipopago');
     }
 
     /**
@@ -35,7 +41,21 @@ class TipoPagoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $r = Tipo_pago::where('tipo_pago', $request['tipo'])
+                        ->select('tipo_pago')
+                        ->get();
+
+        if ($r->isEmpty()) {
+            $tipo = new Tipo_pago;
+            $tipo->tipo_pago = $request->tipo;
+            if ($tipo->save()) {
+                return redirect()->route('l_tipopago')->with('success','Tipo Pago Registrado.');
+            } else {
+                return redirect()->route('l_tipopago')->with('error','Tipo Pago no Registrado.');
+            }
+        } else {
+            return back()->with('warning','El tipo de pago "'. $request['tipo'] .'" ya esta registrado.');
+        }
     }
 
     /**
@@ -57,7 +77,7 @@ class TipoPagoController extends Controller
      */
     public function edit(Tipo_pago $tipo_pago)
     {
-        //
+        return view('catalogos.tipo_pago.u_tipopago', compact('tipo_pago'));
     }
 
     /**
@@ -69,7 +89,16 @@ class TipoPagoController extends Controller
      */
     public function update(Request $request, Tipo_pago $tipo_pago)
     {
-        //
+        if ($tipo_pago->tipo_pago == $request->tipo) {
+            return redirect()->route('l_tipopago')->with('warning','No se Actualizo tipo pago "'. $request->tipo . '".');
+        } else {
+            $tipo_pago->tipo_pago = $request->tipo;
+            if ($tipo_pago->save()) {
+                return redirect()->route('l_tipopago')->with('success','Tipo Pago Actualizado.');
+            } else {
+                return redirect()->route('l_tipopago')->with('error','Tipo Pago no Actualizado.');
+            }
+        }
     }
 
     /**
@@ -80,6 +109,10 @@ class TipoPagoController extends Controller
      */
     public function destroy(Tipo_pago $tipo_pago)
     {
-        //
+        if ($tipo_pago->delete()) {
+            return redirect()->route('l_tipopago')->with('success','Tipo Pago Eliminado.');
+        } else {
+            return redirect()->route('l_tipopago')->with('error','Tipo Pago no Eliminado.');
+        }
     }
 }

@@ -14,7 +14,13 @@ class TipoServicioController extends Controller
      */
     public function index()
     {
-        //
+        $list_tipo_servicio = Tipo_servicio::all();
+
+        return view('catalogos.tipo_servicio.l_tiposervicio', compact('list_tipo_servicio'));
+    }
+
+    public function i_tiposervicio(){
+        return view('catalogos.tipo_servicio.i_tiposervicio');
     }
 
     /**
@@ -35,7 +41,21 @@ class TipoServicioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $r = Tipo_servicio::where('tipo_servicio', $request['tipo'])
+                        ->select('tipo_servicio')
+                        ->get();
+
+        if ($r->isEmpty()) {
+            $tipo = new Tipo_servicio;
+            $tipo->tipo_servicio = $request->tipo;
+            if ($tipo->save()) {
+                return redirect()->route('l_tiposervicio')->with('success','Tipo Servicio Registrado.');
+            } else {
+                return redirect()->route('l_tiposervicio')->with('error','Tipo Servicio no Registrado.');
+            }
+        } else {
+            return back()->with('warning','El tipo de servicio "'. $request['tipo'] .'" ya esta registrado.');
+        }
     }
 
     /**
@@ -57,7 +77,7 @@ class TipoServicioController extends Controller
      */
     public function edit(Tipo_servicio $tipo_servicio)
     {
-        //
+        return view('catalogos.tipo_servicio.u_tiposervicio', compact('tipo_servicio'));
     }
 
     /**
@@ -69,7 +89,16 @@ class TipoServicioController extends Controller
      */
     public function update(Request $request, Tipo_servicio $tipo_servicio)
     {
-        //
+        if ($tipo_servicio->tipo_servicio == $request->tipo) {
+            return redirect()->route('l_tiposervicio')->with('warning','No se Actualizo tipo servicio "'. $request->tipo . '".');
+        } else {
+            $tipo_servicio->tipo_servicio = $request->tipo;
+            if ($tipo_servicio->save()) {
+                return redirect()->route('l_tiposervicio')->with('success','Tipo Servicio Actualizado.');
+            } else {
+                return redirect()->route('l_tiposervicio')->with('error','Tipo Servicio no Actualizado.');
+            }
+        }
     }
 
     /**
@@ -80,6 +109,10 @@ class TipoServicioController extends Controller
      */
     public function destroy(Tipo_servicio $tipo_servicio)
     {
-        //
+        if ($tipo_servicio->delete()) {
+            return redirect()->route('l_tiposervicio')->with('success','Tipo Servicio Eliminado.');
+        } else {
+            return redirect()->route('l_tiposervicio')->with('error','Tipo Servicio no Eliminado.');
+        }
     }
 }

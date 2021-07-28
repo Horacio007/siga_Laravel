@@ -14,7 +14,13 @@ class ConceptosPagosController extends Controller
      */
     public function index()
     {
-        //
+        $list_conceptos_pagos = Conceptos_pagos::all();
+
+        return view('catalogos.conceptos_pagos.l_conceptos_pagos', compact('list_conceptos_pagos'));
+    }
+
+    public function i_conceptopago(){
+        return view('catalogos.conceptos_pagos.i_conceptos_pagos');
     }
 
     /**
@@ -35,7 +41,21 @@ class ConceptosPagosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $r = Conceptos_pagos::where('concepto_pago', $request['tipo'])
+                        ->select('concepto_pago')
+                        ->get();
+
+        if ($r->isEmpty()) {
+            $tipo = new Conceptos_pagos;
+            $tipo->concepto_pago = $request->tipo;
+            if ($tipo->save()) {
+                return redirect()->route('l_conceptopago')->with('success','Concepto Pago Registrado.');
+            } else {
+                return redirect()->route('l_conceptopago')->with('error','Concepto Pago no Registrado.');
+            }
+        } else {
+            return back()->with('warning','El concepto de pago "'. $request['tipo'] .'" ya esta registrado.');
+        }
     }
 
     /**

@@ -54,6 +54,7 @@ $(document).ready(function(){
 
     });
 
+    
     $("#list_conp tbody tr").on('click', '.delete', function(){
         let area_id = $(this).attr('item_id');
         let area = $(this).parents("tr").find('td').eq(1).html();

@@ -34,7 +34,7 @@
                             <tr>
                                 <td>{{$conp->id}}</td>
                                 <td>{{$conp->concepto_pago}}</td>
-                                <td><a href="{{ route('u_area', $conp->id)}}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a> 
+                                <td><a href="{{ route('u_conceptopago', $conp->id)}}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a> 
                                 <a href="" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$conp->id}}" title="Eliminar"><i class="fa fa-trash"></i></a></td>
                             </tr>
                             @endforeach
@@ -60,9 +60,9 @@
                     <h5 class="modal-title" id="exampleModalLabel">¿Se eliminara?</h5>
                 </div>
                     <div class="modal-body">
-                        <form action="{{route('d_area', 'delete_item')}}" method="post" id="modal_delete">
+                        <form action="{{route('d_conceptopago', 'delete_item')}}" method="post" id="modal_delete">
                             @csrf
-                            <label for="">Area</label>
+                            <label for="">Concepto Pago</label>
                             <input type="text" id="iarea" class="form-control" readonly>
                         </form>
                     </div>

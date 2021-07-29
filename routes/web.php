@@ -359,6 +359,9 @@ Route::get('/', function () {
         Route::get('l_conceptopago', 'ConceptosPagosController@index')->name('l_conceptopago');
         Route::get('i_conceptopago', 'ConceptosPagosController@i_conceptopago')->name('i_conceptopago');
         Route::post('i_conceptopago', 'ConceptosPagosController@store');
+        Route::get('/u_conceptopago/{conceptos_pagos}', 'ConceptosPagosController@edit')->name('u_conceptopago');
+        Route::post('/u_conceptopago/{conceptos_pagos}', 'ConceptosPagosController@update');
+        Route::post('/d_conceptopago/{conceptos_pagos}', 'ConceptosPagosController@destroy')->name('d_conceptopago');
     //endConceptos_pagos
 //endCatalogos
     

@@ -77,7 +77,7 @@ class ConceptosPagosController extends Controller
      */
     public function edit(Conceptos_pagos $conceptos_pagos)
     {
-        //
+        return view('catalogos.conceptos_pagos.u_conceptos_pagos', compact('conceptos_pagos'));
     }
 
     /**
@@ -89,7 +89,16 @@ class ConceptosPagosController extends Controller
      */
     public function update(Request $request, Conceptos_pagos $conceptos_pagos)
     {
-        //
+        if ($conceptos_pagos->concepto_pago == $request->tipo) {
+            return redirect()->route('l_conceptopago')->with('warning','No se Actualizo concepto pago "'. $request->tipo . '".');
+        } else {
+            $conceptos_pagos->concepto_pago = $request->tipo;
+            if ($conceptos_pagos->save()) {
+                return redirect()->route('l_conceptopago')->with('success','Concepto Pago Actualizado.');
+            } else {
+                return redirect()->route('l_conceptopago')->with('error','Concepto Pago no Actualizado.');
+            }
+        }
     }
 
     /**

@@ -1,23 +1,23 @@
 $(document).ready(function(){
 
-    $('#list_conp').DataTable({
+    $('#list_gastos').DataTable({
         dom: 'Blfrtip',
         buttons: [{
                 extend: 'excelHtml5',
                 messageTop: 'Areas',
                 text: "Excel",
-                title: "Listado de Conceptos de Pago",
+                title: "Listado de Gastos",
             },
             {
                 /*'csvHtml5',*/
                 extend: 'csvHtml5',
                 text: "CSV",
-                title: "Listado de Conceptos de Pago",
-                messageTop: 'Listado de Conceptos de Pago',
+                title: "Listado de Gastos",
+                messageTop: 'Listado de Gastos',
             },
             {
                 extend: 'pdfHtml5',
-                title: 'Listado de Conceptos de Pago'
+                title: 'Listado de Gastos'
             }
         ],
         responsive: true,
@@ -51,11 +51,11 @@ $(document).ready(function(){
                         }
         },
         select: true,
-
+        pageLength: 100
     });
 
     
-    $("#list_conp").on('click', '.delete', function(){
+    $("#list_gastos").on('click', '.delete', function(){
         let area_id = $(this).attr('item_id');
         let area = $(this).parents("tr").find('td').eq(1).html();
         $("#iarea").val(area);

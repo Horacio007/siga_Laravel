@@ -109,6 +109,10 @@ class ConceptosPagosController extends Controller
      */
     public function destroy(Conceptos_pagos $conceptos_pagos)
     {
-        //
+        if ($conceptos_pagos->delete()) {
+            return redirect()->route('l_conceptopago')->with('success','Concepto Pago Eliminado.');
+        } else {
+            return redirect()->route('l_conceptopago')->with('error','Concepto Pago no Eliminado.');
+        }
     }
 }

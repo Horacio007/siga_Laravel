@@ -79,11 +79,12 @@
                 <a class="dropdown-item" href="{{ route('l_tiposervicio') }}" id="agregarForma">Listado Tipo Servicio</a>
                 <a class="dropdown-item" href="{{ route('l_sino') }}" id="agregarForma">Listado Si/No</a>
                 <a class="dropdown-item" href="{{ route('l_conceptopago') }}" id="agregarForma">Listado Conceptos Pago</a>
+                <a class="dropdown-item" href="{{ route('l_formapago') }}" id="agregarForma">Listado Forma Pago</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Costos</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#" id="gastos">Cargar Gastos</a>
+                <a class="dropdown-item" href="{{ route('l_gastos') }}" id="gastos">Listado Gastos</a>
                 <a class="dropdown-item" href="#" id="a_gastos">Resumen Gastos</a>
                 <a class="dropdown-item" href="#" id="tipogmes">Tipo Gasto por Mes</a>
                 <a class="dropdown-item" href="#" id="hisgastos">Historico de Gastos</a>

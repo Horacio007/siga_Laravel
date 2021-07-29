@@ -8,35 +8,50 @@
             @csrf
             <div class="row">
                 <div class="col text-center">
-                    <h3>Listado de Conceptos de Pagos</h3>
+                    <h3>Listado de Gastos</h3>
                 </div>
             </div>
             <br>
             <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <a href="{{url('/i_conceptopago')}}" class="btn btn-info">Registrar</a>
+                <div class="col-md">
+                    <a href="{{url('/i_gastos')}}" class="btn btn-info">Registrar</a>
                 </div>
-                <div class="col-md-3"></div>
             </div>
             <br>
             <div class="row">
-                <div class="col-md-3"></div>
-                <div class="col-md-6">
-                    <table id="list_conp" class="table table-striped table-bordered" border="0">
+                <div class="col-md">
+                    <table id="list_gastos" class="table table-striped table-bordered" border="0">
                         <thead class="text-capitalize">
                             <th scope="col">#</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Acciones</th>
+                            <th>Fecha</th>
+                            <th>Articulo</th>
+                            <th>Cantidad</th>
+                            <th>Forma Pago</th>
+                            <th>Factura</th>
+                            <th>Tipo Gasto</th>
+                            <th>Proveedor</th>
+                            <th>Expediente</th>
+                            <td>Acciones</td>
                         </thead>
                         <tbody class="">
-                            @foreach ($list_conceptos_pagos as $conp)
+                            @foreach ($list_gastos as $gasto)
                             <tr>
-                                <td>{{$conp->id}}</td>
-                                <td>{{$conp->concepto_pago}}</td>
-                                <td><a href="{{ route('u_conceptopago', $conp->id)}}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a> 
-                                    <a href="#" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$conp->id}}" title="Eliminar"><i class="fa fa-trash"></i></a>
-                                </td>
+                                <td>{{$gasto->id}}</td>
+                                <td>{{$gasto->fecha}}</td>
+                                <td>{{$gasto->articulos}}</td>
+                                <td>{{$gasto->gastos}}</td>
+                                <td>{{$gasto->forma_pagos->forma_pago}}</td>
+                                <td>{{$gasto->facturas->nombre}}</td>
+                                <td>{{$gasto->concepto_pagos->concepto_pago}}</td>
+                                <td>{{$gasto->proveedor}}</td>
+                                @if ($gasto->expedientes->id > 0)
+                                    <td>{{$gasto->expedientes->id}}</td>
+                                @else
+                                    <td>N/A</td>
+                                @endif
+                                
+                                <td><a href="{{ route('u_area', $gasto->id)}}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a> 
+                                <a href="" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$gasto->id}}" title="Eliminar"><i class="fa fa-trash"></i></a></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -51,7 +66,7 @@
     <script type="text/javascript" src="{{ asset('/libs/DataTables/Buttons-1.7.1/js/dataTables.buttons.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/libs/DataTables/Buttons-1.7.1/js/buttons.html5.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/libs/DataTables/Responsive-2.2.9/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('/js/catalogos/conceptos_pagos/conceptos_pagos.js') }}"></script>
+    <script src="{{ asset('/js/costos/gastos/l_gastos.js') }}"></script>
 
     <!-- Modal -->
     <div class="modal fade" id="modalD" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -61,9 +76,9 @@
                     <h5 class="modal-title" id="exampleModalLabel">¿Se eliminara?</h5>
                 </div>
                     <div class="modal-body">
-                        <form action="{{route('d_conceptopago', 'delete_item')}}" method="post" id="modal_delete">
+                        <form action="{{route('d_area', 'delete_item')}}" method="post" id="modal_delete">
                             @csrf
-                            <label for="">Concepto Pago</label>
+                            <label for="">Area</label>
                             <input type="text" id="iarea" class="form-control" readonly>
                         </form>
                     </div>

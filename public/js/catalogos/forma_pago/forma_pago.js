@@ -1,23 +1,23 @@
 $(document).ready(function(){
 
-    $('#list_conp').DataTable({
+    $('#list_formap').DataTable({
         dom: 'Blfrtip',
         buttons: [{
                 extend: 'excelHtml5',
                 messageTop: 'Areas',
                 text: "Excel",
-                title: "Listado de Conceptos de Pago",
+                title: "Listado de Forma de Pago",
             },
             {
                 /*'csvHtml5',*/
                 extend: 'csvHtml5',
                 text: "CSV",
-                title: "Listado de Conceptos de Pago",
-                messageTop: 'Listado de Conceptos de Pago',
+                title: "Listado de Forma de Pago",
+                messageTop: 'Listado de Forma de Pago',
             },
             {
                 extend: 'pdfHtml5',
-                title: 'Listado de Conceptos de Pago'
+                title: 'Listado de Forma de Pago'
             }
         ],
         responsive: true,
@@ -55,7 +55,7 @@ $(document).ready(function(){
     });
 
     
-    $("#list_conp").on('click', '.delete', function(){
+    $("#list_formap").on('click', '.delete', function(){
         let area_id = $(this).attr('item_id');
         let area = $(this).parents("tr").find('td').eq(1).html();
         $("#iarea").val(area);

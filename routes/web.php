@@ -283,41 +283,41 @@ Route::get('/', function () {
         Route::post('/d_estatus/{estatus}', 'EstatusController@destroy')->name('d_estatus');
     //endEstatus
 
-    //Nivel_dano
+    //NivelDano
         Route::get('l_niveldano', 'NivelDanoController@index')->name('lista_niveldano');
         Route::get('i_niveldano', 'NivelDanoController@i_niveldano')->name('i_niveldano');
         Route::post('/i_niveldano', 'NivelDanoController@store');
         Route::get('/u_niveldano/{nivel_dano}', 'NivelDanoController@edit')->name('u_niveldano');
         Route::post('/u_niveldano/{nivel_dano}', 'NivelDanoController@update');
         Route::post('/d_niveldano/{nivel_dano}', 'NivelDanoController@destroy')->name('d_niveldano');
-    //endNivel_dano
+    //endNivelDano
 
-    //Forma_aribo
+    //FormaAribo
         Route::get('l_formaarribo', 'FormaAriboController@index')->name('lista_formaarribo');
         Route::get('i_formaarribo', 'FormaAriboController@i_formaarribo')->name('i_formaarribo');
         Route::post('/i_formaarribo', 'FormaAriboController@store');
         Route::get('/u_formaarribo/{forma_aribo}', 'FormaAriboController@edit')->name('u_formaarribo');
         Route::post('/u_formaarribo/{forma_aribo}', 'FormaAriboController@update');
         Route::post('/d_formaarribo/{forma_aribo}', 'FormaAriboController@destroy')->name('d_formaarribo');
-    //endForma_aribo
+    //endFormaAribo
 
-    //Estatus_Refacciones
+    //EstatusRefacciones
         Route::get('l_estatusalm', 'EstatusalmacenController@index')->name('lista_estatusalm');
         Route::get('i_estatusalm', 'EstatusalmacenController@i_estatusalm')->name('i_estatusalm');
         Route::post('/i_estatusalm', 'EstatusalmacenController@store');
         Route::get('/u_estatusalm/{estatusalmacen}', 'EstatusalmacenController@edit')->name('u_estatusalm');
         Route::post('/u_estatusalm/{estatusalmacen}', 'EstatusalmacenController@update');
         Route::post('/d_estatusalm/{estatusalmacen}', 'EstatusalmacenController@destroy')->name('d_estatusalm');
-    //endEstatus_Refacciones
+    //endEstatusRefacciones
 
-    //Estatus_de_las_refacciones
+    //EstatusdDeLasRefacciones
         Route::get('l_estatusrefas', 'EstatusrefaccionesController@index')->name('l_estatusrefas');
         Route::get('i_estatusref', 'EstatusrefaccionesController@i_estatusref')->name('i_estatusref');
         Route::post('/i_estatusref', 'EstatusrefaccionesController@store');
         Route::get('/u_estatusref/{estatusrefacciones}', 'EstatusrefaccionesController@edit')->name('u_estatusref');
         Route::post('/u_estatusref/{estatusrefacciones}', 'EstatusrefaccionesController@update');
         Route::post('/d_estatusref/{estatusrefacciones}', 'EstatusrefaccionesController@destroy')->name('d_estatusref');
-    //endEstatus_de_las_refacciones
+    //endEstatusdDeLasRefacciones
 
     //Personal
         Route::get('l_personal', 'PersonalController@index')->name('l_personal');
@@ -328,42 +328,58 @@ Route::get('/', function () {
         Route::post('/d_personal/{personal}', 'PersonalController@destroy')->name('d_personal');
     //endPersonal
 
-    //Tipo_pago
+    //TipoPago
         Route::get('l_tipopago', 'TipoPagoController@index')->name('l_tipopago');
         Route::get('i_tipopago', 'TipoPagoController@i_tipopago')->name('i_tipopago');
         Route::post('i_tipopago', 'TipoPagoController@store');
         Route::get('/u_tipopago/{tipo_pago}', 'TipoPagoController@edit')->name('u_tipopago');
         Route::post('/u_tipopago/{tipo_pago}', 'TipoPagoController@update');
         Route::post('/d_tipopago/{tipo_pago}', 'TipoPagoController@destroy')->name('d_tipopago');
-    //endTipo_pago
+    //endTipoPago
 
-    //Tipo_servicio
+    //TipoServicio
         Route::get('l_tiposervicio', 'TipoServicioController@index')->name('l_tiposervicio');
         Route::get('i_tiposervicio', 'TipoServicioController@i_tiposervicio')->name('i_tiposervicio');
         Route::post('i_tiposervicio', 'TipoServicioController@store');
         Route::get('/u_tiposervicio/{tipo_servicio}', 'TipoServicioController@edit')->name('u_tiposervicio');
         Route::post('/u_tiposervicio/{tipo_servicio}', 'TipoServicioController@update');
         Route::post('/d_tiposervicio/{tipo_servicio}', 'TipoServicioController@destroy')->name('d_tiposervicio');
-    //endTipo_servicio
+    //endTipoServicio
 
-    //Si_no
+    //SiNo
         Route::get('l_sino', 'SiNoController@index')->name('l_sino');
         Route::get('i_sino', 'SiNoController@i_sino')->name('i_sino');
         Route::post('i_sino', 'SiNoController@store');
         Route::get('/u_sino/{si_no}', 'SiNoController@edit')->name('u_sino');
         Route::post('/u_sino/{si_no}', 'SiNoController@update');
         Route::post('/d_sino/{si_no}', 'SiNoController@destroy')->name('d_sino');
-    //endSi_no
+    //endSiNo
 
-    //Conceptos_pagos
+    //ConceptosPagos
         Route::get('l_conceptopago', 'ConceptosPagosController@index')->name('l_conceptopago');
         Route::get('i_conceptopago', 'ConceptosPagosController@i_conceptopago')->name('i_conceptopago');
         Route::post('i_conceptopago', 'ConceptosPagosController@store');
         Route::get('/u_conceptopago/{conceptos_pagos}', 'ConceptosPagosController@edit')->name('u_conceptopago');
         Route::post('/u_conceptopago/{conceptos_pagos}', 'ConceptosPagosController@update');
         Route::post('/d_conceptopago/{conceptos_pagos}', 'ConceptosPagosController@destroy')->name('d_conceptopago');
-    //endConceptos_pagos
+    //endConceptosPagos
+
+    //FormaPago
+        Route::get('l_formapago', 'FormaPagoController@index')->name('l_formapago');
+        Route::get('i_formapago', 'FormaPagoController@i_formapago')->name('i_formapago');
+        Route::post('i_formapago', 'FormaPagoController@store');
+        Route::get('/u_formapago/{forma_pago}', 'FormaPagoController@edit')->name('u_formapago');
+        Route::post('/u_formapago/{forma_pago}', 'FormaPagoController@update');
+        Route::post('/d_formapago/{forma_pago}', 'FormaPagoController@destroy')->name('d_formapago');
+    //endFormaPago
 //endCatalogos
+
+//Costos
+    //Gastos
+        Route::get('l_gastos', 'GastosController@index')->name('l_gastos');
+        Route::get('i_gastos', 'GastosController@create')->name('i_gastos');
+    //endGastos
+//endCostos
     
 //Auditorias
     //Limpieza

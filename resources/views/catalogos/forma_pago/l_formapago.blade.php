@@ -8,14 +8,14 @@
             @csrf
             <div class="row">
                 <div class="col text-center">
-                    <h3>Listado de Conceptos de Pagos</h3>
+                    <h3>Listado de Forma de Pago</h3>
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <a href="{{url('/i_conceptopago')}}" class="btn btn-info">Registrar</a>
+                    <a href="{{url('/i_formapago')}}" class="btn btn-info">Registrar</a>
                 </div>
                 <div class="col-md-3"></div>
             </div>
@@ -23,19 +23,19 @@
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <table id="list_conp" class="table table-striped table-bordered" border="0">
+                    <table id="list_formap" class="table table-striped table-bordered" border="0">
                         <thead class="text-capitalize">
                             <th scope="col">#</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Acciones</th>
                         </thead>
                         <tbody class="">
-                            @foreach ($list_conceptos_pagos as $conp)
+                            @foreach ($list_formapago as $pago)
                             <tr>
-                                <td>{{$conp->id}}</td>
-                                <td>{{$conp->concepto_pago}}</td>
-                                <td><a href="{{ route('u_conceptopago', $conp->id)}}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a> 
-                                    <a href="#" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$conp->id}}" title="Eliminar"><i class="fa fa-trash"></i></a>
+                                <td>{{$pago->id}}</td>
+                                <td>{{$pago->forma_pago}}</td>
+                                <td><a href="{{ route('u_formapago', $pago->id)}}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a> 
+                                    <a href="#" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$pago->id}}" title="Eliminar"><i class="fa fa-trash"></i></a>
                                 </td>
                             </tr>
                             @endforeach
@@ -51,7 +51,7 @@
     <script type="text/javascript" src="{{ asset('/libs/DataTables/Buttons-1.7.1/js/dataTables.buttons.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/libs/DataTables/Buttons-1.7.1/js/buttons.html5.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/libs/DataTables/Responsive-2.2.9/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('/js/catalogos/conceptos_pagos/conceptos_pagos.js') }}"></script>
+    <script src="{{ asset('/js/catalogos/forma_pago/forma_pago.js') }}"></script>
 
     <!-- Modal -->
     <div class="modal fade" id="modalD" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -61,7 +61,7 @@
                     <h5 class="modal-title" id="exampleModalLabel">¿Se eliminara?</h5>
                 </div>
                     <div class="modal-body">
-                        <form action="{{route('d_conceptopago', 'delete_item')}}" method="post" id="modal_delete">
+                        <form action="{{route('d_formapago', 'delete_item')}}" method="post" id="modal_delete">
                             @csrf
                             <label for="">Concepto Pago</label>
                             <input type="text" id="iarea" class="form-control" readonly>

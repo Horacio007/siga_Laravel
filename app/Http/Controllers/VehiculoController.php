@@ -1895,6 +1895,33 @@ class VehiculoController extends Controller
         }
     }
 
+    public function get_idV(Request $request){
+        if ($request->id == 'N/A') {
+            return 'N/A';
+        } else {
+            $expediente = DB::select('SELECT id FROM vehiculo WHERE id LIKE '%$request->id%'');
+            return  $expediente;
+        }
+    }
+
+    public function existe_vehiculo_gastos(Request $request){
+        $id = intval($request->id);
+
+        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+                            ->where('id', 'LIKE', "%$id%")
+                            ->select('modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'estatus_id')
+                            ->first();
+        //return response()->json($vehiculo);
+        if ($vehiculo != null) {
+            return response()->json($vehiculo);
+        } else {
+            $val = array(
+                'resultado' => 0
+            );
+            return response()->json($val);
+        }
+    }
+
     /**
      * Display the specified resource.
      *

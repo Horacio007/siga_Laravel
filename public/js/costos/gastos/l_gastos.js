@@ -57,8 +57,10 @@ $(document).ready(function(){
     
     $("#list_gastos").on('click', '.delete', function(){
         let area_id = $(this).attr('item_id');
-        let area = $(this).parents("tr").find('td').eq(1).html();
-        $("#iarea").val(area);
+        let fecha = $(this).parents("tr").find('td').eq(1).html();
+        let articulo = $(this).parents("tr").find('td').eq(2).html();
+        let cantidad = $(this).parents("tr").find('td').eq(3).html();
+        $("#iarea").val(fecha + ' ' + articulo + ' ' + '$' + cantidad);
 
         let old_url = $("#modal_delete").attr('action');
         let new_url = old_url.replace('delete_item', area_id);

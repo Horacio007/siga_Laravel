@@ -13,8 +13,11 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-md">
+                <div class="col-md-1">
                     <a href="{{url('/i_gastos')}}" class="btn btn-info">Registrar</a>
+                </div>
+                <div class="col-md-1">
+                    <a href="{{url('/h_gastos')}}" class="btn btn-success">Grafico</a>
                 </div>
             </div>
             <br>
@@ -50,7 +53,7 @@
                                     <td>N/A</td>
                                 @endif
                                 
-                                <td><a href="{{ route('u_area', $gasto->id)}}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a> 
+                                <td><a href="{{ route('u_gastos', $gasto->id)}}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a> 
                                 <a href="" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$gasto->id}}" title="Eliminar"><i class="fa fa-trash"></i></a></td>
                             </tr>
                             @endforeach
@@ -70,15 +73,15 @@
 
     <!-- Modal -->
     <div class="modal fade" id="modalD" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-md">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">¿Se eliminara?</h5>
                 </div>
                     <div class="modal-body">
-                        <form action="{{route('d_area', 'delete_item')}}" method="post" id="modal_delete">
+                        <form action="{{route('d_gastos', 'delete_item')}}" method="post" id="modal_delete">
                             @csrf
-                            <label for="">Area</label>
+                            <label for="">Gasto</label>
                             <input type="text" id="iarea" class="form-control" readonly>
                         </form>
                     </div>

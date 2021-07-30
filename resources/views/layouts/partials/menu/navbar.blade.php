@@ -85,9 +85,6 @@
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Costos</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route('l_gastos') }}" id="gastos">Listado Gastos</a>
-                <a class="dropdown-item" href="#" id="a_gastos">Resumen Gastos</a>
-                <a class="dropdown-item" href="#" id="tipogmes">Tipo Gasto por Mes</a>
-                <a class="dropdown-item" href="#" id="hisgastos">Historico de Gastos</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ingresos</a>

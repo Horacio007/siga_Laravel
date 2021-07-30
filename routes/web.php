@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -378,6 +379,14 @@ Route::get('/', function () {
     //Gastos
         Route::get('l_gastos', 'GastosController@index')->name('l_gastos');
         Route::get('i_gastos', 'GastosController@create')->name('i_gastos');
+        Route::get('/get_idV', 'VehiculoController@get_idV');
+        Route::get('/existe_vehiculo_gastos', 'VehiculoController@existe_vehiculo_gastos');
+        Route::post('i_gastos', 'GastosController@store');
+        Route::get('/u_gastos/{gastos}', 'GastosController@edit')->name('u_gastos');
+        Route::post('/u_gastos/{gastos}', 'GastosController@update');
+        Route::post('/d_gastos/{gastos}', 'GastosController@destroy')->name('d_gastos');
+        Route::get('/g_tipo_gasto_mes', 'GastosController@g_tipo_gasto_mes');
+        Route::get('/h_gastos', 'GastosController@h_gastos')->name('h_gastos');
     //endGastos
 //endCostos
     

@@ -15,15 +15,15 @@
             <div class="row">
                 <div class="col-md-3">
                     <label for="">Fecha</label>
-                    <input type="date" id="fecha" class="form-control" required>
+                    <input type="date" name="fecha" id="fecha" class="form-control" required>
                 </div>
                 <div class="col-md-3">
                     <label for="">Articulos</label>
-                    <input type="text" id="articulo" class="form-control" placeholder="Ingresa el articulo..." required>
+                    <input type="text" name="articulo" id="articulo" class="form-control" placeholder="Ingresa el articulo..." required>
                 </div>
                 <div class="col-md-3">
                     <label for="">Cantidad</label>
-                    <input type="text" name="" id="cantidad" class="form-control" placeholder="Ingresa la cantidad..." required>
+                    <input type="text" name="cantidad" id="cantidad" class="form-control" placeholder="Ingresa la cantidad..." required>
                 </div>
                 <div class="col-md-3">
                     <label for="">Forma de Pago</label>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="col-md-3">
                     <label for="">Tipo de Gasto</label>
-                    <select name="gasto" id="cpago" class="form-control">
+                    <select name="gasto" id="cpago" class="form-control" required>
                         <option value="0">Seleccion Concepto de Pago:</option>
                         @foreach ($conceptos_pago as $concepto)
                             <option value="{{$concepto->id}}">{{$concepto->concepto_pago}}</option>
@@ -57,13 +57,13 @@
                 </div>
                 <div class="col-md-3">
                     <label for="">Proveedor</label>
-                    <input type="text" id="proveedor" class="form-control" placeholder="Ingrese Proveedor..." required>
+                    <input type="text" name="proveedor" id="proveedor" class="form-control" placeholder="Ingrese Proveedor..." required>
                 </div>
                 <div class="col-md-3">
                     <label for="">Expediente</label>
-                    <input type="text" id="expediente" class="form-control" placeholder="Ingrese el numero de expediente" required>
-                    <div id="expp" class="text-center">
-                        <label for="" id="exp"></label>
+                    <input type="text" name="expediente" id="expediente" class="form-control" placeholder="Ingrese el numero de expediente" required>
+                    <div id="inf" class="text-center">
+                        <label for="" id="info"></label>
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
             <div class="row">
                 <div class="col-md-4"></div>
                 <div class="col-md-4">
-                    <button type="button" class="btn btn-primary btn-lg btn-block" id="btn_registrar">Registrar</button>
+                    <button type="submit" class="btn btn-primary btn-lg btn-block" id="btn_registrar">Registrar</button>
                 </div>
                 <div class="col-md-4"></div>
             </div>

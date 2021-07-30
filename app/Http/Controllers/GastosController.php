@@ -7,6 +7,7 @@ use App\Models\Gastos;
 use App\Models\Vehiculo;
 use App\Models\si_no;
 use App\Models\Conceptos_pagos;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class GastosController extends Controller
@@ -55,7 +56,22 @@ class GastosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request);
+        $gasto = new Gastos();
+        $gasto->fecha = $request->fecha;
+        $gasto->articulos = $request->articulo;
+        $gasto->gastos = $request->cantidad;
+        $gasto->forma_pago = $request->forma_pago; 
+        $gasto->factura = $request->sfactura;
+        $gasto->tipo = $request->gasto;
+        $gasto->proveedor = $request->proveedor;
+        $gasto->expediente = $request->expediente;
+
+        if ($gasto->save()) {
+            return redirect()->route('l_gastos')->with('success','Gasto Registrado.');
+        } else {
+            return redirect()->route('l_gastos')->with('error','Gasto no Registrado.');
+        }
     }
 
     /**
@@ -77,7 +93,11 @@ class GastosController extends Controller
      */
     public function edit(Gastos $gastos)
     {
-        //
+        //dd($gastos);
+        $sino = si_no::all();
+        $conceptos_pago = Conceptos_pagos::all();
+        $forma_pago = Forma_pago::all();
+        return view('costos.gastos.u_gastos', compact(['gastos', 'sino', 'conceptos_pago', 'forma_pago']));
     }
 
     /**
@@ -89,7 +109,20 @@ class GastosController extends Controller
      */
     public function update(Request $request, Gastos $gastos)
     {
-        //
+        $gastos->fecha = $request->fecha;
+        $gastos->articulos = $request->articulo;
+        $gastos->gastos = $request->cantidad;
+        $gastos->forma_pago = $request->forma_pago; 
+        $gastos->factura = $request->sfactura;
+        $gastos->tipo = $request->gasto;
+        $gastos->proveedor = $request->proveedor;
+        $gastos->expediente = $request->expediente;
+
+        if ($gastos->save()) {
+            return redirect()->route('l_gastos')->with('success','Gasto Actualizado.');
+        } else {
+            return redirect()->route('l_gastos')->with('error','Gasto no Actualizado.');
+        }
     }
 
     /**
@@ -100,6 +133,183 @@ class GastosController extends Controller
      */
     public function destroy(Gastos $gastos)
     {
-        //
+        if ($gastos->delete()) {
+            return redirect()->route('l_gastos')->with('success','Gasto Eliminado.');
+        } else {
+            return redirect()->route('l_gastos')->with('error','Gasto no Eliminado.');
+        }
+    }
+
+    public function h_gastos(){
+        return view('costos.historico_gastos.g_gastosmos');
+    }
+
+    public function g_tipo_gasto_mes(Request $request){
+        if (isset($request->tpgmes)) {
+            $renta = DB::select('SELECT 
+                                    tipo, 
+                                    SUM(gastos) as gastos 
+                                FROM 
+                                    gastos
+                                WHERE 
+                                    tipo = 1 
+                                AND MONTH(fecha) = MONTH(NOW()) 
+                                ');
+
+            $impuesto = DB::select('SELECT 
+                                        tipo, 
+                                        SUM(gastos) as gastos 
+                                    FROM 
+                                        gastos 
+                                    WHERE 
+                                        tipo = 2 
+                                    AND MONTH(fecha) = MONTH(NOW()) 
+                                    ');
+
+            $nomina = DB::select('SELECT 
+                                    tipo, 
+                                    SUM(gastos) as gastos 
+                                FROM 
+                                    gastos 
+                                WHERE 
+                                    tipo = 3 
+                                AND MONTH(fecha) = MONTH(NOW()) 
+                                ');
+
+            $equipo = DB::select('SELECT 
+                                    tipo, 
+                                    SUM(gastos) as gastos 
+                                FROM 
+                                    gastos 
+                                WHERE 
+                                    tipo = 4 
+                                AND MONTH(fecha) = MONTH(NOW()) 
+                                ');
+
+            $materiales_acabado = DB::select('SELECT 
+                                                tipo, 
+                                                SUM(gastos) as gastos   
+                                            FROM 
+                                                gastos 
+                                            WHERE 
+                                                tipo = 5 
+                                            AND MONTH(fecha) = MONTH(NOW()) 
+                                            ');
+
+            $refacciones = DB::select('SELECT 
+                                        tipo, 
+                                        SUM(gastos) as gastos 
+                                    FROM 
+                                        gastos 
+                                    WHERE 
+                                        tipo = 6 
+                                    AND MONTH(fecha) = MONTH(NOW()) 
+                                    ');
+
+            $servicios = DB::select('SELECT 
+                                        tipo, 
+                                        SUM(gastos) as gastos 
+                                    FROM 
+                                        gastos 
+                                    WHERE 
+                                        tipo = 7 
+                                    AND MONTH(fecha) = MONTH(NOW()) 
+                                    ');
+
+            $administracion = DB::select('SELECT 
+                                            tipo, 
+                                            SUM(gastos) as gastos 
+                                        FROM 
+                                            gastos 
+                                        WHERE 
+                                            tipo = 8 
+                                        AND MONTH(fecha) = MONTH(NOW()) 
+                                        ');
+
+            $tot = DB::select('SELECT 
+                                tipo, 
+                                SUM(gastos) as gastos 
+                            FROM 
+                                gastos 
+                            WHERE 
+                                tipo = 9 
+                            AND MONTH(fecha) = MONTH(NOW()) 
+                            ');
+
+            $papeleria = DB::select('SELECT 
+                                        tipo, 
+                                        SUM(gastos) as gastos 
+                                    FROM 
+                                        gastos 
+                                    WHERE 
+                                        tipo = 10 
+                                    AND MONTH(fecha) = MONTH(NOW()) 
+                                    ');
+
+            $herramienta = DB::select('SELECT 
+                                            tipo, 
+                                            SUM(gastos) as gastos 
+                                        FROM 
+                                            gastos 
+                                        WHERE 
+                                            tipo = 11 
+                                        AND MONTH(fecha) = MONTH(NOW()) 
+                                        ');
+
+            $miscelaneos = DB::select('SELECT 
+                                            tipo, 
+                                            SUM(gastos) as gastos 
+                                        FROM 
+                                            gastos 
+                                        WHERE 
+                                            tipo = 12 
+                                        AND MONTH(fecha) = MONTH(NOW()) 
+                                        ');
+
+            $limpieza = DB::select('SELECT 
+                                        tipo, 
+                                        SUM(gastos) as gastos 
+                                        FROM 
+                                            gastos 
+                                        WHERE 
+                                            tipo = 13 
+                                        AND MONTH(fecha) = MONTH(NOW()) 
+                                        ');
+
+            $materiales_proceso = DB::select('SELECT 
+                                                tipo, 
+                                                SUM(gastos) as gastos 
+                                            FROM 
+                                                gastos 
+                                            WHERE 
+                                                tipo = 14 
+                                            AND MONTH(fecha) = MONTH(NOW()) 
+                                            ');
+
+            $datos = array(
+                array('Renta' => 'Renta', 'cantidad' => $renta[0]->gastos),
+                array('Impuestos' => 'Impuestos', 'cantidad' => $impuesto[0]->gastos),
+                array('Nomina' => 'Nomina', 'cantidad' => $nomina[0]->gastos),
+                array('Equipo' => 'Equipo', 'cantidad' => $equipo[0]->gastos),
+                array('Materiales de Acabado' => 'Materiales de Acabado', 'cantidad' => $materiales_acabado[0]->gastos),
+                array('Refacciónes' => 'Refacciónes', 'cantidad' => $refacciones[0]->gastos),
+                array('Servicios' => 'Servicios', 'cantidad' => $servicios[0]->gastos),
+                array('Administración' => 'Administración', 'cantidad' => $administracion[0]->gastos),
+                array('T.O.T' => 'T.O.T', 'cantidad' => $tot[0]->gastos),
+                array('Papeleria' => 'Papeleria', 'cantidad' => $papeleria[0]->gastos),
+                array('Herramientas' => 'Herramientas', 'cantidad' => $herramienta[0]->gastos),
+                array('Miscelaneos' => 'Miscelaneos', 'cantidad' => $miscelaneos[0]->gastos),
+                array('Limpieza' => 'Limpieza', 'cantidad' => $limpieza[0]->gastos),
+                array('Materiales' => 'Materiales de Proceso', 'cantidad' => $materiales_proceso[0]->gastos)
+            );
+
+            foreach ($datos as $key => $row) {
+                $aux[$key] = $row['cantidad'];
+            }
+    
+            array_multisort($aux, SORT_DESC, $datos);
+    
+            return json_encode($datos);
+        }
     }
 }

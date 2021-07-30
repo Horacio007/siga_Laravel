@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+    var inf;
     Swal.fire({
         icon: 'warning',
         title: 'Oops...',
@@ -84,45 +84,34 @@ $(document).ready(function(){
 
     $("#expediente").on('keyup', function(){
         var dataa = $(this).val();
-        //console.log(dataa)
-        $.ajax({
-            url: '/siga/controlador/get_idV.php',
-            type: 'POST',
-            data: {
-                id: dataa
-            },
-            success: function(result){
-                //console.log(result);
-                $("#expp").fadeIn();
-                if (result == 'N/A') {
-                    $("#exp").text('No aplica');
-                    $("#expp").css('border-radius', '5px');
-                    $("#expp").css('background-color', '#53ee7e'); 
-                } else {
-                    $.ajax({
-                        url: '/siga/controlador/existe_vehiculo_gastos.php',
-                        type: 'POST',
-                        data: {
-                            id: dataa
-                        },
-                        success: function(result){
-                            //console.log(result);
-                            let arr = JSON.parse(result);
-
-                            if (arr['resultado'] == 0) {
-                                $("#exp").text('Vehiculo No Encontrado');
-                                $("#expp").css('border-radius', '5px');
-                                $("#expp").css('background-color', '#F08080');  
-                            } else {
-                                $("#exp").text('Vehiculo Encontrado -> ' + arr['marca'] + ' ' + arr['linea'] + ' ' + arr['modelo']);
-                                $("#expp").css('border-radius', '5px');
-                                $("#expp").css('background-color', '#53ee7e'); 
-                            }
-                        }
-                    })
+        
+        if (dataa == 'N/A') {
+            $("#info").text('No aplica');
+            $("#inf").css('border-radius', '5px');
+            $("#inf").css('background-color', '#53ee7e'); 
+        } else {
+            $.ajax({
+                url: 'existe_vehiculo_gastos',
+                type: 'GET',
+                data: {
+                    id: dataa
+                },
+                success: function(result){
+                    console.log(result)
+                    if (result['resultado'] == 0) {
+                        $("#exp").text('Vehiculo No Encontrado');
+                        $("#expp").css('border-radius', '5px');
+                        $("#expp").css('background-color', '#F08080');  
+                    } else {
+                        $("#inf").fadeIn();
+                        $("#inf").css('border-radius', '5px');
+                        $("#inf").css('background-color', '#53ee7e'); 
+                        $("#info").text('Vehiculo: '+ result['marcas']['marca'] + ' ' + result['submarcas']['submarca'] + ' ' + result['color'] + ' ' + result['modelo'] + ' ' + result['clientes']['nombre']);
+                        $("#iexpediente2").val($("#iexpediente").val()); 
+                    }
                 }
-            }
-        })
+            })
+        }
     })
 
 

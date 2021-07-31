@@ -373,6 +373,15 @@ Route::get('/', function () {
         Route::post('/u_formapago/{forma_pago}', 'FormaPagoController@update');
         Route::post('/d_formapago/{forma_pago}', 'FormaPagoController@destroy')->name('d_formapago');
     //endFormaPago
+
+    //EstatusFacturas
+        Route::get('l_estatusF', 'EstatusaseguradorasController@index')->name('l_estatusF');
+        Route::get('i_estatusF', 'EstatusaseguradorasController@create')->name('i_estatusF');
+        Route::post('i_estatusF', 'EstatusaseguradorasController@store');
+        Route::get('/u_estatusF/{estatusaseguradoras}', 'EstatusaseguradorasController@edit')->name('u_estatusF');
+        Route::post('/u_estatusF/{estatusaseguradoras}', 'EstatusaseguradorasController@update');
+        Route::post('/d_estatusF/{estatusaseguradoras}', 'EstatusaseguradorasController@destroy')->name('d_estatusF');
+    //endEstatusFacturas
 //endCatalogos
 
 //Costos
@@ -389,6 +398,15 @@ Route::get('/', function () {
         Route::get('/h_gastos', 'GastosController@h_gastos')->name('h_gastos');
     //endGastos
 //endCostos
+
+//Ingresos
+    //Facturas
+        Route::get('l_facturas', 'FacturasController@index')->name('l_facturas');
+        Route::get('i_facturas', 'FacturasController@create')->name('i_facturas');
+        Route::post('i_facturas', 'FacturasController@store');
+        Route::get('/u_facturas/{facturas}', 'FacturasController@edit')->name('u_facturas');
+    //endFacturas
+//endIngresos
     
 //Auditorias
     //Limpieza

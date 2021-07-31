@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Estatusaseguradoras;
 use App\Models\Facturas;
+use Illuminate\Support\Facades\DB;
+use App\Models\Vehiculo;
 use Illuminate\Http\Request;
 
 class FacturasController extends Controller
@@ -14,7 +17,42 @@ class FacturasController extends Controller
      */
     public function index()
     {
-        //
+        /*
+        $list_facturas = Facturas::with(['expedientes', 'estatusFac'])
+                                    ->get();
+        */
+        $list_facturas = DB::select('SELECT
+                                        facturas.id,
+                                        facturas.id_vehiculo,
+                                        modelosv.marca,
+                                        submarcav.submarca,
+                                        vehiculo.color,
+                                        vehiculo.modelo,
+                                        vehiculo.placas,
+                                        aseguradoras.nombre AS aseguradora,
+                                        facturas.cantidad,
+                                        facturas.fecha_facturacion,
+                                        estatusaseguradoras.estatus,
+                                        facturas.fecha_bbva,
+                                        facturas.comentarios
+                                    FROM
+                                        vehiculo,
+                                        modelosv,
+                                        submarcav,
+                                        aseguradoras,
+                                        estatusaseguradoras,
+                                        facturas
+                                    WHERE
+                                        facturas.id_vehiculo = vehiculo.id
+                                    AND vehiculo.marca_id = modelosv.id
+                                    AND vehiculo.linea_id = submarcav.id
+                                    AND aseguradoras.id = vehiculo.cliente_id
+                                    AND estatusaseguradoras.id = facturas.estatus_aseguradora
+                                    ORDER BY
+                                        facturas.id');
+
+        //dd($list_facturas);
+        return view('ingresos.facturas.l_facturas', compact('list_facturas'));
     }
 
     /**
@@ -24,7 +62,15 @@ class FacturasController extends Controller
      */
     public function create()
     {
-        //
+        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+                            ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller')
+                            ->where('estatus_id','3')
+                            ->orderBy('id_aux')
+                            ->get();
+
+        $estausF = Estatusaseguradoras::all();                    
+        
+        return view('ingresos.facturas.i_facturas', compact(['vehiculos', 'estausF']));
     }
 
     /**
@@ -35,7 +81,23 @@ class FacturasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request);
+        $factura = new Facturas;
+        $factura->id_vehiculo = $request->iexpediente2;
+        $factura->cantidad = $request->cantidad;
+        $factura->fecha_facturacion = $request->fechaf;
+        $factura->estatus_aseguradora = $request->sestatus;
+        if (isset($request->fbbva)) {
+            $factura->fecha_bbva = $request->fbbva;
+        }
+        $factura->comentarios = $request->comentarios;
+
+        if ($factura->save()) {
+            return redirect()->route('i_facturas')->with('success','Factura Registrada.');
+        } else {
+            return redirect()->route('i_facturas')->with('error','Factura no Registrada.');
+        }
+        
     }
 
     /**
@@ -57,7 +119,14 @@ class FacturasController extends Controller
      */
     public function edit(Facturas $facturas)
     {
-        //
+        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+                            ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller')
+                            ->where('id',$facturas->id_vehiculo)
+                            ->first();
+
+        $estausF = Estatusaseguradoras::all();                    
+        
+        return view('ingresos.facturas.u_facturas', compact(['vehiculos', 'estausF','facturas']));
     }
 
     /**

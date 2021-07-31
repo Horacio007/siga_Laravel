@@ -14,4 +14,8 @@ class Facturas extends Model
             'expediente' => 'N/A',
         ]);
     }
+
+    public function estatusFac(){
+        return $this->hasOne('App\Models\Estatusaseguradoras', 'id', 'estatus_aseguradora');
+    }
 }

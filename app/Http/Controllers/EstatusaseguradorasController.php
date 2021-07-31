@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Estatusaseguradoras;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpKernel\HttpCache\Esi;
 
 class EstatusaseguradorasController extends Controller
 {
@@ -14,7 +15,9 @@ class EstatusaseguradorasController extends Controller
      */
     public function index()
     {
-        //
+        $list_estatus = Estatusaseguradoras::all();
+
+        return view('catalogos.facturas.l_facturas', compact('list_estatus'));
     }
 
     /**
@@ -24,7 +27,7 @@ class EstatusaseguradorasController extends Controller
      */
     public function create()
     {
-        //
+        return view('catalogos.facturas.i_facturas');
     }
 
     /**
@@ -35,7 +38,22 @@ class EstatusaseguradorasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request);
+        $r = Estatusaseguradoras::where('estatus', $request['estatus'])
+                                ->select('estatus')
+                                ->get();
+
+        if ($r->isEmpty()) {
+            $estatus = new Estatusaseguradoras;
+            $estatus->estatus = $request->estatus;
+            if ($estatus->save()) {
+                return redirect()->route('l_estatusF')->with('success','Estatus Registrado.');
+            } else {
+                return redirect()->route('l_estatusF')->with('error','Estatus no Registrado.');
+            }
+        } else {
+            return back()->with('warning','El estatus "'. $request['estatus'] .'" ya esta registrado.');
+        }
     }
 
     /**
@@ -57,7 +75,7 @@ class EstatusaseguradorasController extends Controller
      */
     public function edit(Estatusaseguradoras $estatusaseguradoras)
     {
-        //
+        return view('catalogos.facturas.u_facturas', compact('estatusaseguradoras'));
     }
 
     /**
@@ -69,7 +87,16 @@ class EstatusaseguradorasController extends Controller
      */
     public function update(Request $request, Estatusaseguradoras $estatusaseguradoras)
     {
-        //
+        if ($estatusaseguradoras->estatus == $request->estatus) {
+            return redirect()->route('l_estatusF')->with('warning','No se Actualizo el estatus "'. $request->estatus . '".');
+        } else {
+            $estatusaseguradoras->estatus = $request->estatus;
+            if ($estatusaseguradoras->save()) {
+                return redirect()->route('l_estatusF')->with('success','Estatus Actualizado.');
+            } else {
+                return redirect()->route('l_estatusF')->with('error','Estatus no Actualizado.');
+            }
+        }
     }
 
     /**
@@ -80,6 +107,10 @@ class EstatusaseguradorasController extends Controller
      */
     public function destroy(Estatusaseguradoras $estatusaseguradoras)
     {
-        //
+        if ($estatusaseguradoras->delete()) {
+            return redirect()->route('l_estatusF')->with('success','Estatus Eliminado.');
+        } else {
+            return redirect()->route('l_estatusF')->with('error','Estatus no Eliminado.');
+        }
     }
 }

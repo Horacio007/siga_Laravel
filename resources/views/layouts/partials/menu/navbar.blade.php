@@ -72,6 +72,7 @@
                 <a class="dropdown-item" href="{{ route('lista_estatus') }}" id="agregarEstatus">Listado Estatus Vehiculo</a>
                 <a class="dropdown-item" href="{{ route('lista_estatusalm') }}" id="agregarEstatus">Listado Estatus Almacen</a>
                 <a class="dropdown-item" href="{{ route('l_estatusrefas') }}" id="agregarEstatus">Listado Estatus Refacciones</a>
+                <a class="dropdown-item" href="{{ route('l_estatusF') }}" id="agregarEstatus">Listado Estatus Facturas</a>
                 <a class="dropdown-item" href="{{ route('lista_niveldano') }}" id="agregarNivel">Listado Nivel Daño</a>
                 <a class="dropdown-item" href="{{ route('lista_formaarribo') }}" id="agregarForma">Listado Forma de Arribo</a>
                 <a class="dropdown-item" href="{{ route('l_personal') }}" id="agregarForma">Listado Personal</a>
@@ -89,8 +90,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ingresos</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#" id="fact">Cargar Facturas</a>
-                <a class="dropdown-item" href="#" id="afact">Resumen Facturas</a>
+                <a class="dropdown-item" href="{{ route('l_facturas') }}" id="afact">Listado Facturas</a>
                 <a class="dropdown-item" href="#" id="ingr">Cargar Ingresos</a>
                 <a class="dropdown-item" href="#" id="resingr">Resumen Ingresos</a>
             </li>

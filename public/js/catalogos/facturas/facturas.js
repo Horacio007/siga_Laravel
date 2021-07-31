@@ -1,23 +1,23 @@
 $(document).ready(function(){
 
-    $('#list_facturas').DataTable({
+    $('#list_areas').DataTable({
         dom: 'Blfrtip',
         buttons: [{
                 extend: 'excelHtml5',
                 messageTop: 'Areas',
                 text: "Excel",
-                title: "Listado de Facturas",
+                title: "Listado de Areas",
             },
             {
                 /*'csvHtml5',*/
                 extend: 'csvHtml5',
                 text: "CSV",
-                title: "Listado de Facturas",
-                messageTop: 'Listado de Facturas',
+                title: "Listado de Areas",
+                messageTop: 'Listado de Areas',
             },
             {
                 extend: 'pdfHtml5',
-                title: 'Listado de Facturas'
+                title: 'Listado de Areas'
             }
         ],
         responsive: true,
@@ -51,11 +51,10 @@ $(document).ready(function(){
                         }
         },
         select: true,
-        pageLength: 100
 
     });
 
-    $("#list_facturas tbody tr").on('click', '.delete', function(){
+    $("#list_areas tbody tr").on('click', '.delete', function(){
         let area_id = $(this).attr('item_id');
         let area = $(this).parents("tr").find('td').eq(1).html();
         $("#iarea").val(area);

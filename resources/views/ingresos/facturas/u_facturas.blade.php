@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
     <div class="container-fluid">
-        <form action="/i_facturas" method="post" id="formdata">
+        <form action="{{ route('u_facturas', $facturas->id) }}" method="post" id="formdata">
             @csrf
             <div class="row">
                 <div class="col text-center">

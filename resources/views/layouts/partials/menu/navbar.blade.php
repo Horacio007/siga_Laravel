@@ -92,7 +92,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route('l_facturas') }}" id="afact">Listado Facturas</a>
                 <a class="dropdown-item" href="#" id="ingr">Cargar Ingresos</a>
-                <a class="dropdown-item" href="#" id="resingr">Resumen Ingresos</a>
+                <a class="dropdown-item" href="{{ route('l_ingresos') }}" id="resingr">Listado Ingresos</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Auditorias</a>

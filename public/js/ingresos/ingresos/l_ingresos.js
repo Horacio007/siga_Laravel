@@ -1,23 +1,23 @@
 $(document).ready(function(){
 
-    $('#list_facturas').DataTable({
+    $('#list_ingresos').DataTable({
         dom: 'Blfrtip',
         buttons: [{
                 extend: 'excelHtml5',
                 messageTop: 'Areas',
                 text: "Excel",
-                title: "Listado de Facturas",
+                title: "Listado de Ingresos",
             },
             {
                 /*'csvHtml5',*/
                 extend: 'csvHtml5',
                 text: "CSV",
-                title: "Listado de Facturas",
-                messageTop: 'Listado de Facturas',
+                title: "Listado de Ingresos",
+                messageTop: 'Listado de Ingresos',
             },
             {
                 extend: 'pdfHtml5',
-                title: 'Listado de Facturas'
+                title: 'Listado de Ingresos'
             }
         ],
         responsive: true,
@@ -55,7 +55,7 @@ $(document).ready(function(){
 
     });
 
-    $("#list_facturas tbody tr").on('click', '.delete', function(){
+    $("#list_ingresos tbody tr").on('click', '.delete', function(){
         let area_id = $(this).attr('item_id');
         let expediente = $(this).parents("tr").find('td').eq(1).html();
         let marca = $(this).parents("tr").find('td').eq(2).html();

@@ -6,6 +6,7 @@ use App\Models\Estatusaseguradoras;
 use App\Models\Facturas;
 use Illuminate\Support\Facades\DB;
 use App\Models\Vehiculo;
+use App\Models\Ingresos;
 use Illuminate\Http\Request;
 
 class FacturasController extends Controller
@@ -138,7 +139,29 @@ class FacturasController extends Controller
      */
     public function update(Request $request, Facturas $facturas)
     {
-        //
+        //$facturas->id_vehiculo = $request->iexpediente2;
+        $facturas->cantidad = $request->cantidad;
+        $facturas->fecha_facturacion = $request->fechaf;
+        $facturas->estatus_aseguradora = $request->sestatus;
+        $facturas->fecha_bbva = $request->fbbva;
+        $facturas->comentarios = $request->comentarios;
+
+        if ($facturas->save()) {
+            if (isset($request->fbbva)) {
+                $ingresos = new Ingresos();
+                $ingresos->id_vehiculo = $facturas->id_vehiculo;
+                $ingresos->tipo_servicio = 2;
+                $ingresos->fecha_finiquito = $request->fbbva;
+                $ingresos->finiquito = $request->cantidad;
+                $ingresos->tipo_pago_finiquito = 3;
+                $ingresos->total = $request->cantidad;
+                $ingresos->save();
+            }
+            return redirect()->route('l_facturas')->with('success','Factura Actualizada.');
+        } else {
+            return redirect()->route('l_facturas')->with('error','Factura no Actualizada.');
+        }
+        
     }
 
     /**
@@ -149,6 +172,10 @@ class FacturasController extends Controller
      */
     public function destroy(Facturas $facturas)
     {
-        //
+        if ($facturas->delete()) {
+            return redirect()->route('l_facturas')->with('success','Factura Eliminada.');
+        } else {
+            return redirect()->route('l_facturas')->with('error','Factura no Eliminada.');
+        }
     }
 }

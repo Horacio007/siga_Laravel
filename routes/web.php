@@ -405,7 +405,16 @@ Route::get('/', function () {
         Route::get('i_facturas', 'FacturasController@create')->name('i_facturas');
         Route::post('i_facturas', 'FacturasController@store');
         Route::get('/u_facturas/{facturas}', 'FacturasController@edit')->name('u_facturas');
+        Route::post('/u_facturas/{facturas}', 'FacturasController@update');
+        Route::post('/d_facturas/{facturas}', 'FacturasController@destroy')->name('d_facturas');
     //endFacturas
+
+    //Ingresos
+        Route::get('l_ingresos', 'IngresosController@index')->name('l_ingresos');
+        Route::get('i_ingresos', 'IngresosController@create')->name('i_ingresos');
+        Route::post('i_ingresos', 'IngresosController@store');
+        Route::get('/u_ingresos/{ingresos}', 'IngresosController@edit')->name('u_ingresos');
+    //endIngresos
 //endIngresos
     
 //Auditorias

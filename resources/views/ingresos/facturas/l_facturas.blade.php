@@ -53,7 +53,10 @@
                                     <td>{{$facturas->estatus}}</td>
                                     <td>{{$facturas->fecha_bbva}}</td>
                                     <td>{{$facturas->comentarios}}</td>
-                                    <td><a href="{{ route('u_facturas', $facturas->id) }}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a></td>
+                                    <td>
+                                        <a href="{{ route('u_facturas', $facturas->id) }}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a>
+                                        <a href="#" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$facturas->id}}" title="Eliminar"><i class="fa fa-trash"></i></a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -69,4 +72,25 @@
     <script type="text/javascript" src="{{ asset('/libs/DataTables/Buttons-1.7.1/js/buttons.html5.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/libs/DataTables/Responsive-2.2.9/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('/js/ingresos/facturas/l_facturas.js') }}"></script>
+    <!-- Modal -->
+    <div class="modal fade" id="modalD" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">¿Se eliminara?</h5>
+                </div>
+                    <div class="modal-body">
+                        <form action="{{route('d_facturas', 'delete_item')}}" method="post" id="modal_delete">
+                            @csrf
+                            <label for="">Factura</label>
+                            <input type="text" id="iarea" class="form-control" readonly>
+                        </form>
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" id="cerrar" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <a href="#" id="btn_delete" class="btn btn-danger">Eliminar</a>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

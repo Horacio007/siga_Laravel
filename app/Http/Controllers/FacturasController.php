@@ -7,6 +7,8 @@ use App\Models\Facturas;
 use Illuminate\Support\Facades\DB;
 use App\Models\Vehiculo;
 use App\Models\Ingresos;
+use App\Models\Tipo_servicio;
+use App\Models\Tipo_pago;
 use Illuminate\Http\Request;
 
 class FacturasController extends Controller
@@ -69,9 +71,13 @@ class FacturasController extends Controller
                             ->orderBy('id_aux')
                             ->get();
 
-        $estausF = Estatusaseguradoras::all();                    
+        $estausF = Estatusaseguradoras::all();
         
-        return view('ingresos.facturas.i_facturas', compact(['vehiculos', 'estausF']));
+        $tipo_servicio = Tipo_servicio::all();
+
+        $tipo_pago = Tipo_pago::all();
+        
+        return view('ingresos.facturas.i_facturas2', compact(['vehiculos', 'estausF', 'tipo_servicio', 'tipo_pago']));
     }
 
     /**

@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    //return view('welcome');
+    return view('login.login');
 });
 
 //Recepcion
@@ -226,7 +227,6 @@ Route::get('/', function () {
         Route::get('g_aud_limpieza_encargado', 'AudLimpiezaController@g_aud_limpieza_encargado');
         Route::get('g_aud_limpieza_actual_personal', 'AudLimpiezaController@g_aud_limpieza_actual_personal');
     //endMetricos
-    
 //endAdministracion
 
 //Catalogos

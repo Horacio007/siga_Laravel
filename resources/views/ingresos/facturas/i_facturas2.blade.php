@@ -8,7 +8,7 @@
             @csrf
             <div class="row">
                 <div class="col text-center">
-                    <h3>Registrar Facturas 2.0</h3>
+                    <h3>Registrar Cobros</h3>
                 </div>
             </div>
             <div class="row">
@@ -85,13 +85,6 @@
                     <input type="date" name="fanticipo" id="fanticipo" class="form-control">
                 </div>
                 <div class="col-md-2">
-                    <label for="">Anticipo</label>
-                    <input type="text" name="ianticipo" id="ianticipo" class="form-control" placeholder="Ingresa la Cantidad del Anticipo...">
-                </div>
-            </div>
-            <br>
-            <div class="row">
-                <div class="col-md-2">
                     <label for="">Tipo de Pago de Anticipo</label>
                     <select name="tipo_anticipo" id="tipo_anticipo" class="form-control">
                         <option value="0">Selecciona el tipo de anticipo</option>
@@ -100,8 +93,15 @@
                         @endforeach
                     </select>
                 </div>
+            </div>
+            <br>
+            <div class="row">
                 <div class="col-md-2">
-                    <label for="">Fecha BBVA (Fecha pago)</label>
+                    <label for="">Anticipo</label>
+                    <input type="text" name="ianticipo" id="ianticipo" class="form-control" placeholder="Ingresa la Cantidad del Anticipo...">
+                </div>
+                <div class="col-md-2">
+                    <label for="">Fecha pago</label>
                     <input type="date" name="fbbva" id="fbbva" class="form-control">
                 </div>
                 <div class="col-md-2">

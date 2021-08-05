@@ -16,6 +16,12 @@ class Facturas extends Model
     }
 
     public function estatusFac(){
-        return $this->hasOne('App\Models\Estatusaseguradoras', 'id', 'estatus_aseguradora');
+        return $this->hasOne('App\Models\Estatusaseguradoras', 'id', 'estatus_aseguradora')->withDefault([
+            'estatusFac' => 'Pendiente'
+        ]);
+    }
+
+    public function tipo_servicios(){
+        return $this->hasOne('App\Models\Tipo_servicio', 'id', 'tipo_servicio_id');
     }
 }

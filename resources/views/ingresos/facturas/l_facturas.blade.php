@@ -24,16 +24,22 @@
                         <thead class="text-capitalize">
                             <th class="scope">Id</th>
                             <th>Expediente</th>
+                            <th>Folio</th>
+                            <th>Estatus Facturacion</th>
                             <th>Marca</th>
                             <th>Linea</th>
                             <th>Color</th>
                             <th>Modelo</th>
                             <th>Placas</th>
                             <th>Cliente</th>
-                            <th>Cantidad</th>
+                            <th>Tipo Servicio</th>
                             <th>Fecha Facturacion</th>
-                            <th>Estatus</th>
-                            <th>Fecha BBVA</th>
+                            <th>Fecha Anticipo</th>
+                            <th>Tipo Pago Anticipo</th>
+                            <th>Anticipo</th>
+                            <th>Fecha Pago</th>
+                            <th>Tipo Pago</th>
+                            <th>Total</th>
                             <th>Comentarios</th>
                             <th>Acciones</th>
                         </thead>
@@ -42,16 +48,53 @@
                                 <tr>
                                     <td>{{$facturas->id}}</td>
                                     <td>{{$facturas->id_vehiculo}}</td>
-                                    <td>{{$facturas->marca}}</td>
-                                    <td>{{$facturas->submarca}}</td>
-                                    <td>{{$facturas->color}}</td>
-                                    <td>{{$facturas->modelo}}</td>
-                                    <td>{{$facturas->placas}}</td>
-                                    <td>{{$facturas->aseguradora}}</td>
-                                    <td>{{$facturas->cantidad}}</td>
+                                    <td>{{$facturas->folio}}</td>
+                                    <td>{{$facturas->estatusFac->estatus}}</td>
+                                    @php
+                                        for ($i=0; $i < sizeof($marcas); $i++) { 
+                                            if ($marcas[$i]->id == $facturas->expedientes->marca_id) {
+                                                $n_marca = $marcas[$i]->marca;
+                                            }
+                                        }
+
+                                        for ($i=0; $i < sizeof($submarcas); $i++) { 
+                                            if ($submarcas[$i]->id == $facturas->expedientes->linea_id) {
+                                                $n_submarca = $submarcas[$i]->submarca;
+                                            }
+                                        }
+
+                                        for ($i=0; $i < sizeof($aseguradoras); $i++) { 
+                                            if ($aseguradoras[$i]->id == $facturas->expedientes->cliente_id) {
+                                                $n_aseguradora = $aseguradoras[$i]->nombre;
+                                            }
+                                        }
+
+                                        for ($i=0; $i < sizeof($tipo_pago); $i++) { 
+                                            if ($tipo_pago[$i]->id == $facturas->tipo_pago_anticipo_id) {
+                                                $n_tp = $tipo_pago[$i]->tipo_pago;
+                                            }
+                                        }
+
+                                        for ($i=0; $i < sizeof($tipo_pago); $i++) { 
+                                            if ($tipo_pago[$i]->id == $facturas->tipo_pago_id) {
+                                                $n_tpt = $tipo_pago[$i]->tipo_pago;
+                                            }
+                                        }
+                                    @endphp
+                                    <td>{{$n_marca}}</td>
+                                    <td>{{$n_submarca}}</td>
+                                    <td>{{$facturas->expedientes->color}}</td>
+                                    <td>{{$facturas->expedientes->modelo}}</td>
+                                    <td>{{$facturas->expedientes->placas}}</td>
+                                    <td>{{$n_aseguradora}}</td>
+                                    <td>{{$facturas->tipo_servicios->tipo_servicio??""}}</td>
                                     <td>{{$facturas->fecha_facturacion}}</td>
-                                    <td>{{$facturas->estatus}}</td>
+                                    <td>{{$facturas->fecha_anticipo}}</td>
+                                    <td>{{$n_tp??''}}</td>
+                                    <td>{{$facturas->anticipo}}</td>
                                     <td>{{$facturas->fecha_bbva}}</td>
+                                    <td>{{$n_tpt??''}}</td>
+                                    <td>{{$facturas->cantidad}}</td>
                                     <td>{{$facturas->comentarios}}</td>
                                     <td>
                                         <a href="{{ route('u_facturas', $facturas->id) }}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a>

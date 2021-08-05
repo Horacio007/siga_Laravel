@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Aseguradoras;
 use App\Models\Estatusaseguradoras;
 use App\Models\Facturas;
 use Illuminate\Support\Facades\DB;
 use App\Models\Vehiculo;
 use App\Models\Ingresos;
+use App\Models\Modelosv;
+use App\Models\Submarcav;
 use App\Models\Tipo_servicio;
 use App\Models\Tipo_pago;
 use Illuminate\Http\Request;
@@ -20,10 +23,12 @@ class FacturasController extends Controller
      */
     public function index()
     {
-        /*
-        $list_facturas = Facturas::with(['expedientes', 'estatusFac'])
+        
+        $list_facturas = Facturas::with(['expedientes:id,marca_id,linea_id,cliente_id,color,modelo,placas', 'estatusFac:id,estatus', 'tipo_servicios:id,tipo_servicio'])
+                                    ->orderBy('id')
                                     ->get();
-        */
+        
+        /*
         $list_facturas = DB::select('SELECT
                                         facturas.id,
                                         facturas.id_vehiculo,
@@ -37,25 +42,39 @@ class FacturasController extends Controller
                                         facturas.fecha_facturacion,
                                         estatusaseguradoras.estatus,
                                         facturas.fecha_bbva,
-                                        facturas.comentarios
+                                        facturas.comentarios,
+                                        facturas.folio,
+                                        tipo_servicio.tipo_servicio,
+                                        facturas.fecha_anticipo,
+                                        facturas.tipo_pago_anticipo_id,
+                                        facturas.anticipo,
+                                        facturas.tipo_pago_id
                                     FROM
                                         vehiculo,
                                         modelosv,
                                         submarcav,
                                         aseguradoras,
                                         estatusaseguradoras,
-                                        facturas
+                                        facturas,
+                                        tipo_servicio
                                     WHERE
                                         facturas.id_vehiculo = vehiculo.id
                                     AND vehiculo.marca_id = modelosv.id
                                     AND vehiculo.linea_id = submarcav.id
                                     AND aseguradoras.id = vehiculo.cliente_id
                                     AND estatusaseguradoras.id = facturas.estatus_aseguradora
+                                    AND tipo_servicio.id = facturas.tipo_servicio_id
                                     ORDER BY
                                         facturas.id');
+        */
 
-        //dd($list_facturas);
-        return view('ingresos.facturas.l_facturas', compact('list_facturas'));
+        //dd($list_facturas[20]);
+        $marcas = Modelosv::all();
+        $submarcas = Submarcav::all();
+        $aseguradoras = Aseguradoras::all();
+        $tipo_pago = Tipo_pago::all();
+        //dd($marcas);
+        return view('ingresos.facturas.l_facturas', compact(['list_facturas', 'marcas', 'submarcas', 'aseguradoras', 'tipo_pago']));
     }
 
     /**
@@ -98,6 +117,12 @@ class FacturasController extends Controller
             $factura->fecha_bbva = $request->fbbva;
         }
         $factura->comentarios = $request->comentarios;
+        $factura->folio = $request->folio;
+        $factura->tipo_servicio_id = $request->tipo_servicio;
+        $factura->fecha_anticipo = $request->fanticipo;
+        $factura->tipo_pago_anticipo_id = $request->tipo_anticipo;
+        $factura->anticipo = $request->ianticipo;
+        $factura->tipo_pago_id = $request->pago;
 
         if ($factura->save()) {
             return redirect()->route('i_facturas')->with('success','Factura Registrada.');
@@ -131,9 +156,13 @@ class FacturasController extends Controller
                             ->where('id',$facturas->id_vehiculo)
                             ->first();
 
-        $estausF = Estatusaseguradoras::all();                    
+        $estausF = Estatusaseguradoras::all();
         
-        return view('ingresos.facturas.u_facturas', compact(['vehiculos', 'estausF','facturas']));
+        $tipo_servicio = Tipo_servicio::all();
+        
+        $tipo_pago = Tipo_pago::all();
+        
+        return view('ingresos.facturas.u_facturas', compact(['vehiculos', 'estausF','facturas', 'tipo_servicio', 'tipo_pago']));
     }
 
     /**
@@ -149,8 +178,16 @@ class FacturasController extends Controller
         $facturas->cantidad = $request->cantidad;
         $facturas->fecha_facturacion = $request->fechaf;
         $facturas->estatus_aseguradora = $request->sestatus;
-        $facturas->fecha_bbva = $request->fbbva;
+        if (isset($request->fbbva)) {
+            $facturas->fecha_bbva = $request->fbbva;
+        }
         $facturas->comentarios = $request->comentarios;
+        $facturas->folio = $request->folio;
+        $facturas->tipo_servicio_id = $request->tipo_servicio;
+        $facturas->fecha_anticipo = $request->fanticipo;
+        $facturas->tipo_pago_anticipo_id = $request->tipo_anticipo;
+        $facturas->anticipo = $request->ianticipo;
+        $facturas->tipo_pago_id = $request->pago;
 
         if ($facturas->save()) {
             if (isset($request->fbbva)) {

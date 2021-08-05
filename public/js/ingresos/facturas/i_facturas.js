@@ -1,9 +1,11 @@
 $(document).ready(function(){
+    
     Swal.fire({
         icon: 'warning',
         title: 'Oops...',
-        text: 'Recuerda Seleccionar la Fecha BBVA cuando el Estatus de la Aseguradora sea "Pagado"'
+        text: 'Recuerda si el vehiculo es particular no lleva folio'
     });
+    
 
     $('#list_facturas').DataTable({
         dom: 'Blfrtip',

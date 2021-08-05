@@ -24,7 +24,8 @@ class Ingresos extends Model
         return $this->hasOne('App\Models\Tipo_pago', 'id', 'tipo_pago_finiquito');
     }
 
-    public function tipo_servicio(){
-        return $this->hasOne('App\Models\Tipo_servicio', 'id', 'tipo_servicio');
+    public function tipo_servicios(){
+        return $this->hasOne('App\Models\Tipo_servicio', 'id', 'tipo_servicio')->withDefault([
+            'tipo_servicio' => '']);
     }
 }

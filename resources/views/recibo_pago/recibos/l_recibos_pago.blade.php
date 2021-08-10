@@ -8,7 +8,7 @@
             @csrf
             <div class="row">
                 <div class="col text-center">
-                    <h3>Listado de Recibos de Cobro</h3>
+                    <h3>Listado de Recibos de Pago</h3>
                 </div>
             </div>
             <br>
@@ -96,15 +96,15 @@
 
     <!-- Modal -->
     <div class="modal fade" id="modalD" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">¿Se eliminara?</h5>
                 </div>
                     <div class="modal-body">
-                        <form action="{{route('d_area', 'delete_item')}}" method="post" id="modal_delete">
+                        <form action="{{route('d_recibo_pagos', 'delete_item')}}" method="post" id="modal_delete">
                             @csrf
-                            <label for="">Area</label>
+                            <label for="">Recibo</label>
                             <input type="text" id="iarea" class="form-control" readonly>
                         </form>
                     </div>

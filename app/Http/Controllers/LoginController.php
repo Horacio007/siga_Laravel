@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Login;
+use App\Models\Usuarios;
 use Illuminate\Http\Request;
+date_default_timezone_set('America/Mexico_City');
 
 class LoginController extends Controller
 {
@@ -12,9 +14,40 @@ class LoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if (isset($request->usr) && isset($request->pwd)) {
+            session_start();
+            $user = preg_replace('([^A-Za-z0-9])', '', $request->usr);
+            $pass = preg_replace('([^A-Za-z0-9])', '', $request->pwd);
+            $e = Usuarios::where('usuario', $user)
+                            ->where('pswd', md5($pass))
+                            ->first();
+            if ($e == null) {
+                return redirect()->route('login')->with('warning','Usuario o Contraseña Invalido.');
+            } else {
+                $_SESSION['user'] = $user;
+                $_SESSION['pasword'] = $pass;
+                $_SESSION['tipo'] = $e->tipo;
+                $_SESSION['timeout'] = time();
+                $tipo = $e->tipo;
+
+                $f = date("Y-m-d");
+                $h = date("H:i:s");
+                
+                $l = new Login();
+                $l->nombre = $user;
+                $l->puesto = $e->tipo;
+                $l->fecha = $f;
+                $l->hora = $h;
+                $l->save();
+
+                return view('menu.menu', compact(['user', 'tipo']));
+
+            }
+        } else {
+            return redirect()->route('login')->with('warning','Ingresa Usuario o Contraseña.');
+        }
     }
 
     /**
@@ -24,7 +57,7 @@ class LoginController extends Controller
      */
     public function create()
     {
-        //
+        return view('login.login');
     }
 
     /**

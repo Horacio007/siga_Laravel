@@ -84,7 +84,20 @@ class ReciboPagosController extends Controller
         $marca = Modelosv::where('id', $recibo_pagos->expedientes->marca_id)->first();
         $linea = Submarcav::where('id', $recibo_pagos->expedientes->linea_id)->first();
         $aseguradora = Aseguradoras::where('id', $recibo_pagos->expedientes->cliente_id)->first();
-        
+        $forma_pago = Tipo_pago::where('id', $recibo_pagos->forma_pago)->first();
+        //dd($forma_pago);
+        $concepto = '';
+        $concepto2 = '';
+        if (strlen($recibo_pagos->concepto) < 54) {
+            $concepto.= '<p style="position: absolute; top: 330px; left: 240px;">'.$recibo_pagos['concepto'].'</p>';
+            $concepto2.= '<p style="position: absolute; top: 810px; left: 240px;">'.$recibo_pagos['concepto'].'</p>';
+        } else {
+            $concepto.= '<p style="position: absolute; top: 330px; left: 240px;">'.substr($recibo_pagos['concepto'], 0, 55).'</p>';
+            $concepto.= '<p style="position: absolute; top: 350px; left: 240px;">'.substr($recibo_pagos['concepto'], 55).'</p>';
+            $concepto2.= '<p style="position: absolute; top: 810px; left: 240px;">'.substr($recibo_pagos['concepto'], 0, 55).'</p>';
+            $concepto2.= '<p style="position: absolute; top: 830px; left: 240px;">'.substr($recibo_pagos['concepto'], 55).'</p>';
+        }
+
         $pdf = app('dompdf.wrapper');   
         $pdf->loadHTML('<!DOCTYPE html>
         <html lang="en">
@@ -118,6 +131,10 @@ class ReciboPagosController extends Controller
             <p style="position: absolute; top: 765px; left: 220px;">$'.$recibo_pagos['cantidad'].'</p>
             <p style="position: absolute; top: 310px; left: 240px;">'.$marca->marca.' '.$linea->submarca.' '.$recibo_pagos['expedientes']['modelo'].' '.$recibo_pagos['expedientes']['color'].' '.$recibo_pagos['expedientes']['placas'].' '.$aseguradora->nombre.'</p>
             <p style="position: absolute; top: 790px; left: 240px;">'.$marca->marca.' '.$linea->submarca.' '.$recibo_pagos['expedientes']['modelo'].' '.$recibo_pagos['expedientes']['color'].' '.$recibo_pagos['expedientes']['placas'].' '.$aseguradora->nombre.'</p>
+            '.$concepto.'
+            '.$concepto2.'
+            <p style="position: absolute; top: 417px; left: 240px;">'.$forma_pago->tipo_pago.'</p>
+            <p style="position: absolute; top: 875px; left: 240px;">'.$forma_pago->tipo_pago.'</p>
         </body>
         </html>');
         
@@ -166,6 +183,10 @@ class ReciboPagosController extends Controller
      */
     public function destroy(Recibo_pagos $recibo_pagos)
     {
-        //
+        if ($recibo_pagos->delete()) {
+            return redirect()->route('l_recibo_pagos')->with('success','Recibo de Pago Eliminado.');
+        } else {
+            return redirect()->route('l_recibo_pagos')->with('error','Recibo de Pago no Eliminado.');
+        }
     }
 }

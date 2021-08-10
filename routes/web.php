@@ -19,6 +19,13 @@ Route::get('/', function () {
     return view('login.login');
 });
 
+//Login
+    //Login
+        Route::get('login', 'LoginController@create')->name('login');
+        Route::get('vl', 'LoginController@index')->name('vl');
+    //endLogin
+//endLogin
+
 //Recepcion
     //AltaVehiculo
         Route::get('i_vehiculo', 'VehiculoController@i_vehiculo')->name('i_vehiculos');
@@ -407,6 +414,7 @@ Route::get('/', function () {
         Route::get('/u_recibo_pagos/{recibo_pagos}', 'ReciboPagosController@edit')->name('u_recibo_pagos');
         Route::post('/u_recibo_pagos/{recibo_pagos}', 'ReciboPagosController@update');
         Route::get('create_pdfRP/{recibo_pagos}', 'ReciboPagosController@show')->name('create_pdfRP');
+        Route::post('/d_recibo_pagos/{recibo_pagos}', 'ReciboPagosController@destroy')->name('d_recibo_pagos');
     //endReciboPagos
         
     //Facturas

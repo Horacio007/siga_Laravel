@@ -57,8 +57,15 @@ $(document).ready(function(){
 
     $("#list_areas tbody tr").on('click', '.delete', function(){
         let area_id = $(this).attr('item_id');
-        let area = $(this).parents("tr").find('td').eq(1).html();
-        $("#iarea").val(area);
+        let fecha = $(this).parents("tr").find('td').eq(1).html();
+        let marca = $(this).parents("tr").find('td').eq(5).html();
+        let linea = $(this).parents("tr").find('td').eq(6).html();
+        let color = $(this).parents("tr").find('td').eq(7).html();
+        let modelo = $(this).parents("tr").find('td').eq(8).html();
+        let placas = $(this).parents("tr").find('td').eq(9).html();
+        let cliente = $(this).parents("tr").find('td').eq(10).html();
+        let cantidad = $(this).parents("tr").find('td').eq(11).html();
+        $("#iarea").val(fecha+' Expediente -> '+marca+' '+linea+' '+color+' '+modelo+' '+placas+' '+cliente+' Cantidad -> $'+cantidad);
 
         let old_url = $("#modal_delete").attr('action');
         let new_url = old_url.replace('delete_item', area_id);

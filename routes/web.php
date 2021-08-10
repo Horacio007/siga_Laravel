@@ -400,6 +400,15 @@ Route::get('/', function () {
 //endCostos
 
 //Ingresos
+    //ReciboPagos
+        Route::get('l_recibo_pagos', 'ReciboPagosController@index')->name('l_recibo_pagos');
+        Route::get('i_recibo_pagos', 'ReciboPagosController@create')->name('i_recibo_pagos');
+        Route::post('i_recibo_pagos', 'ReciboPagosController@store');
+        Route::get('/u_recibo_pagos/{recibo_pagos}', 'ReciboPagosController@edit')->name('u_recibo_pagos');
+        Route::post('/u_recibo_pagos/{recibo_pagos}', 'ReciboPagosController@update');
+        Route::get('create_pdfRP/{recibo_pagos}', 'ReciboPagosController@show')->name('create_pdfRP');
+    //endReciboPagos
+        
     //Facturas
         Route::get('l_facturas', 'FacturasController@index')->name('l_facturas');
         Route::get('i_facturas', 'FacturasController@create')->name('i_facturas');
@@ -410,10 +419,12 @@ Route::get('/', function () {
     //endFacturas
 
     //Ingresos
+        /*
         Route::get('l_ingresos', 'IngresosController@index')->name('l_ingresos');
         Route::get('i_ingresos', 'IngresosController@create')->name('i_ingresos');
         Route::post('i_ingresos', 'IngresosController@store');
         Route::get('/u_ingresos/{ingresos}', 'IngresosController@edit')->name('u_ingresos');
+        */
     //endIngresos
 //endIngresos
     

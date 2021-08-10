@@ -8,7 +8,7 @@
             @csrf
             <div class="row">
                 <div class="col text-center">
-                    <h3>Listado de Facturas</h3>
+                    <h3>Listado de Cobros</h3>
                 </div>
             </div>
             <br>

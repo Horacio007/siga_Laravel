@@ -5,7 +5,7 @@
             @csrf
             <div class="row">
                 <div class="col text-center">
-                    <h3>Actualizar Factura</h3>
+                    <h3>Actualizar Cobro</h3>
                 </div>
             </div>
             <div class="row">

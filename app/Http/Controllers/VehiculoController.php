@@ -6,6 +6,7 @@ use App\Models\Vehiculo;
 use App\Models\Clientes;
 use App\Models\Estatus;
 use App\Models\Personal;
+use App\Models\Recibo_pagos;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
@@ -254,15 +255,16 @@ class VehiculoController extends Controller
                             ->first();
 
         $r = Vehiculo::select('id_aux')
-        ->where('id', $request['id'])
-        ->first();
+                    ->where('id', $request['id'])
+                    ->first();
 
         $c = Clientes::select('id','nombre', 'telefono', 'correo')
                     ->where('id',$r['id_aux'])
                     ->first();
 
+        $rp = Recibo_pagos::all()->last();
         //dd($vehiculo);
-        return response()->json([$vehiculo, $c]);
+        return response()->json([$vehiculo, $c, $rp]);
     }
 
     public function indexDocs(){

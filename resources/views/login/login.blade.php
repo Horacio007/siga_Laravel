@@ -15,7 +15,7 @@
 </style>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"/>
 <div class="container-fluid">
-    <form action="{{ route('vl') }}" id="formdata">
+    <form action="/vl" id="formdata" method="POST">
         @csrf
         <div class="row">
             <div class="col text-center">
@@ -47,6 +47,4 @@
         </div>
     </form>
 </div>
-
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 @endsection

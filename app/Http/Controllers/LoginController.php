@@ -26,12 +26,15 @@ class LoginController extends Controller
             if ($e == null) {
                 return redirect()->route('login')->with('warning','Usuario o Contraseña Invalido.');
             } else {
+                /*
                 $_SESSION['user'] = $user;
                 $_SESSION['pasword'] = $pass;
                 $_SESSION['tipo'] = $e->tipo;
                 $_SESSION['timeout'] = time();
+                */
                 $tipo = $e->tipo;
-
+                $usuario = $request();
+                dd($usuario);
                 $f = date("Y-m-d");
                 $h = date("H:i:s");
                 
@@ -58,6 +61,10 @@ class LoginController extends Controller
     public function create()
     {
         return view('login.login');
+    }
+
+    public function menu(){
+        return view('menu.menu');
     }
 
     /**

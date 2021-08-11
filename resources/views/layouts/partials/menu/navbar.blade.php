@@ -1,6 +1,6 @@
       <!-- Se grega el navbar -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#" id="dtrIndex" >DTR</a>
+        <a class="navbar-brand" href="{{ route('menu') }}" id="dtrIndex" >DTR</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -59,6 +59,7 @@
                 <a class="dropdown-item" href="{{ route('l_asignacionPersonal') }}" id="asignacion_personal">Listado Asignacion de Personal</a>
                 <a class="dropdown-item" href="{{ route('l_procesoAdministrativo') }}" id="procesoAdmon">Listado Proceso Administrativo</a>
                 <a class="dropdown-item" href="{{ route('l_procesoTaller') }}" id="procesosegtaller">Listado Proceso Taller</a>
+                <a class="dropdown-item" href="{{ route('monitor') }}" id="procesosegtaller">Monitor</a>
                 <a class="dropdown-item" href="{{ route('metricos') }}" id="metricoss">Metricos</a>
             </li>
             <li class="nav-item dropdown">
@@ -105,7 +106,11 @@
                 <a class="dropdown-item" href="{{ route('frenos') }}" id="afrenos">Frenos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="">Cerrar Sesión</a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <a role="button" class="nav-link" href="#" onclick="event.preventDefault();
+                    this.closest('form').submit();">Cerrar Sesión</a>
+                </form>
             </li>
           </ul>
         </div>

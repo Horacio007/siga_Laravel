@@ -1304,77 +1304,88 @@ class VehiculoController extends Controller
                                 FROM 
                                     vehiculo 
                                 WHERE 
-                                    WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())');
+                                    WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())
+                                AND estatus_id = 3');
 
         $semana1 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
-                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-1');
+                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-1
+                            AND estatus_id = 3');
 
         $semana2 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
-                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-2');
+                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-2
+                            AND estatus_id = 3');
 
         $semana3 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
-                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-3');
+                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-3
+                            AND estatus_id = 3');
 
         $semana4 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
-                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-4');
+                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-4
+                            AND estatus_id = 3');
 
         $semana5 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
-                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-5');
+                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-5
+                            AND estatus_id = 3');
 
         $semana6 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
-                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-6');
+                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-6
+                            AND estatus_id = 3');
 
         $semana7 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
-                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-7');
+                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-7
+                            AND estatus_id = 3');
 
         $semana8 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
-                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-8');
+                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-8
+                            AND estatus_id = 3');
                                 
         $semana9 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
-                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-9'); 
+                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-9
+                            AND estatus_id = 3'); 
 
         $semana10 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
-                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-10');
+                                WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-10
+                            AND estatus_id = 3');
 
         $tabla_VEntregados10sem = array(
             array('Semana 10', 'Semana 9', 'Semana 8', 'Semana 7', 'Semana 6', 'Semana 5', 'Semana 4', 'Semana 3', 'Semana 2', 'Semana 1', 'Semana Actual'),
@@ -1922,6 +1933,19 @@ class VehiculoController extends Controller
             );
             return response()->json($val);
         }
+    }
+
+    public function monitor(){
+
+        $monitor = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo'])
+                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_valuacion', 'fecha_autorizacion', 'p_asignados', 'r_disponibles', 'aplica_hojalateria', 'fecha_hojalateria', 'aplica_preparacion', 'fecha_preparacion', 'aplica_pintura', 'fecha_pintura', 'aplica_armado', 'fecha_armado', 'aplica_detallado', 'fecha_detallado', 'aplica_mecanica', 'fecha_mecanica', 'aplica_lavado', 'fecha_lavado', 'fecha_entrega_interna', 'asignado_hojalateria', 'asignado_preparacion', 'asignado_pintura', 'asignado_armado', 'asignado_detallado', 'asignado_mecanica', 'asignado_lavado')
+                                ->where('estatus_id','5')
+                                //->where('id_aux', 433)
+                                ->orWhere('estatus_id','6')
+                                ->orderBy('id_aux')
+                                ->get();
+        //dd($monitor);
+        return view('administracion.monitor.monitor', compact('monitor'));
     }
 
     /**

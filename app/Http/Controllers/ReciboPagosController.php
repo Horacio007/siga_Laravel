@@ -8,6 +8,8 @@ use App\Models\Submarcav;
 use App\Models\Aseguradoras;
 use App\Models\Tipo_pago;
 use App\Models\Vehiculo;
+use App\Models\Tipo_servicio;
+use App\Models\Facturas;
 use Illuminate\Http\Request;
 
 class ReciboPagosController extends Controller
@@ -44,8 +46,9 @@ class ReciboPagosController extends Controller
 
 
         $tipo_pago = Tipo_pago::all();
+        $tipo_servicio = Tipo_servicio::all();
 
-        return view('recibo_pago.recibos.i_recibos_pago', compact(['tipo_pago', 'vehiculos']));
+        return view('recibo_pago.recibos.i_recibos_pago', compact(['tipo_pago', 'vehiculos', 'tipo_servicio']));
     }
 
     /**
@@ -65,7 +68,26 @@ class ReciboPagosController extends Controller
         $recibo->cantidad = $request->cantidad;
         $recibo->concepto = $request->concepto;
         $recibo->forma_pago = $request->tipo_pago;
+        $recibo->tipo_servicio_id = $request->tipo_servicio;
         if ($recibo->save()) {
+            $asuguradora = Vehiculo::select('cliente_id')
+                                    ->where('id', $request->iexpediente2)
+                                    ->first();
+            if ($asuguradora->cliente_id == 3) {
+                $ultimo = Recibo_pagos::all()->last();
+                $factura = new Facturas;
+                $factura->id_vehiculo = $ultimo->id_vehiculo;
+                $factura->cantidad = $ultimo->cantidad;
+                $factura->fecha_facturacion = $ultimo->fecha;
+                $factura->estatus_aseguradora = 2;
+                $factura->fecha_bbva = $ultimo->fecha;
+                $factura->comentarios = '.';
+                $factura->folio = $ultimo->id;
+                $factura->tipo_servicio_id = $ultimo->tipo_servicio_id;
+                $factura->tipo_pago_id = $ultimo->forma_pago;
+                $factura->save();
+            }
+            
             return redirect()->route('l_recibo_pagos')->with('success','Recibo de Pago Registrado.');
         } else {
             return redirect()->route('l_recibo_pagos')->with('error','Recibo de Pago Registrado.');

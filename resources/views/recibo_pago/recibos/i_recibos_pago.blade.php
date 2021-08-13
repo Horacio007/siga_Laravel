@@ -49,7 +49,16 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-2">
+                    <label for="">Tipo de Servico</label>
+                    <select name="tipo_servicio" id="i_ingresos" class="form-control">
+                        <option value="0">Selecciona el tipo de servicio</option>
+                        @foreach ($tipo_servicio as $servicio)
+                            <option value="{{$servicio->id}}">{{$servicio->tipo_servicio}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-4">
                     <label for="">Concepto</label>
                     <input type="text" name="concepto" id="concepto" class="form-control">
                 </div>

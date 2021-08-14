@@ -15,7 +15,9 @@
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <a href="{{url('/i_area')}}" class="btn btn-info">Registrar</a>
+                    @if (Route::has('register'))
+                        <a href="{{ route('register') }}" class="btn btn-info">Registrar</a>
+                    @endif
                 </div>
                 <div class="col-md-3"></div>
             </div>
@@ -30,12 +32,12 @@
                             <th scope="col">Acciones</th>
                         </thead>
                         <tbody class="">
-                            @foreach ($list_areas as $area)
+                            @foreach ($users as $usr)
                             <tr>
-                                <td>{{$area->id}}</td>
-                                <td>{{$area->nombre}}</td>
-                                <td><a href="{{ route('u_area', $area->id)}}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a> 
-                                <a href="" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$area->id}}" title="Eliminar"><i class="fa fa-trash"></i></a></td>
+                                <td>{{$usr->id}}</td>
+                                <td>{{$usr->name}}</td>
+                                <td><a href="{{ route('u_area', $usr->id)}}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a> 
+                                <a href="" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$usr->id}}" title="Eliminar"><i class="fa fa-trash"></i></a></td>
                             </tr>
                             @endforeach
                         </tbody>

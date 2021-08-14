@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,15 +24,29 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
+//Artisancomo 
+    //Migrate
+        Route::get('migrate', function() {
+            Artisan::call('migrate');
+        })->middleware('auth');
+    //endMigrate
+
+    //Seed
+        Route::get('seed', function() {
+            Artisan::call('db:seed');
+        })->middleware('auth');
+    //endSeed
+//endArtisan
+
 //Menu
     //Menu
-        Route::get('menu', 'LoginController@menu')->name('menu')->middleware('auth')->middleware('auth');;
+        Route::get('menu', 'LoginController@menu')->name('menu')->middleware('auth');
     //endMenu
 //endMenu
 
 //Recepcion
     //AltaVehiculo
-        Route::get('i_vehiculo', 'VehiculoController@i_vehiculo')->name('i_vehiculos')->middleware('auth')->middleware('auth');
+        Route::get('i_vehiculo', 'VehiculoController@i_vehiculo')->name('i_vehiculos')->middleware('auth');
         Route::get('ultimo_vehiculo', 'VehiculoController@ultimo_vehiculo')->middleware('auth');
         Route::get('ultimo_vehiculo_nuevo', 'VehiculoController@ultimo_vehiculo_nuevo')->middleware('auth');
         Route::get('listado_marcas', 'ModelosvController@listado_marcas')->middleware('auth');
@@ -397,7 +412,10 @@ require __DIR__.'/auth.php';
     //endEstatusFacturas
 
     //Usuarios
-        Route::get('l_estatusF', 'EstatusaseguradorasController@index')->name('l_estatusF')->middleware('auth');
+        /*
+        Route::get('l_usuarios', 'UsuariosController@index')->name('l_usuarios')->middleware('auth');
+        Route::get('i_usuarios', 'UsuariosController@create')->name('i_usuarios')->middleware('auth');
+        */
     //endUsuarios
 //endCatalogos
 

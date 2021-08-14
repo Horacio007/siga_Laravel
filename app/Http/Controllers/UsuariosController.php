@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuarios;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class UsuariosController extends Controller
@@ -14,7 +15,9 @@ class UsuariosController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+
+        return view('catalogos.usuarios.l_usuarios', compact('users'));
     }
 
     /**
@@ -24,7 +27,7 @@ class UsuariosController extends Controller
      */
     public function create()
     {
-        //
+        return view('auth.register');
     }
 
     /**

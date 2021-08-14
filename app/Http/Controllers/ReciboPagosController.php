@@ -172,9 +172,10 @@ class ReciboPagosController extends Controller
      */
     public function edit(Recibo_pagos $recibo_pagos)
     {
-        $tipo_pago = Tipo_pago::all();    
+        $tipo_pago = Tipo_pago::all();
+        $tipo_servicio = Tipo_servicio::all();    
     
-        return view('recibo_pago.recibos.u_recibos_pago', compact(['tipo_pago', 'recibo_pagos']));
+        return view('recibo_pago.recibos.u_recibos_pago', compact(['tipo_pago', 'recibo_pagos', 'tipo_servicio']));
     }
 
     /**
@@ -190,6 +191,7 @@ class ReciboPagosController extends Controller
         $recibo_pagos->cantidad = $request->cantidad;
         $recibo_pagos->concepto = $request->concepto;
         $recibo_pagos->forma_pago = $request->tipo_pago;
+        $recibo_pagos->tipo_servicio_id = $request->tipo_servicio;
         if ($recibo_pagos->save()) {
             return redirect()->route('l_recibo_pagos')->with('success','Recibo de Pago Actualizado.');
         } else {

@@ -14,8 +14,8 @@ class ModifiedVehiculo extends Migration
     public function up()
     {
         Schema::table('vehiculo', function (Blueprint $table) {
-            $table->integer('n_dano');
-            $table->integer('f_arribo');
+            //$table->integer('n_dano');
+            //$table->integer('f_arribo');
             $table->integer('marca_id');
             $table->integer('linea_id');
             $table->integer('cliente_id');

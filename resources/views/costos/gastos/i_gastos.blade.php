@@ -1,5 +1,8 @@
 @extends('layouts.master')
 @section('content')
+@if (Auth::user()->name != 'horacio' && Auth::user()->name != 'ramon' && Auth::user()->name != 'lucero' && Auth::user()->name != 'alicia' && Auth::user()->name != 'david' && Auth::user()->name != 'antonio')
+    <strong><h1>No tienes permisos.</h1></strong>
+@else
     <link rel="stylesheet" type="text/css" href="{{ asset('/libs/DataTables/DataTables-1.10.25/css/jquery.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/libs/DataTables/Buttons-1.7.1/css/buttons.dataTables.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('/libs/DataTables/Responsive-2.2.9/css/responsive.dataTables.min.css') }}">
@@ -41,9 +44,9 @@
                     <label for="">Factura</label>
                     <select name="sfactura" id="sfactura" class="form-control" required>
                         <option value="0">Aplica factura...</option>
-                       @foreach ($sino as $sn)
-                           <option value="{{$sn->id}}">{{$sn->nombre}}</option>
-                       @endforeach
+                    @foreach ($sino as $sn)
+                        <option value="{{$sn->id}}">{{$sn->nombre}}</option>
+                    @endforeach
                     </select>
                 </div>
                 <div class="col-md-3">
@@ -117,4 +120,5 @@
     <script type="text/javascript" src="{{ asset('/libs/DataTables/Buttons-1.7.1/js/buttons.html5.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/libs/DataTables/Responsive-2.2.9/js/dataTables.responsive.min.js') }}"></script>
     <script src="{{ asset('/js/costos/gastos/i_gastos.js') }}"></script>
+@endif
 @endsection

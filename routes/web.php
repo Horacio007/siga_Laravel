@@ -23,8 +23,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';
-
-//Artisancomo 
+/*
+//Artisan
     //Migrate
         Route::get('migrate', function() {
             Artisan::call('migrate');
@@ -37,6 +37,7 @@ require __DIR__.'/auth.php';
         })->middleware('auth');
     //endSeed
 //endArtisan
+/*
 
 //Menu
     //Menu

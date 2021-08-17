@@ -1,5 +1,8 @@
 @extends('layouts.master')
 @section('content')
+@if (Auth::user()->name != 'horacio' && Auth::user()->name != 'ramon' && Auth::user()->name != 'lucero' && Auth::user()->name != 'alicia' && Auth::user()->name != 'david' && Auth::user()->name != 'antonio')
+    <strong><h1>No tienes permisos.</h1></strong>
+@else
     <div class="container-fluid">
         <form action="{{ route('u_facturas', $facturas->id) }}" method="post" id="formdata">
             @csrf
@@ -43,7 +46,7 @@
                 <div class="col-md-2">
                     <label for="">Estatus Aseguradora</label>
                     <select name="sestatus" id="sestatus" class="form-control" required>
-                       <option value="0">Selecciona el estatus</option>
+                    <option value="0">Selecciona el estatus</option>
                         @foreach ($estausF as $estatus)
                             @if ($estatus->id == $facturas->estatus_aseguradora)
                                 <option value="{{$estatus->id}}" selected>{{$estatus->estatus}}</option>   
@@ -129,4 +132,5 @@
         </form>
     </div>
     <script src="{{ asset('/js/ingresos/facturas/u_facturas.js') }}"></script>
+@endif
 @endsection

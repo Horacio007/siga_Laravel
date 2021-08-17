@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-@if (Auth::user()->name != 'horacio')
+@if (Auth::user()->name != 'horacio' && Auth::user()->name != 'ramon' && Auth::user()->name != 'lucero' && Auth::user()->name != 'alicia' && Auth::user()->name != 'david' && Auth::user()->name != 'antonio')
     <strong><h1>No tienes permisos.</h1></strong>
 @else
     <link rel="stylesheet" type="text/css" href="{{ asset('/libs/DataTables/DataTables-1.10.25/css/jquery.dataTables.min.css') }}">

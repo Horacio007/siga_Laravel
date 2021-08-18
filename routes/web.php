@@ -37,7 +37,7 @@ require __DIR__.'/auth.php';
         })->middleware('auth');
     //endSeed
 //endArtisan
-/*
+*/
 
 //Menu
     //Menu

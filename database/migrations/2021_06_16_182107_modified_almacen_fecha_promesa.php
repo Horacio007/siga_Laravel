@@ -14,7 +14,7 @@ class ModifiedAlmacenFechaPromesa extends Migration
     public function up()
     {
         Schema::table('almacen', function (Blueprint $table) {
-            $table->date('fecha_promesa')->nullable();
+            //$table->date('fecha_promesa')->nullable();
         });
     }
 

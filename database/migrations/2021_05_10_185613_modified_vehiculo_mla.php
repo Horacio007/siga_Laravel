@@ -14,9 +14,9 @@ class ModifiedVehiculoMla extends Migration
     public function up()
     {
         Schema::table('vehiculo', function (Blueprint $table) {
-            $table->integer('marca_id');
-            $table->integer('linea_id');
-            $table->integer('cliente_id');
+            //$table->integer('marca_id');
+            //$table->integer('linea_id');
+            //s$table->integer('cliente_id');
 
         });
     }

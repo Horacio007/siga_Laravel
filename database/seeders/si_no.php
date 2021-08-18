@@ -18,7 +18,7 @@ class si_no extends Seeder
             'nombre' => 'Si'
         ]);
 
-        DB::table('users')->insert([
+        DB::table('si_no')->insert([
             'nombre' => 'No'
         ]);
     }

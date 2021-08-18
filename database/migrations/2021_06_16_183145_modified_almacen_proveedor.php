@@ -14,7 +14,7 @@ class ModifiedAlmacenProveedor extends Migration
     public function up()
     {
         Schema::table('almacen', function (Blueprint $table) {
-            $table->string('proveedor')->nullable();
+            //$table->string('proveedor')->nullable();
         });
     }
 

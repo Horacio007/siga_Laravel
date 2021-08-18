@@ -6,6 +6,8 @@ use App\Models\Almacen;
 use App\Models\Vehiculo;
 use App\Models\Aseguradoras;
 use App\Models\Estatusalmacen;
+use App\Models\Modelosv;
+use App\Models\Submarcav;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -55,7 +57,7 @@ class AlmacenController extends Controller
 
     public function index2()
     {
-        //AND ISNULL (almacen.fecha_llegada)
+        /*AND ISNULL (almacen.fecha_llegada)
         $list_refacciones = DB::select("SELECT
                                             almacen.id,
                                             almacen.id_vehiculo,
@@ -81,14 +83,26 @@ class AlmacenController extends Controller
                                         WHERE
                                             almacen.id_vehiculo = vehiculo.id
                                         AND vehiculo.estatus_id != 7
+                                        AND almacen.estatus_id != 3
+                                        AND almacen.estatus_id != 4
+                                        AND almacen.estatus_id != 2
+                                        AND almacen.estatus_id IS NULL
                                         AND vehiculo.marca_id = modelosv.id
                                         AND vehiculo.linea_id = submarcav.id
                                         AND almacen.aseguradora_id = aseguradoras.id
                                         AND almacen.estatus_id = estatusalmacen.id
                                         ORDER BY
                                             almacen.id DESC");
+        */
 
-        return view('refacciones.refacciones.seguimientoRefacciones.l_segRefacciones', compact('list_refacciones'));
+        $list_refacciones = Almacen::with(['vehiculo', 'estatus', 'aseguradora'])
+                                    ->orderBy('id')
+                                    ->get();
+        $marcas = Modelosv::all();
+        $submarcas = Submarcav::all();
+        $aseguradoras = Aseguradoras::all();
+        //dd($list_refacciones[0]);
+        return view('refacciones.refacciones.seguimientoRefacciones.l_segRefacciones', compact(['list_refacciones', 'marcas', 'submarcas', 'aseguradoras']));
     }
 
     public function index3()

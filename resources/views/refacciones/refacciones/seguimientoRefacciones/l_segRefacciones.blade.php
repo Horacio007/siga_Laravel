@@ -30,20 +30,44 @@
                         </thead>
                         <tbody class="">
                             @foreach ($list_refacciones as $refaccion)
-                            <tr>
-                                <td>{{$refaccion->id}}</td>
-                                <td>{{$refaccion->id_vehiculo}}</td>
-                                <td>{{$refaccion->marca}}</td>
-                                <td>{{$refaccion->submarca}}</td>
-                                <td>{{$refaccion->modelo}}</td>
-                                <td>{{$refaccion->nombre}}</td>
-                                <td>{{$refaccion->proveedor}}</td>
-                                <td>{{$refaccion->descripcion}}</td>
-                                <td>{{$refaccion->fecha_promesa}}</td>
-                                <td>{{$refaccion->fecha_llegada}}</td>
-                                <td><a href="{{ route('u_segrefaccion', $refaccion->id) }}" class="btn btn-info" title="Editar"><i class="fa fa-edit"></i></a>
-                                <a href="" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$refaccion->id}}" title="ELiminar"><i class="fa fa-trash"></i></a></td>
-                            </tr>
+                                @if ($refaccion->vehiculo->estatus_id != 7)
+                                    @if ($refaccion->estatus_id != 3 OR $refaccion->estatus_id != 4 OR $refaccion->estatus_id != 2)
+                                        <tr>
+                                            <td>{{$refaccion->id}}</td>
+                                            <td>{{$refaccion->vehiculo->id}}</td>
+                                            @php
+                                                for ($i=0; $i < sizeof($marcas); $i++) { 
+                                                    if ($marcas[$i]->id == $refaccion->vehiculo->marca_id) {
+                                                        $n_marca = $marcas[$i]->marca;
+                                                    }
+                                                }
+
+                                                for ($i=0; $i < sizeof($submarcas); $i++) { 
+                                                    if ($submarcas[$i]->id == $refaccion->vehiculo->linea_id) {
+                                                        $n_submarca = $submarcas[$i]->submarca;
+                                                    }
+                                                }
+
+                                                for ($i=0; $i < sizeof($aseguradoras); $i++) { 
+                                                    if ($aseguradoras[$i]->id == $refaccion->vehiculo->cliente_id) {
+                                                        $n_aseguradora = $aseguradoras[$i]->nombre;
+                                                    }
+                                                }
+
+                                            @endphp
+                                            <td>{{$n_marca}}</td>
+                                            <td>{{$n_submarca}}</td>
+                                            <td>{{$refaccion->vehiculo->modelo}}</td>
+                                            <td>{{$n_aseguradora}}</td>
+                                            <td>{{$refaccion->proveedor}}</td>
+                                            <td>{{$refaccion->descripcion}}</td>
+                                            <td>{{$refaccion->fecha_promesa}}</td>
+                                            <td>{{$refaccion->fecha_llegada}}</td>
+                                            <td><a href="{{ route('u_segrefaccion', $refaccion->id) }}" class="btn btn-info" title="Editar"><i class="fa fa-edit"></i></a>
+                                            <a href="" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$refaccion->id}}" title="ELiminar"><i class="fa fa-trash"></i></a></td>
+                                        </tr>
+                                    @endif
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

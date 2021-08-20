@@ -73,7 +73,7 @@
                                     <td>{{$ref->color}}</td>
                                     <td>{{$ref->modelo}}</td>
                                     <td>{{$ref->clientes->nombre}}</td>
-                                    <td>{{$ref->estatusRefacciones->estatus}}</td>
+                                    <td>{{$ref->estatusRefacciones->estatus??'Revision'}}</td>
                                     <td>{{$ref->fecha_llegada_taller}}</td>
                                     <td><a href="{{ route('u_Brefacciones', $ref->id) }}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a></td>
                                 </tr>

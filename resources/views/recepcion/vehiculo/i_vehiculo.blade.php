@@ -65,6 +65,9 @@
                 <label for="imodelo">Modelo</label>
                 <input type="text" name="modelo" class="form-control" id="imodelo" placeholder="Modelo" required>
             </div>
+        </div>
+        <br>
+        <div class="row">
             <div class="col-md-4">
                 <label for="icolor">Color</label>
                 <input type="text" name="color" class="form-control" id="icolor" placeholder="Color" required>            
@@ -116,6 +119,15 @@
             <div class="col-md-4">
                 <label for=""></label>
                 <button type="submit" class="btn btn-primary btn-lg btn-block" id="btn_registrar">Registrar</button>
+            </div>
+        </div>
+        <br>
+        <div id="d_ini" class="row">
+            <div id="d_incial">
+                <div class="col">
+                    <label for="">Diagnostico Inicial</label>
+                    <input type="text" class="form-control" name="diag_ini" required>
+                </div>
             </div>
         </div>
     </form>

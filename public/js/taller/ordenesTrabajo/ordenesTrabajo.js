@@ -95,7 +95,11 @@ $(document).ready(function(){
                             $("#inf").fadeIn();
                             $("#inf").css('border-radius', '5px');
                             $("#inf").css('background-color', '#53ee7e'); 
-                            $("#info").text('Vehiculo: '+ result[0]['marcas']['marca'] + ' ' + result[0]['submarcas']['submarca'] + ' ' + result[0]['color'] + ' ' + result[0]['modelo'] + ' ' + result[0]['clientes']['nombre']);
+                            if (result[0]['clientes']['id'] == 3) {
+                                $("#info").text('Vehiculo: '+ result[0]['marcas']['marca'] + ' ' + result[0]['submarcas']['submarca'] + ' ' + result[0]['color'] + ' ' + result[0]['modelo'] + ' ' + result[0]['clientes']['nombre'] + ' Diagnostico Inicial -> ' + result[0]['proveedor_1']);
+                            } else {
+                                $("#info").text('Vehiculo: '+ result[0]['marcas']['marca'] + ' ' + result[0]['submarcas']['submarca'] + ' ' + result[0]['color'] + ' ' + result[0]['modelo'] + ' ' + result[0]['clientes']['nombre']);
+                            }
                             $("#iexpediente2").val($("#iexpediente").val());
                             $("#btn_agregar").attr('disabled', false);  
                         }

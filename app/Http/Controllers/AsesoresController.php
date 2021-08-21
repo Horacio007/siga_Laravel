@@ -37,12 +37,13 @@ class AsesoresController extends Controller
         
         if ($request['select_asesor'] == true) {
             $asesores = Asesores::select('id', 'id_aseguradora', 'nombre', 'a_paterno', 'a_materno')
+                            ->where('id', 5)
                             ->orderBy('nombre')
                             ->get();
 
         
             //$output = '<select name="marca" id="sautoslinea" class="form-control"><option value="0">Seleccione la Marca del Vehículo:</option>';
-            $output = "<option value='0'>Seleccione la Marca del Vehículo:</option>";
+            $output = "<option value='0'>Seleccione el Asesor del Vehículo:</option>";
             for ($i=0; $i < sizeof($asesores); $i++) { 
                 $output .= '<option value="'.$asesores[$i]['id'].'">'.$asesores[$i]['nombre']. ' ' . $asesores[$i]['a_paterno'] . ' '. $asesores[$i]['a_materno'] .'</option>';
             }

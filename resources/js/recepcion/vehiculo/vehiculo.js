@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    //saco algo
+    var componente_template = $("#d_incial").html();
+    $("#d_incial").remove();
 
     //agrego la fecha del dia de hoy
     var d = new Date();
@@ -149,4 +152,16 @@ $(document).ready(function(){
         })
     })
     //
+
+    //
+    $("#saseguradora").on('change', function(){
+        if ($(this).val() == 3) {
+            $("#d_ini").append(componente_template);
+            Swal.fire({
+                icon: 'warning',
+                title: 'Atención',
+                text: 'Recuerda que tienes que explicar de forma general y concisa porque ingresa la unidad.',
+            })
+        }
+    })
 })

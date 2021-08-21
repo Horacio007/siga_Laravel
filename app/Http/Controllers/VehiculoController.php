@@ -223,6 +223,10 @@ class VehiculoController extends Controller
                 $vehiculo->no_siniestro = $request->siniestro;
                 $vehiculo->n_dano = $request->nivel;
                 $vehiculo->f_arribo = $request->arribo;
+                //se reutilizar la columna de prooveedor_1 para poder almacenar el diagnostico inical 
+                if ($request->aseguradora == 3) {
+                    $vehiculo->proveedor_1 = $request->diag_ini;
+                }
 
                 if ($vehiculo->save()) {
                     return redirect()->route('i_vehiculos')->with('success','Vehiculo Registrado.');
@@ -251,7 +255,7 @@ class VehiculoController extends Controller
     public function mlmca(Request $request){
         $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
                             ->where('id', $request['id'])
-                            ->select('modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'estatus_id')
+                            ->select('modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'estatus_id', 'proveedor_1')
                             ->first();
 
         $r = Vehiculo::select('id_aux')

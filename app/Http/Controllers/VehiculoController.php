@@ -1187,7 +1187,7 @@ class VehiculoController extends Controller
                                         vehiculo 
                                     WHERE 
                                         estatus_id = 3 
-                                    AND cliente_id = 8
+                                    AND cliente_id = 5
                                     AND MONTH(fecha_salida_taller) = MONTH(NOW())");
 
         $total_V_EMesBanorte = DB::select("SELECT 
@@ -1196,7 +1196,7 @@ class VehiculoController extends Controller
                                             vehiculo 
                                         WHERE 
                                             estatus_id = 3 
-                                        AND cliente_id = 9
+                                        AND cliente_id = 6
                                         AND MONTH(fecha_salida_taller) = MONTH(NOW())");
 
         $tabla_VEntregados = array(
@@ -1264,7 +1264,7 @@ class VehiculoController extends Controller
                                     FROM 
                                         vehiculo 
                                     WHERE
-                                        cliente_id = 8
+                                        cliente_id = 5
                                     AND MONTH(fecha_llegada) = MONTH(NOW())");
 
         $total_V_RMesBanorte = DB::select("SELECT 
@@ -1272,7 +1272,7 @@ class VehiculoController extends Controller
                                         FROM 
                                             vehiculo 
                                         WHERE
-                                            cliente_id = 9
+                                            cliente_id = 6
                                         AND MONTH(fecha_llegada) = MONTH(NOW())");
 
         $tabla_VRecibidos = array(
@@ -1528,7 +1528,7 @@ class VehiculoController extends Controller
                                                 vehiculo 
                                             WHERE 
                                                 estatus_id = 3 
-                                            AND cliente_id = 8
+                                            AND cliente_id = 5
                                             AND MONTH(fecha_salida_taller) = MONTH(NOW())");
 
             $total_V_EMesBanorte = DB::select("SELECT 
@@ -1537,7 +1537,7 @@ class VehiculoController extends Controller
                                                     vehiculo 
                                                 WHERE 
                                                     estatus_id = 3 
-                                                AND cliente_id = 9
+                                                AND cliente_id = 6
                                                 AND MONTH(fecha_salida_taller) = MONTH(NOW())");
 
             $datos = array(
@@ -1588,7 +1588,7 @@ class VehiculoController extends Controller
                                         FROM 
                                             vehiculo 
                                         WHERE
-                                            cliente_id = 8
+                                            cliente_id = 5
                                         AND MONTH(fecha_llegada) = MONTH(NOW())");
 
             $total_V_RMesBanorte = DB::select("SELECT 
@@ -1596,7 +1596,7 @@ class VehiculoController extends Controller
                                             FROM 
                                                 vehiculo 
                                             WHERE
-                                                cliente_id = 9
+                                                cliente_id = 6
                                             AND MONTH(fecha_llegada) = MONTH(NOW())");
 
             $datos = array(
@@ -1653,7 +1653,7 @@ class VehiculoController extends Controller
                                                 vehiculo 
                                             WHERE 
                                                 estatus_id = 3 
-                                            AND cliente_id = 8
+                                            AND cliente_id = 5
                                             AND MONTH(fecha_salida_taller) = MONTH('$mes')");
 
             $total_V_EMesBanorte = DB::select("SELECT 
@@ -1662,7 +1662,7 @@ class VehiculoController extends Controller
                                                     vehiculo 
                                                 WHERE 
                                                     estatus_id = 3 
-                                                AND cliente_id = 9
+                                                AND cliente_id = 6
                                                 AND MONTH(fecha_salida_taller) = MONTH('$mes')");
 
             $datos = array(
@@ -1714,7 +1714,7 @@ class VehiculoController extends Controller
                                         FROM 
                                             vehiculo 
                                         WHERE
-                                            cliente_id = 8
+                                            cliente_id = 5
                                         AND MONTH(fecha_llegada) = MONTH('$mes')");
 
             $total_V_RMesBanorte = DB::select("SELECT 
@@ -1722,7 +1722,7 @@ class VehiculoController extends Controller
                                             FROM 
                                                 vehiculo 
                                             WHERE
-                                                cliente_id = 9
+                                                cliente_id = 6
                                             AND MONTH(fecha_llegada) = MONTH('$mes')");
 
             $datos = array(

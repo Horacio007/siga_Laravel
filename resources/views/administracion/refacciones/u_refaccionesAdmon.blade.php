@@ -13,9 +13,9 @@
                 <div class="col-md-6">
                     <label for="lestatus">Estatus:</label><br>
                     <select name="estatus" class="form-control" required>
-                        <option value="{{$vehiculo->estatus_id}}" selected>{{$e_actual->status}}</option>
+                        <option value="{{$vehiculo->estatus_id}}" selected>{{$e_actual->estatus}}</option>
                         @foreach ($list_estatus as $estatus)
-                            <option value="{{$estatus->id}}">{{$estatus->status}}</option>
+                            <option value="{{$estatus->id}}">{{$estatus->estatus}}</option>
                         @endforeach
                     </select>
                 </div>

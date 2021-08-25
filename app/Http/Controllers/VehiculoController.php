@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vehiculo;
 use App\Models\Clientes;
 use App\Models\Estatus;
+use App\Models\Estatusrefacciones;
 use App\Models\Personal;
 use App\Models\Recibo_pagos;
 use Facade\FlareClient\Http\Response;
@@ -545,7 +546,7 @@ class VehiculoController extends Controller
                 return $pdf->stream($request['exp'].'_docs_qualitas');
                 break;
             
-            case 8:
+            case 5:
                 //primero creo el finiquito
                 $pdf = app('dompdf.wrapper');   
                 $pdf->loadHTML('<!DOCTYPE html>
@@ -699,10 +700,10 @@ class VehiculoController extends Controller
     }
 
     public function u_refaccionesAdmon(Vehiculo $vehiculo){
-        $list_estatus = Estatus::all();
+        $list_estatus = Estatusrefacciones::all();
 
-        $e_actual = Estatus::select('status')
-                            ->where('id', $vehiculo['estatus_id'])
+        $e_actual = Estatusrefacciones::select('estatus')
+                            ->where('id', $vehiculo['refacciones_id'])
                             ->first();
 
         if ($vehiculo->fecha_autorizacion == "" || $vehiculo->fecha_autorizacion == " " || $vehiculo->fecha_autorizacion == NULL || $vehiculo->fecha_autorizacion == null) {
@@ -800,13 +801,13 @@ class VehiculoController extends Controller
     public function update_Brefacciones(Request $request, Vehiculo $vehiculo){
         
         if ($vehiculo->estatus_id == $request->estatus) {
-            $e_actual = Estatus::select('status')
-                            ->where('id', $vehiculo['estatus_id'])
+            $e_actual = Estatusrefacciones::select('estatus')
+                            ->where('id', $vehiculo['refacciones_id'])
                             ->first();
 
-            return redirect()->route('l_Brefacciones')->with('warning','No se Actualizo el estatus "'. $e_actual->status . '".');
+            return redirect()->route('l_Brefacciones')->with('warning','No se Actualizo el estatus "'. $e_actual->estatus . '".');
         } else {
-            $vehiculo->estatus_id = $request->estatus;
+            $vehiculo->refacciones_id = $request->estatus;
             if ($vehiculo->save()) {
                 return redirect()->route('l_Brefacciones')->with('success','Estatus Actualizado.');
             } else {
@@ -1961,6 +1962,17 @@ class VehiculoController extends Controller
                                 ->get();
         //dd($monitor);
         return view('administracion.monitor.monitor', compact('monitor'));
+    }
+
+    public function monitorF(){
+
+        $monitor = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo', 'facturas'])
+                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_valuacion', 'fecha_autorizacion', 'p_asignados', 'r_disponibles', 'aplica_hojalateria', 'fecha_hojalateria', 'aplica_preparacion', 'fecha_preparacion', 'aplica_pintura', 'fecha_pintura', 'aplica_armado', 'fecha_armado', 'aplica_detallado', 'fecha_detallado', 'aplica_mecanica', 'fecha_mecanica', 'aplica_lavado', 'fecha_lavado', 'fecha_entrega_interna', 'asignado_hojalateria', 'asignado_preparacion', 'asignado_pintura', 'asignado_armado', 'asignado_detallado', 'asignado_mecanica', 'asignado_lavado')
+                                ->where('estatus_id','3')
+                                ->orderBy('id_aux')
+                                ->get();
+        dd($monitor[592]);
+        return view('administracion.monitor.monitorF', compact('monitor'));
     }
 
     /**

@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
      * @return void
      */
     public function run()
-    {   
+    {   /*
         DB::table('users')->insert([
             'name' => 'horacio',
             'email' => 'horacio@dtr-automotriz.com',
@@ -75,6 +75,13 @@ class UserSeeder extends Seeder
             'name' => 'isela',
             'email' => 'isela@dtr-automotriz.com',
             'password' => Hash::make('delacruz123'),
+        ]);
+        */
+        // se agrrega el usuario de cielo
+        DB::table('users')->insert([
+            'name' => 'cielo',
+            'email' => 'cielo@dtr-automotriz.com',
+            'password' => Hash::make('beltran123'),
         ]);
     }
 }

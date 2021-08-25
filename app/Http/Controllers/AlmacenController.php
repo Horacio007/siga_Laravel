@@ -191,8 +191,8 @@ class AlmacenController extends Controller
         $refaccion->fecha_promesa = $request->fechapromesa;
         $refaccion->proveedor = $request->proveedor;
         $refaccion->estatus_id = 1;
-        $refaccion_Aseg = Aseguradoras::select('id')->where('nombre',$request->aseguradora)->first();
-        $refaccion->aseguradora_id = $refaccion_Aseg->id;
+        $refaccion_Aseg = Aseguradoras::select('id')->where('nombre',$request->aseguradora)->first()->id;
+        $refaccion->aseguradora_id = $refaccion_Aseg;
         
         if ($refaccion->save()) {
             $pzs = DB::select("SELECT COUNT(descripcion) AS descripcion FROM almacen WHERE id_vehiculo = $request->expediente");

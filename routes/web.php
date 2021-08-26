@@ -239,6 +239,7 @@ require __DIR__.'/auth.php';
 
     //Monitor
         Route::get('monitor', 'VehiculoController@monitor')->name('monitor')->middleware('auth');
+        Route::get('monitorF', 'VehiculoController@monitorF')->name('monitorF')->middleware('auth');
     //endMonitor
 
     //Metricos

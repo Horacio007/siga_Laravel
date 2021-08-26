@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vehiculo;
 use App\Models\Clientes;
 use App\Models\Estatus;
+use App\Models\Estatusaseguradoras;
 use App\Models\Estatusrefacciones;
 use App\Models\Personal;
 use App\Models\Recibo_pagos;
@@ -1971,8 +1972,10 @@ class VehiculoController extends Controller
                                 ->where('estatus_id','3')
                                 ->orderBy('id_aux')
                                 ->get();
-        dd($monitor[592]);
-        return view('administracion.monitor.monitorF', compact('monitor'));
+        
+        $estatus = Estatusaseguradoras::all();
+
+        return view('administracion.monitor.monitorF', compact(['monitor', 'estatus']));
     }
 
     /**

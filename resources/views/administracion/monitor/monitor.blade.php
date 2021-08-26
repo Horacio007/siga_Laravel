@@ -8,7 +8,7 @@
             @csrf
             <div class="row">
                 <div class="col text-center">
-                    <h3>Monitor Tipo Aeropuerto</h3>
+                    <h3>Monitor Taller</h3>
                 </div>
             </div>
             <br>

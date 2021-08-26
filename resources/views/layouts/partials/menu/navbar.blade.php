@@ -59,7 +59,8 @@
                 <a class="dropdown-item" href="{{ route('l_asignacionPersonal') }}" id="asignacion_personal">Listado Asignacion de Personal</a>
                 <a class="dropdown-item" href="{{ route('l_procesoAdministrativo') }}" id="procesoAdmon">Listado Proceso Administrativo</a>
                 <a class="dropdown-item" href="{{ route('l_procesoTaller') }}" id="procesosegtaller">Listado Proceso Taller</a>
-                <a class="dropdown-item" href="{{ route('monitor') }}" id="procesosegtaller">Monitor</a>
+                <a class="dropdown-item" href="{{ route('monitor') }}" id="procesosegtaller">Monitor Taller</a>
+                <a class="dropdown-item" href="{{ route('monitorF') }}" id="procesosegtaller">Monitor Facturacion</a>
                 <a class="dropdown-item" href="{{ route('metricos') }}" id="metricoss">Metricos</a>
             </li>
             <li class="nav-item dropdown">

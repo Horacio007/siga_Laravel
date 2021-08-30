@@ -69,6 +69,12 @@ $(document).ready(function(){
             } else {
                 $(nRow).find('td:eq(10)').css('background-color', '#F9FFC9');
             }
+
+            if (aData[11] == 'Pagado') {
+                $(nRow).find('td:eq(11)').css('background-color', '#53ee7e'); 
+            } else {
+                $(nRow).find('td:eq(11)').css('background-color', '#F9FFC9');
+            }
         }
     });
 })

@@ -120,9 +120,13 @@
                     <label for="">Total</label>
                     <input type="text" name="cantidad" id="cantidad" class="form-control" placeholder="Ingresa el costo total" required>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label for="">Comentarios</label>
                     <input type="text" name="comentarios" id="comentarios" class="form-control" placeholder="Agrega un comentario..." required>
+                </div>
+                <div class="col-md-2">
+                    <label for="">Fecha BBVA</label>
+                    <input type="date" name="fecha_bbva" id="fecha_bbva" class="form-control">
                 </div>
             </div>
             <br>

@@ -123,6 +123,7 @@ class FacturasController extends Controller
         $factura->tipo_pago_anticipo_id = $request->tipo_anticipo;
         $factura->anticipo = $request->ianticipo;
         $factura->tipo_pago_id = $request->pago;
+        $factura->fecha_bbva_pagada = $request->fecha_bbva;
 
         if ($factura->save()) {
             return redirect()->route('i_facturas')->with('success','Factura Registrada.');
@@ -188,6 +189,7 @@ class FacturasController extends Controller
         $facturas->tipo_pago_anticipo_id = $request->tipo_anticipo;
         $facturas->anticipo = $request->ianticipo;
         $facturas->tipo_pago_id = $request->pago;
+        $facturas->fecha_bbva_pagada = $request->fecha_bbva;
 
         if ($facturas->save()) {
             if (isset($request->fbbva)) {

@@ -44,6 +44,7 @@
                             <th>Tipo Pago</th>
                             <th>Total</th>
                             <th>Comentarios</th>
+                            <th>Fecha BBVA</th>
                             <th>Acciones</th>
                         </thead>
                         <tbody>
@@ -99,6 +100,7 @@
                                     <td>{{$n_tpt??''}}</td>
                                     <td>{{$facturas->cantidad}}</td>
                                     <td>{{$facturas->comentarios}}</td>
+                                    <td>{{$facturas->fecha_bbva_pagada??''}}</td>
                                     <td>
                                         <a href="{{ route('u_facturas', $facturas->id) }}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a>
                                         <a href="#" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$facturas->id}}" title="Eliminar"><i class="fa fa-trash"></i></a>

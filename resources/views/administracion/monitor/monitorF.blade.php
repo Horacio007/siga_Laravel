@@ -24,9 +24,10 @@
                                 <th>Modelo</th>
                                 <th>Placas</th>
                                 <th>Cliente</th>
-                                <th>Estatus Facturacion</th>
+                                <th>Estatus Inicial F</th>
                                 <th>Proceso</th>
-                                <th>Estatus Facturas</th>
+                                <th>Estatus Final F</th>
+                                <th>Fecha BBVA</th>
                         </thead>
                         <tbody>
                             @foreach ($monitor as $mon)
@@ -57,14 +58,22 @@
                                     @switch($mon->facturas->estatus_aseguradora??'')
                                         @case(1)
                                             <td>Facturado</td>
+                                            <td>Pendiente</td>
                                             @break
                                         @case(2)
                                             <td>Pagado</td>
+                                            @if ($mon->facturas->fecha_bbva_pagada??'')
+                                                <td>Pagado</td>
+                                            @else
+                                                <td>Pendiente</td>
+                                            @endif
                                             @break
                                         @case(3)
                                             <td>Pendiente</td>
+                                            <td>Pendiente</td>
                                             @break
                                         @case(null)
+                                            <td>Pagado</td>
                                             <td>Pagado</td>
                                             @break
                                         @default

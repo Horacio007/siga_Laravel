@@ -9,6 +9,7 @@ use App\Models\Estatusaseguradoras;
 use App\Models\Estatusrefacciones;
 use App\Models\Personal;
 use App\Models\Recibo_pagos;
+use Illuminate\Support\Carbon;
 use Facade\FlareClient\Http\Response;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
@@ -1481,9 +1482,13 @@ class VehiculoController extends Controller
             array($semanar10[0]->entregados, $semanar9[0]->entregados, $semanar8[0]->entregados, $semanar7[0]->entregados, $semanar6[0]->entregados, $semanar5[0]->entregados, $semanar4[0]->entregados, $semanar3[0]->entregados, $semanar2[0]->entregados, $semanar1[0]->entregados, $semanar0[0]->entregados)
         );
 
+        //vehiculos entregados el dia anterior
+        $v_entretagos_ayer = Vehiculo::whereDate('fecha_salida_taller', Carbon::now()->subDay()->format('Y-m-d'))->count();
+        $v_recibidos_ayer = Vehiculo::whereDate('fecha_llegada',  Carbon::now()->subDay()->format('Y-m-d'))->count();;
 
-        //dd($tabla_VEntregados10sem[1]);
-        return view('administracion.metricos.metricos', compact(['tabla_VEntregados', 'tabla_VRecibidos', 'tabla_VEntregados10sem', 'tabla_VRecibidos10sem']));
+        //dd(Carbon::now()->subDay()->format('Y-m-d'));
+        //dd($v_entretagos_ayer);
+        return view('administracion.metricos.metricos', compact(['tabla_VEntregados', 'tabla_VRecibidos', 'tabla_VEntregados10sem', 'tabla_VRecibidos10sem', 'v_entretagos_ayer', 'v_recibidos_ayer']));
     }
 
     public function g_ventregados(Request $request){

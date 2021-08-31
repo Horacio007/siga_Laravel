@@ -1,5 +1,8 @@
 $(document).ready(function(){
 
+    $("#inf").css('border-radius', '5px');
+    $("#inf").css('background-color', '#00FEDB'); 
+
     $('#list_ventregados').DataTable({
         dom: 'Blfrtip',
         buttons: [{

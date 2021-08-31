@@ -14,6 +14,15 @@
             <br>
             <div class="row">
                 <div class="col text-center">
+                    <div id="inf">
+                        <h3>Vehiculos Entregados y Recibidos del dia anterior</h3>
+                        <h3>Entregados -> {{$v_entretagos_ayer}} / Recibidos -> {{$v_recibidos_ayer}}</h3>
+                    </div>
+                </div>
+            </div> 
+            <br>
+            <div class="row">
+                <div class="col text-center">
                     <h3>Vehiculos Entregados y Recibidos por Mes</h3>
                 </div>
             </div>

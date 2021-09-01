@@ -20,7 +20,7 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <label for="lfenvio">Fecha Llegada al Taller:</label><br>
+                    <label for="lfenvio">Fecha Llegada al Taller a Reparacion:</label><br>
                     <input type="date" class="form-control" id="fecha_llegada" name="fecha_llegada" value="{{$vehiculo->fecha_llegada}}">
                 </div>
                 <div class="col-md-2">

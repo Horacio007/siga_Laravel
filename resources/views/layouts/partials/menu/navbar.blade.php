@@ -106,6 +106,11 @@
                 <a class="dropdown-item" href="{{ route('afinaciones') }}" id="afina">Afinaciones</a>
                 <a class="dropdown-item" href="{{ route('frenos') }}" id="afrenos">Frenos</a>
             </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Formatos</a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ route('formatos') }}" id="afina">Formatos</a>
+            </li>
             <li class="nav-item">
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

@@ -486,3 +486,10 @@ require __DIR__.'/auth.php';
         Route::get('frenos', 'AudLimpiezaController@frenos')->name('frenos')->middleware('auth');
     //endFrenos
 //endCatalogoServicios
+
+//Formatos
+    //Formatos
+        Route::get('formatos', 'FormatosController@index')->name('formatos')->middleware('auth');
+        Route::get('verformatos/', 'FormatosController@show')->name('verformatos')->middleware('auth');
+    //endFormatos
+//endFormatos

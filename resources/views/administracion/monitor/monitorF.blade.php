@@ -25,7 +25,6 @@
                                 <th>Placas</th>
                                 <th>Cliente</th>
                                 <th>Estatus Inicial F</th>
-                                <th>Proceso</th>
                                 <th>Estatus Final F</th>
                                 <th>Fecha BBVA</th>
                         </thead>
@@ -46,39 +45,30 @@
                                         <td></td>
                                     @endif
                                     @switch($mon->facturas->estatus_aseguradora??'')
-                                        @case(2)
-                                            <td>Proceso Terminado</td>
-                                            @break
-                                        @case(null)
-                                            <td>Proceso Terminado</td>
-                                            @break
-                                        @default
-                                            <td>Proceso</td>
-                                    @endswitch
-                                    @switch($mon->facturas->estatus_aseguradora??'')
                                         @case(1)
                                             <td>Facturado</td>
-                                            <td>Pendiente</td>
                                             @break
                                         @case(2)
                                             <td>Pagado</td>
-                                            @if ($mon->facturas->fecha_bbva_pagada??'')
-                                                <td>Pagado</td>
-                                            @else
-                                                <td>Pendiente</td>
-                                            @endif
                                             @break
                                         @case(3)
                                             <td>Pendiente</td>
-                                            <td>Pendiente</td>
                                             @break
                                         @case(null)
-                                            <td>Pagado</td>
                                             <td>Pagado</td>
                                             @break
                                         @default
                                             <td>Algo salio mal</td>
                                     @endswitch
+                                    @if ($mon->facturas->recibo_pagos??'')
+                                        <td>Pagado</td>
+                                    @else
+                                        @if ($mon->facturas->fecha_bbva_pagada??'')
+                                            <td>Pagado</td>
+                                        @else
+                                            <td>Pendiente</td>
+                                        @endif
+                                    @endif
                                 </tr>
                             @endforeach
                         </tbody>

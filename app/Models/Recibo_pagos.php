@@ -23,4 +23,8 @@ class Recibo_pagos extends Model
     public function cliente(){
         return $this->hasOne('App\Models\Clientes', 'id', 'recibi');
     }
+
+    public function facturas(){
+        return $this->hasOne('App\Models\Facturas', 'id_vehiculo', 'id');
+    }
 }

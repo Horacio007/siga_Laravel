@@ -24,4 +24,8 @@ class Facturas extends Model
     public function tipo_servicios(){
         return $this->hasOne('App\Models\Tipo_servicio', 'id', 'tipo_servicio_id');
     }
+
+    public function recibo_pagos(){
+        return $this->hasMany('App\Models\Recibo_pagos', 'id_vehiculo', 'id_vehiculo');
+    }
 }

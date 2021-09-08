@@ -42,7 +42,7 @@
                                     @if ($mon->facturas->fecha_facturacion??'')
                                         <td>Facturado</td>
                                         @else
-                                        <td></td>
+                                        <td>Pendiente Facturacion</td>
                                     @endif
                                     @switch($mon->facturas->estatus_aseguradora??'')
                                         @case(1)

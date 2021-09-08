@@ -56,7 +56,9 @@ $(document).ready(function(){
         rowCallback: function(nRow, aData){
             if (aData[8] == 'Facturado') {
                 $(nRow).find('td:eq(8)').css('background-color', '#53ee7e'); 
-            } 
+            } else {
+                $(nRow).find('td:eq(8)').css('background-color', '#F9FFC9');
+            }
 
             if (aData[9] == 'Pagado') {
                 $(nRow).find('td:eq(9)').css('background-color', '#53ee7e'); 

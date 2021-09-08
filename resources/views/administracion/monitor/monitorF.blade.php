@@ -18,6 +18,7 @@
                         <thead class="text-capitalize">
                                 <th>Expediente</th>
                                 <th>Estatus</th>
+                                <th>Fecha de Entrega</th>
                                 <th>Marca</th>
                                 <th>Linea</th>
                                 <th>Color</th>
@@ -33,6 +34,7 @@
                                 <tr>
                                     <td>{{$mon->id}}</td>
                                     <td>{{$mon->estatus->status}}</td>
+                                    <td>{{$mon->fecha_salida_taller}}</td>
                                     <td>{{$mon->marcas->marca}}</td>
                                     <td>{{$mon->submarcas->submarca}}</td>
                                     <td>{{$mon->color}}</td>

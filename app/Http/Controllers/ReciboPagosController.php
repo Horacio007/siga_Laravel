@@ -87,11 +87,12 @@ class ReciboPagosController extends Controller
                 $factura->tipo_servicio_id = $ultimo->tipo_servicio_id;
                 $factura->tipo_pago_id = $ultimo->forma_pago;
                 $factura->save();
-
+                /*
                 $vehiculo = Vehiculo::where('id', $request->iexpediente2)->first();
                 $vehiculo->estatus_id = 3;
                 $vehiculo->fecha_salida_taller = Carbon::now()->format('Y-m-d');
                 $vehiculo->save();
+                */
             }
             
             return redirect()->route('l_recibo_pagos')->with('success','Recibo de Pago Registrado.');

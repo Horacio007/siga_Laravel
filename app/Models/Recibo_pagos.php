@@ -27,4 +27,8 @@ class Recibo_pagos extends Model
     public function facturas(){
         return $this->hasOne('App\Models\Facturas', 'id_vehiculo', 'id');
     }
+
+    public function requiere_factura(){
+        return $this->hasOne('App\Models\si_no', 'id', 'aplica_factura');
+    }
 }

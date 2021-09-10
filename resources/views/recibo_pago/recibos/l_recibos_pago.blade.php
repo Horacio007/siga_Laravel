@@ -26,6 +26,7 @@
                             <th>Fecha</th>
                             <th>Expediente</th>
                             <th>Folio</th>
+                            <th>Aplica Factura</th>
                             <th>Recibi</th>
                             <th>Marca</th>
                             <th>Linea</th>
@@ -45,7 +46,8 @@
                                 <td>{{$recibos->fecha}}</td>
                                 <td>{{$recibos->expedientes->id}}</td>
                                 <td>{{$recibos->folio}}</td>
-                                <td>{{$recibos->cliente->nombre}}</td>
+                                <td>{{$recibos->requiere_factura->nombre??''}}</td>
+                                <td>{{$recibos->cliente->nombre??''}}</td>
                                 @php
                                     for ($i=0; $i < sizeof($marcas); $i++) { 
                                         if ($marcas[$i]->id == $recibos->expedientes->marca_id) {
@@ -65,12 +67,21 @@
                                         }
                                     }
                                 @endphp
-                                <td>{{$n_marca}}</td>
-                                <td>{{$n_submarca}}</td>
-                                <td>{{$recibos->expedientes->color}}</td>
-                                <td>{{$recibos->expedientes->modelo}}</td>
-                                <td>{{$recibos->expedientes->placas}}</td>
-                                <td>{{$n_aseguradora}}</td>
+                                @if ($recibos->expedientes->id == 123)
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                @else
+                                    <td>{{$n_marca}}</td>
+                                    <td>{{$n_submarca}}</td>
+                                    <td>{{$recibos->expedientes->color}}</td>
+                                    <td>{{$recibos->expedientes->modelo}}</td>
+                                    <td>{{$recibos->expedientes->placas}}</td>
+                                    <td>{{$n_aseguradora}}</td>
+                                @endif
                                 <td>{{$recibos->cantidad}}</td>
                                 <td>{{$recibos->concepto}}</td>
                                 <td>{{$recibos->tipo_pagos->tipo_pago}}</td>

@@ -55,16 +55,17 @@ $(document).ready(function(){
 
     });
 
-    $("#list_facturas tbody tr").on('click', '.delete', function(){
+    $("#list_facturas tbody tr td").on('click', '.delete', function(){
+        console.log('entra');
         let area_id = $(this).attr('item_id');
         let expediente = $(this).parents("tr").find('td').eq(1).html();
-        let marca = $(this).parents("tr").find('td').eq(2).html();
-        let linea = $(this).parents("tr").find('td').eq(3).html();
-        let color = $(this).parents("tr").find('td').eq(4).html();
-        let modelo = $(this).parents("tr").find('td').eq(5).html();
-        let placas = $(this).parents("tr").find('td').eq(6).html();
-        let cliente = $(this).parents("tr").find('td').eq(7).html();
-        let cantidad =  $(this).parents("tr").find('td').eq(8).html();
+        let marca = $(this).parents("tr").find('td').eq(3).html();
+        let linea = $(this).parents("tr").find('td').eq(4).html();
+        let color = $(this).parents("tr").find('td').eq(5).html();
+        let modelo = $(this).parents("tr").find('td').eq(6).html();
+        let placas = $(this).parents("tr").find('td').eq(7).html();
+        let cliente = $(this).parents("tr").find('td').eq(8).html();
+        let cantidad =  $(this).parents("tr").find('td').eq(17).html();
         $("#iarea").val(expediente + ' -> ' + marca + ' ' + linea + ' ' + color + ' ' + modelo + ' ' + placas + ' ' + cliente + ' Cantidad -> $' + cantidad);
 
         let old_url = $("#modal_delete").attr('action');

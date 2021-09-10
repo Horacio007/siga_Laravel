@@ -66,7 +66,7 @@ $(document).ready(function(){
               
             return false
         }
-        
+
         $.ajax({
             url: '/e_ve',
             type: 'GET',
@@ -91,10 +91,15 @@ $(document).ready(function(){
                             inf = result;
                             $("#inf").fadeIn();
                             $("#inf").css('border-radius', '5px');
-                            $("#inf").css('background-color', '#53ee7e'); 
-                            $("#info").text('Vehiculo: '+ result[0]['marcas']['marca'] + ' ' + result[0]['submarcas']['submarca'] + ' ' + result[0]['color'] + ' ' + result[0]['modelo'] + ' ' + result[0]['clientes']['nombre']);
-                            $("#iexpediente2").val($("#iexpediente").val());
-                            $("#cliente").val(result[1]['id']);
+                            $("#inf").css('background-color', '#53ee7e');
+                            if ($("#iexpediente").val() == 123) {
+                                $("#info").text('Generico');
+                                $("#iexpediente2").val($("#iexpediente").val());
+                            } else {
+                                $("#info").text('Vehiculo: '+ result[0]['marcas']['marca'] + ' ' + result[0]['submarcas']['submarca'] + ' ' + result[0]['color'] + ' ' + result[0]['modelo'] + ' ' + result[0]['clientes']['nombre']);
+                                $("#iexpediente2").val($("#iexpediente").val());
+                                $("#cliente").val(result[1]['id']);
+                            }
                         }
                     })         
                 } else {
@@ -108,7 +113,8 @@ $(document).ready(function(){
                     }
                 }
             }
-        })
+        })    
+        
     })
 
     $("#btn_registrar").on('click', function(){
@@ -176,44 +182,86 @@ $(document).ready(function(){
             return false
         }
 
-        const doc = new jsPDF();
-        doc.addImage('/img/recibo_depago.jpg', 'jpg', 0, 0, 210, 300);
-        doc.setFontSize(12);
-        let f1 = new Date();
-        let f2 = f1.getDate() + "-" + (f1.getMonth() +1) + "-" + f1.getFullYear()
-        doc.text(160, 58.5, f2)
-        doc.text(160, 184, f2)
-        doc.text(160, 63.8, $("#iexpediente").val());
-        doc.text(160, 190, $("#iexpediente").val());
-        if (inf[2] != null) {
-            let folio = Number(inf[2]['id']) + 1;
-            doc.text(160, 69, '' + folio);
-            doc.text(160, 195, '' + folio);
-            $("#folio").val(folio);
+        if ($("#iexpediente").val() == 123) {
+            const doc = new jsPDF();
+            doc.addImage('/img/recibo_depago.jpg', 'jpg', 0, 0, 210, 300);
+            doc.setFontSize(12);
+            let f1 = new Date();
+            let f2 = f1.getDate() + "-" + (f1.getMonth() +1) + "-" + f1.getFullYear()
+            doc.text(160, 58.5, f2)
+            doc.text(160, 184, f2)
+            doc.text(160, 63.8, $("#iexpediente").val());
+            doc.text(160, 190, $("#iexpediente").val());
+            if (inf[2] != null) {
+                let folio = Number(inf[2]['id']) + 1;
+                doc.text(160, 69, '' + folio);
+                doc.text(160, 195, '' + folio);
+                $("#folio").val(folio);
+            } else {
+                $("#folio").val(1);
+                doc.text(160, 69, '1');
+                doc.text(160, 195, '1');
+            }
+            doc.text(52, 77, 'Generico');
+            doc.text(52, 203, 'Generico');
+            doc.text(60, 83, '$' + $("#cantidad").val());
+            doc.text(60, 209, '$' + $("#cantidad").val());
+            doc.text(65, 90, 'Generico');
+            doc.text(65, 215, 'Generico');
+            if ($("#concepto").val() < 54) {
+                doc.text(65, 95, $("#concepto").val());
+            } else {
+                let concepto = $("#concepto").val().slice(55);
+                let concepto2 = $("#concepto").val().slice(0, 54);
+                doc.text(65, 95, concepto2);
+                doc.text(65, 100, concepto);
+                doc.text(65, 220, concepto2);
+                doc.text(65, 225, concepto);
+            }
+            doc.text(65, 117.5, $("#tipo_pago option:selected").text());
+            doc.text(65, 238, $("#tipo_pago option:selected").text());
+            doc.save('' + $("#iexpediente").val() +'_recibo_pago');
         } else {
-            $("#folio").val(1);
-            doc.text(160, 69, '1');
-            doc.text(160, 195, '1');
+            const doc = new jsPDF();
+            doc.addImage('/img/recibo_depago.jpg', 'jpg', 0, 0, 210, 300);
+            doc.setFontSize(12);
+            let f1 = new Date();
+            let f2 = f1.getDate() + "-" + (f1.getMonth() +1) + "-" + f1.getFullYear()
+            doc.text(160, 58.5, f2)
+            doc.text(160, 184, f2)
+            doc.text(160, 63.8, $("#iexpediente").val());
+            doc.text(160, 190, $("#iexpediente").val());
+            if (inf[2] != null) {
+                let folio = Number(inf[2]['id']) + 1;
+                doc.text(160, 69, '' + folio);
+                doc.text(160, 195, '' + folio);
+                $("#folio").val(folio);
+            } else {
+                $("#folio").val(1);
+                doc.text(160, 69, '1');
+                doc.text(160, 195, '1');
+            }
+            doc.text(52, 77, inf[1]['nombre']);
+            doc.text(52, 203, inf[1]['nombre']);
+            doc.text(60, 83, '$' + $("#cantidad").val());
+            doc.text(60, 209, '$' + $("#cantidad").val());
+            doc.text(65, 90, inf[0]['marcas']['marca'] + ' ' + inf[0]['submarcas']['submarca'] + ' ' + inf[0]['modelo'] + ' ' + inf[0]['color'] + ' ' + inf[0]['placas']+ ' ' + inf[0]['clientes']['nombre']);
+            doc.text(65, 215, inf[0]['marcas']['marca'] + ' ' + inf[0]['submarcas']['submarca'] + ' ' + inf[0]['modelo'] + ' ' + inf[0]['color'] + ' ' + inf[0]['placas']+ ' ' + inf[0]['clientes']['nombre']);
+            if ($("#concepto").val() < 54) {
+                doc.text(65, 95, $("#concepto").val());
+            } else {
+                let concepto = $("#concepto").val().slice(55);
+                let concepto2 = $("#concepto").val().slice(0, 54);
+                doc.text(65, 95, concepto2);
+                doc.text(65, 100, concepto);
+                doc.text(65, 220, concepto2);
+                doc.text(65, 225, concepto);
+            }
+            doc.text(65, 117.5, $("#tipo_pago option:selected").text());
+            doc.text(65, 238, $("#tipo_pago option:selected").text());
+            doc.save('' + $("#iexpediente").val() +'_recibo_pago');
         }
-        doc.text(52, 77, inf[1]['nombre']);
-        doc.text(52, 203, inf[1]['nombre']);
-        doc.text(60, 83, '$' + $("#cantidad").val());
-        doc.text(60, 209, '$' + $("#cantidad").val());
-        doc.text(65, 90, inf[0]['marcas']['marca'] + ' ' + inf[0]['submarcas']['submarca'] + ' ' + inf[0]['modelo'] + ' ' + inf[0]['color'] + ' ' + inf[0]['placas']+ ' ' + inf[0]['clientes']['nombre']);
-        doc.text(65, 215, inf[0]['marcas']['marca'] + ' ' + inf[0]['submarcas']['submarca'] + ' ' + inf[0]['modelo'] + ' ' + inf[0]['color'] + ' ' + inf[0]['placas']+ ' ' + inf[0]['clientes']['nombre']);
-        if ($("#concepto").val() < 54) {
-            doc.text(65, 95, $("#concepto").val());
-        } else {
-            let concepto = $("#concepto").val().slice(55);
-            let concepto2 = $("#concepto").val().slice(0, 54);
-            doc.text(65, 95, concepto2);
-            doc.text(65, 100, concepto);
-            doc.text(65, 220, concepto2);
-            doc.text(65, 225, concepto);
-        }
-        doc.text(65, 117.5, $("#tipo_pago option:selected").text());
-        doc.text(65, 238, $("#tipo_pago option:selected").text());
-        doc.save('' + $("#iexpediente").val() +'_recibo_pago');
+
     })
 
 })

@@ -33,6 +33,15 @@
             @csrf
             <div class="row">
                 <div class="col-md-2">
+                    <label for="">Requiere Factura</label>
+                    <select name="aplica_factura" class="form-control" required>
+                        <option value="0">Selecciona si aplica factura</option>
+                        @foreach ($si_no as $aplica_fac)
+                            <option value="{{$aplica_fac->id}}">{{$aplica_fac->nombre}}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-md-2">
                     <label for="">Fecha</label>
                     <input type="date" name="fecha" id="fecha" class="form-control" required>
                 </div>
@@ -58,7 +67,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
                     <label for="">Concepto</label>
                     <input type="text" name="concepto" id="concepto" class="form-control">
                 </div>

@@ -41,10 +41,33 @@
                                     <td>{{$mon->modelo}}</td>
                                     <td>{{$mon->placas}}</td>
                                     <td>{{$mon->clientes->nombre}}</td>
-                                    @if ($mon->facturas->fecha_facturacion??'')
-                                        <td>Facturado</td>
+                                    @if ($mon->clientes->id == 3)
+                                        @if ($mon->facturas->recibo_pagos??'')
+                                            @switch($mon->facturas->estatus_aseguradora??'')
+                                                @case(1)
+                                                    <td>Facturado</td>
+                                                    @break
+                                                @case(2)
+                                                    <td>Pagado</td>
+                                                    @break
+                                                @case(3)
+                                                    <td>Pendiente</td>
+                                                    @break
+                                                @case(null)
+                                                    <td>Pendiente</td>
+                                                    @break
+                                                @default
+                                                    <td>Algo salio mal</td>
+                                            @endswitch
                                         @else
-                                        <td>Pendiente Facturacion</td>
+                                            <td>N/A</td>
+                                        @endif
+                                    @else
+                                        @if ($mon->facturas->fecha_facturacion??'')
+                                            <td>Facturado</td>
+                                        @else
+                                            <td>Pendiente Facturacion</td>
+                                        @endif
                                     @endif
                                     @switch($mon->facturas->estatus_aseguradora??'')
                                         @case(1)
@@ -57,7 +80,7 @@
                                             <td>Pendiente</td>
                                             @break
                                         @case(null)
-                                            <td>Pagado</td>
+                                            <td>Pendiente</td>
                                             @break
                                         @default
                                             <td>Algo salio mal</td>

@@ -85,12 +85,21 @@
                                             }
                                         }
                                     @endphp
-                                    <td>{{$n_marca}}</td>
-                                    <td>{{$n_submarca}}</td>
-                                    <td>{{$facturas->expedientes->color}}</td>
-                                    <td>{{$facturas->expedientes->modelo}}</td>
-                                    <td>{{$facturas->expedientes->placas}}</td>
-                                    <td>{{$n_aseguradora}}</td>
+                                    @if ($facturas->id_vehiculo == 123)
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    @else
+                                        <td>{{$n_marca??''}}</td>
+                                        <td>{{$n_submarca??''}}</td>
+                                        <td>{{$facturas->expedientes->color??''}}</td>
+                                        <td>{{$facturas->expedientes->modelo??''}}</td>
+                                        <td>{{$facturas->expedientes->placas??''}}</td>
+                                        <td>{{$n_aseguradora??''}}</td>
+                                    @endif
                                     <td>{{$facturas->tipo_servicios->tipo_servicio??""}}</td>
                                     <td>{{$facturas->fecha_facturacion}}</td>
                                     <td>{{$facturas->fecha_anticipo}}</td>

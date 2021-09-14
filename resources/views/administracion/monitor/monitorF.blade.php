@@ -85,8 +85,12 @@
                                         @default
                                             <td>Algo salio mal</td>
                                     @endswitch
-                                    @if ($mon->facturas->recibo_pagos??'')
-                                        <td>Pagado</td>
+                                    @if ($mon->clientes->id == 3)
+                                        @if ($mon->facturas->recibo_pagos??'')
+                                            <td>Pagado</td>
+                                        @else
+                                            <td>Pendiente</td>
+                                        @endif
                                     @else
                                         @if ($mon->facturas->fecha_bbva_pagada??'')
                                             <td>Pagado</td>

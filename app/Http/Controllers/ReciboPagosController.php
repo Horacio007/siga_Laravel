@@ -227,9 +227,10 @@ class ReciboPagosController extends Controller
     public function edit(Recibo_pagos $recibo_pagos)
     {
         $tipo_pago = Tipo_pago::all();
-        $tipo_servicio = Tipo_servicio::all();    
+        $tipo_servicio = Tipo_servicio::all();   
+        $si_no = si_no::all(); 
     
-        return view('recibo_pago.recibos.u_recibos_pago', compact(['tipo_pago', 'recibo_pagos', 'tipo_servicio']));
+        return view('recibo_pago.recibos.u_recibos_pago', compact(['tipo_pago', 'recibo_pagos', 'tipo_servicio', 'si_no']));
     }
 
     /**

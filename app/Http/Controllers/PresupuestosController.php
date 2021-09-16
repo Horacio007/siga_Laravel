@@ -24,7 +24,7 @@ class PresupuestosController extends Controller
     }
 
     public function i_presupuesto(){
-        return view('costeo.presupuesto.i_presupuesto');
+        return view('costeo.presupuesto.i_presupuesto2');
     }
 
     public function exist_pres(Request $request){
@@ -67,29 +67,52 @@ class PresupuestosController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $presu = new Presupuestos();
         $presu->id_vehiculo = $request->expediente;
-        $presu->op = $request->operacion;
-        $presu->nivel = $request->nivel;
-        $presu->concepto = $request->concepto;
-        $presu->momh = $request->momh;
-        $presu->momp = $request->momp;
-        $presu->momm = $request->momm;
-        $presu->tot = $request->tot;
-        $presu->refacciones = $request->refacciones;
-        $presu->tmomh = $request->tmomh;
-        $presu->tmomp = $request->tmomp;
-        $presu->tmomm = $request->tmomm;
-        $presu->ttot = $request->ttot;
-        $presu->trefacciones = $request->trefacciones;
-        $presu->subtotal = $request->subtotal;
-        $presu->iva = $request->iva;
-        $presu->total = $request->total;
 
+        $op = "";
+        $nivel = "";
+        $concepto = "";
+        $momh = "";
+        $momp = "";
+        $momm = "";
+        $tot = "";
+        $refacciones = "";
+
+        for ($i=1; $i < $request->cont; $i++) { 
+            $op.= $request['toperacion_'.$i].'/';
+            $nivel.= $request['tnivel_'.$i].'/';
+            $concepto.= $request['tconcepto_'.$i].'/';
+            $momh.= $request['tmomh_'.$i].'/';
+            $momp.= $request['tmomp_'.$i].'/';
+            $momm.= $request['tmomm_'.$i].'/';
+            $tot.= $request['ttot_'.$i].'/';
+            $refacciones.= $request['trefacciones_'.$i].'/';
+        }
+
+        $presu->op = $op;
+        $presu->nivel = $nivel;
+        $presu->concepto = $concepto;
+        $presu->momh = $momh;
+        $presu->momp = $momp;
+        $presu->momm = $momm;
+        $presu->tot = $tot;
+        $presu->refacciones = $refacciones;
+
+        $presu->tmomh = $request->itmomh;
+        $presu->tmomp = $request->itmomp;
+        $presu->tmomm = $request->itmomm;
+        $presu->ttot = $request->ittot;
+        $presu->trefacciones = $request->itrefacciones;
+        $presu->subtotal = $request->isubtotal;
+        $presu->iva = $request->iiva;
+        $presu->total = $request->itotal;
+        
         if ($presu->save()) {
-            return 1;
+            return redirect()->route('i_presupuesto')->with('success','Presupuesto Registrado.');
         } else {
-            return 'Presupuesto no Registrado.';
+            return redirect()->route('i_presupuesto')->with('error','Presupuesto no Registrado.');
         }
         
     }
@@ -113,7 +136,8 @@ class PresupuestosController extends Controller
      */
     public function edit(Presupuestos $presupuestos)
     {
-        return view('costeo.presupuesto.u_presupuesto', compact('presupuestos'));
+        //dd($presupuestos);
+        return view('costeo.presupuesto.u_presupuesto2', compact('presupuestos'));
     }
 
     /**
@@ -125,31 +149,49 @@ class PresupuestosController extends Controller
      */
     public function update(Request $request, Presupuestos $presupuestos)
     {
-        if ($presupuestos->op == $request->op) {
-            return redirect()->route('l_presupuestos')->with('warning','No se Actualizo el Presupuesto, no se detectaron cambios en la información.');
-        } else {
-            $presupuestos->op = $request->toperacion;
-            $presupuestos->nivel = $request->tnivel;
-            $presupuestos->concepto = $request->tconcepto;
-            $presupuestos->momh = $request->tmomh;
-            $presupuestos->momp = $request->tmomp;
-            $presupuestos->momm = $request->tmomm;
-            $presupuestos->tot = $request->ttot;
-            $presupuestos->refacciones = $request->trefacciones;
-            $presupuestos->tmomh = $request->ttmomh;
-            $presupuestos->tmomp = $request->ttmomp;
-            $presupuestos->tmomm = $request->ttmomm;
-            $presupuestos->ttot = $request->tttot;
-            $presupuestos->trefacciones = $request->ttrefacciones;
-            $presupuestos->subtotal = $request->tsubtotal;
-            $presupuestos->iva = $request->tiva;
-            $presupuestos->total = $request->ttotal;
+        //dd($request, $presupuestos);
+        $op = "";
+        $nivel = "";
+        $concepto = "";
+        $momh = "";
+        $momp = "";
+        $momm = "";
+        $tot = "";
+        $refacciones = "";
 
-            if ($presupuestos->save()) {
-                return redirect()->route('l_presupuestos')->with('success','Presupuesto Actualizado.');
-            } else {
-                return redirect()->route('l_presupuestos')->with('error','Presupuesto no Actualizado.');
-            }
+        for ($i=1; $i < $request->cont2; $i++) { 
+            $op.= $request['toperacion_'.$i].'/';
+            $nivel.= $request['tnivel_'.$i].'/';
+            $concepto.= $request['tconcepto_'.$i].'/';
+            $momh.= $request['tmomh_'.$i].'/';
+            $momp.= $request['tmomp_'.$i].'/';
+            $momm.= $request['tmomm_'.$i].'/';
+            $tot.= $request['ttot_'.$i].'/';
+            $refacciones.= $request['trefacciones_'.$i].'/';
+        }
+
+        $presupuestos->op = $op;
+        $presupuestos->nivel = $nivel;
+        $presupuestos->concepto = $concepto;
+        $presupuestos->momh = $momh;
+        $presupuestos->momp = $momp;
+        $presupuestos->momm = $momm;
+        $presupuestos->tot = $tot;
+        $presupuestos->refacciones = $refacciones;
+
+        $presupuestos->tmomh = $request->ttmomh;
+        $presupuestos->tmomp = $request->ttmomp;
+        $presupuestos->tmomm = $request->ttmomm;
+        $presupuestos->ttot = $request->tttot;
+        $presupuestos->trefacciones = $request->ttrefacciones;
+        $presupuestos->subtotal = $request->tsubtotal;
+        $presupuestos->iva = $request->tiva;
+        $presupuestos->total = $request->ttotal;
+
+        if ($presupuestos->save()) {
+            return redirect()->route('l_presupuestos')->with('success','Presupuesto Actualizado.');
+        } else {
+            return redirect()->route('l_presupuestos')->with('error','Presupuesto no Actualizado.');
         }
     }
 
@@ -176,80 +218,114 @@ class PresupuestosController extends Controller
         $operacion = $presupuesto['op'];
         strlen($operacion);
         $operacion = explode('/', $operacion);
-        $y = 138;
+        $y = 162;
         $ops = '';
         for ($i=0; $i < count($operacion); $i++) {
-            $ops.= '<p style="position: absolute; top: '.$y.'; left: 3;">'.strtoupper($operacion[$i]).'</p>';
+            switch ($operacion[$i]) {
+                case 1:
+                    $ops.= '<p style="position: absolute; top: '.$y.'; left: 35px;">'.strtoupper('c').'</p>';
+                    break;
+
+                case 2:
+                    $ops.= '<p style="position: absolute; top: '.$y.'; left: 35px;">'.strtoupper('r').'</p>';
+                    break;
+
+                case 3:
+                    $ops.= '<p style="position: absolute; top: '.$y.'; left: 35px;">'.strtoupper('rs').'</p>';
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+
             $y = $y+17;
         }
 
         $nivel = $presupuesto['nivel'];
         strlen($nivel);
         $nivel = explode('/', $nivel);
-        $y = 138;
+        $y = 162;
         $niv = '';
         for ($i=0; $i < count($nivel); $i++) {
-            $niv.= '<p style="position: absolute; top: '.$y.'; left: 15;">'.strtoupper($nivel[$i]).'</p>';
+            switch ($nivel[$i]) {
+                case 1:
+                    $niv.= '<p style="position: absolute; top: '.$y.'; left: 65px;">'.strtoupper('a').'</p>';
+                    break;
+
+                case 2:
+                    $niv.= '<p style="position: absolute; top: '.$y.'; left: 65px;">'.strtoupper('m').'</p>';
+                    break;
+
+                case 3:
+                    $niv.= '<p style="position: absolute; top: '.$y.'; left: 65px;">'.strtoupper('l').'</p>';
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+            
             $y = $y+17;
         }
 
         $concepto = $presupuesto['concepto'];
         strlen($concepto);
         $concepto = explode('/', $concepto);
-        $y = 138;
+        $y = 162;
         $con = '';
         for ($i=0; $i < count($concepto); $i++) {
-            $con.= '<p style="position: absolute; top: '.$y.'; left: 58;">'.strtoupper($concepto[$i]).'</p>';
+            $con.= '<p style="position: absolute; top: '.$y.'; left: 130px;">'.$concepto[$i].'</p>';
             $y = $y+17;
         }
 
         $momh = $presupuesto['momh'];
         strlen($momh);
         $momh = explode('/', $momh);
-        $y = 138;
+        $y = 162;
         $momhh = '';
         for ($i=0; $i < count($momh); $i++) {
-            $momhh.= '<p style="position: absolute; top: '.$y.'; left: 348;">'.strtoupper($momh[$i]).'</p>';
+            $momhh.= '<p style="position: absolute; top: '.$y.'; left: 509px;">'.$momh[$i].'</p>';
             $y = $y+17;
         }
 
         $momp = $presupuesto['momp'];
         strlen($momp);
         $momp = explode('/', $momp);
-        $y = 138;
+        $y = 162;
         $mompp = '';
         for ($i=0; $i < count($momp); $i++) {
-            $mompp.= '<p style="position: absolute; top: '.$y.'; left: 384;">'.strtoupper($momp[$i]).'</p>';
+            $mompp.= '<p style="position: absolute; top: '.$y.'; left: 558px;">'.$momp[$i].'</p>';
             $y = $y+17;
         }
 
         $momm = $presupuesto['momm'];
         strlen($momm);
         $momm = explode('/', $momm);
-        $y = 138;
+        $y = 162;
         $mommm = '';
         for ($i=0; $i < count($momm); $i++) {
-            $mommm.= '<p style="position: absolute; top: '.$y.'; left: 421;">'.strtoupper($momm[$i]).'</p>';
+            $mommm.= '<p style="position: absolute; top: '.$y.'; left: 607px;">'.$momm[$i].'</p>';
             $y = $y+17;
         }
 
         $tot = $presupuesto['tot'];
         strlen($tot);
         $tot = explode('/', $tot);
-        $y = 138;
+        $y = 162;
         $tott = '';
         for ($i=0; $i < count($tot); $i++) {
-            $tott.= '<p style="position: absolute; top: '.$y.'; left: 457;">'.strtoupper($tot[$i]).'</p>';
+            $tott.= '<p style="position: absolute; top: '.$y.'; left: 656px;">'.$tot[$i].'</p>';
             $y = $y+17;
         }
 
         $refacciones = $presupuesto['refacciones'];
         strlen($refacciones);
         $refacciones = explode('/', $refacciones);
-        $y = 138;
+        $y = 162;
         $ref = '';
         for ($i=0; $i < count($refacciones); $i++) {
-            $ref.= '<p style="position: absolute; top: '.$y.'; left: 492;">'.strtoupper($refacciones[$i]).'</p>';
+            $ref.= '<p style="position: absolute; top: '.$y.'; left: 694px;">'.$refacciones[$i].'</p>';
             $y = $y+17;
         }
 
@@ -262,17 +338,28 @@ class PresupuestosController extends Controller
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <title>Presupuesto</title>
         </head>
-        <body background="img/formato_presupuesto2.jpg">
-            <p style="position: absolute; top: 20px; left: 250px;">Expediente -> '.$request['exp'].'</p>
-            <p style="position: absolute; top: 65px; left: 68px;">'.$cliente['nombre'].' '.$cliente['a_paterno'].' '.$cliente['a_materno'].'</p>
-            <p style="position: absolute; top: 130px; left: 68px;">'.$vehiculo['clientes']['nombre'].'</p>
-            <p style="position: absolute; top: 65px; left: 300px;">'.$vehiculo['marcas']['marca'].'</p>
-            <p style="position: absolute; top: 87px; left: 300px;">'.$vehiculo['submarcas']['submarca'].'</p>
-            <p style="position: absolute; top: 110px; left: 300px;">'.$vehiculo['modelo'].'</p>
-            <p style="position: absolute; top: 130px; left: 300px;">'.$vehiculo['color'].'</p>
-            <p style="position: absolute; top: 65; left: 535px;">'.$vehiculo['placas'].'</p>
-            <p style="position: absolute; top: 82; left: 535px;">'.$hoy.'</p>
-            <p style="position: absolute; top: 97; left: 535px;">'.$vehiculo['estatus']['status'].'</p>
+        <style>
+                body {
+                    background: url(img/formato_presupuesto3.jpg); 
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    /* Arriba | Derecha | Abajo | Izquierda */
+                    background-size: 100% 100%;
+                    /* Arriba | Derecha | Abajo | Izquierda */
+                    margin: -50px -38px -60px -39px;
+                }
+            </style>
+        <body>
+            <p style="position: absolute; top: 30px; left: 260px;">Expediente -> '.$request['exp'].'</p>
+            <p style="position: absolute; top: 86px; left: 72px;">'.$cliente['nombre'].' '.$cliente['a_paterno'].' '.$cliente['a_materno'].'</p>
+            <p style="position: absolute; top: 155px; left: 105px;">'.$vehiculo['clientes']['nombre'].'</p>
+            <p style="position: absolute; top: 86px; left: 300px;">'.$vehiculo['marcas']['marca'].'</p>
+            <p style="position: absolute; top: 111px; left: 300px;">'.$vehiculo['submarcas']['submarca'].'</p>
+            <p style="position: absolute; top: 133px; left: 300px;">'.$vehiculo['modelo'].'</p>
+            <p style="position: absolute; top: 155px; left: 300px;">'.$vehiculo['color'].'</p>
+            <p style="position: absolute; top: 83; left: 535px;">'.$vehiculo['placas'].'</p>
+            <p style="position: absolute; top: 99; left: 535px;">'.$hoy.'</p>
+            <p style="position: absolute; top: 116; left: 535px;">'.$vehiculo['estatus']['status'].'</p>
             '.$ops.'
             '.$niv.'
             '.$con.'
@@ -281,14 +368,14 @@ class PresupuestosController extends Controller
             '.$mommm.'
             '.$tott.'
             '.$ref.'
-            <p style="position: absolute; top: 620; left: 462px;">'.$presupuesto['tmomh'].'</p>
-            <p style="position: absolute; top: 620; left: 511px;">'.$presupuesto['tmomp'].'</p>
-            <p style="position: absolute; top: 620; left: 560px;">'.$presupuesto['tmomm'].'</p>
-            <p style="position: absolute; top: 620; left: 608px;">'.$presupuesto['ttot'].'</p>
-            <p style="position: absolute; top: 620; left: 656px;">'.$presupuesto['trefacciones'].'</p>
-            <p style="position: absolute; top: 635; left: 654px;">'.$presupuesto['subtotal'].'</p>
-            <p style="position: absolute; top: 648; left: 654px;">'.$presupuesto['iva'].'</p>
-            <p style="position: absolute; top: 661; left: 654px;">'.$presupuesto['total'].'</p>
+            <p style="position: absolute; top: 900px; left: 510px;">'.$presupuesto['tmomh'].'</p>
+            <p style="position: absolute; top: 900px; left: 558px;">'.$presupuesto['tmomp'].'</p>
+            <p style="position: absolute; top: 900px; left: 607px;">'.$presupuesto['tmomm'].'</p>
+            <p style="position: absolute; top: 900px; left: 656px;">'.$presupuesto['ttot'].'</p>
+            <p style="position: absolute; top: 900px; left: 694px;">'.$presupuesto['trefacciones'].'</p>
+            <p style="position: absolute; top: 918px; left: 694px;">'.$presupuesto['subtotal'].'</p>
+            <p style="position: absolute; top: 935px; left: 694px;">'.$presupuesto['iva'].'</p>
+            <p style="position: absolute; top: 954px; left: 694px;">'.$presupuesto['total'].'</p>
         </body>
         </body>
         </html>');

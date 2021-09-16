@@ -39,11 +39,11 @@ $(document).ready(function(){
         con2 = con;
         
         for (let i = 1; i < con2; i++) {
-            sumamomh+= parseFloat($("#tmomh_" + i).val());
-            sumamomp+= parseFloat($("#tmomp_" + i).val());
-            sumamomm+= parseFloat($("#tmomm_" + i).val());
-            sumatot+= parseFloat($("#ttot_" + i).val());
-            sumarefacciones+= parseFloat($("#trefacciones_" + i).val());
+            sumamomh+= parseFloat($("#tmomh_" + i).val()??0);
+            sumamomp+= parseFloat($("#tmomp_" + i).val()??0);
+            sumamomm+= parseFloat($("#tmomm_" + i).val()??0);
+            sumatot+= parseFloat($("#ttot_" + i).val()??0);
+            sumarefacciones+= parseFloat($("#trefacciones_" + i).val()??0);
         }
 
         $("#itmomh").val(sumamomh.toFixed(2));

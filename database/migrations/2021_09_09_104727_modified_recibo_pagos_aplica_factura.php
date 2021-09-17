@@ -14,7 +14,7 @@ class ModifiedReciboPagosAplicaFactura extends Migration
     public function up()
     {
         Schema::table('recibo_pagos', function (Blueprint $table) {
-            $table->integer('aplica_factura')->nullable();
+            //$table->integer('aplica_factura')->nullable();
         });
     }
 

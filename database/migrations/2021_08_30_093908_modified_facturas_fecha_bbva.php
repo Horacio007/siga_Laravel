@@ -14,7 +14,7 @@ class ModifiedFacturasFechaBbva extends Migration
     public function up()
     {
         Schema::table('facturas', function (Blueprint $table) {
-            $table->date('fecha_bbva_pagada')->nullable();
+            //$table->date('fecha_bbva_pagada')->nullable();
         });
     }
 

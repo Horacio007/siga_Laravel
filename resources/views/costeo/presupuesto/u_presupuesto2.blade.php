@@ -173,7 +173,7 @@
         <div class="row">
             <div class="col-md-4">
                 <input type="text" id="cont" value="{{sizeof($op)}}" hidden readonly>
-                <input type="text" id="cont2" name="cont2" hidden readonly>
+                <input type="text" id="cont2" value="{{sizeof($op)}}" name="cont2" hidden readonly>
             </div>
             <div class="col-md-4">
                 <label for=""></label>

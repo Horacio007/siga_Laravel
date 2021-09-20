@@ -51,6 +51,7 @@ $(document).ready(function(){
                         }
         },
         select: true,
+        order: [[0, 'des']],
 
     });
 

@@ -65,7 +65,7 @@
                                         }
                                         */
                                         if ($proceso->aplica_pintura == 1) {
-                                            if ($proceso->fecha_pintura == '0000-00-00' || $proceso->aplica_pintura == null) {
+                                            if ($proceso->fecha_pintura == '0000-00-00' || $proceso->aplica_pintura == null || $proceso->fecha_pintura == null) {
                                                 $aplipint = 2;
                                             } else {
                                                 $aplipint = 1;

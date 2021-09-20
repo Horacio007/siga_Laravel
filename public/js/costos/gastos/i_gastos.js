@@ -97,7 +97,7 @@ $(document).ready(function(){
                     id: dataa
                 },
                 success: function(result){
-                    console.log(result)
+                    //console.log(result)
                     if (result['resultado'] == 0) {
                         $("#exp").text('Vehiculo No Encontrado');
                         $("#expp").css('border-radius', '5px');

@@ -422,11 +422,22 @@ require __DIR__.'/auth.php';
 //endCatalogos
 
 //Costos
+    //RecibosPagoProveedores
+        Route::get('l_recibo_pagos_pro', 'ReciboPagoProveedoresController@index')->name('l_recibo_pagos_pro')->middleware('auth');
+        Route::get('i_recibo_pagos_pro', 'ReciboPagoProveedoresController@create')->name('i_recibo_pagos_pro')->middleware('auth');
+        Route::post('i_recibo_pagos_pro', 'ReciboPagoProveedoresController@store')->middleware('auth');
+        Route::get('/u_recibo_pagos_pro/{recibo_pago_proveedores}', 'ReciboPagoProveedoresController@edit')->name('u_recibo_pagos_pro')->middleware('auth');
+        Route::post('/u_recibo_pagos_pro/{recibo_pago_proveedores}', 'ReciboPagoProveedoresController@update')->middleware('auth');
+        Route::get('create_pdfRPP/{recibo_pago_proveedores}', 'ReciboPagoProveedoresController@show')->name('create_pdfRPP')->middleware('auth');
+        Route::post('/d_recibo_pagos_pro/{recibo_pago_proveedores}', 'ReciboPagoProveedoresController@destroy')->name('d_recibo_pagos_pro')->middleware('auth');
+    //endRecibosPagoProveedores
+
     //Gastos
         Route::get('l_gastos', 'GastosController@index')->name('l_gastos')->middleware('auth');
         Route::get('i_gastos', 'GastosController@create')->name('i_gastos')->middleware('auth');
         Route::get('/get_idV', 'VehiculoController@get_idV')->middleware('auth');
         Route::get('/existe_vehiculo_gastos', 'VehiculoController@existe_vehiculo_gastos')->middleware('auth');
+        Route::get('/existe_vehiculo_gastos_recibo', 'VehiculoController@existe_vehiculo_gastos_recibo')->middleware('auth');
         Route::post('i_gastos', 'GastosController@store')->middleware('auth');
         Route::get('/u_gastos/{gastos}', 'GastosController@edit')->name('u_gastos')->middleware('auth');
         Route::post('/u_gastos/{gastos}', 'GastosController@update')->middleware('auth');

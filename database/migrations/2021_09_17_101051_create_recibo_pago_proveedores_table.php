@@ -20,7 +20,7 @@ class CreateReciboPagoProveedoresTable extends Migration
             $table->integer('folio')->nullable();
             $table->integer('aplica_factura')->nullable();
             $table->string('page')->nullable();
-            $table->integer('cantidad')->nullable();
+            $table->decimal('cantidad', 65, 2)->nullable();
             $table->string('concepto')->nullable();
             $table->string('proveedor')->nullable();
             $table->integer('tipo_gasto_id')->nullable();

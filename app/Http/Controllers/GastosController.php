@@ -7,6 +7,7 @@ use App\Models\Gastos;
 use App\Models\Vehiculo;
 use App\Models\si_no;
 use App\Models\Conceptos_pagos;
+use App\Models\recibo_pago_proveedores;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -133,6 +134,18 @@ class GastosController extends Controller
      */
     public function destroy(Gastos $gastos)
     {
+        $recibo = recibo_pago_proveedores::where('concepto', $gastos->articulos)
+                            ->whereDate('fecha', $gastos->fecha)
+                            ->where('cantidad',  $gastos->gastos)
+                            ->where('forma_pago', $gastos->forma_pago)
+                            ->where('proveedor', $gastos->proveedor)
+                            ->where('aplica_factura', $gastos->factura)
+                            ->where('tipo_gasto_id', $gastos->tipo)
+                            //->where('id_vehiculo',  $gastos->expediente??null)
+                            ->first();
+        //dd($recibo);
+        $recibo->delete();
+
         if ($gastos->delete()) {
             return redirect()->route('l_gastos')->with('success','Gasto Eliminado.');
         } else {

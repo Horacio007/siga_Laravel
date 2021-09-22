@@ -87,6 +87,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Costos</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ route('l_recibo_pagos_pro') }}" id="gastos">Listado Recibo Pago Proveedores</a>
                 <a class="dropdown-item" href="{{ route('l_gastos') }}" id="gastos">Listado Gastos</a>
             </li>
             <li class="nav-item dropdown">

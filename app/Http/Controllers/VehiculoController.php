@@ -14,6 +14,7 @@ use Facade\FlareClient\Http\Response;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\recibo_pago_proveedores;
 
 class VehiculoController extends Controller
 {
@@ -1949,6 +1950,25 @@ class VehiculoController extends Controller
         //return response()->json($vehiculo);
         if ($vehiculo != null) {
             return response()->json($vehiculo);
+        } else {
+            $val = array(
+                'resultado' => 0
+            );
+            return response()->json($val);
+        }
+    }
+
+    public function existe_vehiculo_gastos_recibo(Request $request){
+        $id = intval($request->id);
+
+        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+                            ->where('id', 'LIKE', "%$id%")
+                            ->select('modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'estatus_id')
+                            ->first();
+        $rpp = recibo_pago_proveedores::all()->last();
+        //return response()->json($vehiculo);
+        if ($vehiculo != null) {
+            return response()->json([$vehiculo, $rpp]);
         } else {
             $val = array(
                 'resultado' => 0

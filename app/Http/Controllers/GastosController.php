@@ -144,7 +144,10 @@ class GastosController extends Controller
                             //->where('id_vehiculo',  $gastos->expediente??null)
                             ->first();
         //dd($recibo);
-        $recibo->delete();
+        if ($recibo??'') {
+            $recibo->delete();
+        }
+        
 
         if ($gastos->delete()) {
             return redirect()->route('l_gastos')->with('success','Gasto Eliminado.');

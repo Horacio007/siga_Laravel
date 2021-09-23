@@ -164,4 +164,171 @@ $(document).ready(function(){
             })
         }
     })
+
+    $("#btn_registrar").on('click', function(){
+        if ($("#inombre").val()=="") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Rellena el campo de Nombre',
+            })
+
+            return false
+        }
+
+        if ($("#itel").val()=="") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Rellena el campo de Telefono',
+            })
+
+            return false
+        }
+
+        if ($("#itel").val().length != 10) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Un numero telefonico esta compuesto por 10 numeros',
+            })
+
+            $("#itel").val('');
+
+            return false
+        }
+
+        if (isNaN($("#itel").val())) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Un numero telefonico solo esta compuesto por numeros',
+            })
+
+            $("#itel").val('');
+
+            return false
+        }
+
+        if ($("#icorreo").val()=="") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Rellena el campo de Correo Electronico',
+            })
+
+            return false
+        }
+
+        //datos del vehiculo
+        if ($("#sautos").val()==0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Seleccion una marca de vehículo',
+            })
+
+            return false
+        }
+
+        if ($("#sautoslinea").val()==0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Seleccion una linea de vehículo',
+            })
+
+            return false
+        }
+
+        if ($("#imodelo").val()==0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Rellena el campo modelo',
+            })
+
+            return false
+        }
+
+        if ($("#icolor").val()==0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Rellena el campo color',
+            })
+
+            return false
+        }
+
+        if ($("#iplacas").val()==0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Rellena el campo de placas',
+            })
+
+            return false
+        }
+
+        if ($("#isiniestro").val()==0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Rellena el campo de siniestro',
+            })
+
+            return false
+        }
+
+        if ($("#sasesor").val()==0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Seleccion un asesor',
+            })
+
+            return false
+        }
+
+        if ($("#saseguradora").val()==0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Seleccion una aseguradora',
+            })
+
+            return false
+        }
+
+        if ($("#sestatus").val()==0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Seleccion un estatus',
+            })
+
+            return false
+        }
+
+        if ($("#snivel").val()==0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Seleccion un nivel de daño',
+            })
+
+            return false
+        }
+
+        if ($("#sarribo").val()==0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Seleccion una forma de arribo',
+            })
+
+            return false
+        }
+    })
 })

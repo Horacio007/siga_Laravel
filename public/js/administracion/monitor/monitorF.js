@@ -54,7 +54,7 @@ $(document).ready(function(){
         pageLength: 100,
         order: [[9, 'asc']],
         rowCallback: function(nRow, aData){
-            if (aData[9] == 'Facturado') {
+            if (aData[9] == 'Facturado' || aData[9] == 'Pagado') {
                 $(nRow).find('td:eq(9)').css('background-color', '#53ee7e'); 
             } else {
                 $(nRow).find('td:eq(9)').css('background-color', '#F9FFC9');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Presupuestos;
 use App\Models\Vehiculo;
 use App\Models\Clientes;
+use App\Models\Costrefacciones;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -69,7 +70,11 @@ class PresupuestosController extends Controller
     {
         //dd($request);
         $presu = new Presupuestos();
+        $costeo = new Costrefacciones();
+        $costeo->id_vehiculo = $request->expediente; 
         $presu->id_vehiculo = $request->expediente;
+
+        $opcost = "";
 
         $op = "";
         $nivel = "";
@@ -81,6 +86,9 @@ class PresupuestosController extends Controller
         $refacciones = "";
 
         for ($i=1; $i < $request->cont; $i++) { 
+            if ($request['toperacion_'.$i] == 1) {
+                $opcost.= $request['tconcepto_'.$i].'/';
+            }
             $op.= $request['toperacion_'.$i].'/';
             $nivel.= $request['tnivel_'.$i].'/';
             $concepto.= $request['tconcepto_'.$i].'/';
@@ -90,6 +98,9 @@ class PresupuestosController extends Controller
             $tot.= $request['ttot_'.$i].'/';
             $refacciones.= $request['trefacciones_'.$i].'/';
         }
+
+        $costeo->concepto = $opcost;
+        $costeo->save(); 
 
         $presu->op = $op;
         $presu->nivel = $nivel;
@@ -150,6 +161,10 @@ class PresupuestosController extends Controller
     public function update(Request $request, Presupuestos $presupuestos)
     {
         //dd($request, $presupuestos);
+        $costeo = Costrefacciones::where('id_vehiculo', $presupuestos->id_vehiculo)->first();
+
+        $opcost = "";
+
         $op = "";
         $nivel = "";
         $concepto = "";
@@ -160,6 +175,9 @@ class PresupuestosController extends Controller
         $refacciones = "";
 
         for ($i=1; $i < $request->cont2; $i++) { 
+            if ($request['toperacion_'.$i] == 1) {
+                $opcost.= $request['tconcepto_'.$i].'/';
+            }
             $op.= $request['toperacion_'.$i].'/';
             $nivel.= $request['tnivel_'.$i].'/';
             $concepto.= $request['tconcepto_'.$i].'/';
@@ -169,6 +187,9 @@ class PresupuestosController extends Controller
             $tot.= $request['ttot_'.$i].'/';
             $refacciones.= $request['trefacciones_'.$i].'/';
         }
+
+        $costeo->concepto = $opcost;
+        $costeo->save(); 
 
         $presupuestos->op = $op;
         $presupuestos->nivel = $nivel;

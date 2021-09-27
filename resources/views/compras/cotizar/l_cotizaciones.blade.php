@@ -46,7 +46,8 @@
                                 <td>{{$cotizaciones->modelo}}</td>
                                 <td>{{$cotizaciones->nombre}}</td>
                                 <td>{{$cotizaciones->no_siniestro}}</td>
-                                <td><a href="{{ route('create_pdfcot', $cotizaciones->id_vehiculo) }}" class="btn btn-info" target='_blank' title="PDF"><i class="fa fa-file-pdf"></i></a>
+                                <td><a href="{{ route('u_cotizacion', $cotizaciones->id)}}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ route('create_pdfcot', $cotizaciones->id_vehiculo) }}" class="btn btn-info" target='_blank' title="PDF"><i class="fa fa-file-pdf"></i></a>
                                 <a href="" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$cotizaciones->id}}" title="Eliminar"><i class="fa fa-trash"></i></a></td>
                             </tr>
                             @endforeach

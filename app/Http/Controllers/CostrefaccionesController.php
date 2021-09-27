@@ -282,7 +282,11 @@ class CostrefaccionesController extends Controller
      */
     public function edit(Costrefacciones $costrefacciones)
     {
-        //
+        $j = 1;
+        $k = 1;
+        $l = 1;
+        //dd($costrefacciones);
+        return view('compras.cotizar.u_cotizacion', compact(['costrefacciones', 'j', 'k', 'l']));
     }
 
     /**
@@ -294,7 +298,58 @@ class CostrefaccionesController extends Controller
      */
     public function update(Request $request, Costrefacciones $costrefacciones)
     {
-        //
+        //dd($request, $costrefacciones);
+
+        $cantidad = "";
+        $proveedor1 = "";
+        $proveedor2 = "";
+        $proveedor3 = "";
+        $proveedorfinal = "";
+        $costo = "";
+        $fechasp = "";
+        $guias = "";
+        $comentarios = "";
+
+        $costrefacciones->nombreprov1 = $request->nprovedor1;
+        $costrefacciones->nombreprov2 = $request->nprovedor2;
+        $costrefacciones->nombreprov3 = $request->nprovedor3;
+
+        $costrefacciones->tproveedor1 = $request->tprov1;
+        $costrefacciones->tproveedor2 = $request->tprov2;
+        $costrefacciones->tproveedor3 = $request->tprov3;
+
+        $costrefacciones->costofinal = $request->tcostosf;
+
+        for ($i=1; $i <= $request->t_ref ; $i++) { 
+            $cantidad.= $request['tcantidad_'.$i].'/';
+            $proveedor1.= $request['tproveedor1_'.$i].'/';
+            $proveedor2.=  $request['tproveedor2_'.$i].'/';
+            $proveedor3.=  $request['tproveedor3_'.$i].'/';
+            $proveedorfinal.= $request['tproveedorf_'.$i].'/';
+            $costo.= $request['tcostosf_'.$i].'/';
+            $fechasp.= $request['tfechapromesa_'.$i].'/';
+            $guias.= $request['tnumguia_'.$i].'-';
+            $comentarios.= $request['tcomentarios_'.$i].'/';
+        }
+
+        $costrefacciones->cantidad = $cantidad;
+        $costrefacciones->proveedor1 = $proveedor1;
+        $costrefacciones->proveedor2 = $proveedor2;
+        $costrefacciones->proveedor3 = $proveedor3;
+        $costrefacciones->proveedorfinal = $proveedorfinal;
+        $costrefacciones->costo = $costo;
+        $costrefacciones->fecha_promesa = $fechasp;
+        $costrefacciones->num_guia = $guias;
+        $costrefacciones->comentarios = $comentarios;
+
+        //dd($costrefacciones);
+
+        if ($costrefacciones->save()) {
+            return redirect()->route('l_compras')->with('success','Costeo Actualizado.');
+        } else {
+            return redirect()->route('l_compras')->with('error','Costeo no Actualizado.');
+        }
+
     }
 
     /**

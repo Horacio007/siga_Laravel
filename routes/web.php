@@ -97,12 +97,14 @@ require __DIR__.'/auth.php';
 
 //Compras
     //CotizarRefacciones
-        Route::get('l_compras', 'CostrefaccionesController@index')->name('l_compras')->middleware('auth')->middleware('auth');
-        Route::get('i_cotizacion', 'CostrefaccionesController@i_cotizacion')->name('i_cotizacion')->middleware('auth')->middleware('auth');
+        Route::get('l_compras', 'CostrefaccionesController@index')->name('l_compras')->middleware('auth');
+        Route::get('i_cotizacion', 'CostrefaccionesController@i_cotizacion')->name('i_cotizacion')->middleware('auth');
         Route::get('e_cost', 'CostrefaccionesController@exist_cost')->middleware('auth');
         Route::post('i_cotizacion', 'CostrefaccionesController@store')->middleware('auth');
-        Route::get('create_pdfcot/{exp}', 'CostrefaccionesController@create_pdfcot')->name('create_pdfcot')->middleware('auth')->middleware('auth');
-        Route::post('/d_costrefacciones/{costrefacciones}', 'CostrefaccionesController@destroy')->name('d_costrefacciones')->middleware('auth')->middleware('auth');
+        Route::get('/u_cotizacion/{costrefacciones}', 'CostrefaccionesController@edit')->name('u_cotizacion')->middleware('auth');
+        Route::post('/u_cotizacion/{costrefacciones}', 'CostrefaccionesController@update')->middleware('auth');
+        Route::get('create_pdfcot/{exp}', 'CostrefaccionesController@create_pdfcot')->name('create_pdfcot')->middleware('auth');
+        Route::post('/d_costrefacciones/{costrefacciones}', 'CostrefaccionesController@destroy')->name('d_costrefacciones')->middleware('auth');
     //endCotizarRefacciones
 
     //AltaEvidenciaCotizarRefacciones

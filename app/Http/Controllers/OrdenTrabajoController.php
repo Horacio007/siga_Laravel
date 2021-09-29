@@ -226,6 +226,19 @@ class OrdenTrabajoController extends Controller
                 img {
                     width: 780px; height: 1150px;
                 }
+
+                #img1 {
+                    transform: rotate(-270deg);
+                    width: 1130px; height: 800px;
+                    position: absolute; 
+                    top: 166px; 
+                    left: -170px
+                    transform: rotate(-90deg);
+                }
+
+                #vertical {
+                    transform: rotate(-270deg);
+                }
             </style>
         </head>
         <body>
@@ -252,6 +265,15 @@ class OrdenTrabajoController extends Controller
             <p style="position: absolute; top: 105px; left: 93px;">'.$vehiculo['color'].'</p>
             <p style="position: absolute; top: 85px; left: 93px;">'.$vehiculo['modelo'].'</p>
             <p style="position: absolute; top: 128px; left: 93px;">'.$vehiculo['placas'].'</p>
+            <hr> <!-- Salto de página -->
+            <img id="img1" src="img/revision_de_puntos basicos.jpg">
+            <p id="vertical" style="position: absolute; top: 400px; left: 578px;">'.$orden['id_vehiculo'].'</p>
+            <p id="vertical" style="position: absolute; top: 740px; left: 603px;">'.$vehiculo['marcas']['marca'].'</p>
+            <p id="vertical" style="position: absolute; top: 930px; left: 565px;">'.$vehiculo['submarcas']['submarca'].'</p>
+            <p id="vertical" style="position: absolute; top: 150px; left: 579px;">'.$vehiculo['modelo'].'</p>
+            <p id="vertical" style="position: absolute; top: 340px; left: 575px;">'.$vehiculo['color'].'</p>
+            <p id="vertical" style="position: absolute; top: 760px; left: 562px;">'.$vehiculo['placas'].'</p>
+            <p id="vertical" style="position: absolute; top: 975px; left: 564px;">'.$vehiculo['clientes']['nombre'].'</p>
         </body>
         </html>');
         

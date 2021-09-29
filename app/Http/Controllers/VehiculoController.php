@@ -1484,7 +1484,7 @@ class VehiculoController extends Controller
         );
 
         //vehiculos entregados el dia anterior
-        $v_entretagos_ayer = Vehiculo::whereDate('fecha_salida_taller', Carbon::now()->subDay()->format('Y-m-d'))->count();
+        $v_entretagos_ayer = Vehiculo::whereDate('fecha_salida_taller', Carbon::now()->subDay()->format('Y-m-d'))->where('estatus_id', 3)->count();
         $v_recibidos_ayer = Vehiculo::whereDate('fecha_llegada',  Carbon::now()->subDay()->format('Y-m-d'))->count();;
 
         //dd(Carbon::now()->subDay()->format('Y-m-d'));

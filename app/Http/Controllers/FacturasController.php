@@ -24,7 +24,7 @@ class FacturasController extends Controller
     public function index()
     {
         
-        $list_facturas = Facturas::with(['expedientes:id,marca_id,linea_id,cliente_id,color,modelo,placas', 'estatusFac:id,estatus', 'tipo_servicios:id,tipo_servicio'])
+        $list_facturas = Facturas::with(['expedientes:id,marca_id,linea_id,cliente_id,color,modelo,placas,fecha_salida_taller', 'estatusFac:id,estatus', 'tipo_servicios:id,tipo_servicio'])
                                     ->orderBy('id')
                                     ->get();
         
@@ -73,7 +73,7 @@ class FacturasController extends Controller
         $submarcas = Submarcav::all();
         $aseguradoras = Aseguradoras::all();
         $tipo_pago = Tipo_pago::all();
-        //dd($marcas);
+        //dd($list_facturas[0]);
         return view('ingresos.facturas.l_facturas', compact(['list_facturas', 'marcas', 'submarcas', 'aseguradoras', 'tipo_pago']));
     }
 

@@ -36,6 +36,7 @@
                             <th>Placas</th>
                             <th>Cliente</th>
                             <th>Tipo Servicio</th>
+                            <th>Fecha Entrega</th>
                             <th>Fecha Facturacion</th>
                             <th>Fecha Anticipo</th>
                             <th>Tipo Pago Anticipo</th>
@@ -101,6 +102,7 @@
                                         <td>{{$n_aseguradora??''}}</td>
                                     @endif
                                     <td>{{$facturas->tipo_servicios->tipo_servicio??""}}</td>
+                                    <td>{{$facturas->expedientes->fecha_salida_taller??''}}</td>
                                     <td>{{$facturas->fecha_facturacion}}</td>
                                     <td>{{$facturas->fecha_anticipo}}</td>
                                     <td>{{$n_tp??''}}</td>

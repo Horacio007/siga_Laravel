@@ -180,8 +180,8 @@ require __DIR__.'/auth.php';
     //endDocumentacion
 
     //CambiarEstatus
-        Route::get('l_cambiarEstatus', 'VehiculoController@index_entrega_estatus_vehiculo')->name('l_cambiarEstatus')->middleware('auth')->middleware('auth');
-        Route::get('/u_cambiarEstatus/{vehiculo}', 'VehiculoController@u_cambiarEstatus')->name('u_cambiarEstatus')->middleware('auth')->middleware('auth');
+        Route::get('l_cambiarEstatus', 'VehiculoController@index_entrega_estatus_vehiculo')->name('l_cambiarEstatus')->middleware('auth');
+        Route::get('/u_cambiarEstatus/{vehiculo}', 'VehiculoController@u_cambiarEstatus')->name('u_cambiarEstatus')->middleware('auth');
         Route::post('/u_cambiarEstatus/{vehiculo}', 'VehiculoController@update_cambiarEstatus')->middleware('auth');
     //endCambiarEstatus
 
@@ -506,3 +506,13 @@ require __DIR__.'/auth.php';
         Route::get('verformatos/', 'FormatosController@show')->name('verformatos')->middleware('auth');
     //endFormatos
 //endFormatos
+
+//Telegram
+        //Telegram
+            Route::get('/menu-message', 'TelegramBotController@sendMessage')->middleware('auth');
+            Route::post('/send-message', 'TelegramBotController@storeMessage')->middleware('auth');
+            Route::get('/send-photo', 'TelegramBotController@sendPhoto')->middleware('auth');
+            Route::post('/store-photo', 'TelegramBotController@storePhoto')->middleware('auth');
+            Route::get('/updated-activity', 'TelegramBotController@updatedActivity')->middleware('auth');
+        //endTelegram
+//endTelegram

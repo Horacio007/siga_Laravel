@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\recibo_pago_proveedores;
+use Telegram\Bot\Laravel\Facades\Telegram;
 
 class VehiculoController extends Controller
 {
@@ -207,7 +208,7 @@ class VehiculoController extends Controller
             $c->correo = $request->correo;
             
             if ($c->save()) {
-                $uc = Clientes::select('id')
+                $uc = Clientes::select('id', 'nombre', 'telefono', 'correo')
                                 ->orderBy('id', 'DESC')
                                 ->limit(1)
                                 ->get();
@@ -233,6 +234,53 @@ class VehiculoController extends Controller
                 }
 
                 if ($vehiculo->save()) {
+                    $u_vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+                                        ->where('id', $request->expediente)->first();
+
+                    $est = Estatus::where('id', $u_vehiculo->estatus_id)->first();
+
+                    $text = "Vehiculo Ingresado el dia -> ".Carbon::now()->format('Y-m-d H:i:s')."\n";
+                    $text.= "<b>Cliente</b>\n";
+                    $text.= "Nombre ->  ".$uc[0]['nombre']??'';
+                    $text.= "\n";
+                    $text.= "Telefono ->  ".$uc[0]['telefono']??'';
+                    $text.= "\n";
+                    $text.= "Correo ->  ".$uc[0]['correo']??'';
+                    $text.= "\n";
+                    $text.= "<b>Vehiculo</b>\n";
+                    $text.= "Marca ->  ".$u_vehiculo->marcas->marca??'';
+                    $text.= "\n";
+                    $text.= "Linea ->  ".$u_vehiculo->submarcas->submarca??'';
+                    $text.= "\n";
+                    $text.= "Color ->  ".$u_vehiculo->color??'';
+                    $text.= "\n";
+                    $text.= "Modelo ->  ".$u_vehiculo->modelo??'';
+                    $text.= "\n";
+                    $text.= "Placas ->  ".$u_vehiculo->placas??'';
+                    $text.= "\n";
+                    $text.= "Siniestro ->  ".$u_vehiculo->no_siniestro??'';
+                    $text.= "\n";
+                    $text.= "Asesor ->  ".$u_vehiculo->asesores->nombre." ".$u_vehiculo->asesores->a_paterno." ".$u_vehiculo->asesores->a_materno;
+                    $text.= "\n";
+                    $text.= "Aseguradora ->  ".$u_vehiculo->clientes->nombre??'';
+                    $text.= "\n";
+                    $text.= "Estatus ->  ".$est->status??'';
+                    $text.= "\n";
+                    $text.= "Nivel de daño ->  ".$u_vehiculo->nivelDano->nivel??'';
+                    $text.= "\n";
+                    $text.= "Forma de arribo ->  ".$u_vehiculo->formaArribo->forma_arribo??'';
+                    $text.= "\n";
+                    if ($request->aseguradora == 3) {
+                        $text.= "Diagnostico inicial ->  ".$request->diag_ini??'';
+                        $text.= "\n";
+                    }
+
+                    Telegram::sendMessage([
+                        'chat_id' => env('TELEGRAM_CHANNEL_ID', ''),
+                        'parse_mode' => 'HTML',
+                        'text' => $text
+                    ]);
+
                     return redirect()->route('i_vehiculos')->with('success','Vehiculo Registrado.');
                 } else {
                     return redirect()->route('i_vehiculos')->with('error','Vehiculo no Registrado.');
@@ -669,6 +717,31 @@ class VehiculoController extends Controller
             $vehiculo->estatus_id = $request->e_nuevo;
             $vehiculo->fecha_salida_taller = $request->fecha_salida_taller;
             if ($vehiculo->save()) {
+                $est = Estatus::where('id', $vehiculo->estatus_id)->first();
+
+                $text = "Vehiculo Entregado el dia -> ".Carbon::now()->format('Y-m-d H:i:s')."\n";
+                $text.= "Marca ->  ".$vehiculo->marcas->marca??'';
+                $text.= "\n";
+                $text.= "Linea ->  ".$vehiculo->submarcas->submarca??'';
+                $text.= "\n";
+                $text.= "Color ->  ".$vehiculo->color??'';
+                $text.= "\n";
+                $text.= "Modelo ->  ".$vehiculo->modelo??'';
+                $text.= "\n";
+                $text.= "Placas ->  ".$vehiculo->placas??'';
+                $text.= "\n";
+                $text.= "Siniestro ->  ".$vehiculo->no_siniestro??'';
+                $text.= "\n";
+                $text.= "Aseguradora ->  ".$vehiculo->clientes->nombre??'';
+                $text.= "\n";
+                $text.= "Estatus ->  ".$est->status??'';
+
+                Telegram::sendMessage([
+                    'chat_id' => env('TELEGRAM_CHANNEL_ID', ''),
+                    'parse_mode' => 'HTML',
+                    'text' => $text
+                ]);
+
                 return redirect()->route('l_cambiarEstatus')->with('success','Estatus del Vehiculo Actualizado.');
             } else {
                 return redirect()->route('l_cambiarEstatus')->with('error','Estatus del Vehiculo no Actualizado.');

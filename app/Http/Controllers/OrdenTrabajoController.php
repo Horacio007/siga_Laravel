@@ -7,6 +7,9 @@ use App\Models\Vehiculo;
 use App\Models\Asesores;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Codedge\Fpdf\Fpdf\Fpdf;
+use iio\libmergepdf\Merger;
+use Dompdf\Dompdf;
 
 class OrdenTrabajoController extends Controller
 {
@@ -122,15 +125,21 @@ class OrdenTrabajoController extends Controller
                             ->first();
 
         $orden = Orden_trabajo::select('*')->where('id',$request->exp)->first();
+        
+        $elaboro = Asesores::select('nombre', 'a_paterno', 'a_materno')
+                            ->where('id', $orden['elaboro'])
+                            ->first();
+        
+        $nombre = $elaboro['nombre'].' '.$elaboro['a_paterno'].' '.$elaboro['a_materno']; 
 
-        $y = 212;
+        $y = 182;
         $reparacion = $orden['reparacion'];
         strlen($reparacion);
         $reparacion = explode('/', $orden['reparacion']);
         $rep = "";
         for ($i=0; $i < count($reparacion); $i++) { 
-            $rep.= '<p style="position: absolute; top: '.$y.'px; left: 93px;">'.$reparacion[$i].'</p>';
-            $y = $y + 23;
+            $rep.= '<p style="position: absolute; top: '.$y.'px; left: 92.5px;">'.$reparacion[$i].'</p>';
+            $y = $y + 20;
         }
 
         $y = 212;
@@ -178,7 +187,7 @@ class OrdenTrabajoController extends Controller
             }
         }
 
-        $y = 850;
+        $y = 640;
         $observaciones = $orden['observaciones'];
         strlen($observaciones);
         $observaciones = explode('/', $orden['observaciones']);
@@ -187,14 +196,14 @@ class OrdenTrabajoController extends Controller
             if (strlen($observaciones[$i]) > 43) {
                 $p1 = substr($observaciones[$i], 0, 80);
                 $p2 = substr($observaciones[$i], 80, 160);
-                $obs.= '<p style="position: absolute; top: '.$y.'px; left: 260px;">'.$p1.'</p>';
-                $y = $y + 23;
-                $obs.= '<p style="position: absolute; top: '.$y.'px; left: 260px;">'.$p2.'</p>';
-                $y = $y + 23;
+                $obs.= '<p style="position: absolute; top: '.$y.'px; left: 30px;">'.$p1.'</p>';
+                $y = $y + 15;
+                $obs.= '<p style="position: absolute; top: '.$y.'px; left: 30px;">'.$p2.'</p>';
+                $y = $y + 15;
             } else {
                 $p1 = substr($observaciones[$i], 0, 80);
-                $obs.= '<p style="position: absolute; top: '.$y.'px; left: 260px;">'.$p1.'</p>';
-                $y = $y + 23;
+                $obs.= '<p style="position: absolute; top: '.$y.'px; left: 30px;">'.$p1.'</p>';
+                $y = $y + 15;
             }
         }
 
@@ -204,7 +213,8 @@ class OrdenTrabajoController extends Controller
         
         $nombre = $elaboro['nombre'].' '.$elaboro['a_paterno'].' '.$elaboro['a_materno']; 
 
-        $pdf = app('dompdf.wrapper');   
+        $pdf = app('dompdf.wrapper'); 
+        $pdf->setPaper('a4', 'landscape');
         $pdf->loadHTML('<!DOCTYPE html>
         <html lang="en">
         <head>
@@ -214,13 +224,14 @@ class OrdenTrabajoController extends Controller
             <title>Orden de Trabajo</title>
             <style>
                 body {
-                    background: url(img/orden_trabajo.jpg); 
+                    background: url(img/ordendetrabajo2.jpg); 
                     background-size: cover;
                     background-repeat: no-repeat;
                     /* Arriba | Derecha | Abajo | Izquierda */
                     background-size: 100% 100%;
                     /* Arriba | Derecha | Abajo | Izquierda */
                     margin: -50px -38px -60px -39px;
+                    font-size: 12;
                 }
 
                 img {
@@ -228,56 +239,63 @@ class OrdenTrabajoController extends Controller
                 }
 
                 #img1 {
-                    transform: rotate(-270deg);
-                    width: 1130px; height: 800px;
+                    
+                    width: 1120px; height: 800px;
                     position: absolute; 
-                    top: 166px; 
-                    left: -170px
-                    transform: rotate(-90deg);
+                    top: 0px; 
+                    left: 0px
+                }
+
+                #img2 {
+                    transform: rotate(270deg);
+                    width: 800px; height: 800px;
+                    position: absolute; 
+                    top: 10px; 
+                    left: 10px
                 }
 
                 #vertical {
-                    transform: rotate(-270deg);
+                    transform: rotate(-360deg);
+                }
+
+                .page-break {
+                    page-break-after: always;
+                }
+
+                hr{
+                    page-break-after: always;
+                    border: none;
+                    margin: 0;
+                    padding: 0;
                 }
             </style>
         </head>
         <body>
-            <p style="position: absolute; top: 25px; left: 90px;">'.$orden['fecha'].'</p>
-            <p style="position: absolute; top: 50px; left: 343px;">'.$orden['id_vehiculo'].'</p>
-            <p style="position: absolute; top: 50px; left: 93px;">'.$vehiculo['marcas']['marca'].'</p>
-            <p style="position: absolute; top: 73px; left: 93px;">'.$vehiculo['submarcas']['submarca'].'</p>
-            <p style="position: absolute; top: 73px; left: 343px;">'.$vehiculo['clientes']['nombre'].'</p>
-            <p style="position: absolute; top: 119px; left: 93px;">'.$vehiculo['color'].'</p>
-            <p style="position: absolute; top: 96px; left: 93px;">'.$vehiculo['modelo'].'</p>
-            <p style="position: absolute; top: 142px; left: 93px;">'.$vehiculo['placas'].'</p>
+            <p style="position: absolute; top: 78px; left: 90px;">'.$orden['fecha'].'</p>
+            <p style="position: absolute; top: 92.5px; left: 90px;">'.$orden['id_vehiculo'].'</p>
+            <p style="position: absolute; top: 92.5px; left: 260px;">'.$vehiculo['marcas']['marca'].'</p>
+            <p style="position: absolute; top: 92.5px; left: 434px;">'.$vehiculo['submarcas']['submarca'].'</p>
+            <p style="position: absolute; top: 92.5px; left: 610px;">'.$vehiculo['color'].'</p>
+            <p style="position: absolute; top: 92.5px; left: 780px;">'.$vehiculo['modelo'].'</p>
+            <p style="position: absolute; top: 108px; left: 90px;">'.$vehiculo['placas'].'</p>
+            <p style="position: absolute; top: 108px; left: 260px;">'.$vehiculo['clientes']['nombre'].'</p>
             '.$rep.'
-            '.$hoja.'
-            '.$pin.'
-            '.$mec.'
             '.$obs.'
-            <p style="position: absolute; top: 1083px; left: 320px;">'.$nombre.'</p>
-            <hr> <!-- Salto de página -->
-            <img src="img/listado_materiales.jpg">
-            <p style="position: absolute; top: 43px; left: 320px;">'.$orden['id_vehiculo'].'</p>
-            <p style="position: absolute; top: 43px; left: 93px;">'.$vehiculo['marcas']['marca'].'</p>
-            <p style="position: absolute; top: 65px; left: 93px;">'.$vehiculo['submarcas']['submarca'].'</p>
-            <p style="position: absolute; top: 65px; left: 320px;">'.$vehiculo['clientes']['nombre'].'</p>
-            <p style="position: absolute; top: 105px; left: 93px;">'.$vehiculo['color'].'</p>
-            <p style="position: absolute; top: 85px; left: 93px;">'.$vehiculo['modelo'].'</p>
-            <p style="position: absolute; top: 128px; left: 93px;">'.$vehiculo['placas'].'</p>
-            <hr> <!-- Salto de página -->
-            <img id="img1" src="img/revision_de_puntos basicos.jpg">
-            <p id="vertical" style="position: absolute; top: 400px; left: 578px;">'.$orden['id_vehiculo'].'</p>
-            <p id="vertical" style="position: absolute; top: 740px; left: 603px;">'.$vehiculo['marcas']['marca'].'</p>
-            <p id="vertical" style="position: absolute; top: 930px; left: 565px;">'.$vehiculo['submarcas']['submarca'].'</p>
-            <p id="vertical" style="position: absolute; top: 150px; left: 579px;">'.$vehiculo['modelo'].'</p>
-            <p id="vertical" style="position: absolute; top: 340px; left: 575px;">'.$vehiculo['color'].'</p>
-            <p id="vertical" style="position: absolute; top: 760px; left: 562px;">'.$vehiculo['placas'].'</p>
-            <p id="vertical" style="position: absolute; top: 975px; left: 564px;">'.$vehiculo['clientes']['nombre'].'</p>
+            <p style="position: absolute; top: 702.5px; left: 750px;">'.$nombre.'</p>
+            <hr>    
+            <img id="img1" src="img/revision_de_puntos_basicos.jpg">
+            <p style="position: absolute; top: 153px; left: 380px;">'.$orden['id_vehiculo'].'</p>
+            <p style="position: absolute; top: 153px; left: 745px;">'.$vehiculo['marcas']['marca'].'</p>
+            <p style="position: absolute; top: 153px; left: 900px;">'.$vehiculo['submarcas']['submarca'].'</p>
+            <p style="position: absolute; top: 176px; left: 160px;">'.$vehiculo['modelo'].'</p>
+            <p style="position: absolute; top: 176px; left: 350px;">'.$vehiculo['color'].'</p>
+            <p style="position: absolute; top: 176px; left: 745px;">'.$vehiculo['placas'].'</p>
+            <p style="position: absolute; top: 176px; left: 958px;">'.$vehiculo['clientes']['nombre'].'</p>
         </body>
         </html>');
         
         return $pdf->stream($request['exp'].'_orden_trabajo');
+
     }
 
     /**

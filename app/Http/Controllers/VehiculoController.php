@@ -43,7 +43,7 @@ class VehiculoController extends Controller
     public function indexR()
     {
         $refacciones = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo', 'estatusRefacciones:id,estatus'])
-                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_llegada_taller', 'refacciones_id','fecha_promesa')
+                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_llegada_taller', 'refacciones_id','fecha_promesa', 'fecha_autorizacion')
                                 ->where('estatus_id','5')
                                 //->where('id', '1203112020')
                                 ->orWhere('estatus_id', '7')

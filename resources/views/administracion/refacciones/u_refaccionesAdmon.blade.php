@@ -13,9 +13,13 @@
                 <div class="col-md-6">
                     <label for="lestatus">Estatus:</label><br>
                     <select name="estatus" class="form-control" required>
-                        <option value="{{$vehiculo->estatus_id}}" selected>{{$e_actual->estatus}}</option>
+                        <option value="0">Selecciona el estatus</option>
                         @foreach ($list_estatus as $estatus)
-                            <option value="{{$estatus->id}}">{{$estatus->estatus}}</option>
+                            @if ($estatus->id == $vehiculo->refacciones_id)
+                                <option value="{{$estatus->id}}" selected>{{$estatus->estatus}}</option>
+                            @else
+                                <option value="{{$estatus->id}}">{{$estatus->estatus}}</option>
+                            @endif
                         @endforeach
                     </select>
                 </div>

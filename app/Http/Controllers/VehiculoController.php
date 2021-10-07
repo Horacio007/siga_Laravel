@@ -953,6 +953,10 @@ class VehiculoController extends Controller
         $vehiculo->asignado_lavado = $request->personalLava;
         $vehiculo->comentario_lavado = $request->comentariosLava;
 
+        $vehiculo->fecha_entrega_interna = $request->fechainter;
+        $vehiculo->entrego = $request->entrego;
+        $vehiculo->recibio = $request->recibio;
+
         if ($vehiculo->save()) {
             return redirect()->route('l_asignacionPersonal')->with('success','Personal Asignado.');
         } else {

@@ -176,7 +176,7 @@
                 <div class="col-md-2" id="tablaentrega">
                     <center><strong>Entrega al Cliente</strong></center>
                     <label for="">Fecha Entrega</label>
-                    <input type="date" name="fechainter" id="fechainter" class="form-control" value=" {{ $vehiculo->fecha_entrega_interna }}">                
+                    <input type="date" name="fechainter" id="fechainter" class="form-control" value="{{ $vehiculo->fecha_entrega_interna }}">                
                     <label for="">Entrego</label>
                     <input type="text" class="form-control" name="entrego" id="entrego" placeholder="Entrego..." value="{{ $vehiculo->entrego }}">
                     <label for="">Recibio</label>

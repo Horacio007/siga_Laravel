@@ -273,7 +273,36 @@
             </div>
             <br>
             <div class="row">
-                <div class="col-md-4"></div>
+                <div class="col-md-2">
+                    <table class="table" id="tablaentrega">
+                        <thead>
+                            <tr>
+                                <th scope="row"><center>Entrega al Cliente</center></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <label for="">Fecha Entrega</label>
+                                    <input type="date" name="fechainter" id="fechainter" class="form-control">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="">Entrego</label>
+                                    <input type="text" class="form-control" name="entrego" id="entrego" placeholder="Entrego...">
+                                </th>
+                            </tr>
+                            <tr>
+                                <th>
+                                    <label for="">Recibio</label>
+                                    <input type="text" class="form-control" name="recibio" id="recibio" placeholder="Recibio...">
+                                </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-2"></div>
                 <div class="col-md-4">
                     <input type="submit" value="Registrar" class="btn btn-primary btn-lg btn-block">
                 </div>

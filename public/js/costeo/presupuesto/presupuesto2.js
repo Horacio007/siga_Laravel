@@ -136,7 +136,7 @@ $(document).ready(function(){
         let totaltot = parseFloat($("#ittot").val());
         let totalrefacciones = parseFloat($("#itrefacciones").val());
         let subtotal = totalmomh + totalmomp + totalmomm + totaltot + totalrefacciones;
-        let iva = subtotal * 0.30;
+        let iva = subtotal * 0.16;
         let total = subtotal + iva;
         
         $("#isubtotal").val(subtotal.toFixed(2));

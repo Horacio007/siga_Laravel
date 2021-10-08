@@ -38,6 +38,7 @@ class AsesoresController extends Controller
         if ($request['select_asesor'] == true) {
             $asesores = Asesores::select('id', 'id_aseguradora', 'nombre', 'a_paterno', 'a_materno')
                             ->where('id', 5)
+                            ->orWhere('id', 7)
                             ->orderBy('nombre')
                             ->get();
 

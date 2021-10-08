@@ -178,14 +178,38 @@ class PresupuestosController extends Controller
             if ($request['toperacion_'.$i] == 1) {
                 $opcost.= $request['tconcepto_'.$i].'/';
             }
-            $op.= $request['toperacion_'.$i].'/';
-            $nivel.= $request['tnivel_'.$i].'/';
-            $concepto.= $request['tconcepto_'.$i].'/';
-            $momh.= $request['tmomh_'.$i].'/';
-            $momp.= $request['tmomp_'.$i].'/';
-            $momm.= $request['tmomm_'.$i].'/';
-            $tot.= $request['ttot_'.$i].'/';
-            $refacciones.= $request['trefacciones_'.$i].'/';
+            if ($request['toperacion_'.$i] != null) {
+                $op.= $request['toperacion_'.$i].'/';
+            }
+            
+            if ($nivel.= $request['tnivel_'.$i] != null) {
+                $nivel.= $request['tnivel_'.$i].'/';
+            }
+            
+            if ($request['tconcepto_'.$i] != null) {
+                $concepto.= $request['tconcepto_'.$i].'/';
+            }
+            
+            if ($request['tmomh_'.$i] != null) {
+                $momh.= $request['tmomh_'.$i].'/';
+            }
+            
+            if ($request['tmomp_'.$i] != null) {
+                $momp.= $request['tmomp_'.$i].'/';
+            }
+            
+            if ($request['tmomm_'.$i] != null) {
+                $momm.= $request['tmomm_'.$i].'/';
+            }
+            
+            if ($request['ttot_'.$i] != null) {
+                $tot.= $request['ttot_'.$i].'/';
+            }
+            
+            if ($request['trefacciones_'.$i] != null) {
+                $refacciones.= $request['trefacciones_'.$i].'/';
+            }
+           
         }
 
         $costeo->concepto = $opcost;

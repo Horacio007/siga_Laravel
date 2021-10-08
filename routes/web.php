@@ -145,27 +145,29 @@ require __DIR__.'/auth.php';
 
 //Taller
     //OrdeneTrabajo
-        Route::get('l_ordenest', 'OrdenTrabajoController@index')->name('l_ordenest')->middleware('auth')->middleware('auth');
-        Route::get('i_ordenest', 'OrdenTrabajoController@i_ordenest')->name('i_ordenest')->middleware('auth')->middleware('auth');
+        Route::get('l_ordenest', 'OrdenTrabajoController@index')->name('l_ordenest')->middleware('auth');
+        Route::get('i_ordenest', 'OrdenTrabajoController@i_ordenest')->name('i_ordenest')->middleware('auth');
         Route::post('i_ordenest', 'OrdenTrabajoController@store')->middleware('auth');
-        Route::get('create_pdfot/{exp}', 'OrdenTrabajoController@create_pdfot')->name('create_pdfot')->middleware('auth')->middleware('auth');
-        Route::post('/d_ordenest/{orden_trabajo}', 'OrdenTrabajoController@destroy')->name('d_ordenest')->middleware('auth')->middleware('auth');
+        Route::get('u_ordenest/{orden_trabajo}', 'OrdenTrabajoController@edit')->name('u_ordenest')->middleware('auth');
+        Route::post('u_ordenest/{orden_trabajo}', 'OrdenTrabajoController@update')->middleware('auth');
+        Route::get('create_pdfot/{exp}', 'OrdenTrabajoController@create_pdfot')->name('create_pdfot')->middleware('auth');
+        Route::post('/d_ordenest/{orden_trabajo}', 'OrdenTrabajoController@destroy')->name('d_ordenest')->middleware('auth');
     //endOrdeneTrabajo
 
     //OrdenMecanica
-        Route::get('l_ordenesm', 'OrdenMecanicaController@index')->name('l_ordenesm')->middleware('auth')->middleware('auth');
-        Route::get('i_ordenesm', 'OrdenMecanicaController@i_ordenesm')->name('i_ordenesm')->middleware('auth')->middleware('auth');
+        Route::get('l_ordenesm', 'OrdenMecanicaController@index')->name('l_ordenesm')->middleware('auth');
+        Route::get('i_ordenesm', 'OrdenMecanicaController@i_ordenesm')->name('i_ordenesm')->middleware('auth');
         Route::post('i_ordenesm', 'OrdenMecanicaController@store')->middleware('auth');
-        Route::get('create_pdfom/{exp}', 'OrdenMecanicaController@create_pdfom')->name('create_pdfom')->middleware('auth')->middleware('auth');
-        Route::post('/d_ordenesm/{orden_mecanica}', 'OrdenMecanicaController@destroy')->name('d_ordenesm')->middleware('auth')->middleware('auth');
+        Route::get('create_pdfom/{exp}', 'OrdenMecanicaController@create_pdfom')->name('create_pdfom')->middleware('auth');
+        Route::post('/d_ordenesm/{orden_mecanica}', 'OrdenMecanicaController@destroy')->name('d_ordenesm')->middleware('auth');
     //endOrdenMecanica
 
     //OrdenRetrabajo
-        Route::get('l_ordenesrt', 'OrdenRetrabajoController@index')->name('l_ordenesrt')->middleware('auth')->middleware('auth');
-        Route::get('i_ordenesrt', 'OrdenRetrabajoController@i_ordenesrt')->name('i_ordenesrt')->middleware('auth')->middleware('auth');
+        Route::get('l_ordenesrt', 'OrdenRetrabajoController@index')->name('l_ordenesrt')->middleware('auth');
+        Route::get('i_ordenesrt', 'OrdenRetrabajoController@i_ordenesrt')->name('i_ordenesrt')->middleware('auth');
         Route::post('i_ordenesrt', 'OrdenRetrabajoController@store')->middleware('auth');
-        Route::get('create_pdfort/{exp}', 'OrdenRetrabajoController@create_pdfort')->name('create_pdfort')->middleware('auth')->middleware('auth');
-        Route::post('/d_ordenesrt/{orden_retrabajo}', 'OrdenRetrabajoController@destroy')->name('d_ordenesrt')->middleware('auth')->middleware('auth');
+        Route::get('create_pdfort/{exp}', 'OrdenRetrabajoController@create_pdfort')->name('create_pdfort')->middleware('auth');
+        Route::post('/d_ordenesrt/{orden_retrabajo}', 'OrdenRetrabajoController@destroy')->name('d_ordenesrt')->middleware('auth');
     //endOrdenRetrabajo
 //endTaller
 

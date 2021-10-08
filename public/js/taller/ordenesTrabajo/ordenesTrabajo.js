@@ -84,6 +84,7 @@ $(document).ready(function(){
                     })
                     $("#iexpediente").attr("readonly","readonly");
                     $("#btn_agregar").attr('disabled', false);
+                    $("#add_rep").addClass('add_reparacion');
                     $.ajax({
                         url: '/mlmca',
                         type: 'GET',
@@ -125,68 +126,35 @@ $(document).ready(function(){
             }
         })
     });
+    //
+    var con = 1;
+    var ultimo;
+    let componente_template = $("div.reparacion_consecutivo").html();
+    $("#reparacion_consecutivo").remove();
 
-    // var que andan opir ahi
-    var reparacion = [];
-    var hojalateria = [];
-    var pintura = [];
-    var mecanica = [];
-    //ahora guardare la info talves en un infeglo :v
-    $("#btn_agregar").on('click', function(){
-        // saco la informacion
-        if ($("#ireparacion").val() == '') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Ingresa la Reparacion a realizar',
-            })
-              
-            return false
-        }
-
-        reparacion.push($("#ireparacion").val());
-
-        if ($("#hojalateria").prop('checked')) {
-            hojalateria.push(1);
-        } else {
-            hojalateria.push(0);
-        }
-
-        if ($("#pintura").prop('checked')) {
-            pintura.push(1);
-        } else {
-            pintura.push(0);
-        }
-
-        if ($("#mecanica").prop('checked')) {
-            mecanica.push(1);
-        } else {
-            mecanica.push(0);
-        }
-
-        //le quito el no jalar cuando tiene un vslor de mas de uno 
-        if (reparacion[0] != '') {
+    if (con > 20) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'Solo se pueden agregar 20 reparaciones por orden',
+        })
+    } else {
+        $(document).on('click', 'a.add_reparacion', function(e){
+            $("#section_reparaciones").append( 
+                componente_template.replaceAll( "consecutivo" , con) );
+    
+            con++;
+            $("#cont").val(con);
             $("#btn_crear").attr('disabled', false);
-        } 
+        })
+    }
 
-        //le reinicio la informacion :v
-        $("#ireparacion").val('') 
-        $("#hojalateria").prop('checked', true)
-        $("#pintura").prop('checked', true)
-        $("#mecanica").prop('checked', true)
-
-        if (reparacion.length == 26) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Oopps...',
-                text: 'Sobrepasaste 26 conceptos, debe crear una nueva Orden de Trabajo',
-            })
-        }
-
-        $("#ireparacion").focus();
-        //console.log(reparacion, hojalateria, pintura, mecanica)
-
-    })
+    $(document).on('click','a.remove_reparacion',function(e) {
+        //alert('entra');
+        let item_id = $(this).attr('item_id');
+        //console.log(item_id);
+        $("#reparacion_"+item_id).remove();
+    });
 
     $("#btn_crear").on('click', function(){
         //console.log(inf[0]['marca'])
@@ -210,10 +178,10 @@ $(document).ready(function(){
         doc.text(200, 33.5, inf[0]['modelo']);
         doc.text(25, 37.5, inf[0]['placas']);
         doc.text(70, 37.5, inf[0]['clientes']['nombre']);
-        var y = 52;
-        for (let i = 0; i < reparacion.length; i++) {
-            doc.text(25, y, reparacion[i]);
-            y = y + 6;
+        var y = 57.5;
+        for (let i = 1; i < con; i++) {
+            doc.text(25, y, '' + $("#reparaciones_"+i).val());
+            y = y + 5.5;
         }
         /*
         var yy = 64;
@@ -289,6 +257,7 @@ $(document).ready(function(){
         //doc.text(70, 235, obs);
         doc.save($("#iexpediente").val() + "_orden_trabajo.pdf");
         //aqui va a ir un ajax en donde guarde las ordenes :v
+        /*
         var data = {
             id: $("#iexpediente").val(),
             fecha: f2,
@@ -344,6 +313,6 @@ $(document).ready(function(){
                 }
             }
         })
-
+        */
     })
 })

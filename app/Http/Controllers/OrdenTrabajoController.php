@@ -80,7 +80,7 @@ class OrdenTrabajoController extends Controller
      */
     public function store(Request $request)
     {
-        //echo count($reparacion);
+        //dd($request);
         $r = '';
         $h = '';
         $p = '';
@@ -88,27 +88,30 @@ class OrdenTrabajoController extends Controller
 
         $f =  Date('Y-m-d');
 
-        for ($i=0; $i < count($request->reparacion); $i++) { 
-            $r .= $request->reparacion[$i].'/';
-            $h .= strval($request->hojalateria[$i]).'/';
-            $p .= strval($request->pintura[$i]).'/';
-            $m .= strval($request->mecanica[$i]).'/';
+        for ($i=1; $i < $request->cont; $i++) { 
+            $r .= $request['reparaciones_'.$i].'/';
+            //$h .= strval($request->hojalateria[$i]).'/';
+            //$p .= strval($request->pintura[$i]).'/';
+            //$m .= strval($request->mecanica[$i]).'/';
         }
 
         $ordent = new Orden_trabajo();
-        $ordent->id_vehiculo = $request->id;
+        $ordent->id_vehiculo = $request->expediente;
         $ordent->fecha = $f;
-        $ordent->reparacion = $r;
-        $ordent->hojalateria = $h;
-        $ordent->pintura = $p;
-        $ordent->mecanica = $m;
+        $ordent->reparacion = $r??'';
+        $ordent->hojalateria = $h??'';
+        $ordent->pintura = $p??'';
+        $ordent->mecanica = $m??'';
         $ordent->observaciones = $request->observaciones;
-        $ordent->elaboro = $request->elaboro;
+        $elaboro = Vehiculo::select('id_asesor')
+                            ->where('id', $request->expediente)
+                            ->first();
+        $ordent->elaboro = $elaboro->id_asesor;
 
         if ($ordent->save()) {
-            return 1;
+            return redirect()->route('l_ordenest')->with('success','Orden de Trabajo Registrada.');
         } else {
-            return 'Orden de Trabajo no registrada';
+            return redirect()->route('l_ordenest')->with('error','Orden de Trabajo no Registrada.');
         }
         
     }
@@ -317,7 +320,7 @@ class OrdenTrabajoController extends Controller
      */
     public function edit(Orden_trabajo $orden_trabajo)
     {
-        //
+        return view('taller.ordenesTrabajo.u_ordenesTrabajo', compact('orden_trabajo'));
     }
 
     /**
@@ -329,7 +332,34 @@ class OrdenTrabajoController extends Controller
      */
     public function update(Request $request, Orden_trabajo $orden_trabajo)
     {
-        //
+        //dd($request);
+        $r = '';
+        $h = '';
+        $p = '';
+        $m = '';
+
+        $f =  Date('Y-m-d');
+
+        for ($i=1; $i < $request->cont2; $i++) {
+            if ($request['reparaciones_'.$i] != null) {
+                $r .= $request['reparaciones_'.$i].'/';
+            }
+            //$h .= strval($request->hojalateria[$i]).'/';
+            //$p .= strval($request->pintura[$i]).'/';
+            //$m .= strval($request->mecanica[$i]).'/';
+        }
+
+        $orden_trabajo->reparacion = $r??'';
+        $orden_trabajo->hojalateria = $h??'';
+        $orden_trabajo->pintura = $p??'';
+        $orden_trabajo->mecanica = $m??'';
+        $orden_trabajo->observaciones = $request->observaciones;
+
+        if ($orden_trabajo->save()) {
+            return redirect()->route('l_ordenest')->with('success','Orden de Trabajo Actualizada.');
+        } else {
+            return redirect()->route('l_ordenest')->with('error','Orden de Trabajo no Actualizada.');
+        }
     }
 
     /**

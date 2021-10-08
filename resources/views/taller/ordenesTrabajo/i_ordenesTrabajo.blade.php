@@ -35,36 +35,15 @@
                 <h3>Reparaciones</h3>
             </div>
         </div>
+        <div id="section_reparaciones"></div>
         <br>
         <div class="row">
-            <div class="col-md-4">
-                <label for="lreparacion">Reparacion</label>
-                <input type="text" name="reparacion" id="ireparacion" class="form-control">
-            </div>
-            <div class="col-md-2 text-center">
-                <div class="form-check">
-                    <br>
-                    <input class="form-check-input" type="checkbox" value="" id="hojalateria" checked>
-                    <label class="form-check-label" for="defaultCheck1">Hojalateria</label>
-                </div>
-            </div>
-            <div class="col-md-2 text-center">
-                <div class="form-check">
-                    <br>
-                    <input class="form-check-input" type="checkbox" value="" id="pintura" checked>
-                    <label class="form-check-label" for="defaultCheck1">Pintura</label>
-                </div>
-            </div>
-            <div class="col-md-2 text-center">
-                <div class="form-check">
-                    <br>
-                    <input class="form-check-input" type="checkbox" value="" id="mecanica" checked>
-                    <label class="form-check-label" for="defaultCheck1">Mecanica</label>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <label for=""></label>
-                <button type="button" class="btn btn-success btn-lg btn-block" id="btn_agregar">Agregar</button></div>
+            <div class="d-flex">
+                <h3>Reparacion</h3>
+                <a class="text-success text-capitalize mx-2 justify-vertical" 
+                    role="button" title="Agregar Pieza" id="add_rep">
+                    <i class="fa fa-plus-circle fa-2x pt-1"></i>
+                </a>   
             </div>
         </div>
         <br>
@@ -75,8 +54,9 @@
             </div>
             <div class="col-md-4">
                 <label for=""></label>
+                <input type="text" name="cont" class="form-control" id="cont" required hidden readonly>
                 <input type="text" name="expediente" class="form-control" id="iexpediente2" required hidden readonly>
-                <button type="button" class="btn btn-primary btn-lg btn-block" id="btn_crear">Crear</button></div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="btn_crear">Crear</button></div>
             <div class="col-md-4"></div>
         </div>
         <br>
@@ -122,6 +102,49 @@
         </div>
     </form>
 </div>
+<!-- -->
+<div class='reparacion_consecutivo'>
+    <div id='reparacion_consecutivo' class='d-flex flex-column'>
+        <div class='row'>
+            <h3>Reparacion #consecutivo</h3>
+            <a role='button'
+                class='remove_reparacion text-danger text-capitalize mx-2 pt-3'
+                style="margin-top: -18px;" 
+                title='Eliminar Reparacion #consecutivo' item_id='consecutivo'>
+                <i class='fa fa-minus-circle fa-2x pt-1'></i>
+            </a>
+        </div>
+        <div class='row'>
+            <div class='col-md-1'></div>
+            <div class='col-md-4'>
+                <label for='lreparacion'>Reparacion</label>
+                <input type="text" name='reparaciones_consecutivo' id='reparaciones_consecutivo' class='form-control'>
+            </div>
+            <div class='col-md-2 text-center'>
+                <div class='form-check'>
+                    <br>
+                    <input class='form-check-input' type="checkbox" value='' name='hojalateria_consecutivo' id='hojalateria_consecutivo' checked>
+                    <label class='form-check-label' for='defaultCheck1'>Hojalateria</label>
+                </div>
+            </div>
+            <div class='col-md-2 text-center'>
+                <div class='form-check'>
+                    <br>
+                    <input class='form-check-input' type='checkbox' value='' name='pintura_consecutivo' id='pintura_consecutivo' checked>
+                    <label class='form-check-label' for='defaultCheck1'>Pintura</label>
+                </div>
+            </div>
+            <div class='col-md-2 text-center'>
+                <div class='form-check'>
+                    <br>
+                    <input class='form-check-input' type='checkbox' value='' name='mecanica_consecutivo' id='mecanica_consecutivo' checked>
+                    <label class='form-check-label' for='defaultCheck1'>Mecanica</label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="{{ asset('/libs/DataTables/pdfmake-0.1.36/pdfmake.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/libs/DataTables/pdfmake-0.1.36/vfs_fonts.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/libs/DataTables/DataTables-1.10.25/js/jquery.dataTables.min.js') }}"></script>

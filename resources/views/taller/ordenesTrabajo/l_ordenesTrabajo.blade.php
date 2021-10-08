@@ -47,8 +47,11 @@
                                 <td>{{$orden->reparacion}}</td>
                                 <td>{{$orden->observaciones}}</td>
                                 <td>{{$orden->nombre}}</td>
-                                <td><a href="{{ route('create_pdfot', $orden->id) }}" class="btn btn-info" target='_blank' title="PDF"><i class="fa fa-file-pdf"></i></a>
-                                <a href="" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$orden->id}}" title="Eliminar"><i class="fa fa-trash"></i></a></td>
+                                <td>
+                                    <a href="{{ route('u_ordenest', $orden->id)}}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ route('create_pdfot', $orden->id) }}" class="btn btn-info" target='_blank' title="PDF"><i class="fa fa-file-pdf"></i></a>
+                                    <a href="" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$orden->id}}" title="Eliminar"><i class="fa fa-trash"></i></a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

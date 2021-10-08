@@ -36,7 +36,7 @@
                             @foreach ($list_asesores as $asesor)
                             <tr>
                                 <td>{{$asesor->id}}</td>
-                                <td>{{$asesor->aseguradoras->first()->nombre}}</td>
+                                <td>{{$asesor->aseguradoras->nombre}}</td>
                                 <td>{{$asesor->nombre}}</td>
                                 <td>{{$asesor->a_paterno}}</td>
                                 <td>{{$asesor->a_materno}}</td>

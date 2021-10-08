@@ -320,16 +320,42 @@ class CostrefaccionesController extends Controller
 
         $costrefacciones->costofinal = $request->tcostosf;
 
-        for ($i=1; $i <= $request->t_ref ; $i++) { 
-            $cantidad.= $request['tcantidad_'.$i].'/';
-            $proveedor1.= $request['tproveedor1_'.$i].'/';
-            $proveedor2.=  $request['tproveedor2_'.$i].'/';
-            $proveedor3.=  $request['tproveedor3_'.$i].'/';
-            $proveedorfinal.= $request['tproveedorf_'.$i].'/';
-            $costo.= $request['tcostosf_'.$i].'/';
-            $fechasp.= $request['tfechapromesa_'.$i].'/';
-            $guias.= $request['tnumguia_'.$i].'-';
-            $comentarios.= $request['tcomentarios_'.$i].'/';
+        for ($i=1; $i <= $request->t_ref ; $i++) {
+            if ($request['tcantidad_'.$i] != null) {
+                $cantidad.= $request['tcantidad_'.$i].'/';
+            }
+            
+            if ($request['tproveedor1_'.$i] != null) {
+                $proveedor1.= $request['tproveedor1_'.$i].'/';
+            }
+            
+            if ($request['tproveedor2_'.$i] != null) {
+                $proveedor2.=  $request['tproveedor2_'.$i].'/';
+            }
+            
+            if ($request['tproveedor3_'.$i] != null) {
+                $proveedor3.=  $request['tproveedor3_'.$i].'/';
+            }
+            
+            if ($request['tproveedorf_'.$i] != null) {
+                $proveedorfinal.= $request['tproveedorf_'.$i].'/';
+            }
+            
+            if ($request['tcostosf_'.$i] != null) {
+                $costo.= $request['tcostosf_'.$i].'/';
+            }
+            
+            if ($request['tfechapromesa_'.$i] != null) {
+                $fechasp.= $request['tfechapromesa_'.$i].'/';
+            }
+            
+            if ($request['tnumguia_'.$i] != null) {
+                $guias.= $request['tnumguia_'.$i].'-';
+            }
+            
+            if ($request['tcomentarios_'.$i] != null) {
+                $comentarios.= $request['tcomentarios_'.$i].'/';
+            }
         }
 
         $costrefacciones->cantidad = $cantidad;

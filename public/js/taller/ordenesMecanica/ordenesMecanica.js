@@ -84,6 +84,7 @@ $(document).ready(function(){
                     })
                     $("#iexpediente").attr("readonly","readonly");
                     $("#btn_agregar").attr('disabled', false);
+                    $("#add_rep").addClass('add_reparacion');
                     $.ajax({
                         url: '/mlmca',
                         type: 'GET',
@@ -125,40 +126,45 @@ $(document).ready(function(){
             }
         })
     });
+    //
+    var con = 1;
+    var ultimo;
+    let componente_template = $("div.diagnostico_consecutivo").html();
+    $("#diagnostico_consecutivo").remove();
 
-    var diagnostico = [];
-    $("#btn_agregar").on('click', function(){
-        // saco la informacion
-        if ($("#idiagnostico").val() == '') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Ingresa la Obervacion del cliente.',
-            })
-              
-            return false
-        }
+    if (con > 10) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'Solo se pueden agregar 10 diagnosticos por orden',
+        })
+    } else {
+        $(document).on('click', 'a.add_reparacion', function(e){
+            if (con == 10) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oopps...',
+                    text: 'Sobrepasaste 10 conceptos, debe crear una nueva Orden de Mecanica',
+                })
 
-        diagnostico.push($("#idiagnostico").val());
+                return false;
+            } else {
+                $("#section_diagnostico").append( 
+                    componente_template.replaceAll( "consecutivo" , con) );
+        
+                con++;
+                $("#cont").val(con);
+                $("#btn_crear").attr('disabled', false);
+            }
+        })
+    }
 
-        //le quito el no jalar cuando tiene un vslor de mas de uno 
-        if (diagnostico[0] != '') {
-            $("#btn_crear").attr('disabled', false);
-        } 
-
-        //le reinicio la informacion :v
-        $("#idiagnostico").val('') 
-
-        if (diagnostico.length == 10) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Oopps...',
-                text: 'Sobrepasaste 10 conceptos, debe crear una nueva Orden de Mecanica',
-            })
-        }
-
-        $("#idiagnostico").focus();
-    })
+    $(document).on('click','a.remove_diagnostico',function(e) {
+        //alert('entra');
+        let item_id = $(this).attr('item_id');
+        //console.log(item_id);
+        $("#diagnostico_"+item_id).remove();
+    });
 
     $("#btn_crear").on('click', function(){
         // Default export is a4 paper, portrait, using millimeters for units
@@ -177,22 +183,24 @@ $(document).ready(function(){
         doc.text(92, 21.5, inf[0]['clientes']['nombre']);
         var y = 48.5;
         var yy = 48.5;
-        for (let i = 0; i < diagnostico.length; i++) {
-            if (diagnostico.length > 70) {
-                let l1 = diagnostico[i].slice(0, 67)
-                let l2 = diagnostico[i].slice(67, 134)
-                doc.text(25, y, l1);
-                y = y + 4.5;
-                doc.text(25, y, l2);
-                y = y + 4.5;
-            } else {
-                doc.text(25, yy, diagnostico[i]);
-                yy = yy + 4.5;
+        for (let i = 1; i < con; i++) {
+            if ($("#idiagnostico_" + i).val()??'') {
+                if ($("#idiagnostico_" + i).length > 70) {
+                    let l1 = $("#idiagnostico_" + i).val().slice(0, 67);
+                    let l2 = $("#idiagnostico_" + i).val().slice(67, 134);
+                    doc.text(25, y, l1);
+                    y = y + 4.5;
+                    doc.text(25, y, l2);
+                    y = y + 4.5;
+                } else {
+                    doc.text(25, yy, '' + $("#idiagnostico_" + i).val());
+                    yy = yy + 4.5;
+                }
             }
         }
         
         doc.save($("#iexpediente").val() + "_orden_mecanica.pdf");
-
+        /*
         var data = {
             id: $("#iexpediente").val(),
             fecha: f2,
@@ -236,5 +244,6 @@ $(document).ready(function(){
                 }
             }
         })
+        */
     })
 })

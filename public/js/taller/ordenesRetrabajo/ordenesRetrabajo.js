@@ -84,6 +84,7 @@ $(document).ready(function(){
                     })
                     $("#iexpediente").attr("readonly","readonly");
                     $("#btn_agregar").attr('disabled', false);
+                    $("#add_obs").addClass('add_observacion');
                     $.ajax({
                         url: '/mlmca',
                         type: 'GET',
@@ -121,43 +122,45 @@ $(document).ready(function(){
             }
         })
     });
+    //
+    var con = 1;
+    var ultimo;
+    let componente_template = $("div.observaciones_consecutivo").html();
+    $("#observaciones_consecutivo").remove();
 
-    // var que andan opir ahi
-    var observaciones = [];
-    //ahora guardare la info talves en un arreglo :v
-    $("#btn_agregar").on('click', function(){
-        // saco la informacion
-        if ($("#iobservacion").val() == '') {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Ingresa la Obervacion del cliente.',
-            })
-              
-            return false
-        }
+    if (con > 10) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Oops...',
+            text: 'Solo se pueden agregar 10 observaciones por orden',
+        })
+    } else {
+        $(document).on('click', 'a.add_observacion', function(e){
+            if (con == 10) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Oopps...',
+                    text: 'Sobrepasaste 10 conceptos, debe crear una nueva Orden de Retrabajo',
+                })
 
-        observaciones.push($("#iobservacion").val());
+                return false;
+            } else {
+                $("#section_observaciones").append( 
+                    componente_template.replaceAll( "consecutivo" , con) );
+        
+                con++;
+                $("#cont").val(con);
+                $("#btn_crear").attr('disabled', false);
+            }
+        })
+    }
 
-        //le quito el no jalar cuando tiene un vslor de mas de uno 
-        if (observaciones[0] != '') {
-            $("#btn_crear").attr('disabled', false);
-        } 
-
-        //le reinicio la informacion :v
-        $("#iobservacion").val('') 
-
-        if (observaciones.length == 10) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Oopps...',
-                text: 'Sobrepasaste 10 conceptos, debe crear una nueva Orden de Re-Trabajo',
-            })
-        }
-
-        $("#iobservacion").focus();
-
-    })
+    $(document).on('click','a.remove_observaciones',function(e) {
+        //alert('entra');
+        let item_id = $(this).attr('item_id');
+        //console.log(item_id);
+        $("#observaciones_"+item_id).remove();
+    });
 
     $("#btn_crear").on('click', function(){
         // Default export is a4 paper, portrait, using millimeters for units
@@ -177,29 +180,32 @@ $(document).ready(function(){
         doc.text(92, 25, inf[0]['clientes']['nombre']);
         var y = 55.5;
         var yy = 55.5;
-        for (let i = 0; i < observaciones.length; i++) {
-            if (observaciones.length > 67) {
-                let l1 = observaciones[i].slice(0, 67)
-                let l2 = observaciones[i].slice(67, 134)
-                doc.text(0, y, l1);
-                y = y + 6;
-                doc.text(0, y, l2);
-                y = y + 6;
-            } else {
-                doc.text(0, yy, observaciones[i]);
-                yy = yy + 6;
+        for (let i = 0; i < con; i++) {
+            if ($("#iobservaciones_" + i).val()??'') {
+                if ($("#iobservaciones_" + i).length > 67) {
+                    let l1 = $("#iobservaciones_" + i).val().slice(0, 67);
+                    let l2 = $("#iobservaciones_" + i).val().slice(67, 134);
+                    doc.text(0, y, l1);
+                    y = y + 6;
+                    doc.text(0, y, l2);
+                    y = y + 6;
+                } else {
+                    doc.text(0, yy, '' + $("#iobservaciones_" + i).val());
+                    yy = yy + 6;
+                }
             }
         }
         
         //doc.text(70, 235, obs);
         doc.save($("#iexpediente").val() + "_orden_retrabajo.pdf");
+        /*
         var data = {
             id: $("#iexpediente").val(),
             fecha: f2,
             observaciones: observaciones,
             elaboro: inf[0]['asesores']['id']
         }
-
+        
         $.ajax({
             url: '/i_ordenesrt',
             type: 'POST',
@@ -236,5 +242,6 @@ $(document).ready(function(){
                 }
             }
         })
+        */
     })
 })

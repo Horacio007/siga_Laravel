@@ -78,7 +78,7 @@
                 <input type="text" id="cont" value="{{sizeof($rep)}}" hidden readonly>
                 <input type="text" id="cont2" value="{{sizeof($rep)}}" name="cont2" hidden readonly>
                 <input type="text" name="expediente" class="form-control" id="iexpediente2" required hidden readonly>
-                <button type="submit" class="btn btn-primary btn-lg btn-block" id="btn_crear">Crear</button></div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="btn_crear">Actualizar</button></div>
             <div class="col-md-4"></div>
         </div>
     </form>

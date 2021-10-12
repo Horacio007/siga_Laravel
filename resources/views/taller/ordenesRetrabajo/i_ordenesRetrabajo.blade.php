@@ -36,22 +36,26 @@
             </div>
         </div>
         <br>
+        <div id="section_observaciones"></div>
+        <br>
         <div class="row">
-            <div class="col-md-10">
-                <label for="lreparacion">Observaciones</label>
-                <input type="text" name="observaciones" id="iobservacion" class="form-control">
-            </div>
-            <div class="col-md-2">
-                <label for=""></label>
-                <button type="button" class="btn btn-success btn-lg btn-block" id="btn_agregar">Agregar</button></div>
+            <div class="d-flex">
+                <h3>Observaciones</h3>
+                <a class="text-success text-capitalize mx-2 justify-vertical" 
+                    role="button" title="Agregar Observacion" id="add_obs">
+                    <i class="fa fa-plus-circle fa-2x pt-1"></i>
+                </a>   
             </div>
         </div>
         <br>
         <div class="row">
-            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <input type="text" name="cont" class="form-control" id="cont" required hidden readonly>
+                <input type="text" name="expediente" class="form-control" id="iexpediente2" required hidden readonly>
+            </div>
             <div class="col-md-4">
                 <label for=""></label>
-                <button type="button" class="btn btn-primary btn-lg btn-block" id="btn_crear">Crear</button></div>
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="btn_crear">Crear</button></div>
             <div class="col-md-4"></div>
         </div>
         <br>
@@ -97,6 +101,28 @@
         </div>
     </form>
 </div>
+<!-- -->
+<div class='observaciones_consecutivo'>
+    <div id='observaciones_consecutivo' class='d-flex flex-column'>
+        <div class='row'>
+            <h3>Obervacion #consecutivo</h3>
+            <a role='button'
+                class='remove_observaciones text-danger text-capitalize mx-2 pt-3'
+                style="margin-top: -18px;" 
+                title='Eliminar observaciones #consecutivo' item_id='consecutivo'>
+                <i class='fa fa-minus-circle fa-2x pt-1'></i>
+            </a>
+        </div>
+        <div class='row'>
+            <div class='col-md-2'></div>
+            <div class='col-md-8'>
+                <label for='lreparacion'>Observaciones</label>
+                <input type='text' name='observaciones_consecutivo' id='iobservaciones_consecutivo' class='form-control'>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="{{ asset('/libs/DataTables/pdfmake-0.1.36/pdfmake.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/libs/DataTables/pdfmake-0.1.36/vfs_fonts.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/libs/DataTables/DataTables-1.10.25/js/jquery.dataTables.min.js') }}"></script>

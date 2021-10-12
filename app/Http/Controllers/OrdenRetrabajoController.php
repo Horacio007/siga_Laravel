@@ -22,7 +22,7 @@ class OrdenRetrabajoController extends Controller
                                     modelosv.marca,
                                     submarcav.submarca,
                                     vehiculo.modelo,
-                                    aseguradoras.nombre,
+                                    aseguradoras.nombre as aseguradora,
                                     orden_retrabajo.fecha,
                                     orden_retrabajo.observaciones,
                                     asesores.nombre
@@ -75,23 +75,30 @@ class OrdenRetrabajoController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $f =  Date('Y-m-d');
         $o = '';
 
-        for ($i=0; $i < count($request->observaciones); $i++) { 
-            $o .= $request->observaciones[$i].'/';
+        for ($i=1; $i < $request->cont; $i++) { 
+            if ($request['observaciones_'.$i] != null) {
+                $o .= $request['observaciones_'.$i].'/';
+            }
         }
 
         $ordenrt = new Orden_retrabajo();
-        $ordenrt->id_vehiculo = $request->id;
+        $ordenrt->id_vehiculo = $request->expediente;
         $ordenrt->fecha = $f;
         $ordenrt->observaciones = $o;
-        $ordenrt->elaboro = $request->elaboro;
+        $elaboro = Vehiculo::select('id_asesor')
+                            ->where('id', $request->expediente)
+                            ->first();
+        //dd($elaboro);
+        $ordenrt->elaboro = $elaboro->id_asesor;
 
         if ($ordenrt->save()) {
-            return 1;
+            return redirect()->route('l_ordenesrt')->with('success','Orden de Retrabajo Registrada.');
         } else {
-            return 'Orden de Retrabajo no registrada';
+            return redirect()->route('l_ordenesrt')->with('error','Orden de Retrabajo Registrada.');
         }
     }
 
@@ -183,7 +190,7 @@ class OrdenRetrabajoController extends Controller
      */
     public function edit(Orden_retrabajo $orden_retrabajo)
     {
-        //
+        return view('taller.ordenesRetrabajo.u_ordenesRetrabajo', compact('orden_retrabajo'));
     }
 
     /**
@@ -195,7 +202,21 @@ class OrdenRetrabajoController extends Controller
      */
     public function update(Request $request, Orden_retrabajo $orden_retrabajo)
     {
-        //
+        //dd($request);
+        $o = '';
+        for ($i=1; $i < $request->cont2; $i++) {
+            if ($request['observaciones_'.$i] != null) {
+                $o .= $request['observaciones_'.$i].'/';
+            }
+        }
+
+        $orden_retrabajo->observaciones = $o;
+
+        if ($orden_retrabajo->save()) {
+            return redirect()->route('l_ordenesrt')->with('success','Orden de Retrabajo Actualizada.');
+        } else {
+            return redirect()->route('l_ordenesrt')->with('error','Orden de Retrabajo no Actualizada.');
+        }
     }
 
     /**

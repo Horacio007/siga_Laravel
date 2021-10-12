@@ -76,23 +76,30 @@ class OrdenMecanicaController extends Controller
      */
     public function store(Request $request)
     {
+        //dd($request);
         $f =  Date('Y-m-d');
         $d = '';
 
-        for ($i=0; $i < count($request->diagnostico); $i++) { 
-            $d .= $request->diagnostico[$i].'/';
+        for ($i=1; $i < $request->cont; $i++) { 
+            if ($request['diagnostico_'.$i] != null) {
+                $d .= $request['diagnostico_'.$i].'/';
+            }
         }
 
         $ordenm = new Orden_mecanica();
-        $ordenm->id_vehiculo = $request->id;
+        $ordenm->id_vehiculo = $request->expediente;
         $ordenm->fecha = $f;
         $ordenm->diagnostico = $d;
-        $ordenm->elaboro = $request->elaboro;
+        $elaboro = Vehiculo::select('id_asesor')
+                            ->where('id', $request->expediente)
+                            ->first();
+        //dd($elaboro);
+        $ordenm->elaboro = $elaboro->id_asesor;
 
         if ($ordenm->save()) {
-            return 1;
+            return redirect()->route('l_ordenesm')->with('success','Orden de Mecanica Registrada.');
         } else {
-            return 'Orden de Mecanica no registrada';
+            return redirect()->route('l_ordenesm')->with('error','Orden de Mecanica Registrada.');
         }
     }
 
@@ -188,7 +195,7 @@ class OrdenMecanicaController extends Controller
      */
     public function edit(Orden_mecanica $orden_mecanica)
     {
-        //
+        return view('taller.ordenesMecanica.u_ordenesMecanica', compact('orden_mecanica'));
     }
 
     /**
@@ -200,7 +207,21 @@ class OrdenMecanicaController extends Controller
      */
     public function update(Request $request, Orden_mecanica $orden_mecanica)
     {
-        //
+        //dd($request);
+        $d = '';
+        for ($i=1; $i < $request->cont2; $i++) {
+            if ($request['diagnostico_'.$i] != null) {
+                $d .= $request['diagnostico_'.$i].'/';
+            }
+        }
+
+        $orden_mecanica->diagnostico = $d;
+
+        if ($orden_mecanica->save()) {
+            return redirect()->route('l_ordenesm')->with('success','Orden de Mecanica Actualizada.');
+        } else {
+            return redirect()->route('l_ordenesm')->with('error','Orden de Mecanica no Actualizada.');
+        }
     }
 
     /**

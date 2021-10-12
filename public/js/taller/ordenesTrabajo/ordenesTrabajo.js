@@ -180,8 +180,10 @@ $(document).ready(function(){
         doc.text(70, 37.5, inf[0]['clientes']['nombre']);
         var y = 57.5;
         for (let i = 1; i < con; i++) {
-            doc.text(25, y, '' + $("#reparaciones_"+i).val());
-            y = y + 5.5;
+            if ($("#reparaciones_"+i).val()??'') {
+                doc.text(25, y, '' + $("#reparaciones_"+i).val());
+                y = y + 5.5;
+            }
         }
         /*
         var yy = 64;

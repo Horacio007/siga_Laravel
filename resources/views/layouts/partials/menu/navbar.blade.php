@@ -10,6 +10,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Recepcíon</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="{{ route('agendar') }}">Agenda</a>
                 <a class="dropdown-item" href="{{ route('i_vehiculos') }}" id="altaVehiculo" >Alta del Vehículo</a>
                 <a class="dropdown-item" href="{{ route('l_checklist') }}" id="checklistpdf">Listado Checklist</a>
                 <a class="dropdown-item" href="{{ route('upload_evidenciar') }}">Evidencia Recepción</a>

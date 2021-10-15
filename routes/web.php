@@ -522,3 +522,14 @@ require __DIR__.'/auth.php';
             Route::get('/updated-activity', 'TelegramBotController@updatedActivity')->middleware('auth');
         //endTelegram
 //endTelegram
+
+//Agenda
+        //Agendar
+            Route::get('agenda', 'AgendaController@index')->name('agendar')->middleware('auth');
+            Route::post('agenda', 'AgendaController@store')->middleware('auth');
+            Route::get('agenda_show', 'AgendaController@show')->name('agenda_show')->middleware('auth');
+            Route::post('agenda_edit/{id}', 'AgendaController@edit')->name('agenda_edit')->middleware('auth');
+            Route::post('agenda_update/{agenda}', 'AgendaController@update')->middleware('auth');
+            Route::post('agenda_delete/{id}', 'AgendaController@destroy')->name('agenda_delete')->middleware('auth');
+        //endAgendar
+//endAgenda

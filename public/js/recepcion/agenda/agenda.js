@@ -52,6 +52,12 @@ document.addEventListener('DOMContentLoaded', function() {
         $("#evento").modal('hide');
     });
 
+    document.getElementById('start2').addEventListener('change', function(){
+        let sp = $("#start2").val().split(':');
+        sp[0]++;
+        $("#end2").val(sp[0]+':'+sp[1]);
+    });
+
     document.getElementById('btn_save').addEventListener('click', function(){
         if ($("#title").val() == '') {
             Swal.fire({

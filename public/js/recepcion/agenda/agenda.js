@@ -55,6 +55,9 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('start2').addEventListener('change', function(){
         let sp = $("#start2").val().split(':');
         sp[0]++;
+        if (sp[1] == 30) {
+            sp[1] = '00';
+        }
         $("#end2").val(sp[0]+':'+sp[1]);
     });
 

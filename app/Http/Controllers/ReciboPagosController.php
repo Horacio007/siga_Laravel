@@ -89,6 +89,9 @@ class ReciboPagosController extends Controller
                 $factura->folio = $ultimo->id;
                 $factura->tipo_servicio_id = $ultimo->tipo_servicio_id;
                 $factura->tipo_pago_id = $ultimo->forma_pago;
+                if ($request->tipo_pago == 2) {
+                    $factura->fecha_bbva_pagada = $ultimo->fecha;
+                }
                 $factura->save();
                 /*
                 $vehiculo = Vehiculo::where('id', $request->iexpediente2)->first();

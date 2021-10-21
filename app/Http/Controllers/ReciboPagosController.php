@@ -77,7 +77,7 @@ class ReciboPagosController extends Controller
             $asuguradora = Vehiculo::select('cliente_id')
                                     ->where('id', $request->iexpediente2)
                                     ->first();
-            if ($asuguradora->cliente_id??'' == 3 || $request->iexpediente2 == 123) {
+            if ($asuguradora->cliente_id == 3 || $request->iexpediente2 == 123) {
                 $ultimo = Recibo_pagos::all()->last();
                 $factura = new Facturas;
                 $factura->id_vehiculo = $ultimo->id_vehiculo;

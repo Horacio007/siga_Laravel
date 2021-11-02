@@ -47,7 +47,7 @@
                                 <td>{{$gasto->articulos}}</td>
                                 <td>{{$gasto->gastos}}</td>
                                 <td>{{$gasto->forma_pagos->forma_pago}}</td>
-                                <td>{{$gasto->facturas->nombre}}</td>
+                                <td>{{$gasto->facturas->nombre??''}}</td>
                                 <td>{{$gasto->concepto_pagos->concepto_pago}}</td>
                                 <td>{{$gasto->proveedor}}</td>
                                 @if ($gasto->expedientes->id > 0)

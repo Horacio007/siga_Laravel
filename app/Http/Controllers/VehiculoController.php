@@ -32,6 +32,7 @@ class VehiculoController extends Controller
                                 ->where('estatus_id','5')
                                 //->where('id_aux', 433)
                                 ->orWhere('estatus_id','6')
+                                ->orWhere('estatus_id','9')
                                 ->orderBy('id_aux')
                                 ->get();
 

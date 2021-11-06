@@ -89,6 +89,10 @@
                                             case 6:
                                                 $estatus = "Transito/".$dif_trans;
                                                 break;
+
+                                            case 9:
+                                                $estatus = "Orden De Admicion/".$dif_trans;
+                                                break;
                                             
                                             default:
                                                 $estatus = "Sin estatus";

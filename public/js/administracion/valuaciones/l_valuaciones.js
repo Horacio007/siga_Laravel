@@ -112,6 +112,10 @@ $(document).ready(function(){
                     $(nRow).find('td:eq(1)').css('background-color', '#53ee7e'); 
                 }
             }
+
+            if (estatus[0] == 'Orden De Admicion') {
+                $(nRow).find('td:eq(1)').css('background-color', '#F9FC82'); 
+            }
         }
     });
 })

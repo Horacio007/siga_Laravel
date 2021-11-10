@@ -880,7 +880,7 @@ class VehiculoController extends Controller
                                     ->where('id', $u_vehiculo->id_aux)
                                     ->get();
     
-                    $text = "Vehiculo Ingresado el dia -> ".Carbon::now()->format('Y-m-d H:i:s')."\n";
+                    $text = "Vehiculo Ingresado a travez de Orden de Admición el dia -> ".Carbon::now()->format('Y-m-d H:i:s')."\n";
                     $text.= "<b>Cliente</b>\n";
                     $text.= "Nombre ->  ".$uc[0]['nombre']??'';
                     $text.= "\n";

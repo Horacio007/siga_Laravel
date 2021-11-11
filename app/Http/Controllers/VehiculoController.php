@@ -1375,7 +1375,8 @@ class VehiculoController extends Controller
                                         vehiculo 
                                     WHERE 
                                         MONTH(fecha_llegada) = MONTH(NOW())
-                                    AND YEAR(fecha_llegada) = YEAR(NOW())");
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)");
 
         $total_V_RMesQ = DB::select("SELECT 
                                         COUNT(id_aux) as Qualitas 
@@ -1420,7 +1421,8 @@ class VehiculoController extends Controller
                                         WHERE
                                             cliente_id = 6
                                         AND MONTH(fecha_llegada) = MONTH(NOW())
-                                        AND YEAR(fecha_llegada) = YEAR(NOW())");
+                                        AND YEAR(fecha_llegada) = YEAR(NOW())
+                                        AND (estatus_id = 5  OR estatus_id = 6)");
 
         $tabla_VRecibidos = array(
                                 array(
@@ -1561,7 +1563,8 @@ class VehiculoController extends Controller
                                     vehiculo 
                                 WHERE 
                                     WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())
-                                AND YEAR(fecha_llegada) = YEAR(NOW())');
+                                AND YEAR(fecha_llegada) = YEAR(NOW())
+                                AND (estatus_id = 5  OR estatus_id = 6)');
 
         $semanar1 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
@@ -1569,7 +1572,8 @@ class VehiculoController extends Controller
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-1
-                            AND YEAR(fecha_llegada) = YEAR(NOW())');
+                            AND YEAR(fecha_llegada) = YEAR(NOW())
+                            AND (estatus_id = 5  OR estatus_id = 6)');
 
         $semanar2 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
@@ -1577,7 +1581,8 @@ class VehiculoController extends Controller
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-2
-                            AND YEAR(fecha_llegada) = YEAR(NOW())');
+                            AND YEAR(fecha_llegada) = YEAR(NOW())
+                            AND (estatus_id = 5  OR estatus_id = 6)');
 
         $semanar3 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
@@ -1585,7 +1590,8 @@ class VehiculoController extends Controller
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-3
-                            AND YEAR(fecha_llegada) = YEAR(NOW())');
+                            AND YEAR(fecha_llegada) = YEAR(NOW())
+                            AND (estatus_id = 5  OR estatus_id = 6)');
 
         $semanar4 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
@@ -1593,7 +1599,8 @@ class VehiculoController extends Controller
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-4
-                            AND YEAR(fecha_llegada) = YEAR(NOW())');
+                            AND YEAR(fecha_llegada) = YEAR(NOW())
+                            AND (estatus_id = 5  OR estatus_id = 6)');
 
         $semanar5 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
@@ -1601,7 +1608,8 @@ class VehiculoController extends Controller
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-5
-                            AND YEAR(fecha_llegada) = YEAR(NOW())');
+                            AND YEAR(fecha_llegada) = YEAR(NOW())
+                            AND (estatus_id = 5  OR estatus_id = 6)');
 
         $semanar6 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
@@ -1609,7 +1617,8 @@ class VehiculoController extends Controller
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-6
-                            AND YEAR(fecha_llegada) = YEAR(NOW())');
+                            AND YEAR(fecha_llegada) = YEAR(NOW())
+                            AND (estatus_id = 5  OR estatus_id = 6)');
 
         $semanar7 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
@@ -1617,7 +1626,8 @@ class VehiculoController extends Controller
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-7
-                            AND YEAR(fecha_llegada) = YEAR(NOW())');
+                            AND YEAR(fecha_llegada) = YEAR(NOW())
+                            AND (estatus_id = 5  OR estatus_id = 6)');
 
         $semanar8 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
@@ -1625,7 +1635,8 @@ class VehiculoController extends Controller
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-8
-                            AND YEAR(fecha_llegada) = YEAR(NOW())');
+                            AND YEAR(fecha_llegada) = YEAR(NOW())
+                            AND (estatus_id = 5  OR estatus_id = 6)');
                                 
         $semanar9 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
@@ -1633,7 +1644,8 @@ class VehiculoController extends Controller
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-9
-                            AND YEAR(fecha_llegada) = YEAR(NOW())'); 
+                            AND YEAR(fecha_llegada) = YEAR(NOW())
+                            AND (estatus_id = 5  OR estatus_id = 6)'); 
 
         $semanar10 = DB::select('SELECT 
                                 COUNT(estatus_id) as entregados 
@@ -1641,7 +1653,8 @@ class VehiculoController extends Controller
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-10
-                            AND YEAR(fecha_llegada) = YEAR(NOW())');
+                            AND YEAR(fecha_llegada) = YEAR(NOW())
+                            AND (estatus_id = 5  OR estatus_id = 6)');
 
         $tabla_VRecibidos10sem = array(
             array('Semana 10', 'Semana 9', 'Semana 8', 'Semana 7', 'Semana 6', 'Semana 5', 'Semana 4', 'Semana 3', 'Semana 2', 'Semana 1', 'Semana Actual'),
@@ -1650,7 +1663,10 @@ class VehiculoController extends Controller
 
         //vehiculos entregados el dia anterior
         $v_entretagos_ayer = Vehiculo::whereDate('fecha_salida_taller', Carbon::now()->subDay()->format('Y-m-d'))->where('estatus_id', 3)->count();
-        $v_recibidos_ayer = Vehiculo::whereDate('fecha_llegada',  Carbon::now()->subDay()->format('Y-m-d'))->count();;
+        $ayer = Carbon::now()->subDay()->format('Y-m-d');
+        $v_recibidos_ayer = DB::select("SELECT COUNT(fecha_llegada) as recibidos FROM vehiculo WHERE fecha_llegada = '$ayer' AND (estatus_id = 5  OR estatus_id = 6)");
+        //dd($v_recibidos_ayer[0]);
+        //$v_recibidos_ayer = Vehiculo::whereDate('fecha_llegada',  Carbon::now()->subDay()->format('Y-m-d'))->where('estatus_id', 5)->orWhere('estatus_id', 6)->count();;
 
         //dd(Carbon::now()->subDay()->format('Y-m-d'));
         //dd($v_entretagos_ayer);
@@ -1737,7 +1753,8 @@ class VehiculoController extends Controller
                                         vehiculo 
                                     WHERE 
                                         MONTH(fecha_llegada) = MONTH(NOW())
-                                    AND YEAR(fecha_llegada) = YEAR(NOW())");
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)");
 
             $total_V_RMesQ = DB::select("SELECT 
                                             COUNT(id_aux) as Qualitas 
@@ -1782,7 +1799,8 @@ class VehiculoController extends Controller
                                             WHERE
                                                 cliente_id = 6
                                             AND MONTH(fecha_llegada) = MONTH(NOW())
-                                            AND YEAR(fecha_llegada) = YEAR(NOW())");
+                                            AND YEAR(fecha_llegada) = YEAR(NOW())
+                                            AND (estatus_id = 5  OR estatus_id = 6)");
 
             $datos = array(
                 array('Qualitas', 'GNP', 'Particular', 'Bancomer', 'Banorte', 'Total'),
@@ -1875,7 +1893,8 @@ class VehiculoController extends Controller
                                         vehiculo 
                                     WHERE 
                                         MONTH(fecha_llegada) = MONTH('$mes')
-                                    AND YEAR(fecha_llegada) = YEAR('$mes')");
+                                    AND YEAR(fecha_llegada) = YEAR('$mes')
+                                    AND (estatus_id = 5  OR estatus_id = 6)");
 
             $total_V_RMesQ = DB::select("SELECT 
                                             COUNT(id_aux) as Qualitas 
@@ -1920,7 +1939,8 @@ class VehiculoController extends Controller
                                             WHERE
                                                 cliente_id = 6
                                             AND MONTH(fecha_llegada) = MONTH('$mes')
-                                            AND YEAR(fecha_llegada) = YEAR('$mes')");
+                                            AND YEAR(fecha_llegada) = YEAR('$mes')
+                                            AND (estatus_id = 5  OR estatus_id = 6)");
 
             $datos = array(
                 array('Qualitas', 'GNP', 'Particular', 'Bancomer', 'Banorte', 'Total'),
@@ -2039,77 +2059,88 @@ class VehiculoController extends Controller
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())');
+                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())
+                                        AND (estatus_id = 5  OR estatus_id = 6)');
 
             $semanar1 = DB::select('SELECT 
                                         COUNT(estatus_id) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-1');
+                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-1
+                                        AND (estatus_id = 5  OR estatus_id = 6)');
 
             $semanar2 = DB::select('SELECT 
                                         COUNT(estatus_id) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-2');
+                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-2
+                                        AND (estatus_id = 5  OR estatus_id = 6)');
 
             $semanar3 = DB::select('SELECT 
                                         COUNT(estatus_id) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-3');
+                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-3
+                                        AND (estatus_id = 5  OR estatus_id = 6)');
 
             $semanar4 = DB::select('SELECT 
                                         COUNT(estatus_id) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-4');
+                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-4
+                                        AND (estatus_id = 5  OR estatus_id = 6)');
 
             $semanar5 = DB::select('SELECT 
                                         COUNT(estatus_id) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-5');
+                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-5
+                                        AND (estatus_id = 5  OR estatus_id = 6)');
 
             $semanar6 = DB::select('SELECT 
                                         COUNT(estatus_id) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-6');
+                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-6
+                                        AND (estatus_id = 5  OR estatus_id = 6)');
 
             $semanar7 = DB::select('SELECT 
                                         COUNT(estatus_id) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-7');
+                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-7
+                                        AND (estatus_id = 5  OR estatus_id = 6)');
 
             $semanar8 = DB::select('SELECT 
                                         COUNT(estatus_id) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-8');
+                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-8
+                                        AND (estatus_id = 5  OR estatus_id = 6)');
                 
             $semanar9 = DB::select('SELECT 
                                         COUNT(estatus_id) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-9'); 
+                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-9
+                                        AND (estatus_id = 5  OR estatus_id = 6)'); 
 
             $semanar10 = DB::select('SELECT 
                                         COUNT(estatus_id) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-10');
+                                        WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-10
+                                        AND (estatus_id = 5  OR estatus_id = 6)');
 
             $datos = array(
                 array('Semana 10', 'Semana 9', 'Semana 8', 'Semana 7', 'Semana 6', 'Semana 5', 'Semana 4', 'Semana 3', 'Semana 2', 'Semana 1', 'Semana Actual'),

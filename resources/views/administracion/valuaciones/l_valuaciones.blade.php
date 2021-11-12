@@ -42,6 +42,7 @@
                                 <th>Importe de Piezas</th>
                                 <th>Porcentaje Reparacion</th>
                                 <th>Porcentaje Aprobacion</th>
+                                <th>Deducible</th>
                                 <th>Acciones</th>
                         </thead>
                         <tbody>
@@ -131,6 +132,7 @@
                                     <td>{{$val->importe_piezas_vendidas}}</td>
                                     <td>{{$res}}</td>
                                     <td>{{$porcetaje}}</td>
+                                    <td>{{$val->proceso}}</td>
                                     <td><a href="{{ route('u_valuaciones', $val->id) }}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a></td>
                                 </tr>
                             @endforeach

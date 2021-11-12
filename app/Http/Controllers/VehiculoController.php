@@ -28,7 +28,7 @@ class VehiculoController extends Controller
     public function indexV()
     {
         $valuaciones = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo'])
-                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_llegada_taller', 'fecha_valuacion', 'diferencia_tres_dias', 'cantidad_inicial', 'piezas_cambiadas_inicial', 'piezas_reparacion_inicial', 'fecha_autorizacion', 'cantidad_final', 'piezas_cambiadas_final', 'piezas_reparacion_final', 'piezas_vendidas', 'importe_piezas_vendidas', 'piezas_vendidas', 'porcentaje_aprobacion', 'fecha_promesa')
+                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_llegada_taller', 'fecha_valuacion', 'diferencia_tres_dias', 'cantidad_inicial', 'piezas_cambiadas_inicial', 'piezas_reparacion_inicial', 'fecha_autorizacion', 'cantidad_final', 'piezas_cambiadas_final', 'piezas_reparacion_final', 'piezas_vendidas', 'importe_piezas_vendidas', 'piezas_vendidas', 'porcentaje_aprobacion', 'fecha_promesa', 'proceso')
                                 ->where('estatus_id','5')
                                 //->where('id_aux', 433)
                                 ->orWhere('estatus_id','6')
@@ -95,7 +95,7 @@ class VehiculoController extends Controller
                                 ->orderBy('id_aux')
                                 ->get();
 
-        //dd($proceso_taller);
+        //dd($proceso_taller[81]);
 
         return view('administracion.procesoTaller.l_procesoTaller', compact('proceso_taller'));
     }
@@ -844,6 +844,7 @@ class VehiculoController extends Controller
             $vehiculo->fecha_promesa = $dias_rep;
             $vehiculo->importe_piezas_vendidas = $request->importepzsvendidas;
             $vehiculo->porcentaje_aprobacion = $porcentaje;
+            $vehiculo->proceso = $request->deducible;
             if ($request->pzscambioini == 0) {
                 $vehiculo->refacciones_id = 7;
             }
@@ -863,6 +864,7 @@ class VehiculoController extends Controller
             $vehiculo->piezas_vendidas = $request->pzsvendidas;
             $vehiculo->fecha_promesa = $dias_rep;
             $vehiculo->importe_piezas_vendidas = $request->importepzsvendidas;
+            $vehiculo->proceso = $request->deducible;
             if ($request->pzscambioini == 0) {
                 $vehiculo->refacciones_id = 7;
             }

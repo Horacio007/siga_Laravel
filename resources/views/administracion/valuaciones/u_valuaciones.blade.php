@@ -73,15 +73,19 @@
                     <label for="lcantidad">Importe Piezas Vendidas:</label><br>
                     <input type="text" class="form-control" name="importepzsvendidas" id="importepzsvendidas" value="{{$vehiculo->importe_piezas_vendidas}}">
                 </div>
+                <div class="col-md-2">
+                    <label for="lcantidad">Deducible</label><br>
+                    <input type="text" class="form-control" name="deducible" id="deducible" value="{{$vehiculo->proceso}}">
+                </div>
+                <div class="col-md-4">
+                    <label for=""></label>
+                    <input type="submit" value="Actualizar" class="btn btn-primary btn-lg btn-block">
+                </div>
                 <div class="col-md-1">
                     <input type="hidden" class="form-control" name="porcentapro" id="porcentapro" value="{{$vehiculo->porcentaje_aprobacion}}">
                 </div>
                 <div class="col-md-1">
                     <input type="hidden" class="form-control" name="diferencia" id="diferencia" value="{{$difee}}">
-                </div>
-                <div class="col-md-4">
-                    <label for=""></label>
-                    <input type="submit" value="Actualizar" class="btn btn-primary btn-lg btn-block">
                 </div>
             </div>
             <br>

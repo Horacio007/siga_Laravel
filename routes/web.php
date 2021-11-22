@@ -265,7 +265,12 @@ require __DIR__.'/auth.php';
         Route::get('g_aud_limpieza_encargado', 'AudLimpiezaController@g_aud_limpieza_encargado')->middleware('auth');
         Route::get('g_aud_limpieza_actual_personal', 'AudLimpiezaController@g_aud_limpieza_actual_personal')->middleware('auth');
     //endMetricos
-//endAdministracion
+
+    //Recorrido
+        Route::get('recorrido', 'VehiculoController@recorrido')->name('recorrido')->middleware('auth');
+    //endRecorrido
+
+    //endAdministracion
 
 //Catalogos
     //Marca

@@ -53,4 +53,16 @@ class Vehiculo extends Model
     public function facturas(){
         return $this->hasOne('App\Models\Facturas', 'id_vehiculo', 'id');
     }
+
+    public function personalDetallado(){
+        return $this->hasOne('App\Models\Personal', 'id', 'asignado_detallado');
+    }
+
+    public function personalArmado(){
+        return $this->hasOne('App\Models\Personal', 'id', 'asignado_armado');
+    }
+
+    public function personalPintura(){
+        return $this->hasOne('App\Models\Personal', 'id', 'asignado_pintura');
+    }
 }

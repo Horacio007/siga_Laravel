@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\recibo_pago_proveedores;
 use Telegram\Bot\Laravel\Facades\Telegram;
+use Codedge\Fpdf\Fpdf\Fpdf;
 
 class VehiculoController extends Controller
 {
@@ -2224,6 +2225,292 @@ class VehiculoController extends Controller
         $estatus = Estatusaseguradoras::all();
 
         return view('administracion.monitor.monitorF', compact(['monitor', 'estatus']));
+    }
+
+    public function recorrido(){
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        $pdf->SetFont('Arial','B',12);
+        //agrego los encabesados
+        $pdf->Cell(190, 8, utf8_decode('Resumen de vehiculos para entrega de la semana # '. date('W')), 1, 1, 'C');
+        $pdf->Cell(10, 8, utf8_decode('#'), 1, 0, 'C');
+        $pdf->Cell(70, 8, utf8_decode('Vehiculo'), 1, 0, 'C');
+        $pdf->Cell(15, 8, utf8_decode('Seg'), 1, 0, 'C');
+        $pdf->Cell(95, 8, utf8_decode('Comentarios'), 1, 1, 'C');
+        //se terminan los encabezados
+        //se obtiene la informacion para poder rellenar la tabla de vehiculos lavado e inspeccion
+        $v_entrega = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+                        ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller')
+                        ->where('estatus_id', 5)
+                        ->whereNotNull('fecha_entrega_interna')
+                        ->get();
+        //termino de obtener la informacion
+        // lleno la tabla y cambio el tamaño de la letra
+        $pdf->SetFont('Arial', '', 12);
+        for ($i=0; $i < sizeof($v_entrega); $i++) { 
+            $v_entrega_marca = $v_entrega[$i]->marcas->marca;
+            $v_entrega_submarca = $v_entrega[$i]->submarcas->submarca;
+            $v_entrega_color = $v_entrega[$i]->color;
+            $v_entrega_modelo = $v_entrega[$i]->modelo;
+
+            switch ($v_entrega[$i]->clientes->id) {
+                case 1:
+                    $aseguradora = 'G';
+                    break;
+
+                case 3:
+                    $aseguradora = 'P';
+                    break;
+                
+                case 4;
+                    $aseguradora = 'Q';
+                    break;
+
+                case 5:
+                    $aseguradora = 'M';
+                    break;
+                
+                case 6;
+                    $aseguradora = 'B';
+                    break;
+                default:
+                    $aseguradora = ':)';
+                    break;
+            }
+            $pdf->Cell(10, 8, utf8_decode($i), 1, 0, 'C');
+            $pdf->Cell(70, 8, utf8_decode($v_entrega_marca.' '.$v_entrega_submarca.' '.$v_entrega_color.' '.$v_entrega_modelo), 1, 0, 'L');
+            $pdf->Cell(15, 8, utf8_decode($aseguradora), 1, 0, 'L');
+            $pdf->Cell(95, 8, utf8_decode(''), 1, 1, 'L');
+        }
+        // salto de linea y preparo todo el siguiente recuadro
+        $pdf->Ln();
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(190, 8, utf8_decode('Resumen de vehiculos para pulir de la semana # '. date('W')), 1, 1, 'C');
+        $pdf->Cell(10, 8, utf8_decode('#'), 1, 0, 'C');
+        $pdf->Cell(70, 8, utf8_decode('Vehiculo'), 1, 0, 'C');
+        $pdf->Cell(15, 8, utf8_decode('Seg'), 1, 0, 'C');
+        $pdf->Cell(25, 8, utf8_decode('Detallador'), 1, 0, 'C');
+        $pdf->Cell(70, 8, utf8_decode('Comentarios'), 1, 1, 'C');
+        //obtengo la informacion correspondiente a la siguiente tabla relacionada a pulido
+        $v_pulido = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'personalDetallado:id,nombre'])
+                        ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller', 'comentario_detallado', 'asignado_detallado')
+                        ->where('estatus_id', 5)
+                        ->where('aplica_detallado', 1)
+                        ->whereNotNull('fecha_detallado')
+                        ->where('fecha_detallado', '<>','0000-00-00')
+                        ->get();
+        //dd($v_pulido);
+        // lleno la tabla y le cambio la letra
+        $pdf->SetFont('Arial','',12);
+        for ($i=0; $i < sizeof($v_pulido); $i++) { 
+            $v_pulido_marca = $v_pulido[$i]->marcas->marca;
+            $v_pulido_submarca = $v_pulido[$i]->submarcas->submarca;
+            $v_pulido_color = $v_pulido[$i]->color;
+            $v_pulido_modelo = $v_pulido[$i]->modelo;
+
+            switch ($v_pulido[$i]->clientes->id) {
+                case 1:
+                    $aseguradora = 'G';
+                    break;
+
+                case 3:
+                    $aseguradora = 'P';
+                    break;
+                
+                case 4;
+                    $aseguradora = 'Q';
+                    break;
+
+                case 5:
+                    $aseguradora = 'M';
+                    break;
+                
+                case 6;
+                    $aseguradora = 'B';
+                    break;
+                default:
+                    $aseguradora = ':)';
+                    break;
+            }
+            $pdf->Cell(10, 8, utf8_decode($i), 1, 0, 'C');
+            $pdf->Cell(70, 8, utf8_decode($v_pulido_marca.' '.$v_pulido_submarca.' '.$v_pulido_color.' '.$v_pulido_modelo), 1, 0, 'L');
+            $pdf->Cell(15, 8, utf8_decode($aseguradora), 1, 0, 'L');
+            $pdf->Cell(25, 8, utf8_decode($v_pulido[$i]->personalDetallado->nombre??''), 1, 0, 'C');
+            $pdf->Cell(70, 8, utf8_decode($v_pulido[$i]->comentario_detallado??''), 1, 1, 'L');
+        }
+        // salto de linea y preparo todo el siguiente recuadro
+        $pdf->Ln();
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(190, 8, utf8_decode('Resumen de vehiculos para armar de la semana # '. date('W')), 1, 1, 'C');
+        $pdf->Cell(10, 8, utf8_decode('#'), 1, 0, 'C');
+        $pdf->Cell(70, 8, utf8_decode('Vehiculo'), 1, 0, 'C');
+        $pdf->Cell(15, 8, utf8_decode('Seg'), 1, 0, 'C');
+        $pdf->Cell(25, 8, utf8_decode('Armador'), 1, 0, 'C');
+        $pdf->Cell(70, 8, utf8_decode('Comentarios'), 1, 1, 'C');
+        //obtengo la informacion correspondiente a la siguiente tabla relacionada a armado
+        $v_armado = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'personalArmado:id,nombre'])
+                            ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller', 'comentario_armado')
+                            ->where('estatus_id', 5)
+                            ->where('aplica_armado', 1)
+                            ->whereNotNull('fecha_armado')
+                            ->whereNotNull('fecha_hojalateria')
+                            ->whereNotNull('fecha_pintura')
+                            ->where('fecha_armado', '<>','0000-00-00')
+                            ->whereNull('fecha_detallado')
+                            ->get();
+        //lleno la tabla y le cambio la letra
+        $pdf->SetFont('Arial','',12);
+        for ($i=0; $i < sizeof($v_armado); $i++) { 
+            $v_armado_marca = $v_armado[$i]->marcas->marca;
+            $v_armado_submarca = $v_armado[$i]->submarcas->submarca;
+            $v_armado_color = $v_armado[$i]->color;
+            $v_armado_modelo = $v_armado[$i]->modelo;
+
+            switch ($v_armado[$i]->clientes->id) {
+                case 1:
+                    $aseguradora = 'G';
+                    break;
+
+                case 3:
+                    $aseguradora = 'P';
+                    break;
+                
+                case 4;
+                    $aseguradora = 'Q';
+                    break;
+
+                case 5:
+                    $aseguradora = 'M';
+                    break;
+                
+                case 6;
+                    $aseguradora = 'B';
+                    break;
+                default:
+                    $aseguradora = ':)';
+                    break;
+            }
+            $pdf->Cell(10, 8, utf8_decode($i), 1, 0, 'C');
+            $pdf->Cell(70, 8, utf8_decode($v_armado_marca.' '.$v_armado_submarca.' '.$v_armado_color.' '.$v_armado_modelo), 1, 0, 'L');
+            $pdf->Cell(15, 8, utf8_decode($aseguradora), 1, 0, 'L');
+            $pdf->Cell(25, 8, utf8_decode($v_armado[$i]->personalArmado->nombre??''), 1, 0, 'C');
+            $pdf->Cell(70, 8, utf8_decode($v_armado[$i]->comentario_armado??''), 1, 1, 'L');
+        }
+        // salto de linea y preparo todo el siguiente recuadro
+        $pdf->Ln();
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(190, 8, utf8_decode('Resumen de vehiculos para pintar de la semana # '. date('W')), 1, 1, 'C');
+        $pdf->Cell(10, 8, utf8_decode('#'), 1, 0, 'C');
+        $pdf->Cell(70, 8, utf8_decode('Vehiculo'), 1, 0, 'C');
+        $pdf->Cell(15, 8, utf8_decode('Seg'), 1, 0, 'C');
+        $pdf->Cell(25, 8, utf8_decode('Pintor'), 1, 0, 'C');
+        $pdf->Cell(70, 8, utf8_decode('Comentarios'), 1, 1, 'C');
+        //obtengo la informacion correspondiente a la siguiente tabla relacionada a pintura
+        $v_pintura = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'personalPintura:id,nombre'])
+                            ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller', 'comentario_pintura')
+                            ->where('estatus_id', 5)
+                            ->where('aplica_pintura', 1)
+                            ->whereNotNull('fecha_pintura')
+                            ->whereNotNull('fecha_hojalateria')
+                            ->where('fecha_armado', '<>','0000-00-00')
+                            ->get();
+        //lleno la tabla y le cambio la letra
+        $pdf->SetFont('Arial','',12);
+        for ($i=0; $i < sizeof($v_pintura); $i++) { 
+            $v_pintura_marca = $v_pintura[$i]->marcas->marca;
+            $v_pintura_submarca = $v_pintura[$i]->submarcas->submarca;
+            $v_pintura_color = $v_pintura[$i]->color;
+            $v_pintura_modelo = $v_pintura[$i]->modelo;
+
+            switch ($v_pintura[$i]->clientes->id) {
+                case 1:
+                    $aseguradora = 'G';
+                    break;
+
+                case 3:
+                    $aseguradora = 'P';
+                    break;
+                
+                case 4;
+                    $aseguradora = 'Q';
+                    break;
+
+                case 5:
+                    $aseguradora = 'M';
+                    break;
+                
+                case 6;
+                    $aseguradora = 'B';
+                    break;
+                default:
+                    $aseguradora = ':)';
+                    break;
+            }
+            $pdf->Cell(10, 8, utf8_decode($i), 1, 0, 'C');
+            $pdf->Cell(70, 8, utf8_decode($v_pintura_marca.' '.$v_pintura_submarca.' '.$v_pintura_color.' '.$v_pintura_modelo), 1, 0, 'L');
+            $pdf->Cell(15, 8, utf8_decode($aseguradora), 1, 0, 'L');
+            $pdf->Cell(25, 8, utf8_decode($v_pintura[$i]->personalPintura->nombre??''), 1, 0, 'C');
+            $pdf->Cell(70, 8, utf8_decode($v_pintura[$i]->comentario_pintura??''), 1, 1, 'L');
+        }
+        // salto de linea y preparo todo el siguiente recuadro
+        $pdf->Ln();
+        $pdf->SetFont('Arial','B',12);
+        $pdf->Cell(190, 8, utf8_decode('Resumen de vehiculos para hojalatear de la semana # '. date('W')), 1, 1, 'C');
+        $pdf->Cell(10, 8, utf8_decode('#'), 1, 0, 'C');
+        $pdf->Cell(70, 8, utf8_decode('Vehiculo'), 1, 0, 'C');
+        $pdf->Cell(15, 8, utf8_decode('Seg'), 1, 0, 'C');
+        $pdf->Cell(25, 8, utf8_decode('Hojalatero'), 1, 0, 'C');
+        $pdf->Cell(70, 8, utf8_decode('Comentarios'), 1, 1, 'C');
+        //obtengo la informacion correspondiente a la siguiente tabla relacionada a pintura
+        $v_hojalateria = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'personalHojalateria:id,nombre'])
+                            ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller', 'comentarios_hojalateria')
+                            ->where('estatus_id', 5)
+                            ->where('aplica_hojalateria', 1)
+                            ->whereNotNull('fecha_hojalateria')
+                            ->where('fecha_pintura', '<>','0000-00-00')
+                            ->get();
+        //lleno la tabla y le cambio la letra
+        $pdf->SetFont('Arial','',12);
+        for ($i=0; $i < sizeof($v_hojalateria); $i++) { 
+            $v_hojalateria_marca = $v_hojalateria[$i]->marcas->marca;
+            $v_hojalateria_submarca = $v_hojalateria[$i]->submarcas->submarca;
+            $v_hojalateria_color = $v_hojalateria[$i]->color;
+            $v_hojalateria_modelo = $v_hojalateria[$i]->modelo;
+
+            switch ($v_hojalateria[$i]->clientes->id) {
+                case 1:
+                    $aseguradora = 'G';
+                    break;
+
+                case 3:
+                    $aseguradora = 'P';
+                    break;
+                
+                case 4;
+                    $aseguradora = 'Q';
+                    break;
+
+                case 5:
+                    $aseguradora = 'M';
+                    break;
+                
+                case 6;
+                    $aseguradora = 'B';
+                    break;
+                default:
+                    $aseguradora = ':)';
+                    break;
+            }
+            $pdf->Cell(10, 8, utf8_decode($i), 1, 0, 'C');
+            $pdf->Cell(70, 8, utf8_decode($v_hojalateria_marca.' '.$v_hojalateria_submarca.' '.$v_hojalateria_color.' '.$v_hojalateria_modelo), 1, 0, 'L');
+            $pdf->Cell(15, 8, utf8_decode($aseguradora), 1, 0, 'L');
+            $pdf->Cell(25, 8, utf8_decode($v_hojalateria[$i]->personalHojalateria->nombre??''), 1, 0, 'C');
+            $pdf->Cell(70, 8, utf8_decode($v_hojalateria[$i]->comentario_hojalateria??''), 1, 1, 'L');
+        }
+        
+        //dd($v_hojalateria);
+        $pdf->Output();
+        exit;
     }
 
     /**

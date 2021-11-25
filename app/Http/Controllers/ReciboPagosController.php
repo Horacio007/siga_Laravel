@@ -144,7 +144,7 @@ class ReciboPagosController extends Controller
                 <title>Recibo de Pago</title>
                 <style>
                     body {
-                        background: url(img/recibo_depago.jpg); 
+                        background: url(img/recibo_de_pago_2.jpg); 
                         background-size: cover;
                         background-repeat: no-repeat;
                         /* Arriba | Derecha | Abajo | Izquierda */
@@ -186,7 +186,7 @@ class ReciboPagosController extends Controller
                 <title>Recibo de Pago</title>
                 <style>
                     body {
-                        background: url(img/recibo_depago.jpg); 
+                        background: url(img/recibo_de_pago_2.jpg); 
                         background-size: cover;
                         background-repeat: no-repeat;
                         /* Arriba | Derecha | Abajo | Izquierda */

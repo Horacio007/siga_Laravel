@@ -133,4 +133,5 @@
     </form>
 </div>
 <script src="{{ asset('js/recepcion/vehiculo/vehiculo.js') }}"></script>
+<script src="{{ asset('/libs/jsPDF/jspdf.debug.js') }}"></script>
 @endsection

@@ -20,6 +20,10 @@
                     </select>
                 </div>
                 <div class="col-md-2">
+                    <label for="lreporte">No. Reporte/Siniestro:</label><br>
+                    <input type="text" class="form-control" id="no_reporte" name="no_reporte" value="{{$vehiculo->no_siniestro}}">
+                </div>
+                <div class="col-md-2">
                     <label for="lfenvio">Fecha Llegada al Taller a Reparacion:</label><br>
                     <input type="date" class="form-control" id="fecha_llegada" name="fecha_llegada" value="{{$vehiculo->fecha_llegada}}">
                 </div>
@@ -34,14 +38,14 @@
                 <div class="col-md-2">
                     <label for="lcantidad">Cantidad:</label><br>
                     <input type="text" class="form-control" name="cantidadini" id="cantidadini" value="{{$vehiculo->cantidad_inicial}}">
-                </div>
+                </div>               
+            </div>
+            <br>
+            <div class="row">
                 <div class="col-md-2">
                     <label for="lpzscambio">Piezas a cambio:</label><br>
                     <input type="text" class="form-control" name="pzscambioini" id="pzscambioini" value="{{$vehiculo->piezas_cambiadas_inicial}}">
                 </div>
-            </div>
-            <br>
-            <div class="row">
                 <div class="col-md-2">
                     <label for="lpzsrepara">Piezas a reparacion:</label><br>
                     <input type="text" class="form-control" name="pzsreparaini" id="pzsreparaini" value="{{$vehiculo->piezas_reparacion_inicial}}">
@@ -61,14 +65,14 @@
                 <div class="col-md-2">
                     <label for="lpzsreparafin">Piezas a reparacion:</label><br>
                     <input type="text" class="form-control" name="pzsreparafin" id="pzsreparafin" value="{{$vehiculo->piezas_reparacion_final}}">
-                </div>
+                </div>           
+            </div>
+            <br>
+            <div class="row">
                 <div class="col-md-2">
                     <label for="lfenvio">Piezas Vendidas:</label><br>
                     <input type="text" class="form-control" name="pzsvendidas" id="pzsvendidas" value="{{$vehiculo->piezas_vendidas}}">
                 </div>
-            </div>
-            <br>
-            <div class="row">
                 <div class="col-md-2">
                     <label for="lcantidad">Importe Piezas Vendidas:</label><br>
                     <input type="text" class="form-control" name="importepzsvendidas" id="importepzsvendidas" value="{{$vehiculo->importe_piezas_vendidas}}">

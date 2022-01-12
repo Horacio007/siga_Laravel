@@ -30,7 +30,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Refacciones</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('l_refacciones') }}" id="listarefacciones">Listado de Refacciones</a>
+                <a class="dropdown-item" href="{{ route('l_refacciones') }}" id="listarefacciones">Listado de Refacciones en Almacen</a>
                 <a class="dropdown-item" href="{{ route('l_segrefacciones') }}" id="actualizarrefacciones">Listado de Seguimiento Refacciones</a>
                 <a class="dropdown-item" href="{{ route('l_entregdasrefacciones') }}" id="listaentregadas">Listado de Refacciones Entregadas</a>
                 <a class="dropdown-item" href="{{ route('l_codigos') }}" id="barraqr">Codigos</a>

@@ -864,6 +864,9 @@ class VehiculoController extends Controller
         if ($request->fecha_autorizacion != "" && $request->cantidadfin != 0) {
             $porcentaje = round(($request->cantidadfin * 100)/$request->cantidadini, 2);
             $vehiculo->estatus_id = $request->estatus;
+            if ($request->estatus == 7) {
+                $vehiculo->refacciones_id = 6;
+            }
             $vehiculo->no_siniestro = $request->no_reporte;
             $vehiculo->fecha_llegada_taller = $request->fecha_llegada;
             $vehiculo->fecha_valuacion = $request->fecha_envio;
@@ -891,6 +894,9 @@ class VehiculoController extends Controller
             }
         } else {
             $vehiculo->estatus_id = $request->estatus;
+            if ($request->estatus == 7) {
+                $vehiculo->refacciones_id = 6;
+            }
             $vehiculo->no_siniestro = $request->no_reporte;
             $vehiculo->fecha_llegada_taller = $request->fecha_llegada;
             $vehiculo->fecha_valuacion = $request->fecha_envio;

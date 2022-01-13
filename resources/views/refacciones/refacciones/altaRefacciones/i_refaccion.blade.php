@@ -37,11 +37,11 @@
             </div>
             <div class="col-md-3">
                 <label for="">Proveedor</label>
-                <input type="text" name="proveedor" id="proveedor" class="form-control" required>
+                <input type="text" name="proveedor" id="proveedor" class="form-control">
             </div>
             <div class="col-md-3">
                 <label for="">Fecha Promesa</label>
-                <input type="date" name="fechapromesa" id="ifechapromesa" class="form-control" required>
+                <input type="date" name="fechapromesa" id="ifechapromesa" class="form-control">
             </div>
             <div class="col-md-3">
                 <input type="text" name="expediente" class="form-control" id="iexpediente2" required hidden readonly>

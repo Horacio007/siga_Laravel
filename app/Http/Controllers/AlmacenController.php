@@ -188,8 +188,14 @@ class AlmacenController extends Controller
         $refaccion = new Almacen();
         $refaccion->id_vehiculo = $request->expediente;
         $refaccion->descripcion = $request->descripcion;
-        $refaccion->fecha_promesa = $request->fechapromesa;
-        $refaccion->proveedor = $request->proveedor;
+        if (isset($request->fechapromesa)) {
+            $refaccion->fecha_promesa = $request->fechapromesa;
+        }
+        
+        if ($request->proveedor) {
+            $refaccion->proveedor = $request->proveedor;
+        }
+        
         $refaccion->estatus_id = 1;
         $refaccion_Aseg = Aseguradoras::select('id')->where('nombre',$request->aseguradora)->first()->id;
         $refaccion->aseguradora_id = $refaccion_Aseg;

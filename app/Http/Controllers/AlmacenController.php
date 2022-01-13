@@ -188,11 +188,14 @@ class AlmacenController extends Controller
         $refaccion = new Almacen();
         $refaccion->id_vehiculo = $request->expediente;
         $refaccion->descripcion = $request->descripcion;
+        $vehiculo = Vehiculo::find($request->expediente);
+        $vehiculo->refacciones_id = 2;
+        $vehiculo->save();
         if (isset($request->fechapromesa)) {
             $refaccion->fecha_promesa = $request->fechapromesa;
         }
         
-        if ($request->proveedor) {
+        if (isset($request->proveedor)) {
             $refaccion->proveedor = $request->proveedor;
         }
         

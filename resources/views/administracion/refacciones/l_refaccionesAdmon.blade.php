@@ -23,6 +23,7 @@
                             <th>Linea</th>
                             <th>Color</th>
                             <th>Modelo</th>
+                            <th>No. Siniestro</th>
                             <th>Cliente</th>
                             <th>Refacciones</th>
                             <th>Fecha Autorizacion</th>
@@ -72,6 +73,7 @@
                                     <td>{{$ref->submarcas->submarca}}</td>
                                     <td>{{$ref->color}}</td>
                                     <td>{{$ref->modelo}}</td>
+                                    <td>{{$ref->no_siniestro}}</td>
                                     <td>{{$ref->clientes->nombre}}</td>
                                     <td>{{$ref->estatusRefacciones->estatus??'Revision'}}</td>
                                     <td>{{$ref->fecha_autorizacion}}</td>

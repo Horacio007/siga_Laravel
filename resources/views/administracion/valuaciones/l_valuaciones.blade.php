@@ -27,6 +27,7 @@
                                 <th>Linea</th>
                                 <th>Color</th>
                                 <th>Modelo</th>
+                                <th>Placas</th>
                                 <th>Cliente</th>
                                 <th>No. Siniestro/Reporte</th>
                                 <th>Fecha de Envio</th>
@@ -117,6 +118,7 @@
                                     <td>{{$val->submarcas->submarca}}</td>
                                     <td>{{$val->color}}</td>
                                     <td>{{$val->modelo}}</td>
+                                    <td>{{$val->placas}}</td>
                                     <td>{{$val->clientes->nombre??''}}</td>
                                     <td>{{$val->no_siniestro}}</td>
                                     <td>{{$val->fecha_valuacion}}</td>

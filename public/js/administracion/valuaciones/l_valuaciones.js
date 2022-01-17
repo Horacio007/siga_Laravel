@@ -53,35 +53,35 @@ $(document).ready(function(){
         select: true,
         pageLength: 100,
         rowCallback: function(nRow, aData){
-            if (aData[14] >= 0 && aData[14] <= 13) {
-                $(nRow).find('td:eq(14)').css('background-color', '#53ee7e');
+            if (aData[15] >= 0 && aData[15] <= 13) {
+                $(nRow).find('td:eq(15)').css('background-color', '#53ee7e');
             }
 
-            if (aData[14] > 3) {
-                $(nRow).find('td:eq(14)').css('background-color', '#F08080');
+            if (aData[15] > 3) {
+                $(nRow).find('td:eq(15)').css('background-color', '#F08080');
             }
 
-            if (aData[14] == 0) {
-                $(nRow).find('td:eq(14)').css('background-color', '#53ee7e');
+            if (aData[15] == 0) {
+                $(nRow).find('td:eq(15)').css('background-color', '#53ee7e');
             }
 
             //dudas de porque dice 19 
             //
 
-            if (aData[24] != null || aData[24] != 0) {
-                if (aData[24] > 0.00 && aData[24] < 50.00) { 
-                    $(nRow).find('td:eq(24)').css('background-color', '#F08080');  
-                }else if (aData[24] >= 50.00) {
-                    $(nRow).find('td:eq(24)').css('background-color', '#53ee7e'); 
+            if (aData[25] != null || aData[25] != 0) {
+                if (aData[25] > 0.00 && aData[25] < 50.00) { 
+                    $(nRow).find('td:eq(25)').css('background-color', '#F08080');  
+                }else if (aData[25] >= 50.00) {
+                    $(nRow).find('td:eq(25)').css('background-color', '#53ee7e'); 
                 }
             }
 
-            if(aData[25] != null){
+            if(aData[26] != null){
                             
-                if (aData[25] > 0.00 && aData[25] < 80.00) { 
-                    $(nRow).find('td:eq(25)').css('background-color', '#F08080');  
-                }else if (aData[25] >= 80.00) {
-                    $(nRow).find('td:eq(25)').css('background-color', '#53ee7e'); 
+                if (aData[26] > 0.00 && aData[26] < 80.00) { 
+                    $(nRow).find('td:eq(26)').css('background-color', '#F08080');  
+                }else if (aData[26] >= 80.00) {
+                    $(nRow).find('td:eq(26)').css('background-color', '#53ee7e'); 
                 }
             }
 

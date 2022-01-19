@@ -838,6 +838,11 @@ class VehiculoController extends Controller
 
     public function update_valuaciones(Vehiculo $vehiculo, Request $request){
         //dd($vehiculo, $request);
+        if ($vehiculo->estatus_id == 9) {
+            $isOrdenAdmicion = true;
+        } else {
+            $isOrdenAdmicion = false;
+        }
 
         switch ($request->estatus) {
             case 5:
@@ -913,7 +918,7 @@ class VehiculoController extends Controller
 
             if ($vehiculo->save()) {
 
-                if ($request->estatus == 5 || $request->estatus == 6) {
+                if ($isOrdenAdmicion && ($request->estatus == 5 || $request->estatus == 6)) {
 
                     $u_vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
                                             ->where('id', $vehiculo->id)->first();

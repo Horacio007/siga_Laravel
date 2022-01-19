@@ -795,7 +795,7 @@ class VehiculoController extends Controller
                             ->where('id', $vehiculo['estatus_id'])
                             ->first();
 
-        if ($vehiculo->fecha_autorizacion == "" || $vehiculo->fecha_autorizacion == " " || $vehiculo->fecha_autorizacion == NULL || $vehiculo->fecha_autorizacion == null) {
+        if ($vehiculo->fecha_valuacion == "" || $vehiculo->fecha_valuacion == " " || $vehiculo->fecha_valuacion == NULL || $vehiculo->fecha_valuacion == null) {
             //$fecha_ll = new DateTime($value->getFechaLlegada());
             $fecha_ll = date_create($vehiculo->fecha_llegada);
             $fecha_a = date_create(date("Y-m-d"));
@@ -1198,7 +1198,7 @@ class VehiculoController extends Controller
                             ->where('id', $vehiculo['estatus_id'])
                             ->first();
 
-        if ($vehiculo->fecha_autorizacion == "" || $vehiculo->fecha_autorizacion == " " || $vehiculo->fecha_autorizacion == NULL || $vehiculo->fecha_autorizacion == null) {
+        if ($vehiculo->fecha_valuacion == "" || $vehiculo->fecha_valuacion == " " || $vehiculo->fecha_valuacion == NULL || $vehiculo->fecha_valuacion == null) {
             //$fecha_ll = new DateTime($value->getFechaLlegada());
             $fecha_ll = date_create($vehiculo->fecha_llegada);
             $fecha_a = date_create(date("Y-m-d"));

@@ -51,7 +51,7 @@
                                 <tr>
                                     <td>{{$val->id}}</td>
                                     @php
-                                        if ($val->fecha_autorizacion == "" || $val->fecha_autorizacion == " " || $val->fecha_autorizacion == NULL || $val->fecha_autorizacion == null) {
+                                        if ($val->fecha_valuacion == "" || $val->fecha_valuacion == " " || $val->fecha_valuacion == NULL || $val->fecha_valuacion == null) {
                                             //$fecha_ll = new DateTime($value->getFechaLlegada());
                                             $fecha_ll = date_create($val->fecha_llegada);
                                             $fecha_a = date_create(date("Y-m-d"));

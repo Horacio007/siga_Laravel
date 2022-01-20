@@ -2569,14 +2569,18 @@ class VehiculoController extends Controller
     public function show(Request $request)
     {
         $u_vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
-                                        ->where('id', $request->exp)->first();
+                                ->where('id', $request->exp)->first();
+
+        $uc = Clientes::select('id', 'nombre', 'telefono', 'correo')
+                        ->where('id', $u_vehiculo->id_aux)
+                        ->get();
 
         $pdf = new FPDF();
         $pdf->AddPage();
         $pdf->SetFont('Arial','',14);
         $pdf->Image('../public/img/alta_vehiculoo.jpg', -10, -10, 0, 170);
         $pdf->SetXY('148', '37');
-        $pdf->Cell(0, 0, utf8_decode($request->expediente), 0, 0, 'I');
+        $pdf->Cell(0, 0, utf8_decode($request->exp), 0, 0, 'I');
         $pdf->SetXY('148', '44.5');
         $pdf->Cell(0, 0, utf8_decode($u_vehiculo->no_siniestro??''), 0, 0, 'I');
         $pdf->SetXY('148', '52.4');

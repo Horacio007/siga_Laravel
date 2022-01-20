@@ -58,6 +58,7 @@ require __DIR__.'/auth.php';
         Route::get('listado_niveldano', 'NivelDanoController@listado_niveldano')->middleware('auth');
         Route::get('listado_formaarribo', 'FormaAriboController@listado_formaarribo')->middleware('auth');
         Route::post('/i_vehiculo', 'VehiculoController@store')->middleware('auth');
+        Route::get('pdfentrada/{exp}', 'VehiculoController@show')->name('pdfentrada')->middleware('auth');
     //endAltaVehiculo
 
     //Checklist

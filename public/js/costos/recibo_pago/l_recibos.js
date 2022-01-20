@@ -55,7 +55,7 @@ $(document).ready(function(){
 
     });
 
-    $("#list_areas tbody tr").on('click', '.delete', function(){
+    $("#list_areas tbody").on('click', '.delete', function(){
         let area_id = $(this).attr('item_id');
         let marca = $(this).parents("tr").find('td').eq(3).html();
         let linea = $(this).parents("tr").find('td').eq(6).html();

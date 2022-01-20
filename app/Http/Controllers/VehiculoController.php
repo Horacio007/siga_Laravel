@@ -1241,7 +1241,7 @@ class VehiculoController extends Controller
             $vehiculo->estatus_id = $request->estatus;
             $vehiculo->fecha_llegada_taller = $request->fecha_llegada;
             $vehiculo->fecha_valuacion = $request->fecha_envio;
-            $vehiculo->diferencia_tres_dias = $request->diferencia;
+            //$vehiculo->diferencia_tres_dias = $request->diferencia;
             $vehiculo->cantidad_inicial = $request->cantidadini;
             $vehiculo->piezas_cambiadas_inicial = $request->pzscambioini;
             $vehiculo->piezas_reparacion_inicial = $request->pzsreparaini;
@@ -1266,6 +1266,7 @@ class VehiculoController extends Controller
             $vehiculo->estatus_id = $request->estatus;
             $vehiculo->fecha_llegada_taller = $request->fecha_llegada;
             $vehiculo->fecha_valuacion = $request->fecha_envio;
+            $vehiculo->diferencia_tres_dias = $request->diferencia;
             $vehiculo->cantidad_inicial = $request->cantidadini;
             $vehiculo->piezas_cambiadas_inicial = $request->pzscambioini;
             $vehiculo->piezas_reparacion_inicial = $request->pzsreparaini;

@@ -27,6 +27,7 @@
                             <th>Telefono</th>
                             <th>Correo</th>
                             <th>Fecha Salida</th>
+                            <th>Acciones</th>
                         </thead>
                         <tbody class="">
                             @foreach ($list_clientes as $cliente)
@@ -42,6 +43,7 @@
                                 <td>{{$cliente->telefono}}</td>
                                 <td>{{$cliente->correo}}</td>
                                 <td>{{$cliente->fecha_salida_taller}}</td>
+                                <td><a href="{{ route('pdfRecepcion', $cliente->id) }}" class="btn btn-info" target='_blank' title="PDF"><i class="fa fa-file-pdf"></i></a></td>
                             </tr>
                             @endforeach
                         </tbody>

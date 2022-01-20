@@ -58,7 +58,7 @@ require __DIR__.'/auth.php';
         Route::get('listado_niveldano', 'NivelDanoController@listado_niveldano')->middleware('auth');
         Route::get('listado_formaarribo', 'FormaAriboController@listado_formaarribo')->middleware('auth');
         Route::post('/i_vehiculo', 'VehiculoController@store')->middleware('auth');
-        Route::get('pdfentrada/{exp}', 'VehiculoController@show')->name('pdfentrada')->middleware('auth');
+        //Route::get('pdfentrada/{exp}', 'VehiculoController@show')->name('pdfentrada')->middleware('auth');
     //endAltaVehiculo
 
     //Checklist
@@ -178,7 +178,8 @@ require __DIR__.'/auth.php';
 
 //Entrega
     //Clientes
-        Route::get('l_clientes', 'ClientesController@index')->name('l_clientes')->middleware('auth')->middleware('auth');
+        Route::get('l_clientes', 'ClientesController@index')->name('l_clientes')->middleware('auth');
+        Route::get('pdfRecepcion/{exp}', 'ClientesController@show')->name('pdfRecepcion');
     //endClientes
 
     //Documentacion

@@ -179,7 +179,7 @@ require __DIR__.'/auth.php';
 //Entrega
     //Clientes
         Route::get('l_clientes', 'ClientesController@index')->name('l_clientes')->middleware('auth');
-        Route::get('pdfRecepcion/{exp}', 'ClientesController@show')->name('pdfRecepcion');
+        Route::get('pdfRecepcion/{exp}', 'ClientesController@show')->name('pdfRecepcion')->middleware('auth');
     //endClientes
 
     //Documentacion

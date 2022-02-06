@@ -54,11 +54,10 @@ class ArchivosController extends Controller
     }
 
     public function i_evidenciaR(){
-        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
-                            ->select('id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro')
-                            ->where('estatus_id','5')
-                            ->orWhere('estatus_id','6')
-                            ->orWhere('estatus_id','7')
+        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'estatusProceso:id,estatus'])
+                            ->select('id', 'estatus_id', 'estatusProceso_id', 'modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro')
+                            ->whereIn('estatus_id',['5', '6'])
+                            ->whereNotIn('estatusProceso_id', ['1', '5', '9', '12'])
                             ->orderBy('id_aux')
                             ->get();
         //dd($vehiculos);
@@ -90,11 +89,10 @@ class ArchivosController extends Controller
     }
 
     public function i_evidenciaP(){
-        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
-                            ->select('id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro')
-                            ->where('estatus_id','5')
-                            ->orWhere('estatus_id','6')
-                            ->orWhere('estatus_id','7')
+        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'estatusProceso:id,estatus'])
+                            ->select('id', 'estatus_id', 'estatusProceso_id', 'modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro')
+                            ->whereIn('estatus_id',['5', '6'])
+                            ->whereNotIn('estatusProceso_id', ['1', '5', '9', '12'])
                             ->orderBy('id_aux')
                             ->get();
         //dd($vehiculos);
@@ -126,11 +124,10 @@ class ArchivosController extends Controller
     }
 
     public function i_evidenciaCom(){
-        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
-                            ->select('id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro')
-                            ->where('estatus_id','5')
-                            ->orWhere('estatus_id','6')
-                            ->orWhere('estatus_id','7')
+        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'estatusProceso:id,estatus'])
+                            ->select('id', 'estatus_id', 'estatusProceso_id', 'modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_llegada')
+                            ->whereIn('estatus_id',['5', '6'])
+                            ->whereNotIn('estatusProceso_id', ['1', '5', '9', '12'])
                             ->orderBy('id_aux')
                             ->get();
         //dd($vehiculos);
@@ -162,12 +159,10 @@ class ArchivosController extends Controller
     }
 
     public function i_evidenciaE(){
-         $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
-                            ->select('id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro')
-                            ->where('estatus_id','5')
-                            ->orWhere('estatus_id','6')
-                            ->orWhere('estatus_id','7')
-                            ->orWhere('estatus_id','3')
+        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'estatusProceso:id,estatus'])
+                            ->select('id', 'estatus_id', 'estatusProceso_id', 'modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_llegada')
+                            ->whereIn('estatus_id',['5', '6'])
+                            ->whereNotIn('estatusProceso_id', ['1', '5', '9', '12'])
                             ->orderBy('id_aux')
                             ->get();
         //dd($vehiculos);

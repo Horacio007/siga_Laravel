@@ -8,14 +8,14 @@
             @csrf
             <div class="row">
                 <div class="col text-center">
-                    <h3>Listado de Ubicacion Vehiculo</h3>
+                    <h3>Listado de Proceso Vehiculo</h3>
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <a href="{{url('/i_estatus')}}" class="btn btn-info">Registrar</a>
+                    <a href="{{url('/i_estatusE')}}" class="btn btn-info">Registrar</a>
                 </div>
                 <div class="col-md-3"></div>
             </div>
@@ -23,9 +23,10 @@
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <table id="list_estatus" class="table table-striped table-bordered" border="0">
+                    <table id="list_estatus" class="table table-striped table-bordered text-capitalize" border="0">
                         <thead class="text-capitalize">
                             <th scope="col">#</th>
+                            <th scope="col">Ubicacion</th>
                             <th scope="col">Nombre</th>
                             <th scope="col">Acciones</th>
                         </thead>
@@ -33,8 +34,9 @@
                             @foreach ($list_estatus as $estatus)
                             <tr>
                                 <td>{{$estatus->id}}</td>
-                                <td>{{$estatus->status}}</td>
-                                <td><a href="{{ route('u_estatus', $estatus->id)}}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a> 
+                                <td>{{$estatus->ubicacionEstado->status}}</td>
+                                <td>{{$estatus->estatus}}</td>
+                                <td><a href="{{ route('u_estatusE', $estatus->id)}}" class="btn btn-primary" title="Editar"><i class="fa fa-edit"></i></a> 
                                 <a href="#" class="btn btn-danger delete" data-toggle='modal' data-target='#modalD' item_id="{{$estatus->id}}" title="Eliminar"><i class="fa fa-trash"></i></a></td>
                             </tr>
                             @endforeach
@@ -50,7 +52,7 @@
     <script type="text/javascript" src="{{ asset('/libs/DataTables/Buttons-1.7.1/js/dataTables.buttons.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/libs/DataTables/Buttons-1.7.1/js/buttons.html5.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('/libs/DataTables/Responsive-2.2.9/js/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('js/catalogos/estatus/estatus.js') }}"></script>
+    <script src="{{ asset('js/catalogos/estatusEstado/estatusE.js') }}"></script>
 
     <!-- Modal -->
     <div class="modal fade" id="modalD" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -60,9 +62,9 @@
                     <h5 class="modal-title" id="exampleModalLabel">¿Se eliminara?</h5>
                 </div>
                     <div class="modal-body">
-                        <form action="{{route('d_estatus', 'delete_item')}}" method="post" id="modal_delete">
+                        <form action="{{route('d_estatusE', 'delete_item')}}" method="post" id="modal_delete">
                             @csrf
-                            <label for="">Ubicacion</label>
+                            <label for="">Estatus Proceso</label>
                             <input type="text" id="iestatus" class="form-control" readonly>
                         </form>
                     </div>

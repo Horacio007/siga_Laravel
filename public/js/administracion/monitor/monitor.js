@@ -52,17 +52,11 @@ $(document).ready(function(){
         },
         select: true,
         pageLength: 100,
-        order: [[9, "desc"], [10, "desc"]],
+        order: [[10, "desc"], [11, "desc"]],
         rowCallback: function(nRow, aData){
 
-            if (aData[8] == 'Autorizado') {
-                $(nRow).find('td:eq(8)').css('background-color', '#53ee7e'); 
-            } else {
-                $(nRow).find('td:eq(8)').css('background-color', '#F9FFC9');
-            }
-
             if (aData[9] == 'Autorizado') {
-                $(nRow).find('td:eq(9)').css('background-color', '#53ee7e');
+                $(nRow).find('td:eq(9)').css('background-color', '#53ee7e'); 
             } else {
                 $(nRow).find('td:eq(9)').css('background-color', '#F9FFC9');
             }
@@ -85,19 +79,15 @@ $(document).ready(function(){
                 $(nRow).find('td:eq(12)').css('background-color', '#F9FFC9');
             }
 
-            let hoja = aData[13].split('/');
-
-            if (hoja[0] == 'Terminado') {
+            if (aData[13] == 'Autorizado') {
                 $(nRow).find('td:eq(13)').css('background-color', '#53ee7e');
             } else {
                 $(nRow).find('td:eq(13)').css('background-color', '#F9FFC9');
             }
 
-            if (aData[13] == 'N/A') {
-                $(nRow).find('td:eq(13)').css('background-color', '#FBC89A'); 
-            }
+            let hoja = aData[14].split('/');
 
-            if (aData[14] == 'Terminado') {
+            if (hoja[0] == 'Terminado') {
                 $(nRow).find('td:eq(14)').css('background-color', '#53ee7e');
             } else {
                 $(nRow).find('td:eq(14)').css('background-color', '#F9FFC9');
@@ -107,7 +97,9 @@ $(document).ready(function(){
                 $(nRow).find('td:eq(14)').css('background-color', '#FBC89A'); 
             }
 
-            if (aData[15] == 'Terminado') {
+            let asg_pin = aData[15].split('/');
+
+            if (asg_pin[0] == 'Terminado') {
                 $(nRow).find('td:eq(15)').css('background-color', '#53ee7e');
             } else {
                 $(nRow).find('td:eq(15)').css('background-color', '#F9FFC9');
@@ -117,7 +109,9 @@ $(document).ready(function(){
                 $(nRow).find('td:eq(15)').css('background-color', '#FBC89A'); 
             }
 
-            if (aData[16] == 'Terminado') {
+            let asg_armado = aData[16].split('/');
+
+            if (asg_armado[0] == 'Terminado') {
                 $(nRow).find('td:eq(16)').css('background-color', '#53ee7e');
             } else {
                 $(nRow).find('td:eq(16)').css('background-color', '#F9FFC9');
@@ -127,7 +121,9 @@ $(document).ready(function(){
                 $(nRow).find('td:eq(16)').css('background-color', '#FBC89A'); 
             }
 
-            if (aData[17] == 'Terminado') {
+            let asg_deta = aData[17].split('/');
+
+            if (asg_deta[0] == 'Terminado') {
                 $(nRow).find('td:eq(17)').css('background-color', '#53ee7e');
             } else {
                 $(nRow).find('td:eq(17)').css('background-color', '#F9FFC9');
@@ -137,7 +133,9 @@ $(document).ready(function(){
                 $(nRow).find('td:eq(17)').css('background-color', '#FBC89A'); 
             }
 
-            if (aData[18] == 'Terminado') {
+            var asg_mec = aData[18].split('/');
+
+            if (asg_mec[0] == 'Terminado') {
                 $(nRow).find('td:eq(18)').css('background-color', '#53ee7e');
             } else {
                 $(nRow).find('td:eq(18)').css('background-color', '#F9FFC9');
@@ -145,6 +143,18 @@ $(document).ready(function(){
 
             if (aData[18] == 'N/A') {
                 $(nRow).find('td:eq(18)').css('background-color', '#FBC89A'); 
+            }
+
+            let asg_lav = aData[19].split('/');
+
+            if (asg_lav[0] == 'Terminado') {
+                $(nRow).find('td:eq(19)').css('background-color', '#53ee7e');
+            } else {
+                $(nRow).find('td:eq(19)').css('background-color', '#F9FFC9');
+            }
+
+            if (aData[19] == 'N/A') {
+                $(nRow).find('td:eq(19)').css('background-color', '#FBC89A'); 
             }
         }
     });

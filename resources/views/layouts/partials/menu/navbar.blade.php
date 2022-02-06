@@ -47,7 +47,7 @@
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route('l_clientes') }}" id="clientes" >Listado Clientes</a>
                 <a class="dropdown-item" href="{{ route('l_docs') }}" id="documentosEntrega" >Documentación</a>
-                <a class="dropdown-item" href="{{ route('l_cambiarEstatus') }}" id="estatus_vehiculo">Estatus Vehículo</a>
+                <a class="dropdown-item" href="{{ route('l_cambiarEstatus') }}" id="estatus_vehiculo">Entrega Vehículo</a>
                 <a class="dropdown-item" href="{{ route('l_ics') }}" id="isccliente">ISC</a>
                 <a class="dropdown-item" href="{{ route('upload_evidenciae') }}" id="subir_archivo">Subir Archivos</a>
             </li>
@@ -55,7 +55,7 @@
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Administración</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="{{ route('l_archivos') }}" id="verarchivos">Listado Archivos</a>
-                <a class="dropdown-item" href="{{ route('l_valuaciones') }}" id="valuaciones">Listado Valuaciones</a>
+                <a class="dropdown-item" href="{{ route('l_valuaciones') }}" id="valuaciones">Bitacora</a>
                 <a class="dropdown-item" href="{{ route('l_Brefacciones') }}" id="brefacciones">Listado Refacciones</a>
                 <a class="dropdown-item" href="{{ route('l_asignacionPersonal') }}" id="asignacion_personal">Listado Asignacion de Personal</a>
                 <a class="dropdown-item" href="{{ route('l_procesoAdministrativo') }}" id="procesoAdmon">Listado Proceso Administrativo</a>
@@ -73,7 +73,8 @@
                 <a class="dropdown-item" href="{{ route('lista_areas') }}" id="agregarArea">Listado Areas</a>
                 <a class="dropdown-item" href="{{ route('lista_aseguradoras') }}" id="agregarAseguradora">Listado Aseguradoras</a>
                 <a class="dropdown-item" href="{{ route('lista_asesores') }}" id="agregarAsesores">Listado Asesores</a>
-                <a class="dropdown-item" href="{{ route('lista_estatus') }}" id="agregarEstatus">Listado Estatus Vehiculo</a>
+                <a class="dropdown-item" href="{{ route('lista_estatus') }}" id="agregarEstatus">Listado Ubicacion Vehiculo</a>
+                <a class="dropdown-item" href="{{ route('lista_estatusE') }}" id="agregarEstatus">Listado Proceso Vehiculo</a>
                 <a class="dropdown-item" href="{{ route('lista_estatusalm') }}" id="agregarEstatus">Listado Estatus Almacen</a>
                 <a class="dropdown-item" href="{{ route('l_estatusrefas') }}" id="agregarEstatus">Listado Estatus Refacciones</a>
                 <a class="dropdown-item" href="{{ route('l_estatusF') }}" id="agregarEstatus">Listado Estatus Facturas</a>

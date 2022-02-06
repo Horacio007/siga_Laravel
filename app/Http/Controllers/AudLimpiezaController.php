@@ -83,7 +83,8 @@ class AudLimpiezaController extends Controller
                                 FROM 
                                     aud_limpieza 
                                 WHERE 
-                                    MONTH(fecha) = MONTH(NOW())-1 
+                                    MONTH(fecha) = MONTH(NOW())-1
+                                AND YEAR(fecha_llegada) = YEAR(NOW())
                                 AND oficinas != 0');
 
             //dd($auditoria);
@@ -116,7 +117,8 @@ class AudLimpiezaController extends Controller
                                 FROM 
                                     aud_limpieza 
                                 WHERE 
-                                    MONTH(fecha) = MONTH(NOW()) 
+                                    MONTH(fecha) = MONTH(NOW())
+                                AND YEAR(fecha_llegada) = YEAR(NOW())
                                 AND oficinas != 0');
 
             //dd($auditoria);
@@ -152,7 +154,8 @@ class AudLimpiezaController extends Controller
                                     FROM 
                                         aud_limpieza 
                                     WHERE 
-                                        MONTH(fecha) = MONTH(NOW())-1 
+                                        MONTH(fecha) = MONTH(NOW())-1
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
                                     AND oficinas != 0');
 
             //dd($auditoria);
@@ -188,7 +191,8 @@ class AudLimpiezaController extends Controller
                                     FROM 
                                         aud_limpieza 
                                     WHERE 
-                                        MONTH(fecha) = MONTH(NOW()) 
+                                        MONTH(fecha) = MONTH(NOW())
+                                    AND YEAR(fecha_llegada) = YEAR(NOW()) 
                                     AND oficinas != 0');
 
             //dd($auditoria);

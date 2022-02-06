@@ -19,7 +19,29 @@ class CostrefaccionesController extends Controller
      */
     public function index()
     {
-        $list_cotizaciones = DB::select("SELECT costrefacciones.id, costrefacciones.id_vehiculo, modelosv.marca, submarcav.submarca, vehiculo.color, vehiculo.modelo, aseguradoras.nombre, vehiculo.no_siniestro FROM vehiculo, costrefacciones, modelosv, submarcav, aseguradoras WHERE costrefacciones.id_vehiculo = vehiculo.id AND vehiculo.marca_id = modelosv.id AND vehiculo.linea_id = submarcav.id AND vehiculo.cliente_id = aseguradoras.id ORDER BY  costrefacciones.id");
+        $list_cotizaciones = DB::select("SELECT 
+                                            costrefacciones.id, 
+                                            costrefacciones.id_vehiculo, 
+                                            modelosv.marca, 
+                                            submarcav.submarca, 
+                                            vehiculo.color, 
+                                            vehiculo.modelo, 
+                                            aseguradoras.nombre, 
+                                            vehiculo.no_siniestro 
+                                        FROM 
+                                            vehiculo, 
+                                            costrefacciones, 
+                                            modelosv, 
+                                            submarcav, 
+                                            aseguradoras 
+                                        WHERE 
+                                            costrefacciones.id_vehiculo = vehiculo.id 
+                                        AND vehiculo.marca_id = modelosv.id 
+                                        AND vehiculo.linea_id = submarcav.id 
+                                        AND vehiculo.cliente_id = aseguradoras.id 
+                                        ORDER BY 
+                                            costrefacciones.id");
+        
         return view('compras.cotizar.l_cotizaciones', compact('list_cotizaciones'));
     }
 
@@ -48,7 +70,7 @@ class CostrefaccionesController extends Controller
     }
 
     public function create_pdfcot(Request $request){
-        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno','estatus:id,status'])
+        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno','estatusV:id,status'])
                             ->where('id', $request['exp'])
                             ->select('modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'estatus_id')
                             ->first();

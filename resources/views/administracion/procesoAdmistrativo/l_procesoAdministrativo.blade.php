@@ -17,7 +17,8 @@
                     <table id="list_proceso" class="table table-striped table-bordered" border="0">
                         <thead class="text-capitalize">
                                 <th>Expediente</th>
-                                <th>Estatus</th>
+                                <th>Ubicacion</th>
+                                <th>Proceso</th>
                                 <th>Marca</th>
                                 <th>Linea</th>
                                 <th>Color</th>
@@ -34,11 +35,12 @@
                                 <th>Estatus</th>
                                 <th>Acciones</th>
                         </thead>
-                        <tbody>
+                        <tbody class="text-capitalize">
                             @foreach ($proceso_administrativo as $proceso)
                                 <tr>
                                     <td>{{$proceso->id}}</td>
-                                    <td>{{$proceso->estatus->status}}</td>
+                                    <td>{{$proceso->estatusV->status}}</td>
+                                    <td>{{$proceso->estatusProceso->estatus}}</td>
                                     <td>{{$proceso->marcas->marca}}</td>
                                     <td>{{$proceso->submarcas->submarca}}</td>
                                     <td>{{$proceso->color}}</td>

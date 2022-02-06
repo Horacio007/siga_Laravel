@@ -39,9 +39,10 @@ class ReciboPagoProveedoresController extends Controller
      */
     public function create()
     {
-        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
-                            ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller')
-                            ->where('estatus_id','3')
+        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'estatusProceso:id,estatus'])
+                            ->select('id_aux','id','estatus_id', 'estatusProceso_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller')
+                            ->where('estatus_id', 5)
+                            ->where('estatusProceso_id', 9)
                             ->orderBy('id_aux')
                             ->get();
 

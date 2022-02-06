@@ -243,7 +243,7 @@ $(document).ready(function(){
         let f1 = new Date();
         let f2 = f1.getFullYear() + '-' +(f1.getMonth() +1) + "-" + f1.getDate();
         doc.text(159, 43, '' + f1.getDate() + '-' + (f1.getMonth() +1) + "-" + f1.getFullYear());
-        doc.text(160, 49, '' + inf[0]['estatus']['status']);
+        doc.text(160, 49, '' + inf[0]['estatus']['status'] + ' / '+ inf[0]['estatus_proceso']['estatus'][0].toUpperCase() + inf[0]['estatus_proceso']['estatus'].slice(1));
         doc.setFontSize(10);
         let o = 65;
         for (let i = 1; i < con2; i++) {

@@ -17,7 +17,8 @@
                     <table id="list_refacciones" class="table table-striped table-bordered" border="0">
                         <thead class="text-capitalize">
                             <th>Expediente</th>
-                            <th>Estatus</th>
+                            <th>Ubicacion</th>
+                            <th>Proceso</th>
                             <th>Dias Reparacion</th>
                             <th>Marca</th>
                             <th>Linea</th>
@@ -30,7 +31,7 @@
                             <th>Fecha Autorizacion</th>
                             <th>Acciones</th>
                         </thead>
-                        <tbody>
+                        <tbody class="text-capitalize">
                             @foreach ($refacciones as $ref)
                                 <tr>
                                     <td>{{$ref->id}}</td>
@@ -69,6 +70,7 @@
                                         }
                                     @endphp
                                     <td>{{$estatus}}</td>
+                                    <td>{{$ref->estatusProceso->estatus}}</td>
                                     <td>{{$ref->fecha_promesa}}</td>
                                     <td>{{$ref->marcas->marca}}</td>
                                     <td>{{$ref->submarcas->submarca}}</td>

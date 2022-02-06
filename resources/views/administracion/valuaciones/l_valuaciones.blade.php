@@ -17,7 +17,8 @@
                     <table id="list_valuaciones" class="table table-striped table-bordered" border="0">
                         <thead class="text-capitalize">
                                 <th>Expediente</th>
-                                <th>Estatus</th>
+                                <th>Ubicacion</th>
+                                <th>Proceso</th>
                                 <th>Dias Reparacion</th>
                                 <th>Nivel de Daño</th>
                                 <th>Forma Arribo</th>
@@ -46,7 +47,7 @@
                                 <th>Deducible</th>
                                 <th>Acciones</th>
                         </thead>
-                        <tbody>
+                        <tbody class="text-capitalize">
                             @foreach ($valuaciones as $val)
                                 <tr>
                                     <td>{{$val->id}}</td>
@@ -92,13 +93,13 @@
                                                 $estatus = "Transito/".$dif_trans;
                                                 break;
 
-                                            case 9:
-                                                $estatus = "Orden De Admicion/".$dif_trans;
-                                                break;
-                                            
                                             default:
                                                 $estatus = "Sin estatus";
                                                 break;
+                                        }
+
+                                        if ($val->estatus_id == 6 && $val->estatusProceso->id == 1) {
+                                            $estatus = "Orden De Admicion/".$dif_trans;
                                         }
 
                                         $suma = intval($val->piezas_cambiadas_final + $val->piezas_reparacion_final);
@@ -109,6 +110,7 @@
                                         }
                                     @endphp
                                     <td>{{$estatus}}</td>
+                                    <td>{{$val->estatusProceso->estatus}}</td>
                                     <td>{{$val->fecha_promesa}}</td>
                                     <td>{{$val->nivelDano->nivel}}</td>
                                     <td>{{$val->formaArribo->forma_arribo}}</td>

@@ -17,7 +17,8 @@
                     <table id="list_monitor" class="table table-striped table-bordered" border="0">
                         <thead class="text-capitalize">
                                 <th>Expediente</th>
-                                <th>Estatus</th>
+                                <th>Ubicacion</th>
+                                <th>Proceso</th>
                                 <th>Fecha de Entrega</th>
                                 <th>Marca</th>
                                 <th>Linea</th>
@@ -29,11 +30,12 @@
                                 <th>Estatus Final F</th>
                                 <th>Fecha BBVA</th>
                         </thead>
-                        <tbody>
+                        <tbody class="text-capitalize">
                             @foreach ($monitor as $mon)
                                 <tr>
                                     <td>{{$mon->id}}</td>
-                                    <td>{{$mon->estatus->status}}</td>
+                                    <td>{{$mon->estatusV->status}}</td>
+                                    <td>{{$mon->estatusProceso->estatus}}</td>
                                     <td>{{$mon->fecha_salida_taller}}</td>
                                     <td>{{$mon->marcas->marca}}</td>
                                     <td>{{$mon->submarcas->submarca}}</td>

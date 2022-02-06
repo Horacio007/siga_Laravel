@@ -22,7 +22,7 @@
                         <center><strong>Hojalateria</strong></center>
                         <label for="" id="laplicahoja">Aplica -> Si</label>
                         <br>
-                        <label for="" id="lasignadohoja">Asignado -> {{ $hojalateria->nombre??'' }}</label>
+                        <label for="" id="lasignadohoja">Asignado -> {{ $hojalateria->nombre??'No asignado' }}</label>
                         <br>
                         <label for="">Fecha Ingreso</label>
                         <input type="date" name="fechahoja" id="fechahoja" class="form-control" value="{{ $vehiculo->fecha_hojalateria }}">                
@@ -48,7 +48,7 @@
                         <center><strong>Pintura</strong></center>
                         <label for="" id="laplicapin">Aplica -> Si</label>
                         <br>
-                        <label for="" id="lasignadopin">Asignado -> {{ $pintura->nombre??'' }}</label>
+                        <label for="" id="lasignadopin">Asignado -> {{ $pintura->nombre??'No asignado' }}</label>
                         <br>
                         <label for="">Fecha Ingreso</label>
                         <input type="date" name="fechapin" id="fechapin" class="form-control" value="{{ $vehiculo->fecha_pintura }}">                
@@ -73,7 +73,7 @@
                         <center><strong>Armado</strong></center>
                         <label for="" id="laplicaarm">Aplica -> Si</label>
                         <br>
-                        <label for="" id="lasignadoarm">Asignado -> {{ $armado->nombre??'' }}</label>
+                        <label for="" id="lasignadoarm">Asignado -> {{ $armado->nombre??'No asignado' }}</label>
                         <br>
                         <label for="">Fecha Ingreso</label>
                         <input type="date" name="fechaarm" id="fechaarm" class="form-control" value="{{ $vehiculo->fecha_armado }}">                
@@ -98,7 +98,7 @@
                         <center><strong>Detallado</strong></center>
                         <label for="" id="laplicadeta">Aplica -> Si</label>
                         <br>
-                        <label for="" id="lasignadodeta">Asignado -> {{ $detallado->nombre??'' }}</label>
+                        <label for="" id="lasignadodeta">Asignado -> {{ $detallado->nombre??'No asignado' }}</label>
                         <br>
                         <label for="">Fecha Ingreso</label>
                         <input type="date" name="fechadeta" id="fechadeta" class="form-control" value="{{ $vehiculo->fecha_detallado }}">                
@@ -128,7 +128,7 @@
                         <center><strong>Mecanica</strong></center>
                         <label for="" id="laplicameca">Aplica -> Si</label>
                         <br>
-                        <label for="" id="lasignadomeca">Asignado -> {{ $mecanica->nombre??'' }}</label>
+                        <label for="" id="lasignadomeca">Asignado -> {{ $mecanica->nombre??'No asignado' }}</label>
                         <br>
                         <label for="">Fecha Ingreso</label>
                         <input type="date" name="fechameca" id="fechameca" class="form-control" value="{{ $vehiculo->fecha_mecanica }}">                
@@ -153,7 +153,7 @@
                         <center><strong>Lavado e Inspeccion</strong></center>
                         <label for="" id="laplicalava">Aplica -> Si</label>
                         <br>
-                        <label for="" id="lasignadolava">Asignado -> {{ $lavado->nombre??'' }}</label>
+                        <label for="" id="lasignadolava">Asignado -> {{ $lavado->nombre??'No asignado' }}</label>
                         <br>
                         <label for="">Fecha Ingreso</label>
                         <input type="date" name="fechalava" id="fechalava" class="form-control" value="{{ $vehiculo->fecha_lavado }}">                

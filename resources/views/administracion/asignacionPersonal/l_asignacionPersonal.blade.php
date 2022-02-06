@@ -23,7 +23,8 @@
                     <table id="list_asig" class="table table-striped table-bordered" border="0">
                         <thead class="text-capitalize">
                             <th>Expediente</th>
-                            <th>Estatus</th>
+                            <th>Ubicacion</th>
+                            <th>Proceso</th>
                             <th>Fecha Llegada Taller</th>
                             <th>Marca</th>
                             <th>Linea</th>
@@ -34,11 +35,12 @@
                             <th>Personal</th>
                             <th>Acciones</th>
                         </thead>
-                        <tbody>
+                        <tbody class="text-capitalize">
                             @foreach ($asignacion_personal as $personal)
                                 <tr>
                                     <td>{{$personal->id}}</td>
-                                    <td>{{$personal->estatus->status}}</td>
+                                    <td>{{$personal->estatusV->status}}</td>
+                                    <td>{{$personal->estatusProceso->estatus}}</td>
                                     <td>{{$personal->fecha_llegada_taller}}</td>
                                     <td>{{$personal->marcas->marca}}</td>
                                     <td>{{$personal->submarcas->submarca}}</td>

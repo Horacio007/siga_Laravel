@@ -53,9 +53,10 @@ class IscController extends Controller
     }
 
     public function i_ics(){
-        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
-                            ->select('id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_llegada')
-                            ->where('estatus_id','3')
+        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'estatusProceso:id,estatus'])
+                            ->select('id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_llegada', 'fecha_salida_taller', 'estatusProceso_id')
+                            ->where('estatus_id','5')
+                            ->where('estatusProceso_id','9')
                             ->orderBy('id_aux')
                             ->get();
 
@@ -79,6 +80,7 @@ class IscController extends Controller
                                 AND vehiculo.marca_id = modelosv.id
                                 AND vehiculo.linea_id = submarcav.id
                                 AND WEEKOFYEAR(isc.fecha) = WEEKOFYEAR(NOW())-1
+                                AND YEAR(fecha_llegada) = YEAR(NOW())
                                 AND vehiculo.estatus_id = 3
                                 ORDER BY
                                     isc.total");
@@ -113,6 +115,7 @@ class IscController extends Controller
                                     WHERE 
                                         isc.id_vehiculo = vehiculo.id
                                     AND WEEKOFYEAR(isc.fecha) = WEEKOFYEAR(NOW())
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
                                     AND vehiculo.estatus_id = 3
                                     ORDER BY
                                         isc.total");
@@ -125,6 +128,7 @@ class IscController extends Controller
                                     WHERE 
                                         isc.id_vehiculo = vehiculo.id
                                     AND WEEKOFYEAR(isc.fecha) = WEEKOFYEAR(NOW())-1
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
                                     AND vehiculo.estatus_id = 3
                                     ORDER BY
                                         isc.total");
@@ -137,6 +141,7 @@ class IscController extends Controller
                                     WHERE 
                                         isc.id_vehiculo = vehiculo.id
                                     AND WEEKOFYEAR(isc.fecha) = WEEKOFYEAR(NOW())-2
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
                                     AND vehiculo.estatus_id = 3
                                     ORDER BY
                                         isc.total");
@@ -149,6 +154,7 @@ class IscController extends Controller
                                     WHERE 
                                         isc.id_vehiculo = vehiculo.id
                                     AND WEEKOFYEAR(isc.fecha) = WEEKOFYEAR(NOW())-3
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
                                     AND vehiculo.estatus_id = 3
                                     ORDER BY
                                         isc.total");

@@ -16,8 +16,9 @@
                     <table id="list_vehiculo" class="table table-striped table-bordered" border="0">
                         <thead class="text-capitalize">
                             <th scope="col">Expediente</th>
-                            <th>Estatus</th>
-                            <th>Fecha Salida Taller</th>
+                            <th>Ubicacion</th>
+                            <th>Proceso</th>
+                            <th>Fecha Llegada Taller</th>
                             <th>Marca</th>
                             <th>Linea</th>
                             <th>Color</th>
@@ -27,12 +28,13 @@
                             <th>No. Siniestro/Reporte</th>
                             <th>Acciones</th>
                         </thead>
-                        <tbody class="">
+                        <tbody class="text-capitalize">
                             @foreach ($vehiculos as $vehiculo)
                                 <tr>
                                     <td>{{$vehiculo->id}}</td>
-                                    <td>{{$vehiculo->estatus->status}}</td>
-                                    <td>{{$vehiculo->fecha_salida_taller}}</td>
+                                    <td>{{$vehiculo->estatusV->status}}</td>
+                                    <td>{{$vehiculo->estatusProceso->estatus}}</td>
+                                    <td>{{$vehiculo->fecha_llegada}}</td>
                                     <td>{{$vehiculo->marcas->marca}}</td>
                                     <td>{{$vehiculo->submarcas->submarca}}</td>
                                     <td>{{$vehiculo->color}}</td>

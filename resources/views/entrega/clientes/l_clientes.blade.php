@@ -29,7 +29,7 @@
                             <th>Fecha Salida</th>
                             <th>Acciones</th>
                         </thead>
-                        <tbody class="">
+                        <tbody class="text-capitalize">
                             @foreach ($list_clientes as $cliente)
                             <tr>
                                 <td>{{$cliente->id}}</td>
@@ -43,7 +43,14 @@
                                 <td>{{$cliente->telefono}}</td>
                                 <td>{{$cliente->correo}}</td>
                                 <td>{{$cliente->fecha_salida_taller}}</td>
-                                <td><a href="{{ route('pdfRecepcion', $cliente->id) }}" class="btn btn-info" target='_blank' title="PDF"><i class="fa fa-file-pdf"></i></a></td>
+                                <td>
+                                    <a href="{{ route('pdfRecepcion', $cliente->id) }}" class="btn btn-info" target='_blank' title="Caratula">
+                                        <i class="fa fa-file-pdf"></i>
+                                    </a>
+                                    <a href="{{ route('create_pdfentrega', $cliente->id_aux) }}" class="btn btn-primary" target='_blank' title="Docs Entrega">
+                                        <i class="fa fa-file-pdf"></i>
+                                    </a>
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

@@ -22,7 +22,7 @@ $(document).ready(function(){
         ],
         responsive: true,
         destroy: true,
-        order: [[9, "desc"], [11, "desc"], [13, "desc"], [15, "desc"]],
+        order: [[10, "desc"], [12, "desc"], [14, "desc"], [16, "desc"]],
         language: {
             "sProcessing":     "Procesando...",
                         "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -54,56 +54,56 @@ $(document).ready(function(){
         select: true,
         pageLength: 100,
         rowCallback: function(nRow, aData){
-            if (aData[7] == 0) {
-                $(nRow).find('td:eq(7)').css('background-color', '#53ee7e');
+            if (aData[8] == 0) {
+                $(nRow).find('td:eq(8)').css('background-color', '#53ee7e');
             }
 
-            if (aData[8] >= 0 && aData[8] <= 2) {
-                $(nRow).find('td:eq(8)').css('background-color', '#53ee7e'); 
+            if (aData[9] >= 0 && aData[9] <= 2) {
+                $(nRow).find('td:eq(9)').css('background-color', '#53ee7e'); 
             } else {
-                $(nRow).find('td:eq(8)').css('background-color', '#F08080');
+                $(nRow).find('td:eq(9)').css('background-color', '#F08080');
             }
 
-            if (aData[9] == 'Autorizado') {
-                $(nRow).find('td:eq(9)').css('background-color', '#53ee7e');
-            } else {
-                $(nRow).find('td:eq(9)').css('background-color', '#F9FFC9');
-            }
-
-            if (aData[10] >= 0 && aData[10] <= 3) {
+            if (aData[10] == 'Autorizado') {
                 $(nRow).find('td:eq(10)').css('background-color', '#53ee7e');
             } else {
-                $(nRow).find('td:eq(10)').css('background-color', '#F08080');
+                $(nRow).find('td:eq(10)').css('background-color', '#F9FFC9');
             }
 
-            if (aData[11] == 'Autorizado') {
+            if (aData[11] >= 0 && aData[11] <= 3) {
                 $(nRow).find('td:eq(11)').css('background-color', '#53ee7e');
             } else {
-                $(nRow).find('td:eq(11)').css('background-color', '#F9FFC9');
+                $(nRow).find('td:eq(11)').css('background-color', '#F08080');
             }
 
-            if (aData[12] >= 0 && aData[12] <= 4) {
+            if (aData[12] == 'Autorizado') {
                 $(nRow).find('td:eq(12)').css('background-color', '#53ee7e');
             } else {
-                $(nRow).find('td:eq(12)').css('background-color', '#F08080');
+                $(nRow).find('td:eq(12)').css('background-color', '#F9FFC9');
             }
 
-            if (aData[13] == 'Autorizado') {
+            if (aData[13] >= 0 && aData[13] <= 4) {
                 $(nRow).find('td:eq(13)').css('background-color', '#53ee7e');
             } else {
-                $(nRow).find('td:eq(13)').css('background-color', '#F9FFC9');
+                $(nRow).find('td:eq(13)').css('background-color', '#F08080');
             }
 
-            if (aData[14] >= 0 && aData[14] <= 7) {
+            if (aData[14] == 'Autorizado') {
                 $(nRow).find('td:eq(14)').css('background-color', '#53ee7e');
             } else {
-                $(nRow).find('td:eq(14)').css('background-color', '#F08080');
+                $(nRow).find('td:eq(14)').css('background-color', '#F9FFC9');
             }
 
-            if (aData[15] == 'Autorizado') {
+            if (aData[15] >= 0 && aData[15] <= 7) {
                 $(nRow).find('td:eq(15)').css('background-color', '#53ee7e');
             } else {
-                $(nRow).find('td:eq(15)').css('background-color', '#F9FFC9');
+                $(nRow).find('td:eq(15)').css('background-color', '#F08080');
+            }
+
+            if (aData[16] == 'Autorizado') {
+                $(nRow).find('td:eq(16)').css('background-color', '#53ee7e');
+            } else {
+                $(nRow).find('td:eq(16)').css('background-color', '#F9FFC9');
             }
         }
     });

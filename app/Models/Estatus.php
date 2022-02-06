@@ -9,4 +9,8 @@ class Estatus extends Model
 {
     use HasFactory;
     protected $table='estatus';
+
+    public function estadoUbicacion(){
+        return $this->hasOne('App\Models\EstatusEstado', 'ubicacion_id', 'id');
+    }
 }

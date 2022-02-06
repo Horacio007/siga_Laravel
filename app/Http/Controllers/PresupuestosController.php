@@ -20,7 +20,29 @@ class PresupuestosController extends Controller
      */
     public function index()
     {
-        $list_presupuestos = DB::select("SELECT presupuestos.id, presupuestos.id_vehiculo, modelosv.marca, submarcav.submarca, vehiculo.color, vehiculo.modelo, aseguradoras.nombre, vehiculo.no_siniestro FROM vehiculo, presupuestos, modelosv, submarcav, aseguradoras WHERE presupuestos.id_vehiculo = vehiculo.id AND vehiculo.marca_id = modelosv.id AND vehiculo.linea_id = submarcav.id AND vehiculo.cliente_id = aseguradoras.id ORDER BY  presupuestos.id");
+        $list_presupuestos = DB::select("SELECT 
+                                            presupuestos.id, 
+                                            presupuestos.id_vehiculo, 
+                                            modelosv.marca, 
+                                            submarcav.submarca, 
+                                            vehiculo.color, 
+                                            vehiculo.modelo, 
+                                            aseguradoras.nombre, 
+                                            vehiculo.no_siniestro 
+                                        FROM 
+                                            vehiculo, 
+                                            presupuestos, 
+                                            modelosv, 
+                                            submarcav, 
+                                            aseguradoras 
+                                        WHERE 
+                                            presupuestos.id_vehiculo = vehiculo.id 
+                                        AND vehiculo.marca_id = modelosv.id 
+                                        AND vehiculo.linea_id = submarcav.id 
+                                        AND vehiculo.cliente_id = aseguradoras.id 
+                                        ORDER BY 
+                                            presupuestos.id");
+        
         return view('costeo.presupuesto.l_presupuestos', compact('list_presupuestos'));
     }
 
@@ -241,9 +263,9 @@ class PresupuestosController extends Controller
     }
 
     public function create_pdfp(Request $request){
-        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno','estatus:id,status'])
+        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno','estatusV:id,status', 'estatusProceso:id,estatus'])
                             ->where('id', $request['exp'])
-                            ->select('modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'estatus_id')
+                            ->select('modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'estatus_id', 'estatusProceso_id')
                             ->first();
 
         $r = Vehiculo::select('id_aux')
@@ -404,7 +426,7 @@ class PresupuestosController extends Controller
             <p style="position: absolute; top: 155px; left: 300px;">'.$vehiculo['color'].'</p>
             <p style="position: absolute; top: 83; left: 535px;">'.$vehiculo['placas'].'</p>
             <p style="position: absolute; top: 99; left: 535px;">'.$hoy.'</p>
-            <p style="position: absolute; top: 116; left: 535px;">'.$vehiculo['estatus']['status'].'</p>
+            <p style="position: absolute; top: 116; left: 535px;">'.$vehiculo['estatus']['status'].' / '.ucfirst($vehiculo->estatusProceso->estatus).'</p>
             '.$ops.'
             '.$niv.'
             '.$con.'

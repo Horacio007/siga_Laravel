@@ -31,7 +31,8 @@ class ClientesController extends Controller
                                     clientes.nombre,
                                     clientes.telefono,
                                     clientes.correo,
-                                    vehiculo.fecha_salida_taller
+                                    vehiculo.fecha_salida_taller,
+                                    vehiculo.id_aux
                                 FROM
                                     vehiculo,
                                     clientes,
@@ -90,7 +91,7 @@ class ClientesController extends Controller
      */
     public function show(Request $request)
     {
-        $u_vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+        $u_vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status'])
                                 ->where('id', $request->exp)->first();
 
         $uc = Clientes::select('id', 'nombre', 'telefono', 'correo')

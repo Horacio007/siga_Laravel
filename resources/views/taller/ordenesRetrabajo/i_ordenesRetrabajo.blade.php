@@ -68,7 +68,8 @@
                                 <thead class="text-capitalize">
                                     <tr>
                                         <th>Expediente</th>
-                                        <th>Estatus</th>
+                                        <th>Ubicacion</th>
+                                        <th>Proceso</th>
                                         <th>Fecha de Llegada</th>
                                         <th>Marca</th>
                                         <th>Linea</th>
@@ -78,11 +79,12 @@
                                         <th>Cliente</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="text-capitalize">
                                     @foreach ($vehiculos as $vehiculo)
                                         <tr>
                                             <td>{{$vehiculo->id}}</td>
-                                            <td>{{$vehiculo->estatus->status}}</td>
+                                            <td>{{$vehiculo->estatusV->status}}</td>
+                                            <td>{{$vehiculo->estatusProceso->estatus}}</td>
                                             <td>{{$vehiculo->fecha_llegada}}</td>
                                             <td>{{$vehiculo->marcas->marca}}</td>
                                             <td>{{$vehiculo->submarcas->submarca}}</td>

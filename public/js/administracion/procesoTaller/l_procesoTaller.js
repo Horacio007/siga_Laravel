@@ -22,7 +22,7 @@ $(document).ready(function(){
         ],
         responsive: true,
         destroy: true,
-        order: [[8, "desc"], [9, "desc"], [10, "desc"], [11, "desc"]],
+        order: [[9, "desc"], [10, "desc"], [11, "desc"], [12, "desc"]],
         language: {
             "sProcessing":     "Procesando...",
                         "sLengthMenu":     "Mostrar _MENU_ registros",
@@ -54,51 +54,39 @@ $(document).ready(function(){
         select: true,
         pageLength: 100,
         rowCallback: function(nRow, aData){
-            if (aData[8] == 0) {
-                $(nRow).find('td:eq(8)').css('background-color', '#FBC89A'); 
-            }
-            
-            var asg_hoja = aData[8].split('/');
-
-            if (asg_hoja[0] == 1){ 
-                $(nRow).find('td:eq(8)').css('background-color', '#53ee7e');  
-            } else if (asg_hoja[0] == 2) {
-                $(nRow).find('td:eq(8)').css('background-color', '#F9FFC9'); 
-            }
-            
             if (aData[9] == 0) {
                 $(nRow).find('td:eq(9)').css('background-color', '#FBC89A'); 
             }
+            
+            var asg_hoja = aData[9].split('/');
 
-            var asg_pin = aData[9].split('/');
-
-            if (aData[9] == 1){ 
+            if (asg_hoja[0] == 1){ 
                 $(nRow).find('td:eq(9)').css('background-color', '#53ee7e');  
-            } else if (aData[9] == 2) {
+            } else if (asg_hoja[0] == 2) {
                 $(nRow).find('td:eq(9)').css('background-color', '#F9FFC9'); 
             }
             
             if (aData[10] == 0) {
-                $(nRow).find('td:eq(10)').css('background-color', '#FBC89A');
+                $(nRow).find('td:eq(10)').css('background-color', '#FBC89A'); 
             }
-            
-            var asg_armado = aData[10].split('/');
 
-            if (aData[10] == 1){ 
+            var asg_pin = aData[10].split('/');
+
+            if (asg_pin[0] == 1){ 
                 $(nRow).find('td:eq(10)').css('background-color', '#53ee7e');  
-            } else if (aData[10] == 2) {
+            } else if (asg_pin[0] == 2) {
                 $(nRow).find('td:eq(10)').css('background-color', '#F9FFC9'); 
             }
-
+            
             if (aData[11] == 0) {
-                $(nRow).find('td:eq(11)').css('background-color', '#FBC89A'); 
+                $(nRow).find('td:eq(11)').css('background-color', '#FBC89A');
             }
             
-            var asg_deta = aData[11].split('/');
+            var asg_armado = aData[11].split('/');
 
-            if (aData[11] == 1){ 
+            if (asg_armado[0] == 1){ 
                 $(nRow).find('td:eq(11)').css('background-color', '#53ee7e');  
-            } else if (aData[11] == 2) {
+            } else if (asg_armado[0] == 2) {
                 $(nRow).find('td:eq(11)').css('background-color', '#F9FFC9'); 
             }
 
@@ -106,11 +94,11 @@ $(document).ready(function(){
                 $(nRow).find('td:eq(12)').css('background-color', '#FBC89A'); 
             }
             
-            var asg_mec = aData[12].split('/');
+            var asg_deta = aData[12].split('/');
 
-            if (aData[12] == 1){ 
+            if (asg_deta[0] == 1){ 
                 $(nRow).find('td:eq(12)').css('background-color', '#53ee7e');  
-            } else if (aData[12] == 2) {
+            } else if (asg_deta[0] == 2) {
                 $(nRow).find('td:eq(12)').css('background-color', '#F9FFC9'); 
             }
 
@@ -118,22 +106,34 @@ $(document).ready(function(){
                 $(nRow).find('td:eq(13)').css('background-color', '#FBC89A'); 
             }
             
-            var asg_lav = aData[13].split('/');
+            var asg_mec = aData[13].split('/');
 
-            if (aData[13] == 1){ 
+            if (asg_mec[0] == 1){ 
                 $(nRow).find('td:eq(13)').css('background-color', '#53ee7e');  
-            } else if (aData[13]  == 2) {
+            } else if (asg_mec[0] == 2) {
                 $(nRow).find('td:eq(13)').css('background-color', '#F9FFC9'); 
             }
 
             if (aData[14] == 0) {
-                $(nRow).find('td:eq(14)').css('background-color', '#FBC89A');
+                $(nRow).find('td:eq(14)').css('background-color', '#FBC89A'); 
             }
             
-            if (aData[14] == 1){ 
+            var asg_lav = aData[14].split('/');
+
+            if (asg_lav[0] == 1){ 
                 $(nRow).find('td:eq(14)').css('background-color', '#53ee7e');  
-            } else if (aData[14] == 2) {
+            } else if (asg_lav[0]  == 2) {
                 $(nRow).find('td:eq(14)').css('background-color', '#F9FFC9'); 
+            }
+
+            if (aData[15] == 0) {
+                $(nRow).find('td:eq(15)').css('background-color', '#FBC89A');
+            }
+            
+            if (aData[15] == 1){ 
+                $(nRow).find('td:eq(15)').css('background-color', '#53ee7e');  
+            } else if (aData[15] == 2) {
+                $(nRow).find('td:eq(15)').css('background-color', '#F9FFC9'); 
             }
         }
     });

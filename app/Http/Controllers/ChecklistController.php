@@ -24,7 +24,29 @@ class ChecklistController extends Controller
      */
     public function index()
     {
-        $list_checklist = DB::select("SELECT checklist.id, checklist.id_aux_vehiculo, modelosv.marca, submarcav.submarca, vehiculo.color, vehiculo.modelo, aseguradoras.nombre, vehiculo.no_siniestro FROM vehiculo, checklist, modelosv, submarcav, aseguradoras WHERE checklist.id_aux_vehiculo = vehiculo.id AND vehiculo.marca_id = modelosv.id AND vehiculo.linea_id = submarcav.id AND vehiculo.cliente_id = aseguradoras.id ORDER BY  checklist.id");
+        $list_checklist = DB::select("SELECT 
+                                        checklist.id, 
+                                        checklist.id_aux_vehiculo, 
+                                        modelosv.marca, 
+                                        submarcav.submarca, 
+                                        vehiculo.color, 
+                                        vehiculo.modelo, 
+                                        aseguradoras.nombre, 
+                                        vehiculo.no_siniestro 
+                                    FROM 
+                                        vehiculo, 
+                                        checklist, 
+                                        modelosv, 
+                                        submarcav, 
+                                        aseguradoras 
+                                    WHERE 
+                                        checklist.id_aux_vehiculo = vehiculo.id 
+                                    AND vehiculo.marca_id = modelosv.id 
+                                    AND vehiculo.linea_id = submarcav.id 
+                                    AND vehiculo.cliente_id = aseguradoras.id 
+                                    ORDER BY 
+                                        checklist.id");
+        
         return view('recepcion.checklist.l_checklist', compact('list_checklist'));
     }
 

@@ -26,8 +26,12 @@ class Vehiculo extends Model
         return $this->hasOne('App\Models\Asesores', 'id', 'id_asesor');
     }
 
-    public function estatus(){
+    public function estatusV(){
         return $this->hasOne('App\Models\Estatus', 'id', 'estatus_id');
+    }
+
+    public function estatusProceso(){
+        return $this->hasOne('App\Models\EstatusEstado', 'id', 'estatusProceso_id');
     }
 
     public function estatusRefacciones(){
@@ -64,5 +68,13 @@ class Vehiculo extends Model
 
     public function personalPintura(){
         return $this->hasOne('App\Models\Personal', 'id', 'asignado_pintura');
+    }
+
+    public function personalMecanica(){
+        return $this->hasOne('App\Models\Personal', 'id', 'asignado_mecanica');
+    }
+
+    public function personalLavado(){
+        return $this->hasOne('App\Models\Personal', 'id', 'asignado_lavado');
     }
 }

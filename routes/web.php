@@ -55,6 +55,7 @@ require __DIR__.'/auth.php';
         Route::get('listado_asesores', 'AsesoresController@listado_asesores')->middleware('auth');
         Route::get('listado_aseguradoras', 'AseguradorasController@listado_aseguradoras')->middleware('auth');
         Route::get('listado_estatus', 'EstatusController@listado_estatus')->middleware('auth');
+        Route::post('listado_estatusProceso', 'EstatusEstadoController@listado_estatusProceso')->middleware('auth');
         Route::get('listado_niveldano', 'NivelDanoController@listado_niveldano')->middleware('auth');
         Route::get('listado_formaarribo', 'FormaAriboController@listado_formaarribo')->middleware('auth');
         Route::post('/i_vehiculo', 'VehiculoController@store')->middleware('auth');
@@ -62,18 +63,18 @@ require __DIR__.'/auth.php';
     //endAltaVehiculo
 
     //Checklist
-        Route::get('i_checklist', 'ChecklistController@i_checklist')->name('i_checklist')->middleware('auth')->middleware('auth');
-        Route::get('l_checklist', 'ChecklistController@index')->name('l_checklist')->middleware('auth')->middleware('auth');
+        Route::get('i_checklist', 'ChecklistController@i_checklist')->name('i_checklist')->middleware('auth');
+        Route::get('l_checklist', 'ChecklistController@index')->name('l_checklist')->middleware('auth');
         Route::get('e_chv', 'ChecklistController@exist_chv')->middleware('auth');
         Route::get('mlmca', 'VehiculoController@mlmca')->middleware('auth');
         Route::post('i_checklist', 'ChecklistController@store')->middleware('auth');
         Route::get('getClienteCh', 'ClientesController@getInfoClieteCheck')->middleware('auth');
-        Route::get('create_pdf/{exp}', 'ChecklistController@create_pdf')->name('create_pdf')->middleware('auth')->middleware('auth');
-        Route::post('/d_checklist/{checklist}', 'ChecklistController@destroy')->name('d_checklist')->middleware('auth')->middleware('auth');
+        Route::get('create_pdf/{exp}', 'ChecklistController@create_pdf')->name('create_pdf')->middleware('auth');
+        Route::post('/d_checklist/{checklist}', 'ChecklistController@destroy')->name('d_checklist')->middleware('auth');
     //endChecklist
 
     //AltaEvidenciaRecepcion
-        Route::get('i_evidenciaR', 'ArchivosController@i_evidenciaR')->name('upload_evidenciar')->middleware('auth')->middleware('auth');
+        Route::get('i_evidenciaR', 'ArchivosController@i_evidenciaR')->name('upload_evidenciar')->middleware('auth');
         Route::post('upload_evidenciar', 'ArchivosController@upload_evidenciaR')->middleware('auth');
     //endAltaEvidenciaRecepcion
 //endRecepcion
@@ -116,31 +117,31 @@ require __DIR__.'/auth.php';
 
 //Refacciones
     //AltaActualizarProv
-        Route::get('l_refacciones', 'AlmacenController@index')->name('l_refacciones')->middleware('auth')->middleware('auth');
-        Route::get('i_refaccion', 'AlmacenController@i_refaccion')->name('i_refaccion')->middleware('auth')->middleware('auth');
+        Route::get('l_refacciones', 'AlmacenController@index')->name('l_refacciones')->middleware('auth');
+        Route::get('i_refaccion', 'AlmacenController@i_refaccion')->name('i_refaccion')->middleware('auth');
         Route::get('e_ve', 'AlmacenController@e_ve')->middleware('auth');
         Route::post('i_refaccion', 'AlmacenController@store')->middleware('auth');
-        Route::get('/u_refaccion/{almacen}', 'AlmacenController@edit')->name('u_refaccion')->middleware('auth')->middleware('auth');
+        Route::get('/u_refaccion/{almacen}', 'AlmacenController@edit')->name('u_refaccion')->middleware('auth');
         Route::post('/u_refaccion/{almacen}', 'AlmacenController@update')->middleware('auth');
-        Route::post('/d_refaccion/{almacen}', 'AlmacenController@destroy')->name('d_refaccion')->middleware('auth')->middleware('auth');
-        Route::get('/b_refaccion/{almacen}', 'AlmacenController@baja_edit')->name('b_refaccion')->middleware('auth')->middleware('auth');
+        Route::post('/d_refaccion/{almacen}', 'AlmacenController@destroy')->name('d_refaccion')->middleware('auth');
+        Route::get('/b_refaccion/{almacen}', 'AlmacenController@baja_edit')->name('b_refaccion')->middleware('auth');
         Route::post('/b_refaccion/{almacen}', 'AlmacenController@baja_update')->middleware('auth');
     //endltaActualizarProv
 
     //SeguimientoRefaccionesRecepcionRefacciones
-        Route::get('l_segrefacciones', 'AlmacenController@index2')->name('l_segrefacciones')->middleware('auth')->middleware('auth');
-        Route::get('/u_segrefaccion/{almacen}', 'AlmacenController@edit2')->name('u_segrefaccion')->middleware('auth')->middleware('auth');
-        Route::post('/u_segrefaccion/{almacen}', 'AlmacenController@u_segrefaccion')->name('u_segrefaccion')->middleware('auth')->middleware('auth');
+        Route::get('l_segrefacciones', 'AlmacenController@index2')->name('l_segrefacciones')->middleware('auth');
+        Route::get('/u_segrefaccion/{almacen}', 'AlmacenController@edit2')->name('u_segrefaccion')->middleware('auth');
+        Route::post('/u_segrefaccion/{almacen}', 'AlmacenController@u_segrefaccion')->name('u_segrefaccion')->middleware('auth');
         Route::post('/u_segrefaccion/{almacen}', 'AlmacenController@update2')->middleware('auth');
-        Route::post('/d_segrefaccion/{almacen}', 'AlmacenController@destroy2')->name('d_segrefaccion')->middleware('auth')->middleware('auth');
+        Route::post('/d_segrefaccion/{almacen}', 'AlmacenController@destroy2')->name('d_segrefaccion')->middleware('auth');
     //SeguimientoRefaccionesRecepcionRefacciones
 
     //RefaccionesEntregadas
-        Route::get('l_entregdasrefacciones', 'AlmacenController@index3')->name('l_entregdasrefacciones')->middleware('auth')->middleware('auth');
+        Route::get('l_entregdasrefacciones', 'AlmacenController@index3')->name('l_entregdasrefacciones')->middleware('auth');
     //endRefaccionesEntregadas
 
     //Codigos
-        Route::get('l_codigos', 'CodigosController@index')->name('l_codigos')->middleware('auth')->middleware('auth');
+        Route::get('l_codigos', 'CodigosController@index')->name('l_codigos')->middleware('auth');
     //endCodigos
 //endRefacciones
 
@@ -183,8 +184,8 @@ require __DIR__.'/auth.php';
     //endClientes
 
     //Documentacion
-        Route::get('l_docs', 'VehiculoController@indexDocs')->name('l_docs')->middleware('auth')->middleware('auth');
-        Route::get('create_pdfentrega/{exp}', 'VehiculoController@create_pdfentrega')->name('create_pdfentrega')->middleware('auth')->middleware('auth');
+        Route::get('l_docs', 'VehiculoController@indexDocs')->name('l_docs')->middleware('auth');
+        Route::get('create_pdfentrega/{exp}', 'VehiculoController@create_pdfentrega')->name('create_pdfentrega')->middleware('auth');
     //endDocumentacion
 
     //CambiarEstatus
@@ -194,14 +195,14 @@ require __DIR__.'/auth.php';
     //endCambiarEstatus
 
     //ISC
-        Route::get('l_ics', 'IscController@index')->name('l_ics')->middleware('auth')->middleware('auth');
-        Route::get('i_ics', 'IscController@i_ics')->name('i_ics')->middleware('auth')->middleware('auth');
+        Route::get('l_ics', 'IscController@index')->name('l_ics')->middleware('auth');
+        Route::get('i_ics', 'IscController@i_ics')->name('i_ics')->middleware('auth');
         Route::post('i_ics', 'IscController@store')->middleware('auth');
-        Route::post('/d_ics/{isc}', 'IscController@destroy')->name('d_ics')->middleware('auth')->middleware('auth');
+        Route::post('/d_ics/{isc}', 'IscController@destroy')->name('d_ics')->middleware('auth');
     //endISC
 
     //EntregaSubirArchivos
-        Route::get('i_evidenciaE', 'ArchivosController@i_evidenciaE')->name('upload_evidenciae')->middleware('auth')->middleware('auth');
+        Route::get('i_evidenciaE', 'ArchivosController@i_evidenciaE')->name('upload_evidenciae')->middleware('auth');
         Route::post('upload_evidenciae', 'ArchivosController@upload_evidenciae')->middleware('auth');
     //endEntregaSubirArchivos
 //endEntrega
@@ -214,8 +215,8 @@ require __DIR__.'/auth.php';
     //endVerArchivos
 
     //Valuaciones
-        Route::get('l_valuaciones', 'VehiculoController@indexV')->name('l_valuaciones')->middleware('auth')->middleware('auth');
-        Route::get('/u_valuaciones/{vehiculo}', 'VehiculoController@u_valuaciones')->name('u_valuaciones')->middleware('auth')->middleware('auth');
+        Route::get('l_valuaciones', 'VehiculoController@indexV')->name('l_valuaciones')->middleware('auth');
+        Route::get('/u_valuaciones/{vehiculo}', 'VehiculoController@u_valuaciones')->name('u_valuaciones')->middleware('auth');
         Route::post('/u_valuaciones/{vehiculo}', 'VehiculoController@update_valuaciones')->middleware('auth');
     //endValuaciones
 
@@ -272,7 +273,7 @@ require __DIR__.'/auth.php';
         Route::get('recorrido', 'VehiculoController@recorrido')->name('recorrido')->middleware('auth');
     //endRecorrido
 
-    //endAdministracion
+//endAdministracion
 
 //Catalogos
     //Marca
@@ -320,14 +321,23 @@ require __DIR__.'/auth.php';
         Route::post('/d_asesor/{asesores}', 'AsesoresController@destroy')->name('d_asesor')->middleware('auth');
     //endAsesores
 
-    //Estatus
+    //EstatusUbicacion
         Route::get('l_estatus', 'EstatusController@index')->name('lista_estatus')->middleware('auth');
         Route::get('i_estatus', 'EstatusController@i_estatus')->name('i_estatus')->middleware('auth');
         Route::post('/i_estatus', 'EstatusController@store')->middleware('auth');
         Route::get('/u_estatus/{estatus}', 'EstatusController@edit')->name('u_estatus')->middleware('auth');
         Route::post('/u_estatus/{estatus}', 'EstatusController@update')->middleware('auth');
         Route::post('/d_estatus/{estatus}', 'EstatusController@destroy')->name('d_estatus')->middleware('auth');
-    //endEstatus
+    //endEEstatusUbicacion
+
+    //EstatusProcesoVehiculo
+        Route::get('l_estatusE', 'EstatusEstadoController@index')->name('lista_estatusE')->middleware('auth');
+        Route::get('i_estatusE', 'EstatusEstadoController@create')->name('i_estatusE')->middleware('auth');
+        Route::post('/i_estatusE', 'EstatusEstadoController@store')->middleware('auth');
+        Route::get('/u_estatusE/{estatusEstado}', 'EstatusEstadoController@edit')->name('u_estatusE')->middleware('auth');
+        Route::post('/u_estatusE/{estatusEstado}', 'EstatusEstadoController@update')->middleware('auth');
+        Route::post('/d_estatusE/{estatusEstado}', 'EstatusEstadoController@destroy')->name('d_estatusE')->middleware('auth');
+    //endEstatusProcesoVehiculo
 
     //NivelDano
         Route::get('l_niveldano', 'NivelDanoController@index')->name('lista_niveldano')->middleware('auth');

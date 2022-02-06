@@ -83,21 +83,27 @@
         </div>
         <br>
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="iasesor">Asesor</label>
                 <select name="asesor" id="sasesor" class="form-control" required>
                     
                 </select>         
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <label for="iaseguradora">Aseguradora</label>
                 <select name="aseguradora" id="saseguradora" class="form-control" required>
                     
                 </select>  
             </div>
-            <div class="col-md-4">
-                <label for="lestatus">Estatus</label>
-                <select name="estatus" id="sestatus" class="form-control" required>
+            <div class="col-md-3">
+                <label for="lestatus">Ubicacion</label>
+                <select name="estatus" id="sestatus" class="form-control text-capitalize" required>
+                    
+                </select>  
+            </div>
+            <div class="col-md-3">
+                <label for="lestatus">Proceso</label>
+                <select name="proceso" id="sproceso" class="form-control text-capitalize" required>
                     
                 </select>  
             </div>

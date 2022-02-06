@@ -16,7 +16,9 @@ class EstatusController extends Controller
      */
     public function index()
     {
-        $list_estatus = Estatus::all();
+        $list_estatus = Estatus::all()
+                        ->where('deleted_at', null);
+                        
         return view('catalogos.estatus.l_estatus', compact('list_estatus'));
     }
 
@@ -27,12 +29,13 @@ class EstatusController extends Controller
     public function listado_estatus(Request $request){
         if ($request['select_estatus'] == true) {
             $estatus = Estatus::select('id', 'status')
+                            ->where('deleted_at', null)
                             ->orderBy('status')
                             ->get();
 
         
             //$output = '<select name="marca" id="sautoslinea" class="form-control"><option value="0">Seleccione la Marca del Vehículo:</option>';
-            $output = "<option value='0'>Seleccione el Estatus del Vehículo:</option>";
+            $output = "<option value='0'>Seleccione la Ubicación del Vehículo:</option>";
             for ($i=0; $i < sizeof($estatus); $i++) { 
                 $output .= '<option value="'.$estatus[$i]['id'].'">'.$estatus[$i]['status'].'</option>';
             }

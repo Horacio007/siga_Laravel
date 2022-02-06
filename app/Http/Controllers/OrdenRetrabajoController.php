@@ -46,11 +46,10 @@ class OrdenRetrabajoController extends Controller
     }
 
     public function i_ordenesrt(){
-        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
-                            ->select('id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_llegada')
-                            ->where('estatus_id','5')
-                            ->orWhere('estatus_id','6')
-                            ->orWhere('estatus_id','7')
+        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'estatusProceso:id,estatus'])
+                            ->select('id', 'estatus_id', 'estatusProceso_id', 'modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_llegada')
+                            ->whereIn('estatus_id',['5', '6'])
+                            ->whereNotIn('estatusProceso_id', ['1', '5', '9', '12'])
                             ->orderBy('id_aux')
                             ->get();
 
@@ -107,7 +106,7 @@ class OrdenRetrabajoController extends Controller
                     ->where('id', $request->exp)
                     ->first();
 
-        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno','estatus:id,status'])
+        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno','estatusV:id,status'])
                             ->where('id', $r->id_vehiculo)
                             ->select('modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'estatus_id')
                             ->first();

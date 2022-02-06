@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Vehiculo;
 use App\Models\Clientes;
 use App\Models\Estatus;
+use App\Models\EstatusEstado;
 use App\Models\Estatusaseguradoras;
 use App\Models\Estatusrefacciones;
 use App\Models\Personal;
@@ -28,12 +29,10 @@ class VehiculoController extends Controller
      */
     public function indexV()
     {
-        $valuaciones = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo'])
-                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_llegada_taller', 'fecha_valuacion', 'diferencia_tres_dias', 'cantidad_inicial', 'piezas_cambiadas_inicial', 'piezas_reparacion_inicial', 'fecha_autorizacion', 'cantidad_final', 'piezas_cambiadas_final', 'piezas_reparacion_final', 'piezas_vendidas', 'importe_piezas_vendidas', 'piezas_vendidas', 'porcentaje_aprobacion', 'fecha_promesa', 'proceso')
-                                ->where('estatus_id','5')
-                                //->where('id_aux', 433)
-                                ->orWhere('estatus_id','6')
-                                ->orWhere('estatus_id','9')
+        $valuaciones = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo', 'estatusProceso:id,estatus'])
+                                ->select('id_aux','id','estatus_id', 'estatusProceso_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_llegada_taller', 'fecha_valuacion', 'diferencia_tres_dias', 'cantidad_inicial', 'piezas_cambiadas_inicial', 'piezas_reparacion_inicial', 'fecha_autorizacion', 'cantidad_final', 'piezas_cambiadas_final', 'piezas_reparacion_final', 'piezas_vendidas', 'importe_piezas_vendidas', 'piezas_vendidas', 'porcentaje_aprobacion', 'fecha_promesa', 'proceso')
+                                ->whereIn('estatus_id',['5', '6'])
+                                ->whereNotIn('estatusProceso_id', ['5', '9', '12'])
                                 ->orderBy('id_aux')
                                 ->get();
 
@@ -44,13 +43,10 @@ class VehiculoController extends Controller
 
     public function indexR()
     {
-        $refacciones = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo', 'estatusRefacciones:id,estatus'])
-                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_llegada_taller', 'refacciones_id','fecha_promesa', 'fecha_autorizacion')
-                                ->where('estatus_id','5')
-                                //->where('id', '1203112020')
-                                ->orWhere('estatus_id', '7')
-                                ->orWhere('estatus_id','6')
-                                ->orWhere('estatus_id','8')
+        $refacciones = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo', 'estatusRefacciones:id,estatus', 'estatusProceso:id,estatus'])
+                                ->select('id_aux','id','estatus_id', 'estatusProceso_id', 'modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_llegada_taller', 'refacciones_id','fecha_promesa', 'fecha_autorizacion')
+                                ->whereIn('estatus_id',['5', '6'])
+                                ->whereNotIn('estatusProceso_id', ['5', '9', '12'])
                                 ->orderBy('id_aux')
                                 ->get();
 
@@ -61,11 +57,10 @@ class VehiculoController extends Controller
 
     public function indexAP()
     {
-        $asignacion_personal = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
-                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_llegada_taller', 'aplica_lavado')
-                                ->where('estatus_id','5')
-                                //->orWhere('estatus_id', '7')
-                                ->orWhere('estatus_id','6')
+        $asignacion_personal = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'estatusProceso:id,estatus'])
+                                ->select('id_aux','id','estatus_id', 'estatusProceso_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_llegada_taller', 'aplica_lavado')
+                                ->whereIn('estatus_id',['5', '6'])
+                                ->whereNotIn('estatusProceso_id', ['5', '9', '12'])
                                 ->orderBy('id_aux')
                                 ->get();
 
@@ -75,11 +70,10 @@ class VehiculoController extends Controller
 
     public function indexPA()
     {
-        $proceso_administrativo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo'])
-                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_valuacion', 'fecha_autorizacion', 'p_asignados', 'r_disponibles')
-                                ->where('estatus_id','5')
-                                //->where('id_aux', 433)
-                                ->orWhere('estatus_id','6')
+        $proceso_administrativo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo', 'estatusProceso:id,estatus'])
+                                ->select('id_aux','id','estatus_id', 'estatusProceso_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_valuacion', 'fecha_autorizacion', 'p_asignados', 'r_disponibles')
+                                ->whereIn('estatus_id',['5', '6'])
+                                ->whereNotIn('estatusProceso_id', ['1','5', '9', '12'])
                                 ->orderBy('id_aux')
                                 ->get();
 
@@ -88,15 +82,14 @@ class VehiculoController extends Controller
 
     public function indexPT()
     {
-        $proceso_taller = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo', 'personalHojalateria:id,id_area,nombre'])
-                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'aplica_hojalateria', 'fecha_hojalateria', 'aplica_preparacion', 'fecha_preparacion', 'aplica_pintura', 'fecha_pintura', 'aplica_armado', 'fecha_armado', 'aplica_detallado', 'fecha_detallado', 'aplica_mecanica', 'fecha_mecanica', 'aplica_lavado', 'fecha_lavado', 'fecha_entrega_interna', 'asignado_hojalateria', 'asignado_preparacion', 'asignado_pintura', 'asignado_armado', 'asignado_detallado', 'asignado_mecanica', 'asignado_lavado')
-                                ->where('estatus_id','5')
-                                //->where('marca_id', 38)
-                                ->orWhere('estatus_id','6')
+        $proceso_taller = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo', 'personalHojalateria:id,nombre', 'personalPintura:id,nombre','personalArmado:id,nombre','personalDetallado:id,nombre','personalMecanica:id,nombre','personalLavado:id,nombre','estatusProceso:id,estatus'])
+                                ->select('id_aux','id','estatus_id', 'estatusProceso_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'aplica_hojalateria', 'fecha_hojalateria', 'aplica_preparacion', 'fecha_preparacion', 'aplica_pintura', 'fecha_pintura', 'aplica_armado', 'fecha_armado', 'aplica_detallado', 'fecha_detallado', 'aplica_mecanica', 'fecha_mecanica', 'aplica_lavado', 'fecha_lavado', 'fecha_entrega_interna', 'asignado_hojalateria', 'asignado_preparacion', 'asignado_pintura', 'asignado_armado', 'asignado_detallado', 'asignado_mecanica', 'asignado_lavado')
+                                ->whereIn('estatus_id',['5', '6'])
+                                ->whereNotIn('estatusProceso_id', ['1','5', '9', '12'])
                                 ->orderBy('id_aux')
                                 ->get();
 
-        //dd($proceso_taller[81]);
+        //dd($proceso_taller->find(2801112021)->personalHojalateria->nombre);
 
         return view('administracion.procesoTaller.l_procesoTaller', compact('proceso_taller'));
     }
@@ -176,7 +169,7 @@ class VehiculoController extends Controller
         
     }
 
-    /**$vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+    /**$vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status'])
                             ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro')
                             ->where('estatus_id','5')
                             ->orWhere('estatus_id','6')
@@ -220,6 +213,7 @@ class VehiculoController extends Controller
                 $vehiculo->id_cliente = $uc[0]['id'];
                 $vehiculo->id_asesor = $request->asesor;
                 $vehiculo->estatus_id = $request->estatus;
+                $vehiculo->estatusProceso_id = $request->proceso;
                 $vehiculo->fecha_llegada = date("Ymd");
                 $vehiculo->marca_id = $request->marca;
                 $vehiculo->linea_id = $request->submarca;
@@ -236,7 +230,7 @@ class VehiculoController extends Controller
                 }
 
                 if ($vehiculo->save()) {
-                    $u_vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+                    $u_vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'estatusProceso:id,estatus'])
                                         ->where('id', $request->expediente)->first();
 
                     $est = Estatus::where('id', $u_vehiculo->estatus_id)->first();
@@ -266,7 +260,9 @@ class VehiculoController extends Controller
                     $text.= "\n";
                     $text.= "Aseguradora ->  ".$u_vehiculo->clientes->nombre??'';
                     $text.= "\n";
-                    $text.= "Estatus ->  ".$est->status??'';
+                    $text.= "Ubicación ->  ".$est->status??'';
+                    $text.= "\n";
+                    $text.= "Proceso ->  ".ucfirst($u_vehiculo->estatusProceso->estatus)??'';
                     $text.= "\n";
                     $text.= "Nivel de daño ->  ".$u_vehiculo->nivelDano->nivel??'';
                     $text.= "\n";
@@ -277,7 +273,7 @@ class VehiculoController extends Controller
                         $text.= "\n";
                     }
 
-                    if ($u_vehiculo->estatus_id != 9) {
+                    if ($u_vehiculo->estatusProceso_id != 1) {
                         Telegram::sendMessage([
                             'chat_id' => env('TELEGRAM_CHANNEL_ID', ''),
                             'parse_mode' => 'HTML',
@@ -342,9 +338,9 @@ class VehiculoController extends Controller
     }
     
     public function mlmca(Request $request){
-        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'estatusProceso:id,estatus'])
                             ->where('id', $request['id'])
-                            ->select('modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'estatus_id', 'proveedor_1')
+                            ->select('modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'estatus_id', 'proveedor_1', 'estatusProceso_id')
                             ->first();
 
         $r = Vehiculo::select('id_aux')
@@ -361,11 +357,10 @@ class VehiculoController extends Controller
     }
 
     public function indexDocs(){
-        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
-                            ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro')
-                            ->where('estatus_id','5')
-                            ->orWhere('estatus_id','6')
-                            ->orWhere('estatus_id','7')
+        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'estatusProceso:id,estatus'])
+                            ->select('id', 'estatus_id', 'estatusProceso_id', 'modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'id_aux')
+                            ->whereIn('estatus_id',['5', '6'])
+                            ->whereNotIn('estatusProceso_id', ['1', '5', '9', '12'])
                             ->orderBy('id_aux')
                             ->get();
         //dd($vehiculos);
@@ -373,13 +368,14 @@ class VehiculoController extends Controller
     }
 
     public function create_pdfentrega(Request $request){
-        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno','estatus:id,status'])
+        //dd($request->exp);
+        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno','estatusV:id,status'])
                             ->where('id_aux', $request->exp)
                             ->select('modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'estatus_id', 'no_siniestro', 'id', 'fecha_llegada', 'fecha_valuacion')
                             ->first();
-
+        //dd($vehiculo);
         $cliente = Clientes::select('*')->where('id', $request->exp)->first();
-
+        
         $dia = date('d');
         $mes = date('m');
         $ano = date('y');
@@ -726,11 +722,10 @@ class VehiculoController extends Controller
     }
 
     public function index_entrega_estatus_vehiculo(){
-        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
-                            ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller')
-                            ->where('estatus_id','5')
-                            ->orWhere('estatus_id','6')
-                            ->orWhere('estatus_id','7')
+        $vehiculos = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'estatusProceso:id,estatus'])
+                            ->select('id', 'estatus_id', 'estatusProceso_id', 'modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_llegada')
+                            ->whereIn('estatus_id',['5', '6'])
+                            ->whereNotIn('estatusProceso_id', ['1', '5', '9', '12'])
                             ->orderBy('id_aux')
                             ->get();
 
@@ -738,62 +733,66 @@ class VehiculoController extends Controller
     }
 
     public function u_cambiarEstatus(Vehiculo $vehiculo){
-        $list_estatus = Estatus::all();
+        $list_estatus = Estatus::all()->where('deleted_at', null);
+        $list_estatusProceso = EstatusEstado::all()->where('deleted_at', null)->where('ubicacion_id', $vehiculo->estatus_id);
 
-        $e_actual = Estatus::select('status')
-                            ->where('id', $vehiculo['estatus_id'])
-                            ->first();
-
-        return view('entrega.estatus.u_cambiarEstatus', compact(['vehiculo','list_estatus', 'e_actual']));
+        //dd($vehiculo->estatusV);
+        return view('entrega.estatus.u_cambiarEstatus', compact(['vehiculo','list_estatus', 'list_estatusProceso']));
     }
 
     public function update_cambiarEstatus(Request $request, Vehiculo $vehiculo){
-        if ($request->e_nuevo == 0) {
+        if ($request->e_nuevo == 0 || $request->e_nuevoProceso == 0) {
             return redirect()->route('l_cambiarEstatus')->with('warning','Selecciona el estatus del Vehiculo con Expediente ->"'. $vehiculo->id . '".');
         } else {
-            $vehiculo->estatus_id = $request->e_nuevo;
-            $vehiculo->fecha_salida_taller = $request->fecha_salida_taller;
-            if ($vehiculo->save()) {
-                $est = Estatus::where('id', $vehiculo->estatus_id)->first();
+            if ($request->e_nuevo == 5 && $request->e_nuevoProceso == 9) {
+                $vehiculo->estatus_id = $request->e_nuevo;
+                $vehiculo->estatusProceso_id = $request->e_nuevoProceso;
+                $vehiculo->fecha_salida_taller = $request->fecha_salida_taller;
+                if ($vehiculo->save()) {
+                    //$est = Estatus::where('id', $vehiculo->estatus_id)->first();
 
-                $text = "Vehiculo Entregado el dia -> ".Carbon::now()->format('Y-m-d H:i:s')."\n";
-                $text.= "Marca ->  ".$vehiculo->marcas->marca??'';
-                $text.= "\n";
-                $text.= "Linea ->  ".$vehiculo->submarcas->submarca??'';
-                $text.= "\n";
-                $text.= "Color ->  ".$vehiculo->color??'';
-                $text.= "\n";
-                $text.= "Modelo ->  ".$vehiculo->modelo??'';
-                $text.= "\n";
-                $text.= "Placas ->  ".$vehiculo->placas??'';
-                $text.= "\n";
-                $text.= "Siniestro ->  ".$vehiculo->no_siniestro??'';
-                $text.= "\n";
-                $text.= "Aseguradora ->  ".$vehiculo->clientes->nombre??'';
-                $text.= "\n";
-                $text.= "Estatus ->  ".$est->status??'';
+                    $text = "Vehiculo Entregado el dia -> ".Carbon::now()->format('Y-m-d H:i:s')."\n";
+                    $text.= "Marca ->  ".$vehiculo->marcas->marca??'';
+                    $text.= "\n";
+                    $text.= "Linea ->  ".$vehiculo->submarcas->submarca??'';
+                    $text.= "\n";
+                    $text.= "Color ->  ".$vehiculo->color??'';
+                    $text.= "\n";
+                    $text.= "Modelo ->  ".$vehiculo->modelo??'';
+                    $text.= "\n";
+                    $text.= "Placas ->  ".$vehiculo->placas??'';
+                    $text.= "\n";
+                    $text.= "Siniestro ->  ".$vehiculo->no_siniestro??'';
+                    $text.= "\n";
+                    $text.= "Aseguradora ->  ".$vehiculo->clientes->nombre??'';
+                    $text.= "\n";
+                    $text.= "Ubicacion ->  ".$vehiculo->estatusV->status??'';
+                    $text.= "\n";
+                    $text.= "Proceso ->  ".ucfirst($vehiculo->estatusProceso->estatus)??'';
 
-                Telegram::sendMessage([
-                    'chat_id' => env('TELEGRAM_CHANNEL_ID', ''),
-                    'parse_mode' => 'HTML',
-                    'text' => $text
-                ]);
+                    Telegram::sendMessage([
+                        'chat_id' => env('TELEGRAM_CHANNEL_ID', ''),
+                        'parse_mode' => 'HTML',
+                        'text' => $text
+                    ]);
 
-                return redirect()->route('l_cambiarEstatus')->with('success','Estatus del Vehiculo Actualizado.');
+                    return redirect()->route('l_cambiarEstatus')->with('success','Estatus del Vehiculo Actualizado.');
+                } else {
+                    return redirect()->route('l_cambiarEstatus')->with('error','Estatus del Vehiculo no Actualizado.');
+                }
             } else {
-                return redirect()->route('l_cambiarEstatus')->with('error','Estatus del Vehiculo no Actualizado.');
+                return redirect()->route('l_cambiarEstatus')->with('warning','Solo se pueden dar como entregados, si se desea cambiar a otro estatus hacerlo en la Administracion -> Bitacora');
             }
-            
         }
         
     }
 
     public function u_valuaciones(Vehiculo $vehiculo){
-        $list_estatus = Estatus::all();
+        $list_estatus = Estatus::all()
+                                ->whereNull('deleted_at');
 
-        $e_actual = Estatus::select('status')
-                            ->where('id', $vehiculo['estatus_id'])
-                            ->first();
+        $list_estatusProceso = EstatusEstado::all()
+                                            ->where('ubicacion_id', $vehiculo->estatus_id);
 
         if ($vehiculo->fecha_valuacion == "" || $vehiculo->fecha_valuacion == " " || $vehiculo->fecha_valuacion == NULL || $vehiculo->fecha_valuacion == null) {
             //$fecha_ll = new DateTime($value->getFechaLlegada());
@@ -809,7 +808,7 @@ class VehiculoController extends Controller
             $difee = $vehiculo->diferencia_tres_dias;
         }
 
-        return view('administracion.valuaciones.u_valuaciones', compact(['vehiculo', 'list_estatus', 'e_actual', 'difee']));
+        return view('administracion.valuaciones.u_valuaciones', compact(['vehiculo', 'list_estatus', 'difee', 'list_estatusProceso']));
     }
 
     public function u_refaccionesAdmon(Vehiculo $vehiculo){
@@ -838,7 +837,7 @@ class VehiculoController extends Controller
 
     public function update_valuaciones(Vehiculo $vehiculo, Request $request){
         //dd($vehiculo, $request);
-        if ($vehiculo->estatus_id == 9) {
+        if ($vehiculo->estatus_id == 6 && $vehiculo->estatusProceso_id == 1) {
             $isOrdenAdmicion = true;
         } else {
             $isOrdenAdmicion = false;
@@ -869,7 +868,8 @@ class VehiculoController extends Controller
         if ($request->fecha_autorizacion != "" && $request->cantidadfin != 0) {
             $porcentaje = round(($request->cantidadfin * 100)/$request->cantidadini, 2);
             $vehiculo->estatus_id = $request->estatus;
-            if ($request->estatus == 7) {
+            $vehiculo->estatusProceso_id = $request->estatusProceso;
+            if ($request->estatus == 5 && $request->estatusProceso == 11) {
                 $vehiculo->refacciones_id = 6;
             }
             $vehiculo->no_siniestro = $request->no_reporte;
@@ -899,7 +899,8 @@ class VehiculoController extends Controller
             }
         } else {
             $vehiculo->estatus_id = $request->estatus;
-            if ($request->estatus == 7) {
+            $vehiculo->estatusProceso_id = $request->estatusProceso;
+            if ($request->estatus == 5 && $request->estatusProceso == 11) {
                 $vehiculo->refacciones_id = 6;
             }
             $vehiculo->no_siniestro = $request->no_reporte;
@@ -918,9 +919,9 @@ class VehiculoController extends Controller
 
             if ($vehiculo->save()) {
 
-                if ($isOrdenAdmicion && ($request->estatus == 5 || $request->estatus == 6)) {
+                if ($isOrdenAdmicion && ($request->estatus == 5)) {
 
-                    $u_vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+                    $u_vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'estatusProceso:id,estatus'])
                                             ->where('id', $vehiculo->id)->first();
     
                     $est = Estatus::where('id', $u_vehiculo->estatus_id)->first();
@@ -954,7 +955,9 @@ class VehiculoController extends Controller
                     $text.= "\n";
                     $text.= "Aseguradora ->  ".$u_vehiculo->clientes->nombre??'';
                     $text.= "\n";
-                    $text.= "Estatus ->  ".$est->status??'';
+                    $text.= "Ubicacion ->  ".$u_vehiculo->estatusV->status??'';
+                    $text.= "\n";
+                    $text.= "Proceso ->  ".ucfirst($u_vehiculo->estatusProceso->estatus)??'';
                     $text.= "\n";
                     $text.= "Nivel de daño ->  ".$u_vehiculo->nivelDano->nivel??'';
                     $text.= "\n";
@@ -1192,11 +1195,11 @@ class VehiculoController extends Controller
     }
 
     public function u_valuacionesPA(Vehiculo $vehiculo){
-        $list_estatus = Estatus::all();
+        $list_estatus = Estatus::all()
+                                ->whereNull('deleted_at');
 
-        $e_actual = Estatus::select('status')
-                            ->where('id', $vehiculo['estatus_id'])
-                            ->first();
+        $list_estatusProceso = EstatusEstado::all()
+                                            ->where('ubicacion_id', $vehiculo->estatus_id);
 
         if ($vehiculo->fecha_valuacion == "" || $vehiculo->fecha_valuacion == " " || $vehiculo->fecha_valuacion == NULL || $vehiculo->fecha_valuacion == null) {
             //$fecha_ll = new DateTime($value->getFechaLlegada());
@@ -1212,11 +1215,16 @@ class VehiculoController extends Controller
             $difee = $vehiculo->diferencia_tres_dias;
         }
 
-        return view('administracion.procesoAdmistrativo.u_valuacionesPAdmon', compact(['vehiculo', 'list_estatus', 'e_actual', 'difee']));
+        return view('administracion.procesoAdmistrativo.u_valuacionesPAdmon', compact(['vehiculo', 'list_estatus', 'list_estatusProceso', 'difee']));
     }
 
     public function update_valuacionesPA(Vehiculo $vehiculo, Request $request){
         //dd($vehiculo, $request);
+        if ($vehiculo->estatus_id == 6 && $vehiculo->estatusProceso_id == 1) {
+            $isOrdenAdmicion = true;
+        } else {
+            $isOrdenAdmicion = false;
+        }
 
         switch ($request->estatus) {
             case 5:
@@ -1239,6 +1247,10 @@ class VehiculoController extends Controller
         if ($request->fecha_autorizacion != "" && $request->cantidadfin != 0) {
             $porcentaje = round(($request->cantidadfin * 100)/$request->cantidadini, 2);
             $vehiculo->estatus_id = $request->estatus;
+            $vehiculo->estatusProceso_id = $request->estatusProceso;
+            if ($request->estatus == 5 && $request->estatusProceso == 11) {
+                $vehiculo->refacciones_id = 6;
+            }
             $vehiculo->fecha_llegada_taller = $request->fecha_llegada;
             $vehiculo->fecha_valuacion = $request->fecha_envio;
             //$vehiculo->diferencia_tres_dias = $request->diferencia;
@@ -1264,6 +1276,10 @@ class VehiculoController extends Controller
             }
         } else {
             $vehiculo->estatus_id = $request->estatus;
+            $vehiculo->estatusProceso_id = $request->estatusProceso;
+            if ($request->estatus == 5 && $request->estatusProceso == 11) {
+                $vehiculo->refacciones_id = 6;
+            }
             $vehiculo->fecha_llegada_taller = $request->fecha_llegada;
             $vehiculo->fecha_valuacion = $request->fecha_envio;
             $vehiculo->diferencia_tres_dias = $request->diferencia;
@@ -1278,6 +1294,58 @@ class VehiculoController extends Controller
             }
 
             if ($vehiculo->save()) {
+                if ($isOrdenAdmicion && ($request->estatus == 5)) {
+
+                    $u_vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'estatusProceso:id,estatus'])
+                                            ->where('id', $vehiculo->id)->first();
+    
+                    $est = Estatus::where('id', $u_vehiculo->estatus_id)->first();
+
+                    $uc = Clientes::select('id', 'nombre', 'telefono', 'correo')
+                                    ->where('id', $u_vehiculo->id_aux)
+                                    ->get();
+    
+                    $text = "Vehiculo Ingresado a travez de Orden de Admición el dia -> ".Carbon::now()->format('Y-m-d H:i:s')."\n";
+                    $text.= "<b>Cliente</b>\n";
+                    $text.= "Nombre ->  ".$uc[0]['nombre']??'';
+                    $text.= "\n";
+                    $text.= "Telefono ->  ".$uc[0]['telefono']??'';
+                    $text.= "\n";
+                    $text.= "Correo ->  ".$uc[0]['correo']??'';
+                    $text.= "\n";
+                    $text.= "<b>Vehiculo</b>\n";
+                    $text.= "Marca ->  ".$u_vehiculo->marcas->marca??'';
+                    $text.= "\n";
+                    $text.= "Linea ->  ".$u_vehiculo->submarcas->submarca??'';
+                    $text.= "\n";
+                    $text.= "Color ->  ".$u_vehiculo->color??'';
+                    $text.= "\n";
+                    $text.= "Modelo ->  ".$u_vehiculo->modelo??'';
+                    $text.= "\n";
+                    $text.= "Placas ->  ".$u_vehiculo->placas??'';
+                    $text.= "\n";
+                    $text.= "Siniestro ->  ".$u_vehiculo->no_siniestro??'';
+                    $text.= "\n";
+                    $text.= "Asesor ->  ".$u_vehiculo->asesores->nombre." ".$u_vehiculo->asesores->a_paterno." ".$u_vehiculo->asesores->a_materno;
+                    $text.= "\n";
+                    $text.= "Aseguradora ->  ".$u_vehiculo->clientes->nombre??'';
+                    $text.= "\n";
+                    $text.= "Ubicacion ->  ".$u_vehiculo->estatusV->status??'';
+                    $text.= "\n";
+                    $text.= "Proceso ->  ".ucfirst($u_vehiculo->estatusProceso->estatus)??'';
+                    $text.= "\n";
+                    $text.= "Nivel de daño ->  ".$u_vehiculo->nivelDano->nivel??'';
+                    $text.= "\n";
+                    $text.= "Forma de arribo ->  ".$u_vehiculo->formaArribo->forma_arribo??'';
+                    $text.= "\n";
+    
+                    Telegram::sendMessage([
+                        'chat_id' => env('TELEGRAM_CHANNEL_ID', ''),
+                        'parse_mode' => 'HTML',
+                        'text' => $text
+                    ]);
+                }
+
                 return redirect()->route('l_procesoAdministrativo')->with('success','Valuacion Actualizada.');
             } else {
                 return redirect()->route('l_procesoAdministrativo')->with('error','Valuacion no Actualizada.');
@@ -1332,60 +1400,66 @@ class VehiculoController extends Controller
     public function indexMetricos(){
         //Total de vehiculos entregados por mes
         $total_V_EMes = DB::select("SELECT 
-                                        COUNT(estatus_id) as Total 
+                                        COUNT(estatusProceso_id) as Total 
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        estatus_id = 3 
+                                        estatus_id = 5
+                                    AND estatusProceso_id = 9
                                     AND MONTH(fecha_salida_taller) = MONTH(NOW())
                                     AND YEAR(fecha_salida_taller) = YEAR(NOW())");
 
         $total_V_EMesQ = DB::select("SELECT 
-                                        COUNT(estatus_id) as Qualitas 
+                                        COUNT(estatusProceso_id) as Qualitas 
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        estatus_id = 3 
+                                        estatus_id = 5
+                                    AND estatusProceso_id = 9 
                                     AND cliente_id = 4
                                     AND MONTH(fecha_salida_taller) = MONTH(NOW())
                                     AND YEAR(fecha_salida_taller) = YEAR(NOW())"); 
 
         $total_V_EMesG = DB::select("SELECT 
-                                        COUNT(estatus_id) as GNP 
+                                        COUNT(estatusProceso_id) as GNP 
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        estatus_id = 3 
+                                        estatus_id = 5
+                                    AND estatusProceso_id = 9
                                     AND cliente_id = 1
                                     AND MONTH(fecha_salida_taller) = MONTH(NOW())
                                     AND YEAR(fecha_salida_taller) = YEAR(NOW())");
 
         $total_V_EMesP = DB::select("SELECT 
-                                        COUNT(estatus_id) as Particular 
+                                        COUNT(estatusProceso_id) as Particular 
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        estatus_id = 3 
+                                        estatus_id = 5
+                                    AND estatusProceso_id = 9 
                                     AND cliente_id = 3
                                     AND MONTH(fecha_salida_taller) = MONTH(NOW())
                                     AND YEAR(fecha_salida_taller) = YEAR(NOW())");
 
         $total_V_EMesBBVA = DB::select("SELECT 
-                                        COUNT(estatus_id) as Bancomer 
+                                        COUNT(estatusProceso_id) as Bancomer 
                                     FROM 
                                         vehiculo 
                                     WHERE 
-                                        estatus_id = 3 
+                                        estatus_id = 5
+                                    AND estatusProceso_id = 9 
                                     AND cliente_id = 5
                                     AND MONTH(fecha_salida_taller) = MONTH(NOW())
                                     AND YEAR(fecha_salida_taller) = YEAR(NOW())");
 
         $total_V_EMesBanorte = DB::select("SELECT 
-                                            COUNT(estatus_id) as Banorte 
+                                            COUNT(estatusProceso_id) as Banorte 
                                         FROM 
                                             vehiculo 
                                         WHERE 
-                                            estatus_id = 3 
+                                            estatus_id = 5
+                                        AND estatusProceso_id = 9 
                                         AND cliente_id = 6
                                         AND MONTH(fecha_salida_taller) = MONTH(NOW())
                                         AND YEAR(fecha_salida_taller) = YEAR(NOW())");
@@ -1426,7 +1500,8 @@ class VehiculoController extends Controller
                                     WHERE 
                                         MONTH(fecha_llegada) = MONTH(NOW())
                                     AND YEAR(fecha_llegada) = YEAR(NOW())
-                                    AND (estatus_id = 5  OR estatus_id = 6)");
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
         $total_V_RMesQ = DB::select("SELECT 
                                         COUNT(id_aux) as Qualitas 
@@ -1435,7 +1510,9 @@ class VehiculoController extends Controller
                                     WHERE
                                         cliente_id = 4
                                     AND MONTH(fecha_llegada) = MONTH(NOW())
-                                    AND YEAR(fecha_llegada) = YEAR(NOW())");
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
         $total_V_RMesG = DB::select("SELECT 
                                         COUNT(id_aux) as GNP 
@@ -1444,7 +1521,9 @@ class VehiculoController extends Controller
                                     WHERE
                                         cliente_id = 1
                                     AND MONTH(fecha_llegada) = MONTH(NOW())
-                                    AND YEAR(fecha_llegada) = YEAR(NOW())");
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
         $total_V_RMesP = DB::select("SELECT 
                                         COUNT(id_aux) as Particular 
@@ -1453,7 +1532,9 @@ class VehiculoController extends Controller
                                     WHERE
                                         cliente_id = 3
                                     AND MONTH(fecha_llegada) = MONTH(NOW())
-                                    AND YEAR(fecha_llegada) = YEAR(NOW())");
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
         $total_V_RMesBBVA = DB::select("SELECT 
                                         COUNT(id_aux) as Bancomer 
@@ -1462,7 +1543,9 @@ class VehiculoController extends Controller
                                     WHERE
                                         cliente_id = 5
                                     AND MONTH(fecha_llegada) = MONTH(NOW())
-                                    AND YEAR(fecha_llegada) = YEAR(NOW())");
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
         $total_V_RMesBanorte = DB::select("SELECT 
                                             COUNT(id_aux) as Banorte 
@@ -1472,7 +1555,9 @@ class VehiculoController extends Controller
                                             cliente_id = 6
                                         AND MONTH(fecha_llegada) = MONTH(NOW())
                                         AND YEAR(fecha_llegada) = YEAR(NOW())
-                                        AND (estatus_id = 5  OR estatus_id = 6)");
+                                        AND (estatus_id = 5  OR estatus_id = 6)
+                                        AND (estatus_id = 5  OR estatus_id = 6)
+                                        AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
         $tabla_VRecibidos = array(
                                 array(
@@ -1503,102 +1588,113 @@ class VehiculoController extends Controller
 
         //tabla de 10 semanas de vehiculos entregados
         $semana0 = DB::select('SELECT 
-                                    COUNT(estatus_id) as entregados 
+                                    COUNT(estatusProceso_id) as entregados 
                                 FROM 
                                     vehiculo 
                                 WHERE 
                                     WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())
-                                AND estatus_id = 3
+                                AND estatus_id = 5
+                                AND estatusProceso_id = 9
                                 AND YEAR(fecha_salida_taller) = YEAR(NOW())');
 
         $semana1 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(estatusProceso_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-1
-                            AND estatus_id = 3
+                            AND estatus_id = 5
+                            AND estatusProceso_id = 9
                             AND YEAR(fecha_salida_taller) = YEAR(NOW())');
 
         $semana2 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(estatusProceso_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-2
-                            AND estatus_id = 3
+                            AND estatus_id = 5
+                            AND estatusProceso_id = 9
                             AND YEAR(fecha_salida_taller) = YEAR(NOW())');
 
         $semana3 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(estatusProceso_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-3
-                            AND estatus_id = 3
+                            AND estatus_id = 5
+                            AND estatusProceso_id = 9
                             AND YEAR(fecha_salida_taller) = YEAR(NOW())');
 
         $semana4 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(estatusProceso_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-4
-                            AND estatus_id = 3
+                            AND estatus_id = 5
+                            AND estatusProceso_id = 9
                             AND YEAR(fecha_salida_taller) = YEAR(NOW())');
 
         $semana5 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(estatusProceso_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-5
-                            AND estatus_id = 3
+                            AND estatus_id = 5
+                            AND estatusProceso_id = 9
                             AND YEAR(fecha_salida_taller) = YEAR(NOW())');
 
         $semana6 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(estatusProceso_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-6
-                            AND estatus_id = 3
+                            AND estatus_id = 5
+                            AND estatusProceso_id = 9
                             AND YEAR(fecha_salida_taller) = YEAR(NOW())');
 
         $semana7 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(estatusProceso_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-7
-                            AND estatus_id = 3
+                            AND estatus_id = 5
+                            AND estatusProceso_id = 9
                             AND YEAR(fecha_salida_taller) = YEAR(NOW())');
 
         $semana8 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(estatusProceso_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-8
-                            AND estatus_id = 3
+                            AND estatus_id = 5
+                            AND estatusProceso_id = 9
                             AND YEAR(fecha_salida_taller) = YEAR(NOW())');
                                 
         $semana9 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(estatusProceso_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-9
-                            AND estatus_id = 3
+                            AND estatus_id = 5
+                            AND estatusProceso_id = 9
                             AND YEAR(fecha_salida_taller) = YEAR(NOW())'); 
 
         $semana10 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(estatusProceso_id) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-10
-                            AND estatus_id = 3
+                            AND estatus_id = 5
+                            AND estatusProceso_id = 9
                             AND YEAR(fecha_salida_taller) = YEAR(NOW())');
 
         $tabla_VEntregados10sem = array(
@@ -1608,103 +1704,114 @@ class VehiculoController extends Controller
 
         //tabla de 10 semanas de vehiculos recibidos
         $semanar0 = DB::select('SELECT 
-                                    COUNT(estatus_id) as entregados 
+                                    COUNT(id_aux) as entregados 
                                 FROM 
                                     vehiculo 
                                 WHERE 
                                     WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())
                                 AND YEAR(fecha_llegada) = YEAR(NOW())
-                                AND (estatus_id = 5  OR estatus_id = 6)');
+                                AND (estatus_id = 5  OR estatus_id = 6)
+                                AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
         $semanar1 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(id_aux) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-1
                             AND YEAR(fecha_llegada) = YEAR(NOW())
-                            AND (estatus_id = 5  OR estatus_id = 6)');
+                            AND (estatus_id = 5  OR estatus_id = 6)
+                            AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
         $semanar2 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(id_aux) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-2
                             AND YEAR(fecha_llegada) = YEAR(NOW())
-                            AND (estatus_id = 5  OR estatus_id = 6)');
+                            AND (estatus_id = 5  OR estatus_id = 6)
+                            AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
         $semanar3 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(id_aux) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-3
                             AND YEAR(fecha_llegada) = YEAR(NOW())
-                            AND (estatus_id = 5  OR estatus_id = 6)');
+                            AND (estatus_id = 5  OR estatus_id = 6)
+                            AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
         $semanar4 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(id_aux) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-4
                             AND YEAR(fecha_llegada) = YEAR(NOW())
-                            AND (estatus_id = 5  OR estatus_id = 6)');
+                            AND (estatus_id = 5  OR estatus_id = 6)
+                            AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
         $semanar5 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(id_aux) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-5
                             AND YEAR(fecha_llegada) = YEAR(NOW())
-                            AND (estatus_id = 5  OR estatus_id = 6)');
+                            AND (estatus_id = 5  OR estatus_id = 6)
+                            AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
         $semanar6 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(id_aux) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-6
                             AND YEAR(fecha_llegada) = YEAR(NOW())
-                            AND (estatus_id = 5  OR estatus_id = 6)');
+                            AND (estatus_id = 5  OR estatus_id = 6)
+                            AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
         $semanar7 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(id_aux) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-7
                             AND YEAR(fecha_llegada) = YEAR(NOW())
-                            AND (estatus_id = 5  OR estatus_id = 6)');
+                            AND (estatus_id = 5  OR estatus_id = 6)
+                            AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
         $semanar8 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(id_aux) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-8
                             AND YEAR(fecha_llegada) = YEAR(NOW())
-                            AND (estatus_id = 5  OR estatus_id = 6)');
+                            AND (estatus_id = 5  OR estatus_id = 6)
+                            AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
                                 
         $semanar9 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(id_aux) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-9
                             AND YEAR(fecha_llegada) = YEAR(NOW())
-                            AND (estatus_id = 5  OR estatus_id = 6)'); 
+                            AND (estatus_id = 5  OR estatus_id = 6)
+                            AND (estatusProceso_id != 1 OR estatusProceso_id != 9)'); 
 
         $semanar10 = DB::select('SELECT 
-                                COUNT(estatus_id) as entregados 
+                                COUNT(id_aux) as entregados 
                             FROM 
                                 vehiculo 
                             WHERE 
                                 WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-10
                             AND YEAR(fecha_llegada) = YEAR(NOW())
-                            AND (estatus_id = 5  OR estatus_id = 6)');
+                            AND (estatus_id = 5  OR estatus_id = 6)
+                            AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
         $tabla_VRecibidos10sem = array(
             array('Semana 10', 'Semana 9', 'Semana 8', 'Semana 7', 'Semana 6', 'Semana 5', 'Semana 4', 'Semana 3', 'Semana 2', 'Semana 1', 'Semana Actual'),
@@ -1712,9 +1819,20 @@ class VehiculoController extends Controller
         );
 
         //vehiculos entregados el dia anterior
-        $v_entretagos_ayer = Vehiculo::whereDate('fecha_salida_taller', Carbon::now()->subDay()->format('Y-m-d'))->where('estatus_id', 3)->count();
+        $v_entretagos_ayer = Vehiculo::whereDate('fecha_salida_taller', Carbon::now()->subDay()->format('Y-m-d'))
+                                    ->where('estatus_id', 5)
+                                    ->where('estatusProceso_id', 9)
+                                    ->count();
+
         $ayer = Carbon::now()->subDay()->format('Y-m-d');
-        $v_recibidos_ayer = DB::select("SELECT COUNT(fecha_llegada) as recibidos FROM vehiculo WHERE fecha_llegada = '$ayer' AND (estatus_id = 5  OR estatus_id = 6)");
+        $v_recibidos_ayer = DB::select("SELECT 
+                                            COUNT(fecha_llegada) as recibidos 
+                                        FROM 
+                                            vehiculo 
+                                        WHERE fecha_llegada = '$ayer' 
+                                        AND (estatus_id = 5  OR estatus_id = 6)
+                                        AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
+
         //dd($v_recibidos_ayer[0]);
         //$v_recibidos_ayer = Vehiculo::whereDate('fecha_llegada',  Carbon::now()->subDay()->format('Y-m-d'))->where('estatus_id', 5)->orWhere('estatus_id', 6)->count();;
 
@@ -1727,11 +1845,12 @@ class VehiculoController extends Controller
         //Total de vehiculos entregados por mes
         if (isset($request->catalago_ventregados)) {
             $total_V_EMes = DB::select("SELECT 
-                                            COUNT(estatus_id) as Total 
+                                            COUNT(estatusProceso_id) as Total 
                                         FROM 
                                             vehiculo 
                                         WHERE 
-                                            estatus_id = 3 
+                                            estatus_id = 5
+                                        AND estatusProceso_id = 9 
                                         AND MONTH(fecha_salida_taller) = MONTH(NOW())
                                         AND YEAR(fecha_salida_taller) = YEAR(NOW())");
 
@@ -1740,47 +1859,52 @@ class VehiculoController extends Controller
                                         FROM 
                                             vehiculo 
                                         WHERE 
-                                            estatus_id = 3 
+                                            estatus_id = 5
+                                        AND estatusProceso_id = 9
                                         AND cliente_id = 4
                                         AND MONTH(fecha_salida_taller) = MONTH(NOW())
                                         AND YEAR(fecha_salida_taller) = YEAR(NOW())"); 
 
             $total_V_EMesG = DB::select("SELECT 
-                                            COUNT(estatus_id) as GNP 
+                                            COUNT(estatusProceso_id) as GNP 
                                         FROM 
                                             vehiculo 
                                         WHERE 
-                                            estatus_id = 3 
+                                            estatus_id = 5
+                                        AND estatusProceso_id = 9 
                                         AND cliente_id = 1
                                         AND MONTH(fecha_salida_taller) = MONTH(NOW())
                                         AND YEAR(fecha_salida_taller) = YEAR(NOW())");
 
             $total_V_EMesP = DB::select("SELECT 
-                                            COUNT(estatus_id) as Particular 
+                                            COUNT(estatusProceso_id) as Particular 
                                         FROM 
                                             vehiculo 
                                         WHERE 
-                                            estatus_id = 3 
+                                            estatus_id = 5
+                                        AND estatusProceso_id = 9
                                         AND cliente_id = 3
                                         AND MONTH(fecha_salida_taller) = MONTH(NOW())
                                         AND YEAR(fecha_salida_taller) = YEAR(NOW())");
 
             $total_V_EMesBBVA = DB::select("SELECT 
-                                                COUNT(estatus_id) as Bancomer 
+                                                COUNT(estatusProceso_id) as Bancomer 
                                             FROM 
                                                 vehiculo 
                                             WHERE 
-                                                estatus_id = 3 
+                                                estatus_id = 5
+                                            AND estatusProceso_id = 9 
                                             AND cliente_id = 5
                                             AND MONTH(fecha_salida_taller) = MONTH(NOW())
                                             AND YEAR(fecha_salida_taller) = YEAR(NOW())");
 
             $total_V_EMesBanorte = DB::select("SELECT 
-                                                    COUNT(estatus_id) as Banorte 
+                                                    COUNT(estatusProceso_id) as Banorte 
                                                 FROM 
                                                     vehiculo 
                                                 WHERE 
-                                                    estatus_id = 3 
+                                                    estatus_id = 5
+                                                AND estatusProceso_id = 9
                                                 AND cliente_id = 6
                                                 AND MONTH(fecha_salida_taller) = MONTH(NOW())
                                                 AND YEAR(fecha_salida_taller) = YEAR(NOW())");
@@ -1804,7 +1928,8 @@ class VehiculoController extends Controller
                                     WHERE 
                                         MONTH(fecha_llegada) = MONTH(NOW())
                                     AND YEAR(fecha_llegada) = YEAR(NOW())
-                                    AND (estatus_id = 5  OR estatus_id = 6)");
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
             $total_V_RMesQ = DB::select("SELECT 
                                             COUNT(id_aux) as Qualitas 
@@ -1813,7 +1938,8 @@ class VehiculoController extends Controller
                                         WHERE
                                             cliente_id = 4
                                         AND MONTH(fecha_llegada) = MONTH(NOW())
-                                        AND YEAR(fecha_llegada) = YEAR(NOW())");
+                                        AND YEAR(fecha_llegada) = YEAR(NOW())
+                                        AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
             $total_V_RMesG = DB::select("SELECT 
                                             COUNT(id_aux) as GNP 
@@ -1822,7 +1948,8 @@ class VehiculoController extends Controller
                                         WHERE
                                             cliente_id = 1
                                         AND MONTH(fecha_llegada) = MONTH(NOW())
-                                        AND YEAR(fecha_llegada) = YEAR(NOW())");
+                                        AND YEAR(fecha_llegada) = YEAR(NOW())
+                                        AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
             $total_V_RMesP = DB::select("SELECT 
                                             COUNT(id_aux) as Particular 
@@ -1831,7 +1958,8 @@ class VehiculoController extends Controller
                                         WHERE
                                             cliente_id = 3
                                         AND MONTH(fecha_llegada) = MONTH(NOW())
-                                        AND YEAR(fecha_llegada) = YEAR(NOW())");
+                                        AND YEAR(fecha_llegada) = YEAR(NOW())
+                                        AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
             $total_V_RMesBBVA = DB::select("SELECT 
                                             COUNT(id_aux) as Bancomer 
@@ -1840,7 +1968,8 @@ class VehiculoController extends Controller
                                         WHERE
                                             cliente_id = 5
                                         AND MONTH(fecha_llegada) = MONTH(NOW())
-                                        AND YEAR(fecha_llegada) = YEAR(NOW())");
+                                        AND YEAR(fecha_llegada) = YEAR(NOW())
+                                        AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
             $total_V_RMesBanorte = DB::select("SELECT 
                                                 COUNT(id_aux) as Banorte 
@@ -1850,7 +1979,8 @@ class VehiculoController extends Controller
                                                 cliente_id = 6
                                             AND MONTH(fecha_llegada) = MONTH(NOW())
                                             AND YEAR(fecha_llegada) = YEAR(NOW())
-                                            AND (estatus_id = 5  OR estatus_id = 6)");
+                                            AND (estatus_id = 5  OR estatus_id = 6)
+                                            AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
             $datos = array(
                 array('Qualitas', 'GNP', 'Particular', 'Bancomer', 'Banorte', 'Total'),
@@ -1866,63 +1996,69 @@ class VehiculoController extends Controller
         if (isset($request->catalago_ventregados) && isset($request->mes)) {
             $mes = $request->mes;
             $total_V_EMes = DB::select("SELECT 
-                                            COUNT(estatus_id) as Total 
+                                            COUNT(estatusProceso_id) as Total 
                                         FROM 
                                             vehiculo 
                                         WHERE 
-                                            estatus_id = 3 
+                                            estatus_id = 5
+                                        AND estatusProceso_id = 9 
                                         AND MONTH(fecha_salida_taller) = MONTH('$mes')
                                         AND YEAR(fecha_salida_taller) = YEAR('$mes')");
 
             $total_V_EMesQ = DB::select("SELECT 
-                                            COUNT(estatus_id) as Qualitas 
+                                            COUNT(estatusProceso_id) as Qualitas 
                                         FROM 
                                             vehiculo 
                                         WHERE 
-                                            estatus_id = 3 
+                                            estatus_id = 5
+                                        AND estatusProceso_id = 9
                                         AND cliente_id = 4
                                         AND MONTH(fecha_salida_taller) = MONTH('$mes')
                                         AND YEAR(fecha_salida_taller) = YEAR('$mes')"); 
 
             $total_V_EMesG = DB::select("SELECT 
-                                            COUNT(estatus_id) as GNP 
+                                            COUNT(estatusProceso_id) as GNP 
                                         FROM 
                                             vehiculo 
                                         WHERE 
-                                            estatus_id = 3 
+                                            estatus_id = 5
+                                        AND estatusProceso_id = 9
                                         AND cliente_id = 1
                                         AND MONTH(fecha_salida_taller) = MONTH('$mes')
                                         AND YEAR(fecha_salida_taller) = YEAR('$mes')");
 
             $total_V_EMesP = DB::select("SELECT 
-                                            COUNT(estatus_id) as Particular 
+                                            COUNT(estatusProceso_id) as Particular 
                                         FROM 
                                             vehiculo 
                                         WHERE 
-                                            estatus_id = 3 
+                                            estatus_id = 5
+                                        AND estatusProceso_id = 9
                                         AND cliente_id = 3
                                         AND MONTH(fecha_salida_taller) = MONTH('$mes')
                                         AND YEAR(fecha_salida_taller) = YEAR('$mes')");
 
             $total_V_EMesBBVA = DB::select("SELECT 
-                                                COUNT(estatus_id) as Bancomer 
+                                                COUNT(estatusProceso_id) as Bancomer 
                                             FROM 
                                                 vehiculo 
                                             WHERE 
-                                                estatus_id = 3 
+                                                estatus_id = 5
+                                            AND estatusProceso_id = 9
                                             AND cliente_id = 5
                                             AND MONTH(fecha_salida_taller) = MONTH('$mes')
                                             AND YEAR(fecha_salida_taller) = YEAR('$mes')");
 
             $total_V_EMesBanorte = DB::select("SELECT 
-                                                    COUNT(estatus_id) as Banorte 
-                                                FROM 
-                                                    vehiculo 
-                                                WHERE 
-                                                    estatus_id = 3 
-                                                AND cliente_id = 6
-                                                AND MONTH(fecha_salida_taller) = MONTH('$mes')
-                                                AND YEAR(fecha_salida_taller) = YEAR('$mes')");
+                                                    COUNT(estatusProceso_id) as Banorte 
+                                            FROM 
+                                                vehiculo 
+                                            WHERE 
+                                                estatus_id = 5
+                                            AND estatusProceso_id = 9
+                                            AND cliente_id = 6
+                                            AND MONTH(fecha_salida_taller) = MONTH('$mes')
+                                            AND YEAR(fecha_salida_taller) = YEAR('$mes')");
 
             $datos = array(
                 array('Qualitas', 'GNP', 'Particular', 'Bancomer', 'Banorte', 'Total'),
@@ -1944,7 +2080,8 @@ class VehiculoController extends Controller
                                     WHERE 
                                         MONTH(fecha_llegada) = MONTH('$mes')
                                     AND YEAR(fecha_llegada) = YEAR('$mes')
-                                    AND (estatus_id = 5  OR estatus_id = 6)");
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
             $total_V_RMesQ = DB::select("SELECT 
                                             COUNT(id_aux) as Qualitas 
@@ -1953,7 +2090,8 @@ class VehiculoController extends Controller
                                         WHERE
                                             cliente_id = 4
                                         AND MONTH(fecha_llegada) = MONTH('$mes')
-                                        AND YEAR(fecha_llegada) = YEAR('$mes')");
+                                        AND YEAR(fecha_llegada) = YEAR('$mes')
+                                        AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
             $total_V_RMesG = DB::select("SELECT 
                                             COUNT(id_aux) as GNP 
@@ -1962,7 +2100,8 @@ class VehiculoController extends Controller
                                         WHERE
                                             cliente_id = 1
                                         AND MONTH(fecha_llegada) = MONTH('$mes')
-                                        AND YEAR(fecha_llegada) = YEAR('$mes')");
+                                        AND YEAR(fecha_llegada) = YEAR('$mes')
+                                        AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
             $total_V_RMesP = DB::select("SELECT 
                                             COUNT(id_aux) as Particular 
@@ -1971,7 +2110,8 @@ class VehiculoController extends Controller
                                         WHERE
                                             cliente_id = 3
                                         AND MONTH(fecha_llegada) = MONTH('$mes')
-                                        AND YEAR(fecha_llegada) = YEAR('$mes')");
+                                        AND YEAR(fecha_llegada) = YEAR('$mes')
+                                        AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
             $total_V_RMesBBVA = DB::select("SELECT 
                                             COUNT(id_aux) as Bancomer 
@@ -1980,7 +2120,8 @@ class VehiculoController extends Controller
                                         WHERE
                                             cliente_id = 5
                                         AND MONTH(fecha_llegada) = MONTH('$mes')
-                                        AND YEAR(fecha_llegada) = YEAR('$mes')");
+                                        AND YEAR(fecha_llegada) = YEAR('$mes')
+                                        AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
             $total_V_RMesBanorte = DB::select("SELECT 
                                                 COUNT(id_aux) as Banorte 
@@ -1990,7 +2131,8 @@ class VehiculoController extends Controller
                                                 cliente_id = 6
                                             AND MONTH(fecha_llegada) = MONTH('$mes')
                                             AND YEAR(fecha_llegada) = YEAR('$mes')
-                                            AND (estatus_id = 5  OR estatus_id = 6)");
+                                            AND (estatus_id = 5  OR estatus_id = 6)
+                                            AND (estatusProceso_id != 1 OR estatusProceso_id != 9)");
 
             $datos = array(
                 array('Qualitas', 'GNP', 'Particular', 'Bancomer', 'Banorte', 'Total'),
@@ -2005,92 +2147,114 @@ class VehiculoController extends Controller
         if (isset($request->catalago_ventregados)) {
             //tabla de 10 semanas de vehiculos entregados
             $semana0 = DB::select('SELECT 
-                    COUNT(estatus_id) as entregados 
+                    COUNT(estatusProceso_id) as entregados 
                 FROM 
                     vehiculo 
                 WHERE 
                     WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())
-                AND estatus_id = 3');
+                AND YEAR(fecha_llegada) = YEAR(NOW())
+                AND estatus_id = 5
+                AND estatusProceso_id = 9');
 
             $semana1 = DB::select('SELECT 
-                COUNT(estatus_id) as entregados 
+                COUNT(estatusProceso_id) as entregados 
             FROM 
                 vehiculo 
             WHERE 
                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-1
-            AND estatus_id = 3');
+            AND YEAR(fecha_llegada) = YEAR(NOW())
+            AND estatus_id = 5
+            AND estatusProceso_id = 9');
 
             $semana2 = DB::select('SELECT 
-                COUNT(estatus_id) as entregados 
+                COUNT(estatusProceso_id) as entregados 
             FROM 
                 vehiculo 
             WHERE 
                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-2
-            AND estatus_id = 3');
+            AND YEAR(fecha_llegada) = YEAR(NOW())
+            AND estatus_id = 5
+            AND estatusProceso_id = 9');
 
             $semana3 = DB::select('SELECT 
-                COUNT(estatus_id) as entregados 
+                COUNT(estatusProceso_id) as entregados 
             FROM 
                 vehiculo 
             WHERE 
                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-3
-            AND estatus_id = 3');
+            AND YEAR(fecha_llegada) = YEAR(NOW())
+            AND estatus_id = 5
+            AND estatusProceso_id = 9');
 
             $semana4 = DB::select('SELECT 
-                COUNT(estatus_id) as entregados 
+                COUNT(estatusProceso_id) as entregados 
             FROM 
                 vehiculo 
             WHERE 
                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-4
-            AND estatus_id = 3');
+            AND YEAR(fecha_llegada) = YEAR(NOW())
+            AND estatus_id = 5
+            AND estatusProceso_id = 9');
 
             $semana5 = DB::select('SELECT 
-                COUNT(estatus_id) as entregados 
+                COUNT(estatusProceso_id) as entregados 
             FROM 
                 vehiculo 
             WHERE 
                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-5
-            AND estatus_id = 3');
+            AND YEAR(fecha_llegada) = YEAR(NOW())
+            AND estatus_id = 5
+            AND estatusProceso_id = 9');
 
             $semana6 = DB::select('SELECT 
-                COUNT(estatus_id) as entregados 
+                COUNT(estatusProceso_id) as entregados 
             FROM 
                 vehiculo 
             WHERE 
                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-6
-            AND estatus_id = 3');
+            AND YEAR(fecha_llegada) = YEAR(NOW())
+            AND estatus_id = 5
+            AND estatusProceso_id = 9');
 
             $semana7 = DB::select('SELECT 
-                COUNT(estatus_id) as entregados 
+                COUNT(estatusProceso_id) as entregados 
             FROM 
                 vehiculo 
             WHERE 
                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-7
-            AND estatus_id = 3');
+            AND YEAR(fecha_llegada) = YEAR(NOW())
+            AND estatus_id = 5
+            AND estatusProceso_id = 9');
 
             $semana8 = DB::select('SELECT 
-                COUNT(estatus_id) as entregados 
+                COUNT(estatusProceso_id) as entregados 
             FROM 
                 vehiculo 
             WHERE 
                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-8
-            AND estatus_id = 3');
+            AND YEAR(fecha_llegada) = YEAR(NOW())
+            AND estatus_id = 5
+            AND estatusProceso_id = 9');
                 
             $semana9 = DB::select('SELECT 
-                COUNT(estatus_id) as entregados 
+                COUNT(estatusProceso_id) as entregados 
             FROM 
                 vehiculo 
             WHERE 
                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-9
-            AND estatus_id = 3'); 
+            AND YEAR(fecha_llegada) = YEAR(NOW())
+            AND estatus_id = 5
+            AND estatusProceso_id = 9'); 
 
             $semana10 = DB::select('SELECT 
-                COUNT(estatus_id) as entregados 
+                COUNT(estatusProceso_id) as entregados 
             FROM 
                 vehiculo 
             WHERE 
                 WEEKOFYEAR(fecha_salida_taller) = WEEKOFYEAR(NOW())-10
-            AND estatus_id = 3');
+            AND YEAR(fecha_llegada) = YEAR(NOW())
+            AND estatus_id = 5
+            AND estatusProceso_id = 9');
 
             $datos = array(
                 array('Semana 10', 'Semana 9', 'Semana 8', 'Semana 7', 'Semana 6', 'Semana 5', 'Semana 4', 'Semana 3', 'Semana 2', 'Semana 1', 'Semana Actual'),
@@ -2105,92 +2269,114 @@ class VehiculoController extends Controller
         if (isset($request->catalago_vrecibidos)) {
             //tabla de 10 semanas de vehiculos recibidos
             $semanar0 = DB::select('SELECT 
-                                        COUNT(estatus_id) as entregados 
+                                        COUNT(id_aux) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
                                         WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())
-                                        AND (estatus_id = 5  OR estatus_id = 6)');
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
             $semanar1 = DB::select('SELECT 
-                                        COUNT(estatus_id) as entregados 
+                                        COUNT(id_aux) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
                                         WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-1
-                                        AND (estatus_id = 5  OR estatus_id = 6)');
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
             $semanar2 = DB::select('SELECT 
-                                        COUNT(estatus_id) as entregados 
+                                        COUNT(id_aux) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
                                         WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-2
-                                        AND (estatus_id = 5  OR estatus_id = 6)');
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
             $semanar3 = DB::select('SELECT 
-                                        COUNT(estatus_id) as entregados 
+                                        COUNT(id_aux) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
                                         WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-3
-                                        AND (estatus_id = 5  OR estatus_id = 6)');
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
             $semanar4 = DB::select('SELECT 
-                                        COUNT(estatus_id) as entregados 
+                                        COUNT(id_aux) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
                                         WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-4
-                                        AND (estatus_id = 5  OR estatus_id = 6)');
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
             $semanar5 = DB::select('SELECT 
-                                        COUNT(estatus_id) as entregados 
+                                        COUNT(id_aux) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
                                         WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-5
-                                        AND (estatus_id = 5  OR estatus_id = 6)');
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
             $semanar6 = DB::select('SELECT 
-                                        COUNT(estatus_id) as entregados 
+                                        COUNT(id_aux) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
                                         WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-6
-                                        AND (estatus_id = 5  OR estatus_id = 6)');
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
             $semanar7 = DB::select('SELECT 
-                                        COUNT(estatus_id) as entregados 
+                                        COUNT(id_aux) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
                                         WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-7
-                                        AND (estatus_id = 5  OR estatus_id = 6)');
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
             $semanar8 = DB::select('SELECT 
-                                        COUNT(estatus_id) as entregados 
+                                        COUNT(id_aux) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
                                         WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-8
-                                        AND (estatus_id = 5  OR estatus_id = 6)');
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
                 
             $semanar9 = DB::select('SELECT 
-                                        COUNT(estatus_id) as entregados 
+                                        COUNT(id_aux) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
                                         WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-9
-                                        AND (estatus_id = 5  OR estatus_id = 6)'); 
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)'); 
 
             $semanar10 = DB::select('SELECT 
-                                        COUNT(estatus_id) as entregados 
+                                        COUNT(id_aux) as entregados 
                                     FROM 
                                         vehiculo 
                                     WHERE 
                                         WEEKOFYEAR(fecha_llegada) = WEEKOFYEAR(NOW())-10
-                                        AND (estatus_id = 5  OR estatus_id = 6)');
+                                    AND YEAR(fecha_llegada) = YEAR(NOW())
+                                    AND (estatus_id = 5  OR estatus_id = 6)
+                                    AND (estatusProceso_id != 1 OR estatusProceso_id != 9)');
 
             $datos = array(
                 array('Semana 10', 'Semana 9', 'Semana 8', 'Semana 7', 'Semana 6', 'Semana 5', 'Semana 4', 'Semana 3', 'Semana 2', 'Semana 1', 'Semana Actual'),
@@ -2213,7 +2399,7 @@ class VehiculoController extends Controller
     public function existe_vehiculo_gastos(Request $request){
         $id = intval($request->id);
 
-        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status'])
                             ->where('id', 'LIKE', "%$id%")
                             ->select('modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'estatus_id')
                             ->first();
@@ -2231,7 +2417,7 @@ class VehiculoController extends Controller
     public function existe_vehiculo_gastos_recibo(Request $request){
         $id = intval($request->id);
 
-        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+        $vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status'])
                             ->where('id', 'LIKE', "%$id%")
                             ->select('modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'estatus_id')
                             ->first();
@@ -2249,28 +2435,28 @@ class VehiculoController extends Controller
 
     public function monitor(){
 
-        $monitor = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo'])
-                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_valuacion', 'fecha_autorizacion', 'p_asignados', 'r_disponibles', 'aplica_hojalateria', 'fecha_hojalateria', 'aplica_preparacion', 'fecha_preparacion', 'aplica_pintura', 'fecha_pintura', 'aplica_armado', 'fecha_armado', 'aplica_detallado', 'fecha_detallado', 'aplica_mecanica', 'fecha_mecanica', 'aplica_lavado', 'fecha_lavado', 'fecha_entrega_interna', 'asignado_hojalateria', 'asignado_preparacion', 'asignado_pintura', 'asignado_armado', 'asignado_detallado', 'asignado_mecanica', 'asignado_lavado')
-                                ->where('estatus_id','5')
-                                //->where('id_aux', 433)
-                                ->orWhere('estatus_id','6')
+        $monitor = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo', 'estatusProceso:id,estatus','personalHojalateria:id,nombre', 'personalPintura:id,nombre','personalArmado:id,nombre','personalDetallado:id,nombre','personalMecanica:id,nombre','personalLavado:id,nombre'])
+                                ->select('id_aux','id','estatus_id','estatusProceso_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_valuacion', 'fecha_autorizacion', 'p_asignados', 'r_disponibles', 'aplica_hojalateria', 'fecha_hojalateria', 'aplica_preparacion', 'fecha_preparacion', 'aplica_pintura', 'fecha_pintura', 'aplica_armado', 'fecha_armado', 'aplica_detallado', 'fecha_detallado', 'aplica_mecanica', 'fecha_mecanica', 'aplica_lavado', 'fecha_lavado', 'fecha_entrega_interna', 'asignado_hojalateria', 'asignado_preparacion', 'asignado_pintura', 'asignado_armado', 'asignado_detallado', 'asignado_mecanica', 'asignado_lavado')
+                                ->whereIn('estatus_id',['5', '6'])
+                                ->whereNotIn('estatusProceso_id', ['1','5', '9', '12'])
                                 ->orderBy('id_aux')
                                 ->get();
-        //dd($monitor);
+        //dd($monitor->find(1115112021)->personalPintura);
         return view('administracion.monitor.monitor', compact('monitor'));
     }
 
     public function monitorF(){
 
-        $monitor = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'facturas'])
-                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller')
-                                ->where('estatus_id','3')
+        $monitor = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'facturas', 'estatusProceso:id,estatus'])
+                                ->select('id_aux','id','estatus_id','estatusProceso_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller')
+                                ->where('estatus_id','5')
+                                ->where('estatusProceso_id','9')
                                 ->whereDate('fecha_salida_taller', '>', '2021-06-01')
                                 ->orderBy('id_aux')
                                 ->get();
         
         $estatus = Estatusaseguradoras::all();
-
+        //dd($monitor);
         return view('administracion.monitor.monitorF', compact(['monitor', 'estatus']));
     }
 
@@ -2286,9 +2472,10 @@ class VehiculoController extends Controller
         $pdf->Cell(95, 8, utf8_decode('Comentarios'), 1, 1, 'C');
         //se terminan los encabezados
         //se obtiene la informacion para poder rellenar la tabla de vehiculos lavado e inspeccion
-        $v_entrega = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+        $v_entrega = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status'])
                         ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller')
                         ->where('estatus_id', 5)
+                        ->where('estatusProceso_id','8')
                         ->whereNotNull('fecha_entrega_interna')
                         ->get();
         //termino de obtener la informacion
@@ -2339,7 +2526,7 @@ class VehiculoController extends Controller
         $pdf->Cell(25, 8, utf8_decode('Detallador'), 1, 0, 'C');
         $pdf->Cell(70, 8, utf8_decode('Comentarios'), 1, 1, 'C');
         //obtengo la informacion correspondiente a la siguiente tabla relacionada a pulido
-        $v_pulido = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'personalDetallado:id,nombre'])
+        $v_pulido = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'personalDetallado:id,nombre'])
                         ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller', 'comentario_detallado', 'asignado_detallado')
                         ->where('estatus_id', 5)
                         ->where('aplica_detallado', 1)
@@ -2395,7 +2582,7 @@ class VehiculoController extends Controller
         $pdf->Cell(25, 8, utf8_decode('Armador'), 1, 0, 'C');
         $pdf->Cell(70, 8, utf8_decode('Comentarios'), 1, 1, 'C');
         //obtengo la informacion correspondiente a la siguiente tabla relacionada a armado
-        $v_armado = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'personalArmado:id,nombre'])
+        $v_armado = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'personalArmado:id,nombre'])
                             ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller', 'comentario_armado')
                             ->where('estatus_id', 5)
                             ->where('aplica_armado', 1)
@@ -2453,7 +2640,7 @@ class VehiculoController extends Controller
         $pdf->Cell(25, 8, utf8_decode('Pintor'), 1, 0, 'C');
         $pdf->Cell(70, 8, utf8_decode('Comentarios'), 1, 1, 'C');
         //obtengo la informacion correspondiente a la siguiente tabla relacionada a pintura
-        $v_pintura = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'personalPintura:id,nombre'])
+        $v_pintura = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'personalPintura:id,nombre'])
                             ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller', 'comentario_pintura')
                             ->where('estatus_id', 5)
                             ->where('aplica_pintura', 1)
@@ -2509,7 +2696,7 @@ class VehiculoController extends Controller
         $pdf->Cell(25, 8, utf8_decode('Hojalatero'), 1, 0, 'C');
         $pdf->Cell(70, 8, utf8_decode('Comentarios'), 1, 1, 'C');
         //obtengo la informacion correspondiente a la siguiente tabla relacionada a pintura
-        $v_hojalateria = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status', 'personalHojalateria:id,nombre'])
+        $v_hojalateria = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'personalHojalateria:id,nombre'])
                             ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'fecha_salida_taller', 'comentarios_hojalateria')
                             ->where('estatus_id', 5)
                             ->where('aplica_hojalateria', 1)
@@ -2568,7 +2755,7 @@ class VehiculoController extends Controller
      */
     public function show(Request $request)
     {
-        $u_vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
+        $u_vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status'])
                                 ->where('id', $request->exp)->first();
 
         $uc = Clientes::select('id', 'nombre', 'telefono', 'correo')

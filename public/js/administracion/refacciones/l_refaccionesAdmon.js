@@ -68,25 +68,25 @@ $(document).ready(function(){
 
             if (estatus[0] == 'Taller') {
 
-                if (estatus[1] >= 0 && estatus[1] <= aData[2]) {
+                if (estatus[1] >= 0 && estatus[1] <= aData[3]) {
                     $(nRow).find('td:eq(1)').css('background-color', '#53ee7e'); 
                 }
 
-                if (estatus[1] > aData[2]) {
+                if (estatus[1] > aData[3]) {
                     $(nRow).find('td:eq(1)').css('background-color', '#F08080');
                 }
 
-                if (aData[2] == 0 || aData[2] == "" || aData[2] == null) {
+                if (aData[3] == 0 || aData[3] == "" || aData[3] == null) {
                     $(nRow).find('td:eq(1)').css('background-color', '#53ee7e'); 
                 }
             }
 
-            if (aData[1] == 'PT') {
-                $(nRow).find('td:eq(1)').css('background-color', '#FFF890');
+            if (aData[2] == 'p.t') {
+                $(nRow).find('td:eq(2)').css('background-color', '#FFF890');
             }
 
-            if (aData[1] == 'Pago de Daños') {
-                $(nRow).find('td:eq(1)').css('background-color', '#FFDC6D');
+            if (aData[2] == 'p.d.d') {
+                $(nRow).find('td:eq(2)').css('background-color', '#FFDC6D');
             }
         }
     });

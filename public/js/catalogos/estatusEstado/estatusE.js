@@ -1,23 +1,23 @@
 $(document).ready(function(){
 
-    $('#list_monitor').DataTable({
+    $('#list_estatus').DataTable({
         dom: 'Blfrtip',
         buttons: [{
                 extend: 'excelHtml5',
-                messageTop: 'Areas',
+                messageTop: 'Estatus',
                 text: "Excel",
-                title: "Listado de Proceso Administrativo",
+                title: "Listado de Estatus",
             },
             {
                 /*'csvHtml5',*/
                 extend: 'csvHtml5',
                 text: "CSV",
-                title: "Listado de Proceso Administrativo",
-                messageTop: 'Listado de Proceso Administrativo',
+                title: "Listado de Estatus",
+                messageTop: 'Listado de Estatus',
             },
             {
                 extend: 'pdfHtml5',
-                title: 'Listado de Proceso Administrativo'
+                title: 'Listado de Estatus'
             }
         ],
         responsive: true,
@@ -51,26 +51,25 @@ $(document).ready(function(){
                         }
         },
         select: true,
-        pageLength: 100,
-        order: [[10, 'asc']],
-        rowCallback: function(nRow, aData){
-            if (aData[10] == 'Facturado' || aData[10] == 'Pagado') {
-                $(nRow).find('td:eq(10)').css('background-color', '#53ee7e'); 
-            } else {
-                $(nRow).find('td:eq(10)').css('background-color', '#F9FFC9');
-            }
 
-            if (aData[11] == 'Pagado') {
-                $(nRow).find('td:eq(11)').css('background-color', '#53ee7e'); 
-            } else {
-                $(nRow).find('td:eq(11)').css('background-color', '#F9FFC9');
-            }
-
-            if (aData[12] == 'Pagado') {
-                $(nRow).find('td:eq(12)').css('background-color', '#53ee7e'); 
-            } else {
-                $(nRow).find('td:eq(12)').css('background-color', '#F9FFC9');
-            }
-        }
     });
+
+    $("#list_estatus tbody").on('click', '.delete', function(){
+        let estatus_id = $(this).attr('item_id');
+        let estatus = $(this).parents("tr").find('td').eq(1).html();
+        let estatus2 = $(this).parents("tr").find('td').eq(2).html();
+        $("#iestatus").val(estatus+' -> '+estatus2);
+
+        let old_url = $("#modal_delete").attr('action');
+        let new_url = old_url.replace('delete_item', estatus_id);
+        $('#modal_delete').attr('action', new_url);
+    })
+
+    $('#btn_delete').on('click', function(){
+        $("#modal_delete").submit();
+    })
+
+    $("#cerrar").on('click', function(){
+        $("#modalD").modal('hide')
+    })
 })

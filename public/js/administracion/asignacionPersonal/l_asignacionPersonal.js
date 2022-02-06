@@ -53,10 +53,10 @@ $(document).ready(function(){
         select: true,
         pageLength: 100,
         rowCallback: function(nRow, aData){
-            if (aData[9] == 'Asignado') {
-                $(nRow).find('td:eq(9)').css('background-color', '#53ee7e'); 
+            if (aData[10] == 'Asignado') {
+                $(nRow).find('td:eq(10)').css('background-color', '#53ee7e'); 
             } else {
-                $(nRow).find('td:eq(9)').css('background-color', '#FFF890');
+                $(nRow).find('td:eq(10)').css('background-color', '#FFF890');
             }
         }
     });

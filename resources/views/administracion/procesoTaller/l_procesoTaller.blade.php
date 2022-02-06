@@ -17,7 +17,8 @@
                     <table id="list_proceso" class="table table-striped table-bordered" border="0">
                         <thead class="text-capitalize">
                                 <th>Expediente</th>
-                                <th>Estatus</th>
+                                <th>Ubicacion</th>
+                                <th>Proceso</th>
                                 <th>Marca</th>
                                 <th>Linea</th>
                                 <th>Color</th>
@@ -32,11 +33,12 @@
                                 <th>Lavado e Inspeccion</th>
                                 <th>Acciones</th>
                         </thead>
-                        <tbody>
+                        <tbody class="text-capitalize">
                             @foreach ($proceso_taller as $proceso)
                                 <tr>
                                     <td>{{$proceso->id}}</td>
-                                    <td>{{$proceso->estatus->status}}</td>
+                                    <td>{{$proceso->estatusV->status}}</td>
+                                    <td>{{$proceso->estatusProceso->estatus}}</td>
                                     <td>{{$proceso->marcas->marca}}</td>
                                     <td>{{$proceso->submarcas->submarca}}</td>
                                     <td>{{$proceso->color}}</td>
@@ -46,9 +48,17 @@
                                     @php
                                         if ($proceso->aplica_hojalateria == 1) {
                                             if ($proceso->fecha_hojalateria == '0000-00-00' || $proceso->fecha_hojalateria == null) {
-                                                $aplihoja = 2 . '/' . $proceso->asignado_hojalateria;
+                                                if (isset($proceso['personalHojalateria'])) {
+                                                    $aplihoja = 2 . '/' . $proceso['personalHojalateria']['nombre'];
+                                                } else {
+                                                    $aplihoja = 2 . '/ No asignado';
+                                                }
                                             } else {
-                                                $aplihoja = 1 . '/' . $proceso->asignado_hojalateria;
+                                                if (isset($proceso['personalHojalateria'])) {
+                                                    $aplihoja = 1 . '/' . $proceso['personalHojalateria']['nombre'];
+                                                } else {
+                                                    $aplihoja = 1 . '/ No asignado';
+                                                }
                                             }
                                         } else {
                                             $aplihoja = 0;
@@ -66,9 +76,17 @@
                                         */
                                         if ($proceso->aplica_pintura == 1) {
                                             if ($proceso->fecha_pintura == '0000-00-00' || $proceso->aplica_pintura == null || $proceso->fecha_pintura == null) {
-                                                $aplipint = 2;
+                                                if (isset($proceso['personalPintura'])) {
+                                                    $aplipint = 2 . '/' . $proceso['personalPintura']['nombre'];
+                                                } else {
+                                                    $aplipint = 2 . '/ No asignado';
+                                                }
                                             } else {
-                                                $aplipint = 1;
+                                                if (isset($proceso['personalPintura'])) {
+                                                    $aplipint = 2 . '/' . $proceso['personalPintura']['nombre'];
+                                                } else {
+                                                    $aplipint = 2 . '/ No asignado';
+                                                }
                                             }
                                         } else {
                                         $aplipint = 0;
@@ -76,9 +94,17 @@
 
                                         if ($proceso->aplica_armado == 1) {
                                             if ($proceso->fecha_armado == '0000-00-00' || $proceso->fecha_armado == null) {
-                                                $apliarma = 2;
+                                                if (isset($proceso['personalArmado'])) {
+                                                    $apliarma = 2 . '/' . $proceso['personalArmado']['nombre'];
+                                                } else {
+                                                    $apliarma = 2 . '/ No asignado';
+                                                }
                                             } else {
-                                                $apliarma = 1;
+                                                if (isset($proceso['personalArmado'])) {
+                                                    $apliarma = 1 . '/' . $proceso['personalArmado']['nombre'];
+                                                } else {
+                                                    $apliarma = 1 . '/ No asignado';
+                                                }
                                             }
                                         } else {
                                         $apliarma = 0;
@@ -86,9 +112,17 @@
 
                                         if ($proceso->aplica_detallado == 1) {
                                             if ($proceso->fecha_detallado == '0000-00-00' || $proceso->fecha_detallado == null) {
-                                                $aplideta = 2;
+                                                if (isset($proceso['personalDetallado'])) {
+                                                    $aplideta = 2 . '/' . $proceso['personalDetallado']['nombre'];
+                                                } else {
+                                                    $aplideta = 2 . '/ No asignado';
+                                                }
                                             } else {
-                                                $aplideta = 1;
+                                                if (isset($proceso['personalDetallado'])) {
+                                                    $aplideta = 1 . '/' . $proceso['personalDetallado']['nombre'];
+                                                } else {
+                                                    $aplideta = 1 . '/ No asignado';
+                                                }
                                             }
                                         } else {
                                         $aplideta = 0;
@@ -96,9 +130,17 @@
 
                                         if ($proceso->aplica_mecanica == 1) {
                                             if ($proceso->fecha_mecanica == '0000-00-00' || $proceso->fecha_mecanica == null) {
-                                                $aplimeca = 2;
+                                                if (isset($proceso['personalMecanica'])) {
+                                                    $aplimeca = 2 . '/' . $proceso['personalMecanica']['nombre'];
+                                                } else {
+                                                    $aplimeca = 2 . '/ No asignado';
+                                                }
                                             } else {
-                                                $aplimeca = 1;
+                                                if (isset($proceso['personalMecanica'])) {
+                                                    $aplimeca = 1 . '/' . $proceso['personalMecanica']['nombre'];
+                                                } else {
+                                                    $aplimeca = 1 . '/ No asignado';
+                                                }
                                             }
                                         } else {
                                         $aplimeca = 0;
@@ -106,9 +148,17 @@
 
                                         if ($proceso->aplica_lavado == 1) {
                                             if ($proceso->fecha_lavado == '0000-00-00' || $proceso->fecha_lavado == null) {
-                                                $aplilava = 2;
+                                                if (isset($proceso['personalLavado'])) {
+                                                    $aplilava = 2 . '/' . $proceso['personalLavado']['nombre'];
+                                                } else {
+                                                    $aplilava = 2 . '/ No asignado';
+                                                }
                                             } else {
-                                                $aplilava = 1;
+                                                if (isset($proceso['personalLavado'])) {
+                                                    $aplilava = 1 . '/' . $proceso['personalLavado']['nombre'];
+                                                } else {
+                                                    $aplilava = 1 . '/ No asignado';
+                                                }
                                             }
                                         } else {
                                         $aplilava = 0;

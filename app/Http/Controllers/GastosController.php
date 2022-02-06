@@ -34,11 +34,10 @@ class GastosController extends Controller
      */
     public function create()
     {
-        $list_vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatus:id,status'])
-                                ->select('id_aux','id','estatus_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'fecha_salida_taller')
-                                ->where('estatus_id', 5)
-                                ->orWhere('estatus_id', 6)
-                                ->orWhere('estatus_id', 3)
+        $list_vehiculo = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'estatusProceso:id,estatus'])
+                                ->select('id_aux','id','estatus_id', 'estatusProceso_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'fecha_salida_taller')
+                                ->whereIn('estatus_id',['5', '6'])
+                                ->whereNotIn('estatusProceso_id', ['1', '5', '12'])
                                 ->orderBy('id_aux')
                                 ->get();
 
@@ -170,7 +169,7 @@ class GastosController extends Controller
                                 WHERE 
                                     tipo = 1 
                                 AND MONTH(fecha) = MONTH(NOW()) 
-                                ');
+                                AND YEAR(fecha) = YEAR(NOW())');
 
             $impuesto = DB::select('SELECT 
                                         tipo, 
@@ -180,7 +179,7 @@ class GastosController extends Controller
                                     WHERE 
                                         tipo = 2 
                                     AND MONTH(fecha) = MONTH(NOW()) 
-                                    ');
+                                    AND YEAR(fecha) = YEAR(NOW())');
 
             $nomina = DB::select('SELECT 
                                     tipo, 
@@ -190,7 +189,7 @@ class GastosController extends Controller
                                 WHERE 
                                     tipo = 3 
                                 AND MONTH(fecha) = MONTH(NOW()) 
-                                ');
+                                AND YEAR(fecha) = YEAR(NOW())');
 
             $equipo = DB::select('SELECT 
                                     tipo, 
@@ -200,7 +199,7 @@ class GastosController extends Controller
                                 WHERE 
                                     tipo = 4 
                                 AND MONTH(fecha) = MONTH(NOW()) 
-                                ');
+                                AND YEAR(fecha) = YEAR(NOW())');
 
             $materiales_acabado = DB::select('SELECT 
                                                 tipo, 
@@ -210,7 +209,7 @@ class GastosController extends Controller
                                             WHERE 
                                                 tipo = 5 
                                             AND MONTH(fecha) = MONTH(NOW()) 
-                                            ');
+                                            AND YEAR(fecha) = YEAR(NOW())');
 
             $refacciones = DB::select('SELECT 
                                         tipo, 
@@ -220,7 +219,7 @@ class GastosController extends Controller
                                     WHERE 
                                         tipo = 6 
                                     AND MONTH(fecha) = MONTH(NOW()) 
-                                    ');
+                                    AND YEAR(fecha) = YEAR(NOW())');
 
             $servicios = DB::select('SELECT 
                                         tipo, 
@@ -230,7 +229,7 @@ class GastosController extends Controller
                                     WHERE 
                                         tipo = 7 
                                     AND MONTH(fecha) = MONTH(NOW()) 
-                                    ');
+                                    AND YEAR(fecha) = YEAR(NOW())');
 
             $administracion = DB::select('SELECT 
                                             tipo, 
@@ -240,7 +239,7 @@ class GastosController extends Controller
                                         WHERE 
                                             tipo = 8 
                                         AND MONTH(fecha) = MONTH(NOW()) 
-                                        ');
+                                        AND YEAR(fecha) = YEAR(NOW())');
 
             $tot = DB::select('SELECT 
                                 tipo, 
@@ -250,7 +249,7 @@ class GastosController extends Controller
                             WHERE 
                                 tipo = 9 
                             AND MONTH(fecha) = MONTH(NOW()) 
-                            ');
+                            AND YEAR(fecha) = YEAR(NOW())');
 
             $papeleria = DB::select('SELECT 
                                         tipo, 
@@ -260,7 +259,7 @@ class GastosController extends Controller
                                     WHERE 
                                         tipo = 10 
                                     AND MONTH(fecha) = MONTH(NOW()) 
-                                    ');
+                                    AND YEAR(fecha) = YEAR(NOW())');
 
             $herramienta = DB::select('SELECT 
                                             tipo, 
@@ -270,7 +269,7 @@ class GastosController extends Controller
                                         WHERE 
                                             tipo = 11 
                                         AND MONTH(fecha) = MONTH(NOW()) 
-                                        ');
+                                        AND YEAR(fecha) = YEAR(NOW())');
 
             $miscelaneos = DB::select('SELECT 
                                             tipo, 
@@ -280,7 +279,7 @@ class GastosController extends Controller
                                         WHERE 
                                             tipo = 12 
                                         AND MONTH(fecha) = MONTH(NOW()) 
-                                        ');
+                                        AND YEAR(fecha) = YEAR(NOW())');
 
             $limpieza = DB::select('SELECT 
                                         tipo, 
@@ -290,7 +289,7 @@ class GastosController extends Controller
                                         WHERE 
                                             tipo = 13 
                                         AND MONTH(fecha) = MONTH(NOW()) 
-                                        ');
+                                        AND YEAR(fecha) = YEAR(NOW())');
 
             $materiales_proceso = DB::select('SELECT 
                                                 tipo, 
@@ -300,7 +299,7 @@ class GastosController extends Controller
                                             WHERE 
                                                 tipo = 14 
                                             AND MONTH(fecha) = MONTH(NOW()) 
-                                            ');
+                                            AND YEAR(fecha) = YEAR(NOW())');
 
             $datos = array(
                 array('Renta' => 'Renta', 'cantidad' => $renta[0]->gastos),

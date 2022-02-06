@@ -17,7 +17,8 @@
                     <table id="list_monitor" class="table table-striped table-bordered" border="0">
                         <thead class="text-capitalize">
                                 <th>Expediente</th>
-                                <th>Estatus</th>
+                                <th>Ubicacion</th>
+                                <th>Proceso</th>
                                 <th>Marca</th>
                                 <th>Linea</th>
                                 <th>Color</th>
@@ -36,11 +37,12 @@
                                 <th>Mecanica</th>
                                 <th>Lavado e Inspeccion</th>
                         </thead>
-                        <tbody>
+                        <tbody class="text-capitalize">
                             @foreach ($monitor as $mon)
                                 <tr>
                                     <td>{{$mon->id}}</td>
-                                    <td>{{$mon->estatus->status}}</td>
+                                    <td>{{$mon->estatusV->status}}</td>
+                                    <td>{{$mon->estatusProceso->estatus}}</td>
                                     <td>{{$mon->marcas->marca}}</td>
                                     <td>{{$mon->submarcas->submarca}}</td>
                                     <td>{{$mon->color}}</td>
@@ -130,9 +132,17 @@
                                         //ahora saco lo del proceso del taller
                                         if ($mon->aplica_hojalateria == 1) {
                                             if ($mon->fecha_hojalateria == '0000-00-00' || $mon->fecha_hojalateria == null) {
-                                                $aplihoja = 'Pendiente' . '/' . $mon->asignado_hojalateria;
+                                                if (isset($mon['personalHojalateria'])) {
+                                                    $aplihoja = 'Pendiente' . '/' . $mon['personalHojalateria']['nombre'];
+                                                } else {
+                                                    $aplihoja = 'Pendiente' . '/ No asignado';
+                                                }
                                             } else {
-                                                $aplihoja = 'Terminado' . '/' . $mon->asignado_hojalateria;
+                                                if (isset($mon['personalHojalateria'])) {
+                                                    $aplihoja = 'Terminado' . '/' . $mon['personalHojalateria']['nombre'];
+                                                } else {
+                                                    $aplihoja = 'Terminado' . '/ No asignado';
+                                                }
                                             }
                                         } else {
                                             $aplihoja = 'N/A';
@@ -150,9 +160,17 @@
                                         */
                                         if ($mon->aplica_pintura == 1) {
                                             if ($mon->fecha_pintura == '0000-00-00' || $mon->aplica_pintura == null) {
-                                                $aplipint = 'Pendiente';
+                                                if (isset($mon['personalPintura'])) {
+                                                    $aplipint = 'Pendiente' . '/' . $mon['personalPintura']['nombre'];
+                                                } else {
+                                                    $aplipint = 'Pendiente' . '/ No asignado';
+                                                }
                                             } else {
-                                                $aplipint = 'Terminado';
+                                                if (isset($mon['personalPintura'])) {
+                                                    $aplipint = 'Terminado' . '/' . $mon['personalPintura']['nombre'];
+                                                } else {
+                                                    $aplipint = 'Terminado' . '/ No asignado';
+                                                }
                                             }
                                         } else {
                                             $aplipint = 'N/A';
@@ -160,9 +178,17 @@
 
                                         if ($mon->aplica_armado == 1) {
                                             if ($mon->fecha_armado == '0000-00-00' || $mon->fecha_armado == null) {
-                                                $apliarma = 'Pendiente';
+                                                if (isset($mon['personalArmado'])) {
+                                                    $apliarma = 'Pendiente' . '/' . $mon['personalArmado']['nombre'];
+                                                } else {
+                                                    $apliarma = 'Pendiente' . '/ No asignado';
+                                                }
                                             } else {
-                                                $apliarma = 'Terminado';
+                                                if (isset($mon['personalArmado'])) {
+                                                    $apliarma = 'Terminado' . '/' . $mon['personalArmado']['nombre'];
+                                                } else {
+                                                    $apliarma = 'Terminado' . '/ No asignado';
+                                                }
                                             }
                                         } else {
                                             $apliarma = 'N/A';
@@ -170,9 +196,17 @@
 
                                         if ($mon->aplica_detallado == 1) {
                                             if ($mon->fecha_detallado == '0000-00-00' || $mon->fecha_detallado == null) {
-                                                $aplideta = 'Pendiente';
+                                                if (isset($mon['personalDetallado'])) {
+                                                    $aplideta = 'Pendiente' . '/' . $mon['personalDetallado']['nombre'];
+                                                } else {
+                                                    $aplideta = 'Pendiente' . '/ No asignado';
+                                                }
                                             } else {
-                                                $aplideta = 'Terminado';
+                                                if (isset($mon['personalDetallado'])) {
+                                                    $aplideta = 'Terminado' . '/' . $mon['personalDetallado']['nombre'];
+                                                } else {
+                                                    $aplideta = 'Terminado' . '/ No asignado';
+                                                }
                                             }
                                         } else {
                                             $aplideta = 'N/A';
@@ -180,9 +214,17 @@
 
                                         if ($mon->aplica_mecanica == 1) {
                                             if ($mon->fecha_mecanica == '0000-00-00' || $mon->fecha_mecanica == null) {
-                                                $aplimeca = 'Pendiente';
+                                                if (isset($mon['personalMecanica'])) {
+                                                    $aplimeca = 'Pendiente' . '/' . $mon['personalMecanica']['nombre'];
+                                                } else {
+                                                    $aplimeca = 'Pendiente' . '/ No asignado';
+                                                }
                                             } else {
-                                                $aplimeca = 'Terminado';
+                                                if (isset($mon['personalMecanica'])) {
+                                                    $aplimeca = 'Terminado' . '/' . $mon['personalMecanica']['nombre'];
+                                                } else {
+                                                    $aplimeca = 'Terminado' . '/ No asignado';
+                                                }
                                             }
                                         } else {
                                             $aplimeca = 'N/A';
@@ -190,9 +232,17 @@
 
                                         if ($mon->aplica_lavado == 1) {
                                             if ($mon->fecha_lavado == '0000-00-00' || $mon->fecha_lavado == null) {
-                                                $aplilava = 'Pendiente';
+                                                if (isset($mon['personalLavado'])) {
+                                                $aplilava = 'Pendiente' . '/' . $mon['personalLavado']['nombre'];
+                                                } else {
+                                                $aplilava = 'Pendiente' . '/ No asignado';
+                                                }
                                             } else {
-                                                $aplilava = 'Terminado';
+                                                if (isset($mon['personalLavado'])) {
+                                                    $aplilava = 'Terminado' . '/' . $mon['personalLavado']['nombre'];
+                                                } else {
+                                                    $aplilava = 'Terminado' . '/ No asignado';
+                                                }
                                             }
                                         } else {
                                             $aplilava = 'N/A';

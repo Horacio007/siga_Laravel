@@ -322,7 +322,17 @@ $(document).ready(function(){
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Seleccion un estatus',
+                text: 'Selecciona la Ubicación del Vehiculo',
+            })
+
+            return false
+        }
+
+        if ($("#sproceso").val()==0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Selecciona el Proceso del Vehiculo',
             })
 
             return false

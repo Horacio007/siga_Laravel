@@ -32,7 +32,7 @@ class VehiculoController extends Controller
         $valuaciones = Vehiculo::with(['marcas:id,marca', 'submarcas:id,submarca', 'clientes:id,nombre', 'asesores:id,nombre,a_paterno,a_materno', 'estatusV:id,status', 'nivelDano:id,nivel', 'formaArribo:id,forma_arribo', 'estatusProceso:id,estatus'])
                                 ->select('id_aux','id','estatus_id', 'estatusProceso_id','modelo', 'color', 'marca_id', 'linea_id', 'cliente_id', 'placas', 'id_asesor', 'no_siniestro', 'n_dano', 'f_arribo', 'fecha_llegada', 'fecha_llegada_taller', 'fecha_valuacion', 'diferencia_tres_dias', 'cantidad_inicial', 'piezas_cambiadas_inicial', 'piezas_reparacion_inicial', 'fecha_autorizacion', 'cantidad_final', 'piezas_cambiadas_final', 'piezas_reparacion_final', 'piezas_vendidas', 'importe_piezas_vendidas', 'piezas_vendidas', 'porcentaje_aprobacion', 'fecha_promesa', 'proceso')
                                 ->whereIn('estatus_id',['5', '6'])
-                                ->whereNotIn('estatusProceso_id', ['5', '9', '12'])
+                                ->whereNotIn('estatusProceso_id', ['5', '9', '12', '0'])
                                 ->orderBy('id_aux')
                                 ->get();
 

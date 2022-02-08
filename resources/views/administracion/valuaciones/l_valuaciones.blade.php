@@ -98,7 +98,7 @@
                                                 break;
                                         }
 
-                                        if ($val->estatus_id == 6 && $val->estatusProceso->id == 1) {
+                                        if ($val->estatus_id??'' == 6 && $val->estatusProceso->id??'' == 1) {
                                             $estatus = "Orden De Admicion/".$dif_trans;
                                         }
 
@@ -110,7 +110,7 @@
                                         }
                                     @endphp
                                     <td>{{$estatus}}</td>
-                                    <td>{{$val->estatusProceso->estatus}}</td>
+                                    <td>{{$val->estatusProceso->estatus??''}}</td>
                                     <td>{{$val->fecha_promesa}}</td>
                                     <td>{{$val->nivelDano->nivel}}</td>
                                     <td>{{$val->formaArribo->forma_arribo}}</td>

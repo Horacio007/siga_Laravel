@@ -12,7 +12,7 @@
             <div class="row">
                 <div class="col-md-2">
                     <label for="lestatus">Ubicacion:</label><br>
-                    <select name="estatus" class="form-control" required>
+                    <select name="estatus" id="sestatus" class="form-control" required>
                         <option value="0">Selecciona el Proceso</option>
                         @foreach ($list_estatus as $estatus)
                             @if ($vehiculo->estatus_id == $estatus->id)
@@ -24,8 +24,8 @@
                     </select>
                 </div>
                 <div class="col-md-2">
-                    <label for="lestatus">Proceso:</label><br>
-                    <select name="estatusProceso" class="form-control text-capitalize">
+                    <label for="lestatus" class="text-capitalize">Proceso Actual -> {{$vehiculo->estatusProceso->estatus}}:</label><br>
+                    <select name="estatusProceso" id="sproceso" class="form-control text-capitalize">
                         <option value="0">Selecciona el Proceso</option>
                         @foreach ($list_estatusProceso as $estatusP)
                             @if ($vehiculo->estatusProceso_id == $estatusP->id)
@@ -112,4 +112,6 @@
             <br>
         </form>
     </div>
+
+    <script src="{{ asset('/js/administracion/valuaciones/u_valuaciones.js') }}"></script>
 @endsection

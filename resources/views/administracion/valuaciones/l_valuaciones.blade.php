@@ -97,11 +97,11 @@
                                                 $estatus = "Sin estatus";
                                                 break;
                                         }
-
+                                        /*
                                         if ($val->estatus_id == 6 && $val->estatusProceso->id == 1) {
                                             $estatus = "Orden De Admicion/".$dif_trans;
                                         }
-
+                                        */
                                         $suma = intval($val->piezas_cambiadas_final + $val->piezas_reparacion_final);
                                         if (intval($val->piezas_reparacion_final) > 0) {
                                             $res = round(((intval($val->piezas_reparacion_final*100)/$suma)),2);

@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-md-2">
                     <label for="larea">Ubicación Nueva:</label>
-                    <select name="e_nuevo" class="form-control">
+                    <select name="e_nuevo" id="sestatus" class="form-control">
                         <option value="0">Selecciona el Proceso</option>
                         @foreach ($list_estatus as $estatus)
                             @if ($vehiculo->estatus_id == $estatus->id)
@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-md-2">
                     <label for="larea">Proceso Nuevo:</label>
-                    <select name="e_nuevoProceso" class="form-control text-capitalize">
+                    <select name="e_nuevoProceso" id="sproceso" class="form-control text-capitalize">
                         <option value="0">Selecciona el Proceso</option>
                         @foreach ($list_estatusProceso as $estatusP)
                             @if ($vehiculo->estatusProceso_id == $estatusP->id)
@@ -52,4 +52,5 @@
             </div>
         </form>
     </div>
+    <script type="text/javascript" src="{{ asset('/js/entrega/estatus/u_cambiarEstatus.js') }}"></script>
 @endsection

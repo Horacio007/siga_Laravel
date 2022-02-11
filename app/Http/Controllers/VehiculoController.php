@@ -715,6 +715,82 @@ class VehiculoController extends Controller
                 return $pdf->stream($request['exp'].'_docs_bbva');
                 break;
 
+            case 6:
+                //primero creo el finiquito
+                $pdf = app('dompdf.wrapper');   
+                $pdf->loadHTML('<!DOCTYPE html>
+                <html lang="en">
+                <head>
+                    <meta charset="UTF-8">
+                    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                    <title>Documentacion Banorte</title>
+                    <style>
+                        body {
+                            background: url(img/thumbnail_NVO_FINIQUITO_BANORTE.jpg); 
+                            background-size: cover;
+                            background-repeat: no-repeat;
+                            /* Arriba | Derecha | Abajo | Izquierda */
+                            background-size: 100% 100%;
+                            /* Arriba | Derecha | Abajo | Izquierda */
+                            margin: -50px -38px -60px -39px;
+                        }
+
+                        img {
+                            width: 780px; height: 1150px;
+                        }
+
+                        #img2 {
+                            width: 780px; height: 1110px;
+                        }
+
+                        #img3 {
+                            transform: rotate(-90deg);
+                            width: 1130px; height: 800px;
+                            position: absolute; 
+                            top: 166px; 
+                            left: -170px
+                            transform: rotate(-90deg);
+                        }
+
+                        #vertical {
+                            transform: rotate(-90deg);
+                        }
+                    </style>
+                </head>
+                <body>
+                    <p style="position: absolute; top: 135px; left: 515px;">'.$vehiculo['no_siniestro'].'</p>
+                    <p style="position: absolute; top: 260px; left: 100px;">'.$vehiculo['marcas']['marca'].'</p>
+                    <p style="position: absolute; top: 260px; left: 350px;">'.$vehiculo['submarcas']['submarca'].'</p>
+                    <p style="position: absolute; top: 260px; left: 650px;">'.$vehiculo['modelo'].'</p>
+                    <p style="position: absolute; top: 302px; left: 360px;">'.$vehiculo['placas'].'</p>
+                    <p style="position: absolute; top: 302px; left: 650px;">'.$vehiculo['color'].'</p>
+                    <p style="position: absolute; top: 630px; left: 440px;">'.$vehiculo['no_siniestro'].'</p>
+                    <p style="position: absolute; top: 950px; left: 100px;">Saltillo Coahuila de Zaragoza, México</p>
+                    <p style="position: absolute; top: 950px; left: 483px;">'.$dia.'</p>
+                    <p style="position: absolute; top: 950px; left: 575px;">'.$mes.'</p>
+                    <p style="position: absolute; top: 950px; left: 660px;">'.$anooo.'</p>
+                    <hr> <!-- Salto de página -->
+                    <img src="img/NVA_ENCUESTA_BANORTE.jpg">
+                    <p style="position: absolute; top: 133px; left: 60px;">'.$vehiculo['no_siniestro'].'</p>
+                    <p style="position: absolute; top: 895px; left: 120px;">'.$dia.'/'.$mes.'/'.$anooo.'</p>
+                    <hr> <!-- Salto de página -->
+                    <img id="img3" src="img/Boleta_de_salida.jpg">
+                    <p id="vertical" style="position: absolute; top: 125px; left: 85px;">'.$vehiculo['id'].'</p>
+                    <p id="vertical" style="position: absolute; top: 400px; left: 85px;">'.$hoy.'</p>
+                    <p id="vertical" style="position: absolute; top: 880px; left: 120px;">'.$cliente['nombre'].'</p>
+                    <p id="vertical" style="position: absolute; top: 180px; left: 163px;">'.$cliente['telefono'].'</p>
+                    <p id="vertical" style="position: absolute; top: 925px; left: 240px;">'.$vehiculo['marcas']['marca'].' '.$vehiculo['submarcas']['submarca'].'</p>
+                    <p id="vertical" style="position: absolute; top: 470px; left: 257px;">'.$vehiculo['modelo'].'</p>
+                    <p id="vertical" style="position: absolute; top: 110px; left: 253px;">'.$vehiculo['color'].'</p>
+                    <p id="vertical" style="position: absolute; top: 660px; left: 377px;">'.$cliente['correo'].'</p>
+                    <p id="vertical" style="position: absolute; top: 270px; left: 407px;">'.$vehiculo['asesores']['nombre'].' '.$vehiculo['asesores']['a_paterno'].' '.$vehiculo['asesores']['a_materno'].'</p>
+                </body>
+                </html>');
+                
+                return $pdf->stream($request['exp'].'_docs_banorte');
+                break;
+
             default:
                 # code...
                 break;

@@ -117,6 +117,14 @@ $(document).ready(function(){
         
     })
 
+    $("#aplica_deducible").on('change', function() {
+        if ($("#aplica_deducible").prop('checked')) {
+            $("#concepto").val('Pago de deducible');
+        } else {
+            $("#concepto").val('');
+        }
+    })
+
     $("#btn_registrar").on('click', function(){
         if ($("#iexpediente").val() == "") {
             

@@ -32,6 +32,15 @@
         <form action="/i_recibo_pagos" method="post" id="formdata">
             @csrf
             <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-2">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" name="aplica_deducible" id="aplica_deducible">
+                        <label class="custom-control-label" for="aplica_deducible">Aplica deducible?</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-md-2">
                     <label for="">Requiere Factura</label>
                     <select name="aplica_factura" class="form-control" required>

@@ -78,20 +78,35 @@ class ReciboPagosController extends Controller
             $asuguradora = Vehiculo::select('cliente_id')
                                     ->where('id', $request->iexpediente2)
                                     ->first();
-            if ($asuguradora->cliente_id == 3 || $request->iexpediente2 == 123 || $asuguradora->cliente_id == 1 || $asuguradora->cliente_id == 4 || $asuguradora->cliente_id == 5 || $asuguradora->cliente_id == 6) {
+            if ($request->iexpediente2 == 123 || $asuguradora->cliente_id == 5 || $asuguradora->cliente_id == 6) {
                 $ultimo = Recibo_pagos::all()->last();
                 $factura = new Facturas;
                 $factura->id_vehiculo = $ultimo->id_vehiculo;
                 $factura->cantidad = $ultimo->cantidad;
-                $factura->fecha_facturacion = $ultimo->fecha;
-                $factura->estatus_aseguradora = 2;
-                $factura->fecha_bbva = $ultimo->fecha;
-                $factura->comentarios = $request->concepto;
-                $factura->folio = $ultimo->id;
-                $factura->tipo_servicio_id = $ultimo->tipo_servicio_id;
-                $factura->tipo_pago_id = $ultimo->forma_pago;
-                if ($request->tipo_pago == 2) {
-                    $factura->fecha_bbva_pagada = $ultimo->fecha;
+                if ($request->aplica_deducible == 'on') {
+                    //$factura->fecha_facturacion = $ultimo->fecha;
+                    $factura->estatus_aseguradora = 3;
+                    //$factura->fecha_bbva = $ultimo->fecha;
+                    $factura->comentarios = $request->concepto;
+                    $factura->folio = $ultimo->id;
+                    $factura->tipo_servicio_id = $ultimo->tipo_servicio_id;
+                    /*
+                    $factura->tipo_pago_id = $ultimo->forma_pago;
+                    if ($request->tipo_pago == 2) {
+                        $factura->fecha_bbva_pagada = $ultimo->fecha;
+                    }
+                    */
+                } else {
+                    $factura->fecha_facturacion = $ultimo->fecha;
+                    $factura->estatus_aseguradora = 2;
+                    $factura->fecha_bbva = $ultimo->fecha;
+                    $factura->comentarios = $request->concepto;
+                    $factura->folio = $ultimo->id;
+                    $factura->tipo_servicio_id = $ultimo->tipo_servicio_id;
+                    $factura->tipo_pago_id = $ultimo->forma_pago;
+                    if ($request->tipo_pago == 2) {
+                        $factura->fecha_bbva_pagada = $ultimo->fecha;
+                    }
                 }
                 $factura->save();
                 /*

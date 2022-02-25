@@ -143,6 +143,10 @@ require __DIR__.'/auth.php';
     //Codigos
         Route::get('l_codigos', 'CodigosController@index')->name('l_codigos')->middleware('auth');
     //endCodigos
+
+    //Depurar
+        Route::get('depurar', 'AlmacenController@depurar')->name('depurar')->middleware('auth');
+    //endDepurar
 //endRefacciones
 
 //Taller

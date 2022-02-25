@@ -8,6 +8,7 @@ use App\Models\Aseguradoras;
 use App\Models\Estatusalmacen;
 use App\Models\Modelosv;
 use App\Models\Submarcav;
+use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -364,5 +365,21 @@ class AlmacenController extends Controller
             return redirect()->route('l_segrefacciones')->with('error','Refaccion no Eliminada.');
         }
         
+    }
+
+    public function depurar(){
+        $almacen = Almacen::with(['vehiculo', 'estatus', 'aseguradora'])
+                            ->orderBy('id')
+                            ->get();
+        $cont = 0;
+        foreach ($almacen as $refaccion) {
+            if ($refaccion->vehiculo->estatus_id == 5 && $refaccion->vehiculo->estatusProceso_id == 9) {
+                $baja = Almacen::find($refaccion->id);
+                $baja->fecha_entrega = Carbon::now();
+                $baja->estatus_id = 3;
+                $baja->save();
+                $cont++;
+            }
+        }
     }
 }

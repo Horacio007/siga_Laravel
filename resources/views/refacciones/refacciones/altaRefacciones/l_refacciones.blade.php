@@ -41,15 +41,15 @@
                             <tr>
                                 <td>{{$refaccion->id}}</td>
                                 <td>{{$refaccion->fecha_llegada}}</td>
-                                <td>{{$refaccion->nombre}}</td>
+                                <td>{{$refaccion->vehiculo->clientes->nombre??$refaccion->aseguradora??''}}</td>
                                 <td>{{$refaccion->descripcion}}</td>
-                                <td>{{$refaccion->marca}}</td>
-                                <td>{{$refaccion->submarca}}</td>
-                                <td>{{$refaccion->modelo}}</td>
+                                <td>{{$refaccion->vehiculo->marcas->marca??$refaccion->marca??''}}</td>
+                                <td>{{$refaccion->vehiculo->submarcas->submarca??$refaccion->linea??''}}</td>
+                                <td>{{$refaccion->vehiculo->modelo??$refaccion->modelo??''}}</td>
                                 <td>{{$refaccion->id_vehiculo}}</td>
                                 <td>{{$refaccion->ubicacion}}</td>
                                 <td>{{$refaccion->fecha_entrega}}</td>
-                                <td>{{$refaccion->estatus}}</td>
+                                <td>{{$refaccion->estatusA->estatus??''}}</td>
                                 <td>{{$refaccion->comentarios}}</td>
                                 <td><a href="{{ route('u_refaccion', $refaccion->id) }}" class="btn btn-info"><i class="fa fa-edit" title="Editar"></i></a>
                                     <a href="{{ route('b_refaccion', $refaccion->id) }}" class="btn btn-primary"><i class="fa fa-edit" title="Baja"></i></a>

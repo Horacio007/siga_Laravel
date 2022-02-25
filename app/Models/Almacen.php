@@ -14,7 +14,7 @@ class Almacen extends Model
         return $this->hasOne('App\Models\Vehiculo', 'id', 'id_vehiculo');
     }
 
-    public function estatus(){
+    public function estatusA(){
         return $this->hasOne('App\Models\Estatusalmacen', 'id', 'estatus_id');
     }
 

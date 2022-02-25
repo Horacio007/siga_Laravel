@@ -23,6 +23,7 @@ class AlmacenController extends Controller
      */
     public function index()
     {
+        /*
         $list_refacciones = DB::select("SELECT
                                             almacen.id,
                                             almacen.fecha_llegada,
@@ -45,14 +46,20 @@ class AlmacenController extends Controller
                                             estatusalmacen
                                         WHERE
                                             almacen.id_vehiculo = vehiculo.id
-                                        AND almacen.estatus_id = 1
+                                        AND almacen.estatus_id != 3
                                         AND vehiculo.marca_id = modelosv.id
                                         AND vehiculo.linea_id = submarcav.id
                                         AND almacen.aseguradora_id = aseguradoras.id
                                         AND almacen.estatus_id = estatusalmacen.id
                                         ORDER BY
                                             almacen.id");
-
+            */
+            
+            $list_refacciones = Almacen::with(['vehiculo', 'estatusA', 'aseguradora'])
+                                        ->whereIn('estatus_id', [1, 2, 4])
+                                        ->orderBy('id')
+                                        ->get();
+            
         return view('refacciones.refacciones.altaRefacciones.l_refacciones', compact('list_refacciones'));
     }
 

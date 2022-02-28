@@ -103,7 +103,7 @@ class AlmacenController extends Controller
                                             almacen.id DESC");
         */
 
-        $list_refacciones = Almacen::with(['vehiculo', 'estatus', 'aseguradora'])
+        $list_refacciones = Almacen::with(['vehiculo', 'estatusA', 'aseguradora'])
                                     ->orderBy('id')
                                     ->get();
         $marcas = Modelosv::all();
@@ -192,42 +192,49 @@ class AlmacenController extends Controller
     public function store(Request $request)
     {
         //dd($request);
-        $refaccion = new Almacen();
-        $refaccion->id_vehiculo = $request->expediente;
-        $refaccion->descripcion = $request->descripcion;
-        $vehiculo = Vehiculo::find($request->expediente);
-        $vehiculo->refacciones_id = 2;
-        $vehiculo->save();
-        if (isset($request->fechapromesa)) {
-            $refaccion->fecha_promesa = $request->fechapromesa;
-        }
-        
-        if (isset($request->proveedor)) {
-            $refaccion->proveedor = $request->proveedor;
-        }
-        
-        $refaccion->estatus_id = 1;
-        $refaccion_Aseg = Aseguradoras::select('id')->where('nombre',$request->aseguradora)->first()->id;
-        $refaccion->aseguradora_id = $refaccion_Aseg;
-        
-        if ($refaccion->save()) {
-            $pzs = DB::select("SELECT COUNT(descripcion) AS descripcion FROM almacen WHERE id_vehiculo = $request->expediente");
-            foreach ($pzs as $pzss) {
-                $piezas = $pzss->descripcion;
-            }
-
-            if ($piezas == 1) {
-                $fecha = Date('Y-m-d');
+        $caux = 0;
+        for ($i=1; $i < $request->cont; $i++) {
+            if (isset($request['descripcion_'.$i])) {
+                $caux++;
+                $refaccion = new Almacen();
+                $refaccion->id_vehiculo = $request->expediente;
+                $refaccion->descripcion = $request['descripcion_'.$i];
                 $vehiculo = Vehiculo::find($request->expediente);
-                $vehiculo->refacciones_id = 3;
-                $vehiculo->p_asignados = $fecha;
+                $vehiculo->refacciones_id = 2;
                 $vehiculo->save();
-            }
+                if (isset($request['fechapromesa_'.$i])) {
+                    $refaccion->fecha_promesa = $request['fechapromesa_'.$i];
+                }
+                
+                if (isset($request['proveedor_'.$i])) {
+                    $refaccion->proveedor = $request['proveedor_'.$i];
+                }
+                
+                $refaccion->estatus_id = 1;
+                $refaccion_Aseg = Aseguradoras::select('id')->where('nombre',$request->aseguradora)->first()->id;
+                $refaccion->aseguradora_id = $refaccion_Aseg;
 
-            return redirect()->route('i_refaccion')->withSuccess('Refaccion Registrada.');
-            
+                if ($refaccion->save()) {
+                    $pzs = DB::select("SELECT COUNT(descripcion) AS descripcion FROM almacen WHERE id_vehiculo = $request->expediente");
+                    foreach ($pzs as $pzss) {
+                        $piezas = $pzss->descripcion;
+                    }
+        
+                    if ($piezas == 1) {
+                        $fecha = Date('Y-m-d');
+                        $vehiculo = Vehiculo::find($request->expediente);
+                        $vehiculo->refacciones_id = 3;
+                        $vehiculo->p_asignados = $fecha;
+                        $vehiculo->save();
+                    }
+                }
+            }
+        }
+        
+        if ($caux > 0) {
+            return redirect()->route('i_refaccion')->withSuccess('Refacciones Registradas.');
         } else {
-            return redirect()->route('i_refaccion')->withError('Refaccion no Registrado.');
+            return redirect()->route('i_refaccion')->withError('Refacciones no Registradas.');
         }
         
     }
@@ -375,7 +382,7 @@ class AlmacenController extends Controller
     }
 
     public function depurar(){
-        $almacen = Almacen::with(['vehiculo', 'estatus', 'aseguradora'])
+        $almacen = Almacen::with(['vehiculo', 'estatusA', 'aseguradora'])
                             ->orderBy('id')
                             ->get();
         $cont = 0;

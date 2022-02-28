@@ -28,26 +28,34 @@
             </div>
         </div>
     </form>
+    <br>
     <form action="/i_refaccion" method="post" id="formdata">
         @csrf
         <div class="row">
-            <div class="col-md-3">
-                <label for="">Descripcion</label>
-                <input type="text" name="descripcion" id="idescripcion" class="form-control" required>
+            <div class="col text-center">
+                <h3>Refacciones</h3>
             </div>
-            <div class="col-md-3">
-                <label for="">Proveedor</label>
-                <input type="text" name="proveedor" id="proveedor" class="form-control">
+        </div>
+        <div id="section_refacciones"></div>
+        <br>
+        <div class="row">
+            <div class="d-flex">
+                <h3>Refaccion</h3>
+                <a class="text-success text-capitalize mx-2 justify-vertical" 
+                    role="button" title="Agregar Refaccion" id="add_ref">
+                    <i class="fa fa-plus-circle fa-2x pt-1"></i>
+                </a>   
             </div>
-            <div class="col-md-3">
-                <label for="">Fecha Promesa</label>
-                <input type="date" name="fechapromesa" id="ifechapromesa" class="form-control">
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="text" name="cont" class="form-control" id="cont" required hidden readonly>
+                <input type='text' name='expediente' class='form-control' id='iexpediente2' required hidden readonly>
+                <input type='text' name='aseguradora' class='form-control' id='aseguradora' required hidden readonly>
             </div>
-            <div class="col-md-3">
-                <input type="text" name="expediente" class="form-control" id="iexpediente2" required hidden readonly>
-                <input type="text" name="aseguradora" class="form-control" id="aseguradora" required hidden readonly>
-                <br>
-                <button type="submit" class="btn btn-primary btn-lg btn-block" id="btn_registrar">Registrar</button>
+            <div class="col-md-4">
+                <button type='submit' class='btn btn-primary btn-lg btn-block' id='btn_registrar'>Registrar</button>
             </div>
         </div>
         <br>
@@ -95,6 +103,35 @@
         </div>
     </form>
 </div>
+
+<div class='refaccion_consecutivo'>
+    <div id='refaccion_consecutivo' class='d-flex flex-column'>
+        <div class='row'>
+            <h3>Refaccion #consecutivo</h3>
+            <a role='button'
+                class='remove_refaccion text-danger text-capitalize mx-2 pt-3'
+                style="margin-top: -18px;" 
+                title='Eliminar Refaccion #consecutivo' item_id='consecutivo'>
+                <i class='fa fa-minus-circle fa-2x pt-1'></i>
+            </a>
+        </div>
+        <div class='row'>
+            <div class='col-md-3'>
+                <label for=''>Descripcion</label>
+                <input type='text' name='descripcion_consecutivo' id='descripcion_consecutivo' class='form-control' required>
+            </div>
+            <div class='col-md-3'>
+                <label for=''>Proveedor</label>
+                <input type='text' name='proveedor_consecutivo' id='proveedor_consecutivo' class='form-control'>
+            </div>
+            <div class='col-md-3'>
+                <label for=''>Fecha Promesa</label>
+                <input type='date' name='fechapromesa_consecutivo' id='fechapromesa_consecutivo' class='form-control'>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript" src="{{ asset('/libs/DataTables/pdfmake-0.1.36/pdfmake.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/libs/DataTables/pdfmake-0.1.36/vfs_fonts.js') }}"></script>
 <script type="text/javascript" src="{{ asset('/libs/DataTables/DataTables-1.10.25/js/jquery.dataTables.min.js') }}"></script>

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-
+    $("#btn_registrar").attr('disabled', true);
     $('#list_vehiculo').DataTable({
         dom: 'Blfrtip',
         buttons: [{
@@ -82,6 +82,7 @@ $(document).ready(function(){
                     })
                     $("#iexpediente").attr("readonly","readonly");
                     $("#btn_agregar").attr('disabled', false);
+                    $("#add_ref").addClass('add_refaccion');
                     $.ajax({
                         url: '/mlmca',
                         type: 'GET',
@@ -119,4 +120,27 @@ $(document).ready(function(){
             }
         })
     });
+
+    var con = 1;
+    var ultimo;
+    let componente_template = $("div.refaccion_consecutivo").html();
+    $("#refaccion_consecutivo").remove();
+
+    $(document).on('click', 'a.add_refaccion', function(e){
+        $("#section_refacciones").append( 
+            componente_template.replaceAll( "consecutivo" , con) );
+
+        con++;
+        $("#cont").val(con);
+        $("#btn_registrar").attr('disabled', false);
+    })
+
+    $(document).on('click','a.remove_refaccion',function(e) {
+        //alert('entra');
+        let item_id = $(this).attr('item_id');
+        //console.log(item_id);
+        $("#refaccion_"+item_id).remove();
+    });
+
+
 })

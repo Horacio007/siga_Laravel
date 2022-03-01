@@ -104,12 +104,20 @@ class UserSeeder extends Seeder
             'email' => 'caterhy@dtr-automotriz.com',
             'password' => Hash::make('torres123'),
         ]);
-        */
-        //se agrega el usuario de caterhy torres
+
+        //se agrega el usuario de aldo
         DB::table('users')->insert([
             'name' => 'aldo',
             'email' => 'aldo@dtr-automotriz.com',
             'password' => Hash::make('aldo123'),
+        ]);
+        */
+
+        //se agrega el usuario de nancy
+        DB::table('users')->insert([
+            'name' => 'nancy',
+            'email' => 'nancy@dtr-automotriz.com',
+            'password' => Hash::make('torres123'),
         ]);
     }
 }

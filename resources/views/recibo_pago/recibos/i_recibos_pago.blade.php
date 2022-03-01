@@ -56,7 +56,7 @@
                 </div>
                 <div class="col-md-2">
                     <label for="">Cantidad</label>
-                    <input type="number" name="cantidad" id="cantidad" class="form-control"required>
+                    <input type="number" step="any" name="cantidad" id="cantidad" class="form-control"required>
                 </div>
                 <div class="col-md-2">
                     <label for="">Forma de Pago</label>

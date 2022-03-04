@@ -65,40 +65,42 @@
                 <a class="dropdown-item" href="{{ route('monitorF') }}" id="procesosegtaller">Monitor Facturacion</a>
                 <a class="dropdown-item" href="{{ route('metricos') }}" id="metricoss">Metricos</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalogos</a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('lista_marcas') }}" id="agregarMarca">Listado Marcas</a>
-                <a class="dropdown-item" href="{{ route('lista_submarcas') }}" id="agregarLinea">Listado Lineas</a>
-                <a class="dropdown-item" href="{{ route('lista_areas') }}" id="agregarArea">Listado Areas</a>
-                <a class="dropdown-item" href="{{ route('lista_aseguradoras') }}" id="agregarAseguradora">Listado Aseguradoras</a>
-                <a class="dropdown-item" href="{{ route('lista_asesores') }}" id="agregarAsesores">Listado Asesores</a>
-                <a class="dropdown-item" href="{{ route('lista_estatus') }}" id="agregarEstatus">Listado Ubicacion Vehiculo</a>
-                <a class="dropdown-item" href="{{ route('lista_estatusE') }}" id="agregarEstatus">Listado Proceso Vehiculo</a>
-                <a class="dropdown-item" href="{{ route('lista_estatusalm') }}" id="agregarEstatus">Listado Estatus Almacen</a>
-                <a class="dropdown-item" href="{{ route('l_estatusrefas') }}" id="agregarEstatus">Listado Estatus Refacciones</a>
-                <a class="dropdown-item" href="{{ route('l_estatusF') }}" id="agregarEstatus">Listado Estatus Facturas</a>
-                <a class="dropdown-item" href="{{ route('lista_niveldano') }}" id="agregarNivel">Listado Nivel Daño</a>
-                <a class="dropdown-item" href="{{ route('lista_formaarribo') }}" id="agregarForma">Listado Forma de Arribo</a>
-                <a class="dropdown-item" href="{{ route('l_personal') }}" id="agregarForma">Listado Personal</a>
-                <a class="dropdown-item" href="{{ route('l_tipopago') }}" id="agregarForma">Listado Tipo Pago</a>
-                <a class="dropdown-item" href="{{ route('l_tiposervicio') }}" id="agregarForma">Listado Tipo Servicio</a>
-                <a class="dropdown-item" href="{{ route('l_sino') }}" id="agregarForma">Listado Si/No</a>
-                <a class="dropdown-item" href="{{ route('l_conceptopago') }}" id="agregarForma">Listado Conceptos Pago</a>
-                <a class="dropdown-item" href="{{ route('l_formapago') }}" id="agregarForma">Listado Forma Pago</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Costos</a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('l_recibo_pagos_pro') }}" id="gastos">Listado Recibo Pago Proveedores</a>
-                <a class="dropdown-item" href="{{ route('l_gastos') }}" id="gastos">Listado Gastos</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ingresos</a>
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{{ route('l_recibo_pagos') }}" id="ingr">Listado de Recibos de Cobro</a>
-                <a class="dropdown-item" href="{{ route('l_facturas') }}" id="afact">Listado Cobros</a>
-            </li>
+            @if (Auth::user()->id == 1 || Auth::user()->id == 2 || Auth::user()->id == 4 || Auth::user()->id == 5 || Auth::user()->id == 7)
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Catalogos</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ route('lista_marcas') }}" id="agregarMarca">Listado Marcas</a>
+                  <a class="dropdown-item" href="{{ route('lista_submarcas') }}" id="agregarLinea">Listado Lineas</a>
+                  <a class="dropdown-item" href="{{ route('lista_areas') }}" id="agregarArea">Listado Areas</a>
+                  <a class="dropdown-item" href="{{ route('lista_aseguradoras') }}" id="agregarAseguradora">Listado Aseguradoras</a>
+                  <a class="dropdown-item" href="{{ route('lista_asesores') }}" id="agregarAsesores">Listado Asesores</a>
+                  <a class="dropdown-item" href="{{ route('lista_estatus') }}" id="agregarEstatus">Listado Ubicacion Vehiculo</a>
+                  <a class="dropdown-item" href="{{ route('lista_estatusE') }}" id="agregarEstatus">Listado Proceso Vehiculo</a>
+                  <a class="dropdown-item" href="{{ route('lista_estatusalm') }}" id="agregarEstatus">Listado Estatus Almacen</a>
+                  <a class="dropdown-item" href="{{ route('l_estatusrefas') }}" id="agregarEstatus">Listado Estatus Refacciones</a>
+                  <a class="dropdown-item" href="{{ route('l_estatusF') }}" id="agregarEstatus">Listado Estatus Facturas</a>
+                  <a class="dropdown-item" href="{{ route('lista_niveldano') }}" id="agregarNivel">Listado Nivel Daño</a>
+                  <a class="dropdown-item" href="{{ route('lista_formaarribo') }}" id="agregarForma">Listado Forma de Arribo</a>
+                  <a class="dropdown-item" href="{{ route('l_personal') }}" id="agregarForma">Listado Personal</a>
+                  <a class="dropdown-item" href="{{ route('l_tipopago') }}" id="agregarForma">Listado Tipo Pago</a>
+                  <a class="dropdown-item" href="{{ route('l_tiposervicio') }}" id="agregarForma">Listado Tipo Servicio</a>
+                  <a class="dropdown-item" href="{{ route('l_sino') }}" id="agregarForma">Listado Si/No</a>
+                  <a class="dropdown-item" href="{{ route('l_conceptopago') }}" id="agregarForma">Listado Conceptos Pago</a>
+                  <a class="dropdown-item" href="{{ route('l_formapago') }}" id="agregarForma">Listado Forma Pago</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Costos</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ route('l_recibo_pagos_pro') }}" id="gastos">Listado Recibo Pago Proveedores</a>
+                  <a class="dropdown-item" href="{{ route('l_gastos') }}" id="gastos">Listado Gastos</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Ingresos</a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ route('l_recibo_pagos') }}" id="ingr">Listado de Recibos de Cobro</a>
+                  <a class="dropdown-item" href="{{ route('l_facturas') }}" id="afact">Listado Cobros</a>
+              </li>
+            @endif
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Auditorias</a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">

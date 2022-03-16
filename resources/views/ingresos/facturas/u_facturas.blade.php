@@ -14,27 +14,27 @@
             <div class="row">
                 <div class="col-md-2">
                     <label for="">Marca</label>
-                    <input type="text" value="{{$vehiculos->marcas->marca}}" id="marca" class="form-control" disabled readonly required>
+                    <input type="text" value="{{$vehiculos->marcas->marca??''}}" id="marca" class="form-control" disabled readonly required>
                 </div>
                 <div class="col-md-2">
                     <label for="">Linea</label>
-                    <input type="text" value="{{$vehiculos->submarcas->submarca}}" id="linea" class="form-control" disabled readonly required>
+                    <input type="text" value="{{$vehiculos->submarcas->submarca??''}}" id="linea" class="form-control" disabled readonly required>
                 </div>
                 <div class="col-md-2">
                     <label for="">Color</label>
-                    <input type="text" value="{{$vehiculos->color}}" name="color" id="color" class="form-control" disabled readonly required>
+                    <input type="text" value="{{$vehiculos->color??''}}" name="color" id="color" class="form-control" disabled readonly required>
                 </div>
                 <div class="col-md-2">
                     <label for="">Modelo</label>
-                    <input type="text" value="{{$vehiculos->modelo}}" name="modelo" id="modelo" class="form-control" disabled readonly required>
+                    <input type="text" value="{{$vehiculos->modelo??''}}" name="modelo" id="modelo" class="form-control" disabled readonly required>
                 </div>
                 <div class="col-md-2">
                     <label for="">Placas</label>
-                    <input type="text" value="{{$vehiculos->placas}}" name="placas" id="placas" class="form-control" disabled readonly required>
+                    <input type="text" value="{{$vehiculos->placas??''}}" name="placas" id="placas" class="form-control" disabled readonly required>
                 </div>
                 <div class="col-md-2">
                     <label for="">Cliente</label>
-                    <input type="text" value="{{$vehiculos->clientes->nombre}}" name="cliente" id="cliente" class="form-control" disabled readonly required>
+                    <input type="text" value="{{$vehiculos->clientes->nombre??''}}" name="cliente" id="cliente" class="form-control" disabled readonly required>
                 </div>
             </div>
             <br>
